@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project name="chipkit-core" default="build">
+  <!--echo message="os.name = ${os.name}" /-->
+  <!--echo message="os.arch = ${os.arch}" /-->
+  <!--echo message="os.version = ${os.version}" /-->
+  <!-- Sets properties for macosx/windows/linux depending on current system -->
+    <property file="upload.properties"/>
+    <property name="aws.bucket" value="chipkit" />
+
+ <condition property="macosx"><os family="mac" /></condition>
+  <condition property="windows"><os family="windows" /></condition>
+  <condition property="linux"><os family="unix" /></condition>
+  <condition property="linux64"><os family="unix" arch="amd64" /></condition>
+
+<condition property="platform" value="macosx">
+	<os family="mac" />
+</condition>
+<condition property="platform" value="windows">
+	<os family="windows" />
+</condition>
+  <condition property="platform"  value="linux">
+	<os family="unix" arch="i386" />
+</condition>
+<condition property="platform" value="linux64">
+	<os family="unix" arch="amd64" />
+</condition>
+<condition property="platform" value="raspberrypi">
+	<os family="unix" arch="arm" />
+</condition>
+
+  <!-- set time propert -->
+  <tstamp>
+    <format property="TODAY" pattern="yyyyMMdd" />
+  </tstamp>
+
+
+  <target name="build" description="Build mpide.">
+    <antcall target="${platform}-build" />
+  </target>
+
+  <target name="run" description="Run mpide.">
+    <antcall target="${platform}-run" />
+  </target>
+
+<target name="dist" depends="revision-check"
+	  description="Build mpide for distribution.">
+    <input message="Enter version number:"
+	addproperty="version"
+	defaultvalue="${revision}" />
+
+    <antcall target="${platform}-dist" />
+</target>
+
+
+  <target name="dist-test" depends="revision-check"
+          description="Build mpide for distribution.">
+    <input message="Enter version number:"
+           addproperty="version"
+           defaultvalue="${revision}-${platform}-${TODAY}-test" />
+  <propertyfile file="upload.properties">
+      <entry  key="uploadversion" value="${version}"/>
+  </propertyfile>
+    <antcall target="${platform}-dist" />
+  </target>
+
+
+  <target name="dist" depends="revision-check"
+    description="Build mpide for distribution.">
+    <input message="Enter version number:"
+      addproperty="version"
+      defaultvalue="${revision}" />
+
+      <antcall target="${platform}-dist" />
+    </target>
+
+  <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
+  <target name="help" description="Show project help">
+    <java classname="org.apache.tools.ant.Main">
+      <arg value="-p" />
+    </java>
+  </target>
+</project>
