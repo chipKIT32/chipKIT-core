@@ -1,32 +1,40 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <project name="chipkit-core" default="build">
   <!--echo message="os.name = ${os.name}" /-->
   <!--echo message="os.arch = ${os.arch}" /-->
   <!--echo message="os.version = ${os.version}" /-->
   <!-- Sets properties for macosx/windows/linux depending on current system -->
-    <property file="upload.properties"/>
-    <property name="aws.bucket" value="chipkit" />
+  <property file="upload.properties" />
+  <property name="aws.bucket" value="chipkit" />
 
- <condition property="macosx"><os family="mac" /></condition>
-  <condition property="windows"><os family="windows" /></condition>
-  <condition property="linux"><os family="unix" /></condition>
-  <condition property="linux64"><os family="unix" arch="amd64" /></condition>
+  <condition property="macosx">
+    <os family="mac" />
+  </condition>
+  <condition property="windows">
+    <os family="windows" />
+  </condition>
+  <condition property="linux">
+    <os family="unix" />
+  </condition>
+  <condition property="linux64">
+    <os family="unix" arch="amd64" />
+  </condition>
 
-<condition property="platform" value="macosx">
-	<os family="mac" />
-</condition>
-<condition property="platform" value="windows">
-	<os family="windows" />
-</condition>
-  <condition property="platform"  value="linux">
-	<os family="unix" arch="i386" />
-</condition>
-<condition property="platform" value="linux64">
-	<os family="unix" arch="amd64" />
-</condition>
-<condition property="platform" value="raspberrypi">
-	<os family="unix" arch="arm" />
-</condition>
+  <condition property="platform" value="macosx">
+    <os family="mac" />
+  </condition>
+  <condition property="platform" value="windows">
+    <os family="windows" />
+  </condition>
+  <condition property="platform" value="linux">
+    <os family="unix" arch="i386" />
+  </condition>
+  <condition property="platform" value="linux64">
+    <os family="unix" arch="amd64" />
+  </condition>
+  <condition property="platform" value="raspberrypi">
+    <os family="unix" arch="arm" />
+  </condition>
 
   <!-- set time propert -->
   <tstamp>
@@ -42,36 +50,70 @@
     <antcall target="${platform}-run" />
   </target>
 
-<target name="dist" depends="revision-check"
-	  description="Build mpide for distribution.">
-    <input message="Enter version number:"
-	addproperty="version"
-	defaultvalue="${revision}" />
-
-    <antcall target="${platform}-dist" />
-</target>
 
 
-  <target name="dist-test" depends="revision-check"
-          description="Build mpide for distribution.">
-    <input message="Enter version number:"
-           addproperty="version"
-           defaultvalue="${revision}-${platform}-${TODAY}-test" />
-  <propertyfile file="upload.properties">
-      <entry  key="uploadversion" value="${version}"/>
-  </propertyfile>
-    <antcall target="${platform}-dist" />
+  <target name="macosx-build" if="macosx" depends="" description="Build Mac OS X version">
+
+    <get src="https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip" dest="pic32/compiler" verbose="false" usetimestamp="true" />
+
+
+    <unzip dest="pic32/compiler" src="pic32/compiler/pic32-tools-Darwin-image-20140530.zip" overwrite="false" />
+    <chmod perm="+x" maxparallel="300">
+      <fileset dir="pic32/compiler" includes="**/*" />
+    </chmod>
+
   </target>
 
+  <target name="linux-build" depends="" description="Build linux version">
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="pic32/compiler" verbose="false" usetimestamp="true" />
 
-  <target name="dist" depends="revision-check"
-    description="Build mpide for distribution.">
-    <input message="Enter version number:"
-      addproperty="version"
-      defaultvalue="${revision}" />
+    <unzip dest="pic32/compiler" src="pic32/compiler/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
+    <chmod perm="+x">
+      <fileset dir="pic32/compile/compiler/pic32-tools/bin" includes="**/*" />
+    </chmod>
+    <chmod perm="+x">
+      <fileset dir="pic32/compiler/pic32-tools/lib" includes="**/*" />
+    </chmod>
+    <chmod perm="+x">
+      <fileset dir="pic32/compiler/pic32-tools/pic32mx" includes="**/*" />
+    </chmod>
 
-      <antcall target="${platform}-dist" />
-    </target>
+
+  </target>
+
+  <target name="raspberrypi-build" depends="" description="Build linux ARM version">
+
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" dest="pic32/compiler" verbose="false" usetimestamp="true" />
+
+
+
+    <unzip dest="pic32/compiler" src="raspberrypi/dist/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
+    <chmod perm="+x">
+      <fileset dir="pic32/compiler" includes="**/*" />
+    </chmod>
+
+  </target>
+
+  <target name="linux32-build" depends="linux-build" description="Build linux (32-bit) version">
+
+  </target>
+
+  <target name="linux64-build" depends="linux-build" description="Build linux (32-bit) version">
+
+  </target>
+
+  <target name="windows-build" depends="" description="Build windows version">
+    <!-- pic32 compiler -->
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip " dest="pic32/compiler" verbose="false" usetimestamp="true" />
+
+    <unzip dest="pic32/compiler" src="windows/dist/pic32-tools-win32-image-20140530.zip" overwrite="false" />
+    <chmod perm="+x">
+      <fileset dir="pic32/compiler" includes="**/*" />
+    </chmod>
+
+
+  </target>
+
 
   <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
   <target name="help" description="Show project help">
