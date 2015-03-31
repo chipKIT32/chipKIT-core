@@ -26,3 +26,12 @@
 *.exe
 *.out
 *.app
+
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.class
+*.svn
+
