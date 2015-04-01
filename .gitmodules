@@ -1,0 +1,3 @@
+[submodule "tmp/pic32prog"]
+	path = tmp/pic32prog
+	url = https://github.com/sergev/pic32prog

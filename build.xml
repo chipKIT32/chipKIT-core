@@ -110,10 +110,13 @@
     <chmod perm="+x">
       <fileset dir="pic32/compiler" includes="**/*" />
     </chmod>
-
-
   </target>
 
+  <target name="clean" depends="" description="Clean build">
+    <delete dir="tmp/" defaultexcludes="false" />
+    <delete dir="pic32/compiler/" defaultexcludes="false" />
+    <delete dir="pic32/tools/" defaultexcludes="false" />
+  </target>
 
   <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
   <target name="help" description="Show project help">
