@@ -90,10 +90,10 @@ tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verb
 # https://code.google.com/p/pic32prog/
 # ----------
 
-#tools.pic32prog.cmd=pic32prog
-#tools.pic32prog.cmd.windows=pic32prog.exe
-#tools.pic32prog.path={runtime.ide.path}/hardware/pic32/tools
+tools.pic32prog.cmd=pic32prog
+tools.pic32prog.cmd.windows=pic32prog.exe
+tools.pic32prog.path={runtime.ide.path}/hardware/chipkit-core/pic32/tools/bin
 
-#tools.pic32prog.upload.params.verbose=-i -d
-#tools.pic32prog.upload.params.quiet=
-#tools.pic32prog.upload.pattern="{path}/{cmd}" {upload.verbose} --port={serial.port.file} -U {upload.native_usb} -e -w -v -b "{build.path}/{build.project_name}.bin" -R
+tools.pic32prog.upload.params.verbose=
+tools.pic32prog.upload.params.quiet=
+tools.pic32prog.upload.pattern="{path}/{cmd}" {upload.verbose} -d={serial.port.file}  -S "{build.path}/{build.project_name}.bin"
