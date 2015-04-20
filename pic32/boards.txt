@@ -656,6 +656,7 @@ fubarino_mini.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 fubarino_mini.upload.maximum_size=122880
 fubarino_mini.upload.speed=115200
+fubarino_mini.upload.tool=pic32prog
 
 fubarino_mini.bootloader.low_fuses=0xff
 fubarino_mini.bootloader.high_fuses=0xdd
