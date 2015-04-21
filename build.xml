@@ -55,9 +55,6 @@
     <antcall target="${platform}-build" />
   </target>
 
-  <target name="run" description="Run mpide.">
-    <antcall target="${platform}-run" />
-  </target>
 
   <target name="setup" description="configure directories">
     <mkdir dir="tmp" />
@@ -65,7 +62,8 @@
     <antcall target="updatepic32prog" />
   </target>
 
-  <target name="macosx-build" if="macosx" depends="setup" description="Build Mac OS X version">
+  <target name="macosx-build" depends="setup" description="Build Mac OS X version">
+    <property name="platform">macosx</property>
     <mkdir dir="dist/${platform}/chipkit-core" />
 
     <copy todir="dist/${platform}/chipkit-core/pic32">
@@ -89,6 +87,8 @@
   </target>
 
   <target name="linux32-build" depends="setup" description="Build linux version">
+    <property name="platform">linux32</property>
+
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
     <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
@@ -112,6 +112,7 @@
   </target>
 
   <target name="raspberrypi-build" depends="setup" description="Build linux ARM version">
+    <property name="platform">raspberrypi</property>
 
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
     <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
@@ -138,6 +139,8 @@
 
   <target name="linux64-build" depends="setup" description="Build linux (32-bit) version">
     <echo message="When 64bit version is released. A 64 bit compiler will be included." />
+    <property name="platform">linux64</property>
+
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
     <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
@@ -161,6 +164,7 @@
   </target>
 
   <target name="windows-build" depends="setup" description="Build windows version">
+    <property name="platform">windows</property>
     <!-- pic32 compiler -->
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
