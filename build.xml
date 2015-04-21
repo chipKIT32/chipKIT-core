@@ -184,7 +184,7 @@
 
 <target name="updatepic32prog" description="update the submodules pic32prog">
   <exec executable="git">
-    <arg value="submodules"/>
+    <arg value="submodule"/>
     <arg value="foreach"/>
     <arg value="git"/>
     <arg value="pull"/>
