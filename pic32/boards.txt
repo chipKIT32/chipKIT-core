@@ -13,6 +13,8 @@ cerebot32mx4.ldscript=chipKIT-application-32MX460F512.ld
 cerebot32mx4.upload.protocol=stk500v2
 cerebot32mx4.upload.maximum_size=520192
 cerebot32mx4.upload.speed=115200
+cerebot32mx4.upload.tool=pic32prog
+
 
 cerebot32mx4.bootloader.low_fuses=0xff
 cerebot32mx4.bootloader.high_fuses=0xdd
@@ -26,7 +28,6 @@ cerebot32mx4.build.mcu=32MX460F512L
 cerebot32mx4.build.f_cpu=80000000L
 cerebot32mx4.build.core=pic32
 cerebot32mx4.build.variant=Cerebot_32MX4
-cerebot32mx4.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -44,6 +45,7 @@ cerebot32mx7.ldscript=chipKIT-application-32MX795F512.ld
 cerebot32mx7.upload.protocol=stk500v2
 cerebot32mx7.upload.maximum_size=520192
 cerebot32mx7.upload.speed=115200
+cerebot32mx7.upload.tool=pic32prog
 
 cerebot32mx7.bootloader.low_fuses=0xff
 cerebot32mx7.bootloader.high_fuses=0xdd
@@ -57,7 +59,6 @@ cerebot32mx7.build.mcu=32MX795F512L
 cerebot32mx7.build.f_cpu=80000000L
 cerebot32mx7.build.core=pic32
 cerebot32mx7.build.variant=Cerebot_32MX7
-cerebot32mx7.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -81,6 +82,7 @@ cerebot_mx3ck.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunct
 cerebot_mx3ck.upload.protocol=stk500v2
 cerebot_mx3ck.upload.maximum_size=126976
 cerebot_mx3ck.upload.speed=115200
+cerebot_mx3ck.upload.tool=pic32prog
 
 cerebot_mx3ck.bootloader.low_fuses=0xff
 cerebot_mx3ck.bootloader.high_fuses=0xdd
@@ -94,7 +96,6 @@ cerebot_mx3ck.build.mcu=32MX320F128H
 cerebot_mx3ck.build.f_cpu=80000000L
 cerebot_mx3ck.build.core=pic32
 cerebot_mx3ck.build.variant=Cerebot_MX3cK
-cerebot_mx3ck.upload.tool=pic32prog
 
 ############################################################
 chipkit_mx3.name=chipKIT MX3
@@ -117,6 +118,7 @@ chipkit_mx3.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunctio
 chipkit_mx3.upload.protocol=stk500v2
 chipkit_mx3.upload.maximum_size=126976
 chipkit_mx3.upload.speed=115200
+chipkit_mx3.upload.tool=pic32prog
 
 chipkit_mx3.bootloader.low_fuses=0xff
 chipkit_mx3.bootloader.high_fuses=0xdd
@@ -130,7 +132,6 @@ chipkit_mx3.build.mcu=32MX320F128H
 chipkit_mx3.build.f_cpu=80000000L
 chipkit_mx3.build.core=pic32
 chipkit_mx3.build.variant=Cerebot_MX3cK
-chipkit_mx3.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -154,6 +155,7 @@ cerebot_mx3ck_512.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ff
 cerebot_mx3ck_512.upload.protocol=stk500v2
 cerebot_mx3ck_512.upload.maximum_size=520192
 cerebot_mx3ck_512.upload.speed=115200
+cerebot_mx3ck_512.upload.tool=pic32prog
 
 cerebot_mx3ck_512.bootloader.low_fuses=0xff
 cerebot_mx3ck_512.bootloader.high_fuses=0xdd
@@ -167,7 +169,6 @@ cerebot_mx3ck_512.build.mcu=32MX340F512H
 cerebot_mx3ck_512.build.f_cpu=80000000L
 cerebot_mx3ck_512.build.core=pic32
 cerebot_mx3ck_512.build.variant=Cerebot_MX3cK_512
-chipkit_uc32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -185,6 +186,7 @@ cerebot_mx4ck.ldscript=chipKIT-application-32MX460F512.ld
 cerebot_mx4ck.upload.protocol=stk500v2
 cerebot_mx4ck.upload.maximum_size=520192
 cerebot_mx4ck.upload.speed=115200
+cerebot_mx4ck.upload.tool=pic32prog
 
 cerebot_mx4ck.bootloader.low_fuses=0xff
 cerebot_mx4ck.bootloader.high_fuses=0xdd
@@ -198,7 +200,6 @@ cerebot_mx4ck.build.mcu=32MX460F512L
 cerebot_mx4ck.build.f_cpu=80000000L
 cerebot_mx4ck.build.core=pic32
 cerebot_mx4ck.build.variant=Cerebot_MX4cK
-cerebot_mx4ck.upload.tool=pic32prog
 
 ############################################################
 chipkit_pro_mx4.name=chipKIT Pro MX4
@@ -215,6 +216,8 @@ chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
 chipkit_pro_mx4.upload.protocol=stk500v2
 chipkit_pro_mx4.upload.maximum_size=520192
 chipkit_pro_mx4.upload.speed=115200
+chipkit_pro_mx4.upload.tool=pic32prog
+
 
 chipkit_pro_mx4.bootloader.low_fuses=0xff
 chipkit_pro_mx4.bootloader.high_fuses=0xdd
@@ -228,7 +231,6 @@ chipkit_pro_mx4.build.mcu=32MX460F512L
 chipkit_pro_mx4.build.f_cpu=80000000L
 chipkit_pro_mx4.build.core=pic32
 chipkit_pro_mx4.build.variant=Cerebot_MX4cK
-chipkit_pro_mx4.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -246,6 +248,8 @@ cerebot_mx7ck.ldscript=chipKIT-application-32MX795F512.ld
 cerebot_mx7ck.upload.protocol=stk500v2
 cerebot_mx7ck.upload.maximum_size=520192
 cerebot_mx7ck.upload.speed=115200
+cerebot_mx7ck.upload.tool=pic32prog
+
 
 cerebot_mx7ck.bootloader.low_fuses=0xff
 cerebot_mx7ck.bootloader.high_fuses=0xdd
@@ -259,7 +263,6 @@ cerebot_mx7ck.build.mcu=32MX795F512L
 cerebot_mx7ck.build.f_cpu=80000000L
 cerebot_mx7ck.build.core=pic32
 cerebot_mx7ck.build.variant=Cerebot_MX7cK
-cerebot_mx7ck.upload.tool=pic32prog
 
 ############################################################
 chipkit_pro_mx7.name=chipKIT Pro MX7
@@ -276,6 +279,8 @@ chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
 chipkit_pro_mx7.upload.protocol=stk500v2
 chipkit_pro_mx7.upload.maximum_size=520192
 chipkit_pro_mx7.upload.speed=115200
+chipkit_pro_mx7.upload.tool=pic32prog
+
 
 chipkit_pro_mx7.bootloader.low_fuses=0xff
 chipkit_pro_mx7.bootloader.high_fuses=0xdd
@@ -289,7 +294,6 @@ chipkit_pro_mx7.build.mcu=32MX795F512L
 chipkit_pro_mx7.build.f_cpu=80000000L
 chipkit_pro_mx7.build.core=pic32
 chipkit_pro_mx7.build.variant=Cerebot_MX7cK
-chipkit_pro_mx7.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -314,6 +318,7 @@ chipkit_Pi.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_Pi.upload.maximum_size=122880
 chipkit_Pi.upload.speed=115200
+chipkit_Pi.upload.tool=pic32prog
 
 chipkit_Pi.bootloader.low_fuses=0xff
 chipkit_Pi.bootloader.high_fuses=0xdd
@@ -351,6 +356,8 @@ chipkit_Pi_USB_Serial.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_Pi_USB_Serial.upload.maximum_size=122880
 chipkit_Pi_USB_Serial.upload.speed=115200
+chipkit_Pi_USB_Serial.upload.tool=pic32prog
+
 
 chipkit_Pi_USB_Serial.bootloader.low_fuses=0xff
 chipkit_Pi_USB_Serial.bootloader.high_fuses=0xdd
@@ -388,6 +395,7 @@ cmod.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM
 cmod.upload.maximum_size=126976
 cmod.upload.speed=115200
+cmod.upload.tool=pic32prog
 
 cmod.bootloader.low_fuses=0xff
 cmod.bootloader.high_fuses=0xdd
@@ -418,6 +426,8 @@ CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
 CUI32stem.upload.protocol=stk500v2
 CUI32stem.upload.maximum_size=520192
 CUI32stem.upload.speed=115200
+CUI32stem.upload.tool=pic32prog
+
 
 CUI32stem.bootloader.low_fuses=0xff
 CUI32stem.bootloader.high_fuses=0xdd
@@ -431,7 +441,6 @@ CUI32stem.build.mcu=32MX795F512H
 CUI32stem.build.f_cpu=80000000L
 CUI32stem.build.core=pic32
 CUI32stem.build.variant=CUI32stem
-CUI32stem.upload.tool=pic32prog
 
 
 ############################################################
@@ -450,6 +459,7 @@ ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
 ubw32_mx460.upload.protocol=stk500v2
 ubw32_mx460.upload.maximum_size=520192
 ubw32_mx460.upload.speed=115200
+ubw32_mx460.upload.tool=pic32prog
 
 ubw32_mx460.bootloader.low_fuses=0xff
 ubw32_mx460.bootloader.high_fuses=0xdd
@@ -463,7 +473,6 @@ ubw32_mx460.build.mcu=32MX460F512L
 ubw32_mx460.build.f_cpu=80000000L
 ubw32_mx460.build.core=pic32
 ubw32_mx460.build.variant=Default_100
-ubw32_mx460.upload.tool=pic32prog
 
 ############################################################
 ubw32_mx795.name=Pic32 UBW32-MX795
@@ -480,6 +489,8 @@ ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
 ubw32_mx795.upload.protocol=stk500v2
 ubw32_mx795.upload.maximum_size=520192
 ubw32_mx795.upload.speed=115200
+ubw32_mx795.upload.tool=pic32prog
+
 
 ubw32_mx795.bootloader.low_fuses=0xff
 ubw32_mx795.bootloader.high_fuses=0xdd
@@ -493,7 +504,6 @@ ubw32_mx795.build.mcu=32MX795F512L
 ubw32_mx795.build.f_cpu=80000000L
 ubw32_mx795.build.core=pic32
 ubw32_mx795.build.variant=Default_100
-ubw32_mx795.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -511,6 +521,7 @@ cui32.ldscript=chipKIT-application-32MX440F512.ld
 cui32.upload.protocol=stk500v2
 cui32.upload.maximum_size=520192
 cui32.upload.speed=115200
+cui32.upload.tool=pic32prog
 
 cui32.bootloader.low_fuses=0xff
 cui32.bootloader.high_fuses=0xdd
@@ -524,7 +535,6 @@ cui32.build.mcu=32MX440F512H
 cui32.build.f_cpu=80000000L
 cui32.build.core=pic32
 cui32.build.variant=Default_64
-cui32.upload.tool=pic32prog
 
 ############################################################
 usbono_pic32.name=PONTECH UAV100
@@ -548,6 +558,8 @@ usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
 usbono_pic32.upload.protocol=stk500v2
 usbono_pic32.upload.maximum_size=520192
 usbono_pic32.upload.speed=115200
+usbono_pic32.upload.tool=pic32prog
+
 
 usbono_pic32.bootloader.low_fuses=0xff
 usbono_pic32.bootloader.high_fuses=0xdd
@@ -562,7 +574,6 @@ usbono_pic32.build.f_cpu=80000000L
 usbono_pic32.build.core=pic32
 usbono_pic32.build.variant=Default_64
 #usbono_pic32.build.variant=Uno32
-usbono_pic32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -587,6 +598,8 @@ chipkit_DP32.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_DP32.upload.maximum_size=122880
 chipkit_DP32.upload.speed=115200
+chipkit_DP32.upload.tool=pic32prog
+
 
 chipkit_DP32.bootloader.low_fuses=0xff
 chipkit_DP32.bootloader.high_fuses=0xdd
@@ -623,7 +636,6 @@ fubarino_mini_dev.upload.protocol=stk500v2
 fubarino_mini_dev.upload.maximum_size=122880
 fubarino_mini_dev.upload.speed=115200
 fubarino_mini_dev.upload.tool=pic32prog
-
 
 fubarino_mini_dev.bootloader.low_fuses=0xff
 fubarino_mini_dev.bootloader.high_fuses=0xdd
@@ -814,6 +826,7 @@ mega_pic32.ldscript=chipKIT-application-32MX795F512.ld
 mega_pic32.upload.protocol=stk500v2
 mega_pic32.upload.maximum_size=520192
 mega_pic32.upload.speed=115200
+mega_pic32.upload.tool=pic32prog
 
 mega_pic32.bootloader.low_fuses=0xff
 mega_pic32.bootloader.high_fuses=0xdd
@@ -827,7 +840,6 @@ mega_pic32.build.mcu=32MX795F512L
 mega_pic32.build.f_cpu=80000000L
 mega_pic32.build.core=pic32
 mega_pic32.build.variant=Max32
-mega_pic32.upload.tool=pic32prog
 
 ############################################################
 mega_usb_pic32.name=chipKIT MAX32-USB for Serial
@@ -844,6 +856,7 @@ mega_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 mega_usb_pic32.upload.protocol=stk500v2
 mega_usb_pic32.upload.maximum_size=520192
 mega_usb_pic32.upload.speed=115200
+mega_usb_pic32.upload.tool=pic32prog
 
 mega_usb_pic32.bootloader.low_fuses=0xff
 mega_usb_pic32.bootloader.high_fuses=0xdd
@@ -857,7 +870,6 @@ mega_usb_pic32.build.mcu=32MX795F512L
 mega_usb_pic32.build.f_cpu=80000000L
 mega_usb_pic32.build.core=pic32
 mega_usb_pic32.build.variant=Max32
-mega_usb_pic32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -873,6 +885,7 @@ Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
 Olimex_Pinguino32.upload.protocol=stk500v2
 Olimex_Pinguino32.upload.maximum_size=258048
 Olimex_Pinguino32.upload.speed=115200
+Olimex_Pinguino32.upload.tool=pic32prog
 
 Olimex_Pinguino32.bootloader.low_fuses=0xff
 Olimex_Pinguino32.bootloader.high_fuses=0xdd
@@ -902,6 +915,8 @@ picadillo_35t.ccflags=ffff
 picadillo_35t.upload.protocol=stk500v2
 picadillo_35t.upload.maximum_size=520192
 picadillo_35t.upload.speed=115200
+picadillo_35t.upload.tool=pic32prog
+
 picadillo_35t.build.mcu=32MX795F512L
 picadillo_35t.build.f_cpu=80000000L
 picadillo_35t.build.core=pic32
@@ -923,6 +938,7 @@ quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 quick240_usb_pic32.upload.protocol=stk500v2
 quick240_usb_pic32.upload.maximum_size=520192
 quick240_usb_pic32.upload.speed=115200
+quick240_usb_pic32.upload.tool=pic32prog
 
 quick240_usb_pic32.bootloader.low_fuses=0xff
 quick240_usb_pic32.bootloader.high_fuses=0xdd
@@ -936,7 +952,6 @@ quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
 quick240_usb_pic32.build.core=pic32
 quick240_usb_pic32.build.variant=quicK240
-mega_usb_pic32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -960,6 +975,7 @@ chipkit_uc32.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffuncti
 chipkit_uc32.upload.protocol=stk500v2
 chipkit_uc32.upload.maximum_size=520192
 chipkit_uc32.upload.speed=115200
+chipkit_uc32.upload.tool=pic32prog
 
 chipkit_uc32.bootloader.low_fuses=0xff
 chipkit_uc32.bootloader.high_fuses=0xdd
@@ -973,7 +989,6 @@ chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
 chipkit_uc32.build.core=pic32
 chipkit_uc32.build.variant=uC32
-chipkit_uc32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -997,6 +1012,7 @@ uc32_pmod.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-
 uc32_pmod.upload.protocol=stk500v2
 uc32_pmod.upload.maximum_size=520192
 uc32_pmod.upload.speed=115200
+uc32_pmod.upload.tool=pic32prog
 
 uc32_pmod.bootloader.low_fuses=0xff
 uc32_pmod.bootloader.high_fuses=0xdd
@@ -1010,7 +1026,6 @@ uc32_pmod.build.mcu=32MX340F512H
 uc32_pmod.build.f_cpu=80000000L
 uc32_pmod.build.core=pic32
 uc32_pmod.build.variant=uC32_Pmod_Shield
-uc32_pmod.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -1036,6 +1051,8 @@ uno_pic32.upload.tool=pic32prog
 uno_pic32.upload.protocol=stk500v2
 uno_pic32.upload.maximum_size=126976
 uno_pic32.upload.speed=115200
+uno_pic32.upload.tool=pic32prog
+
 
 uno_pic32.bootloader.low_fuses=0xff
 uno_pic32.bootloader.high_fuses=0xdd
@@ -1049,7 +1066,6 @@ uno_pic32.build.mcu=32MX320F128H
 uno_pic32.build.f_cpu=80000000L
 uno_pic32.build.core=pic32
 uno_pic32.build.variant=Uno32
-uno_pic32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -1075,6 +1091,7 @@ uno_pic32.upload.tool=pic32prog
 uno_pmod.upload.protocol=stk500v2
 uno_pmod.upload.maximum_size=126976
 uno_pmod.upload.speed=115200
+uno_pmod.upload.tool=pic32prog
 
 uno_pmod.bootloader.low_fuses=0xff
 uno_pmod.bootloader.high_fuses=0xdd
@@ -1088,7 +1105,6 @@ uno_pmod.build.mcu=32MX320F128H
 uno_pmod.build.f_cpu=80000000L
 uno_pmod.build.core=pic32
 uno_pmod.build.variant=Uno32_Pmod_shield
-uno_pmod.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -1107,6 +1123,7 @@ chipkit_WF32.ldscript=chipKIT-application-32MX695F512.ld
 chipkit_WF32.upload.protocol=stk500v2
 chipkit_WF32.upload.maximum_size=520192
 chipkit_WF32.upload.speed=115200
+chipkit_WF32.upload.tool=pic32prog
 
 chipkit_WF32.bootloader.low_fuses=0xff
 chipkit_WF32.bootloader.high_fuses=0xdd
@@ -1120,7 +1137,6 @@ chipkit_WF32.build.mcu=32MX695F512L
 chipkit_WF32.build.f_cpu=80000000L
 chipkit_WF32.build.core=pic32
 chipkit_WF32.build.variant=WF32
-chipkit_WF32.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -1139,6 +1155,7 @@ chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
 chipkit_WiFire.upload.protocol=stk500v2
 chipkit_WiFire.upload.maximum_size=520192
 chipkit_WiFire.upload.speed=115200
+chipkit_WiFire.upload.tool=pic32prog
 
 chipkit_WiFire.bootloader.low_fuses=0xff
 chipkit_WiFire.bootloader.high_fuses=0xdd
@@ -1153,7 +1170,6 @@ chipkit_WiFire.build.f_cpu=200000000UL
 chipkit_WiFire.build.core=pic32
 chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire.build.variant=WiFire
-chipkit_WiFire.upload.tool=pic32prog
 
 ############################################################
 ############################################################
@@ -1172,6 +1188,7 @@ chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
 chipkit_WiFire_80MHz.upload.protocol=stk500v2
 chipkit_WiFire_80MHz.upload.maximum_size=520192
 chipkit_WiFire_80MHz.upload.speed=115200
+chipkit_WiFire_80MHz.upload.tool=pic32prog
 
 chipkit_WiFire_80MHz.bootloader.low_fuses=0xff
 chipkit_WiFire_80MHz.bootloader.high_fuses=0xdd
@@ -1186,6 +1203,5 @@ chipkit_WiFire_80MHz.build.f_cpu=80000000UL
 chipkit_WiFire_80MHz.build.core=pic32
 chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire_80MHz.build.variant=WiFire
-chipkit_WiFire_80MHz.upload.tool=pic32prog
 
 ############################################################
