@@ -82,53 +82,111 @@
 
   </target>
 
-  <target name="linux-build" depends="" description="Build linux version">
-    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="pic32/compiler" verbose="false" usetimestamp="true" />
+  <target name="linux32-build" depends="" description="Build linux version">
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
-    <unzip dest="pic32/compiler" src="pic32/compiler/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
-    <chmod perm="+x">
-      <fileset dir="pic32/compile/compiler/pic32-tools/bin" includes="**/*" />
-    </chmod>
-    <chmod perm="+x">
-      <fileset dir="pic32/compiler/pic32-tools/lib" includes="**/*" />
-    </chmod>
-    <chmod perm="+x">
-      <fileset dir="pic32/compiler/pic32-tools/pic32mx" includes="**/*" />
+    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="pic32/compiler/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${platform}/chipkit-core"/>
+
+    <chmod perm="+x" maxparallel="300">
+      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
+    <copy todir="dist/${platform}/chipkit-core/pic32">
+      <fileset dir="pic32"/>
+    </copy>
+
+    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="module/pic32prog/${platform}"/>
+    </copy>
+    <chmod perm="+x">
+      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+    </chmod>
 
   </target>
 
   <target name="raspberrypi-build" depends="" description="Build linux ARM version">
 
-    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" dest="pic32/compiler" verbose="false" usetimestamp="true" />
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
+    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="raspberrypi/dist/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${platform}/chipkit-core"/>
 
+    <chmod perm="+x" maxparallel="300">
+      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+    </chmod>
 
+    <copy todir="dist/${platform}/chipkit-core/pic32">
+      <fileset dir="pic32"/>
+    </copy>
 
-    <unzip dest="pic32/compiler" src="raspberrypi/dist/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
+    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="module/pic32prog/${platform}"/>
+    </copy>
     <chmod perm="+x">
-      <fileset dir="pic32/compiler" includes="**/*" />
+      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
 
   </target>
 
-  <target name="linux32-build" depends="linux-build" description="Build linux (32-bit) version">
 
-  </target>
 
-  <target name="linux64-build" depends="linux-build" description="Build linux (32-bit) version">
+  <target name="linux64-build" depends="" description="Build linux (32-bit) version">
+     <echo message="When 64bit version is released. A 64 bit compiler will be included." />
+     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
+
+     <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="pic32/compiler/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
+     <mkdir dir="dist/${platform}/chipkit-core"/>
+
+     <chmod perm="+x" maxparallel="300">
+       <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+     </chmod>
+
+     <copy todir="dist/${platform}/chipkit-core/pic32">
+       <fileset dir="pic32"/>
+     </copy>
+
+     <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
+       <fileset dir="module/pic32prog/${platform}"/>
+     </copy>
+     <chmod perm="+x">
+       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+     </chmod>
 
   </target>
 
   <target name="windows-build" depends="" description="Build windows version">
     <!-- pic32 compiler -->
-    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip " dest="pic32/compiler" verbose="false" usetimestamp="true" />
+    <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip " dest="tmp" verbose="false" usetimestamp="true" />
 
-    <unzip dest="pic32/compiler" src="windows/dist/pic32-tools-win32-image-20140530.zip" overwrite="false" />
-    <chmod perm="+x">
-      <fileset dir="pic32/compiler" includes="**/*" />
+    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="windows/dist/pic32-tools-win32-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${platform}/chipkit-core"/>
+
+    <chmod perm="+x" maxparallel="300">
+      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
+
+    <copy todir="dist/${platform}/chipkit-core/pic32">
+      <fileset dir="pic32"/>
+    </copy>
+
+    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="module/pic32prog/${platform}"/>
+    </copy>
+    <chmod perm="+x">
+      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+    </chmod>
+
+
   </target>
+
+<target name="updatepic32prog" description="update the submodule pic32prog">
+  <exec executable="git">
+    <arg value="submodule"/>
+    <arg value="foreach"/>
+    <arg value="git"/>
+    <arg value="pull"/>
+ </exec>
+</target>
 
   <target name="clean" depends="" description="Clean build">
     <echo message="Cleaning Platform: ${platform}"/>
