@@ -5,8 +5,11 @@
   <!--echo message="os.version = ${os.version}" /-->
   <!-- Sets properties for macosx/windows/linux depending on current system -->
   <!--
-    Need to git pull the pic32 sub module.
-    git submodule foreach git pull
+    Need to git pull the pic32 sub modules.
+    git submodules foreach git pull
+    Adding submodules:
+    git submodules add https://github.com/sergev/pic32prog  modules/pic32prog
+
   -->
 
 
@@ -66,7 +69,7 @@
   </copy>
 
   <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-    <fileset dir="module/pic32prog/${platform}"/>
+    <fileset dir="modules/pic32prog/${platform}"/>
   </copy>
   <chmod perm="+x">
     <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
@@ -97,7 +100,7 @@
     </copy>
 
     <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="module/pic32prog/${platform}"/>
+      <fileset dir="modules/pic32prog/${platform}"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
@@ -120,7 +123,7 @@
     </copy>
 
     <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="module/pic32prog/${platform}"/>
+      <fileset dir="modules/pic32prog/${platform}"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
@@ -146,7 +149,7 @@
      </copy>
 
      <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-       <fileset dir="module/pic32prog/${platform}"/>
+       <fileset dir="modules/pic32prog/${platform}"/>
      </copy>
      <chmod perm="+x">
        <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
@@ -170,7 +173,7 @@
     </copy>
 
     <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="module/pic32prog/${platform}"/>
+      <fileset dir="modules/pic32prog/${platform}"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
@@ -179,9 +182,9 @@
 
   </target>
 
-<target name="updatepic32prog" description="update the submodule pic32prog">
+<target name="updatepic32prog" description="update the submodules pic32prog">
   <exec executable="git">
-    <arg value="submodule"/>
+    <arg value="submodules"/>
     <arg value="foreach"/>
     <arg value="git"/>
     <arg value="pull"/>
