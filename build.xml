@@ -175,9 +175,7 @@
       <fileset dir="pic32" />
     </copy>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${platform}" />
-    </copy>
+    <copy file="module/pic32prog/pic32prog.exe" todir="dist/${platform}/chipkit-core/pic32/tools/bin" />
     <chmod perm="+x">
       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
