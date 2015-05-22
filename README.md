@@ -16,8 +16,8 @@ ant updatepic32prog
 ```
 
 ## Deployment instructions
-The path is OS specific.
-The sketch folder with a folder called hardware.
+* The path is OS specific.
+* The sketch folder with a folder called hardware.
 ```
 Copy from dist OS Platform and move to ~/Documents/Arduino/hardware folder
 ```
