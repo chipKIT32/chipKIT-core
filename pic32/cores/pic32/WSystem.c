@@ -31,7 +31,7 @@
 /*  Revision History:													*/
 /*																		*/
 /*	08/23/2012(GeneApperson): Created									*/
-/*	06/18/2013(Keith Vogel): Finished the interrupt vector handler									*/
+/*	06/18/2013(Keith Vogel): Finished the interrupt vector handler		*/
 /*																		*/
 /************************************************************************/
 
@@ -47,6 +47,7 @@
 #include	<p32_defs.h>
 
 #include	"wiring.h"
+#include    "Board_Defs.h"
 
 /* ------------------------------------------------------------ */
 /*				Local Type Definitions							*/
@@ -737,7 +738,7 @@ void __attribute__((nomips16)) writeCoreTimer(uint32_t tmr)
 void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
 {
 	uint32_t	stInt;
-#ifdef _PCACHE
+#if defined(_CHECON_PREFEN_POSITION)
 	uint32_t	stCache;
     uint32_t	wait;
 	register unsigned long tmp;
@@ -749,8 +750,12 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
 	*/
 #if defined(__PIC32MZXX__)
 
-    // set up the ADCs
+// If alternate ADC implementation
+#if defined(__ALT_ADC_IMPL__)
+    initADC();
 
+// EC MZ ADC code
+#elif defined(__PIC32MZECADC__)
     /* Configure AD1CON1 */
     AD1CON1 = 0;                // No AD1CON1 features are enabled including: Stop-in-Idle, early
                                 // interrupt, filter delay Fractional mode and scan trigger source.
@@ -826,11 +831,19 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
     AD1IMODbits.SH4MOD =  0;            // put in unipolar encoding
     AD1IMODbits.SH5MOD =  0;            // put in unipolar encoding
 
+#elif defined(__PIC32MZEFADC__)
+    #error EF ADC code not implemented yet
+
+// unknown ADC code
+#else
+    #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
+#endif
+
 #else
 	BMXCONCLR = (1 << _BMXCON_BMXWSDRM_POSITION);
 #endif
 
-#ifdef _PCACHE
+#if defined(_CHECON_PREFEN_POSITION)
 
 	stCache = CHECON;
 
@@ -859,6 +872,15 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
 	stCache |= (wait << _CHECON_PFMWS_POSITION);
 
 	CHECON = stCache;
+
+#elif defined(_PRECON_PREFEN_POSITION)
+  // 
+  // Set wait states and enable prefetch buffer 
+  // 
+  PRECON = 0u 
+         | (2u << _PRECON_PFMWS_POSITION)  // 2 wait states 
+         | (3u << _PRECON_PREFEN_POSITION); // Enable prefetch for instructions + data 
+
 
 #endif
 
