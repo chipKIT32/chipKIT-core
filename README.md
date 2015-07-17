@@ -13,9 +13,7 @@ ant linux64-build
 ant raspberrypi-build
 ant clean
 ant updatepic32prog
-```
-TBD:
-```
+
 ant dist //compress the builds prepare for deployment
 ```
 
