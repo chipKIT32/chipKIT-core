@@ -28,6 +28,9 @@
   <condition property="linux64">
     <os family="unix" arch="amd64" />
   </condition>
+  <condition property="arm">
+    <os family="unix" arch="arm" />
+  </condition>
 
   <condition property="platform" value="macosx">
     <os family="mac" />
