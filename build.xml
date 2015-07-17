@@ -190,7 +190,9 @@
     <chmod perm="+x">
       <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
+  </target>
 
+  <target name="dist" depends="build, compress" description="create the distribution zip file.">
 
   </target>
 
