@@ -67,50 +67,50 @@
   </target>
 
   <target name="macosx-build" depends="setup" description="Build Mac OS X version">
-    <property name="platform">macosx</property>
-    <mkdir dir="dist/${platform}/chipkit-core" />
+    <property name="localplatform">macosx</property>
+    <mkdir dir="dist/${localplatform}/chipkit-core" />
 
-    <copy todir="dist/${platform}/chipkit-core/pic32">
+    <copy todir="dist/${localplatform}/chipkit-core/pic32">
       <fileset dir="pic32" />
     </copy>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${platform}" />
+    <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="modules/pic32prog/${localplatform}" />
     </copy>
     <chmod perm="+x">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
 
     <get src="https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
-    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Darwin-image-20140530.zip" overwrite="false" />
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Darwin-image-20140530.zip" overwrite="false" />
 
     <chmod perm="+x" maxparallel="300">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
   </target>
 
   <target name="linux32-build" depends="setup" description="Build linux version">
-    <property name="platform">linux32</property>
+    <property name="localplatform">linux32</property>
 
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
-    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
-    <mkdir dir="dist/${platform}/chipkit-core" />
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${localplatform}/chipkit-core" />
 
     <chmod perm="+x" maxparallel="300">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32">
+    <copy todir="dist/${localplatform}/chipkit-core/pic32">
       <fileset dir="pic32" />
     </copy>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${platform}" />
+    <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="modules/pic32prog/${localplatform}" />
     </copy>
     <chmod perm="+x">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
 
   </target>
@@ -143,57 +143,65 @@
 
   <target name="linux64-build" depends="setup" description="Build linux (32-bit) version">
     <echo message="When 64bit version is released. A 64 bit compiler will be included." />
-    <property name="platform">linux64</property>
+    <property name="localplatform">linux64</property>
 
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
-    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
-    <mkdir dir="dist/${platform}/chipkit-core" />
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-Linux32-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${localplatform}/chipkit-core" />
 
     <chmod perm="+x" maxparallel="300">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32">
+    <copy todir="dist/${localplatform}/chipkit-core/pic32">
       <fileset dir="pic32" />
     </copy>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${platform}" />
+    <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="modules/pic32prog/${localplatform}" />
     </copy>
     <chmod perm="+x">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
 
   </target>
 
   <target name="windows-build" depends="setup" description="Build windows version">
-    <property name="platform">windows</property>
+    <property name="localplatform">windows</property>
     <!-- pic32 compiler -->
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
 
-    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-win32-image-20140530.zip" overwrite="false" />
-    <mkdir dir="dist/${platform}/chipkit-core" />
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-win32-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${localplatform}/chipkit-core" />
 
     <chmod perm="+x" maxparallel="300">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32">
+    <copy todir="dist/${localplatform}/chipkit-core/pic32">
       <fileset dir="pic32" />
     </copy>
 
     <get src="https://github.com/sergev/pic32prog/archive/master.zip" dest="tmp" verbose="false" usetimestamp="true" />
     <unzip dest="tmp" src="tmp/master.zip" overwrite="false" />
 
-    <copy file="tmp/pic32prog-master/pic32prog.exe" todir="dist/${platform}/chipkit-core/pic32/tools/bin" />
+    <copy file="tmp/pic32prog-master/pic32prog.exe" todir="dist/${localplatform}/chipkit-core/pic32/tools/bin" />
     <chmod perm="+x">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
   </target>
+  <target name="raspberrypi-dist" depends="raspberrypi-build" description="Make dist raspberrypi version">
+    <property name="localplatform">raspberrypi</property>
+    <antcall target="compress" >
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
 
-  <target name="dist" depends="build, compress" description="create the distribution zip file.">
-
+  <target name="dist" depends="build" description="create the distribution zip file.">
+      <antcall target="compress">
+            <param name="localplatform" value="${platform}"/>
+      </antcall>
   </target>
 
   <target name="updatepic32prog" description="update the submodules pic32prog">
@@ -212,7 +220,7 @@
   </target>
 
   <target name="compress" depends="git.revision" description="Compress the distribution for deployment.">
-    <zip destfile="dist/${platform}/chipkit-core-${repository.version}.zip" basedir="dist/${platform}">
+    <zip destfile="dist/${localplatform}/chipkit-core-${repository.version}.zip" basedir="dist/${localplatform}">
     </zip>
   </target>
 
