@@ -116,25 +116,25 @@
   </target>
 
   <target name="raspberrypi-build" depends="setup" description="Build linux ARM version">
-    <property name="platform">raspberrypi</property>
+    <property name="localplatform">raspberrypi</property>
 
     <get src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" dest="tmp" verbose="false" usetimestamp="true" />
-    <unzip dest="dist/${platform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
-    <mkdir dir="dist/${platform}/chipkit-core" />
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" src="tmp/pic32-tools-arm-linux-image-20140530.zip" overwrite="false" />
+    <mkdir dir="dist/${localplatform}/chipkit-core" />
 
     <chmod perm="+x" maxparallel="300">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/compiler/" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*" />
     </chmod>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32">
+    <copy todir="dist/${localplatform}/chipkit-core/pic32">
       <fileset dir="pic32" />
     </copy>
 
-    <copy todir="dist/${platform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${platform}" />
+    <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
+      <fileset dir="modules/pic32prog/linuxarmhf" />
     </copy>
     <chmod perm="+x">
-      <fileset dir="dist/${platform}/chipkit-core/pic32/tools/bin" includes="**/*" />
+      <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
 
   </target>
@@ -197,12 +197,18 @@
   </target>
 
   <target name="updatepic32prog" description="update the submodules pic32prog">
+  <!-- unreliable solution but should work
     <exec executable="git">
       <arg value="submodule" />
       <arg value="foreach" />
       <arg value="git" />
       <arg value="pull" />
     </exec>
+  -->
+  <exec executable="git">
+    <arg value="submodule" />
+    <arg value="update" />
+  </exec>
   </target>
 
   <target name="compress" depends="git.revision" description="Compress the distribution for deployment.">
@@ -211,9 +217,9 @@
   </target>
 
   <target name="clean" depends="" description="Clean build">
-    <echo message="Cleaning Platform: ${platform}" />
+    <echo message="Cleaning Platform: ALL" />
     <delete dir="./tmp/" failonerror="false"  />
-    <delete dir="dist/${platform}/"/>
+    <delete dir="dist/"/>
   </target>
 
 
