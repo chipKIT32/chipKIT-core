@@ -17,7 +17,14 @@ ant raspberrypi-build
 ant clean
 ant updatepic32prog
 
-ant dist //compress the builds prepare for deployment
+ant dist //builds, compresses, prepares deployment for current OS
+
+ant macosx-dist
+ant windows-dist
+ant linux32-dist
+ant linux64-dist
+ant raspberrypi-dist
+
 ```
 
 ## Deployment instructions
