@@ -21,8 +21,21 @@ ant dist //compress the builds prepare for deployment
 ```
 
 ## Deployment instructions
-* The path is OS specific.
+
+Option 1:
+* `ant dist`
+* copy the dist/{OS} zip file to {SketchFolder}/Arduino/hardware
+* unzip the the zip file
+* start Arduino
+* Boards will be listed in the board drop down
+
+Option 2:
+* `ant build`
+* copy the dist/{OS} folder  to {SketchFolder}/Arduino/hardware
 * The user sketch folder needs a folder called hardware.
+* start Arduino
+* Boards will be listed in the board drop down
+
 ```
 Copy from dist OS Platform and move to ~/Documents/Arduino/hardware folder
 ```
