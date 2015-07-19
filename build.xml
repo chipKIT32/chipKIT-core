@@ -191,8 +191,33 @@
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*" />
     </chmod>
   </target>
+
   <target name="raspberrypi-dist" depends="raspberrypi-build" description="Make dist raspberrypi version">
     <property name="localplatform">raspberrypi</property>
+    <antcall target="compress" >
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+  <target name="windows-dist" depends="windows-build" description="Make dist windows version">
+    <property name="localplatform">windows</property>
+    <antcall target="compress" >
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+  <target name="macosx-dist" depends="macosx-build" description="Make dist macosx version">
+    <property name="localplatform">macosx</property>
+    <antcall target="compress" >
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+  <target name="linux32-dist" depends="linux32-build" description="Make dist linux32 version">
+    <property name="localplatform">linux32</property>
+    <antcall target="compress" >
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+  <target name="linux64-dist" depends="linux64-build" description="Make dist linux64 version">
+    <property name="localplatform">linux64</property>
     <antcall target="compress" >
       <param name="localplatform" value="${localplatform}"/>
     </antcall>
@@ -213,6 +238,10 @@
       <arg value="pull" />
     </exec>
   -->
+  <exec executable="git">
+    <arg value="submodule" />
+    <arg value="init" />
+  </exec>
   <exec executable="git">
     <arg value="submodule" />
     <arg value="update" />
