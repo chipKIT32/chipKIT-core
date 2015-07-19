@@ -249,7 +249,8 @@
   </target>
 
   <target name="compress" depends="git.revision" description="Compress the distribution for deployment.">
-    <zip destfile="dist/${localplatform}/chipkit-core-${repository.version}.zip" basedir="dist/${localplatform}">
+    <zip destfile="dist/${localplatform}/chipkit-core-${repository.version}.zip" >
+      <zipfileset dir="dist/${localplatform}" filemode="755" />
     </zip>
   </target>
 
