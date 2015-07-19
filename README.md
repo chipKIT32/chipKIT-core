@@ -4,7 +4,7 @@ Downloadable chipKIT core for use with Arduino 1.6x IDE and UECIDE
 
 * [ANT](http://ant.apache.org/)
 
-## Build Instructions
+## Build Options
 
 ```
 ant setup
@@ -14,8 +14,6 @@ ant windows-build
 ant linux32-build
 ant linux64-build
 ant raspberrypi-build
-ant clean
-ant updatepic32prog
 
 ant dist //builds, compresses, prepares deployment for current OS
 
@@ -25,6 +23,8 @@ ant linux32-dist
 ant linux64-dist
 ant raspberrypi-dist
 
+ant clean //cleans all dist and temp files
+ant updatepic32prog
 ```
 
 ## Deployment instructions
