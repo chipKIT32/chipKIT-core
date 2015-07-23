@@ -245,6 +245,7 @@
   <exec executable="git">
     <arg value="submodule" />
     <arg value="update" />
+    <arg value="--remote" />
   </exec>
   </target>
 
