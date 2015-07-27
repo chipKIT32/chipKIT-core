@@ -28,6 +28,7 @@ cerebot32mx4.build.mcu=32MX460F512L
 cerebot32mx4.build.f_cpu=80000000L
 cerebot32mx4.build.core=pic32
 cerebot32mx4.build.variant=Cerebot_32MX4
+cerebot32mx4.build.board=PIC32_cerebot32mx4
 
 ############################################################
 ############################################################
@@ -59,6 +60,7 @@ cerebot32mx7.build.mcu=32MX795F512L
 cerebot32mx7.build.f_cpu=80000000L
 cerebot32mx7.build.core=pic32
 cerebot32mx7.build.variant=Cerebot_32MX7
+cerebot32mx7.build.board=PIC32_cerebot32mx7
 
 ############################################################
 ############################################################
@@ -96,6 +98,7 @@ cerebot_mx3ck.build.mcu=32MX320F128H
 cerebot_mx3ck.build.f_cpu=80000000L
 cerebot_mx3ck.build.core=pic32
 cerebot_mx3ck.build.variant=Cerebot_MX3cK
+cerebot_mx3ck.build.board=PIC32_cerebot_mx3ck
 
 ############################################################
 chipkit_mx3.name=chipKIT MX3
@@ -132,6 +135,7 @@ chipkit_mx3.build.mcu=32MX320F128H
 chipkit_mx3.build.f_cpu=80000000L
 chipkit_mx3.build.core=pic32
 chipkit_mx3.build.variant=Cerebot_MX3cK
+chipkit_mx3.build.board=PIC32_chipkit_mx3
 
 ############################################################
 ############################################################
@@ -169,6 +173,7 @@ cerebot_mx3ck_512.build.mcu=32MX340F512H
 cerebot_mx3ck_512.build.f_cpu=80000000L
 cerebot_mx3ck_512.build.core=pic32
 cerebot_mx3ck_512.build.variant=Cerebot_MX3cK_512
+cerebot_mx3ck_512.build.board=PIC32_cerebot_mx3ck_512
 
 ############################################################
 ############################################################
@@ -200,6 +205,7 @@ cerebot_mx4ck.build.mcu=32MX460F512L
 cerebot_mx4ck.build.f_cpu=80000000L
 cerebot_mx4ck.build.core=pic32
 cerebot_mx4ck.build.variant=Cerebot_MX4cK
+cerebot_mx4ck.build.board=PIC32_cerebot_mx4ck
 
 ############################################################
 chipkit_pro_mx4.name=chipKIT Pro MX4
@@ -231,6 +237,7 @@ chipkit_pro_mx4.build.mcu=32MX460F512L
 chipkit_pro_mx4.build.f_cpu=80000000L
 chipkit_pro_mx4.build.core=pic32
 chipkit_pro_mx4.build.variant=Cerebot_MX4cK
+chipkit_pro_mx4.build.board=PIC32_chipkit_pro_mx4
 
 ############################################################
 ############################################################
@@ -263,6 +270,7 @@ cerebot_mx7ck.build.mcu=32MX795F512L
 cerebot_mx7ck.build.f_cpu=80000000L
 cerebot_mx7ck.build.core=pic32
 cerebot_mx7ck.build.variant=Cerebot_MX7cK
+cerebot_mx7ck.build.board=PIC32_cerebot_mx7ck
 
 ############################################################
 chipkit_pro_mx7.name=chipKIT Pro MX7
@@ -294,6 +302,7 @@ chipkit_pro_mx7.build.mcu=32MX795F512L
 chipkit_pro_mx7.build.f_cpu=80000000L
 chipkit_pro_mx7.build.core=pic32
 chipkit_pro_mx7.build.variant=Cerebot_MX7cK
+chipkit_pro_mx7.build.board=PIC32_chipkit_pro_mx7
 
 ############################################################
 ############################################################
@@ -332,6 +341,7 @@ chipkit_Pi.build.mcu=32MX250F128B
 chipkit_Pi.build.f_cpu=40000000L
 chipkit_Pi.build.core=pic32
 chipkit_Pi.build.variant=ChipKIT_Pi
+chipkit_Pi.build.board=PIC32_chipkit_Pi
 
 ############################################################
 ############################################################
@@ -342,6 +352,8 @@ chipkit_Pi_USB_Serial.group=chipKIT
 chipkit_Pi_USB_Serial.platform=pic32
 chipkit_Pi_USB_Serial.board=_BOARD_CHIPKIT_PI_
 chipkit_Pi_USB_Serial.board.define=-D_USE_USB_FOR_SERIAL_
+chipkit_Pi_USB_Serial.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 chipkit_Pi_USB_Serial.ccflags=-Map="map.map"
 chipkit_Pi_USB_Serial.ldscript=chipKIT-application-32MX250F128.ld
 # end of new items
@@ -371,6 +383,7 @@ chipkit_Pi_USB_Serial.build.mcu=32MX250F128B
 chipkit_Pi_USB_Serial.build.f_cpu=40000000L
 chipkit_Pi_USB_Serial.build.core=pic32
 chipkit_Pi_USB_Serial.build.variant=ChipKIT_Pi
+chipkit_Pi_USB_Serial.build.board=PIC32_chipkit_Pi_USB_Serial
 
 ############################################################
 ############################################################
@@ -410,6 +423,7 @@ cmod.build.f_cpu=40000000L
 cmod.build.core=pic32
 cmod.build.variant=Cmod
 
+cmod.build.board=PIC32_cmod
 ############################################################
 ############################################################
 CUI32stem.name=CUI32stem
@@ -419,6 +433,8 @@ CUI32stem.group=CUI32
 CUI32stem.platform=pic32
 CUI32stem.board=_BOARD_CUI32_
 CUI32stem.board.define=-D_USE_USB_FOR_SERIAL_
+CUI32stem.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 CUI32stem.ccflags=ffff
 CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
@@ -441,7 +457,7 @@ CUI32stem.build.mcu=32MX795F512H
 CUI32stem.build.f_cpu=80000000L
 CUI32stem.build.core=pic32
 CUI32stem.build.variant=CUI32stem
-
+CUI32stem.build.board=PIC32_CUI32stem
 
 ############################################################
 ############################################################
@@ -452,6 +468,8 @@ ubw32_mx460.group=UBW32
 ubw32_mx460.platform=pic32
 ubw32_mx460.board=_BOARD_UBW32_MX460_
 ubw32_mx460.board.define=-D_USE_USB_FOR_SERIAL_
+ubw32_mx460.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 ubw32_mx460.ccflags=ffff
 ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
 # end of new items
@@ -473,6 +491,7 @@ ubw32_mx460.build.mcu=32MX460F512L
 ubw32_mx460.build.f_cpu=80000000L
 ubw32_mx460.build.core=pic32
 ubw32_mx460.build.variant=Default_100
+ubw32_mx460.build.board=PIC32_ubw32_mx460
 
 ############################################################
 ubw32_mx795.name=Pic32 UBW32-MX795
@@ -482,6 +501,8 @@ ubw32_mx795.group=UBW32
 ubw32_mx795.platform=pic32
 ubw32_mx795.board=_BOARD_UBW32_MX795_
 ubw32_mx795.board.define=-D_USE_USB_FOR_SERIAL_
+ubw32_mx795.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 ubw32_mx795.ccflags=ffff
 ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
@@ -504,6 +525,7 @@ ubw32_mx795.build.mcu=32MX795F512L
 ubw32_mx795.build.f_cpu=80000000L
 ubw32_mx795.build.core=pic32
 ubw32_mx795.build.variant=Default_100
+ubw32_mx795.build.board=PIC32_ubw32_mx795
 
 ############################################################
 ############################################################
@@ -514,6 +536,7 @@ cui32.group=CUI32
 cui32.platform=pic32
 cui32.board=_BOARD_CUI32_
 cui32.board.define=-D_USE_USB_FOR_SERIAL_
+cui32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 cui32.ccflags=ffff
 cui32.ldscript=chipKIT-application-32MX440F512.ld
 # end of new items
@@ -535,6 +558,7 @@ cui32.build.mcu=32MX440F512H
 cui32.build.f_cpu=80000000L
 cui32.build.core=pic32
 cui32.build.variant=Default_64
+cui32.build.board=PIC32_cui32
 
 ############################################################
 usbono_pic32.name=PONTECH UAV100
@@ -574,6 +598,7 @@ usbono_pic32.build.f_cpu=80000000L
 usbono_pic32.build.core=pic32
 usbono_pic32.build.variant=Default_64
 #usbono_pic32.build.variant=Uno32
+usbono_pic32.build.board=PIC32_usbono_pic32
 
 ############################################################
 ############################################################
@@ -584,6 +609,8 @@ chipkit_DP32.group=chipKIT
 chipkit_DP32.platform=pic32
 chipkit_DP32.board=_BOARD_DP32_
 chipkit_DP32.board.define=-D_USE_USB_FOR_SERIAL_
+chipkit_DP32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 chipkit_DP32.ccflags=-Map="map.map"
 chipkit_DP32.ldscript=chipKIT-application-32MX250F128.ld
 # end of new items
@@ -613,6 +640,7 @@ chipkit_DP32.build.mcu=32MX250F128B
 chipkit_DP32.build.f_cpu=40000000L
 chipkit_DP32.build.core=pic32
 chipkit_DP32.build.variant=DP32
+chipkit_DP32.build.board=PIC32_chipkit_DP32
 
 ############################################################
 ############################################################
@@ -622,6 +650,7 @@ fubarino_mini_dev.group=Fubarino
 fubarino_mini_dev.platform=pic32
 fubarino_mini_dev.board=_BOARD_FUBARINO_MINI_
 fubarino_mini_dev.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_mini_dev.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_mini_dev.ccflags=-Map="map.map"
 fubarino_mini_dev.ldscript=chipKIT-application-32MX250F128.ld
 
@@ -649,6 +678,7 @@ fubarino_mini_dev.build.mcu=32MX250F128D
 fubarino_mini_dev.build.f_cpu=40000000L
 fubarino_mini_dev.build.core=pic32
 fubarino_mini_dev.build.variant=Fubarino_Mini
+fubarino_mini_dev.build.board=PIC32_fubarino_mini_dev
 
 ############################################################
 fubarino_mini.name=Fubarino Mini
@@ -657,6 +687,8 @@ fubarino_mini.group=Fubarino
 fubarino_mini.platform=pic32
 fubarino_mini.board=_BOARD_FUBARINO_MINI_
 fubarino_mini.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_mini.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 fubarino_mini.ccflags=-Map="map.map"
 fubarino_mini.ldscript=chipKIT-application-32MX250F128.ld
 
@@ -684,6 +716,7 @@ fubarino_mini.build.mcu=32MX250F128D
 fubarino_mini.build.f_cpu=48000000L
 fubarino_mini.build.core=pic32
 fubarino_mini.build.variant=Fubarino_Mini
+fubarino_mini.build.board=PIC32_Fubarino Mini
 
 ############################################################
 #fubarino_mini_dbg.name=FubarinoMini Debug
@@ -692,6 +725,7 @@ fubarino_mini.build.variant=Fubarino_Mini
 #fubarino_mini_dbg.platform=pic32
 #fubarino_mini_dbg.board=_BOARD_FUBARINO_MINI_
 #fubarino_mini_dbg.board.define=-D_USE_USB_FOR_SERIAL_
+#fubarino_mini_dbg.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 #fubarino_mini_dbg.ccflags=-Map="map.map"
 #fubarino_mini_dbg.ldscript=chipKIT-application-32MX250F128-nobootloader.ld
 ## end of new items
@@ -718,7 +752,8 @@ fubarino_mini.build.variant=Fubarino_Mini
 #fubarino_mini_dbg.build.f_cpu=40000000L
 #fubarino_mini_dbg.build.core=pic32
 #fubarino_mini_dbg.build.variant=Fubarino_Mini
-#
+#fubarino_mini_dbg.build.board=PIC32_fubarino_mini_dbg
+
 ############################################################
 ############################################################
 fubarino_sd_seeed.name=Fubarino SD (Seeed/1.4)
@@ -727,6 +762,8 @@ fubarino_sd_seeed.group=Fubarino
 fubarino_sd_seeed.platform=pic32
 fubarino_sd_seeed.board=_BOARD_FUBARINO_SD_
 fubarino_sd_seeed.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_sd_seeed.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 fubarino_sd_seeed.ccflags=ffff
 fubarino_sd_seeed.ldscript=chipKIT-application-32MX440F256.ld
 
@@ -747,6 +784,7 @@ fubarino_sd_seeed.build.mcu=32MX440F256H
 fubarino_sd_seeed.build.f_cpu=80000000L
 fubarino_sd_seeed.build.core=pic32
 fubarino_sd_seeed.build.variant=Fubarino_SD
+fubarino_sd_seeed.build.board=PIC32_fubarino_sd_seeed
 
 ############################################################
 fubarino_sd.name=Fubarino SD (1.5)
@@ -754,7 +792,8 @@ fubarino_sd.group=Fubarino
 
 fubarino_sd.platform=pic32
 fubarino_sd.board=_BOARD_FUBARINO_SD_
-fubarino_sd.board.define=-D_USE_USB_FOR_SERIAL_
+#fubarino_sd.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_sd.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_sd.ccflags=ffff
 fubarino_sd.ldscript=chipKIT-application-32MX795F512.ld
 
@@ -776,6 +815,7 @@ fubarino_sd.build.mcu=32MX795F512H
 fubarino_sd.build.f_cpu=80000000L
 fubarino_sd.build.core=pic32
 fubarino_sd.build.variant=Fubarino_SD
+fubarino_sd.build.board=PIC32_fubarino_sd
 
 ############################################################
 ############################################################
@@ -809,6 +849,7 @@ Fubarino_SDZ.build.f_cpu=200000000UL
 Fubarino_SDZ.build.core=pic32
 Fubarino_SDZ.ldcommon=chipKIT-application-COMMON-MZ.ld
 Fubarino_SDZ.build.variant=Fubarino_SDZ
+Fubarino_SDZ.build.board=PIC32_Fubarino_SDZ
 
 ############################################################
 ############################################################
@@ -840,6 +881,7 @@ mega_pic32.build.mcu=32MX795F512L
 mega_pic32.build.f_cpu=80000000L
 mega_pic32.build.core=pic32
 mega_pic32.build.variant=Max32
+mega_pic32.build.board=PIC32_mega_pic32
 
 ############################################################
 mega_usb_pic32.name=chipKIT MAX32-USB for Serial
@@ -849,6 +891,7 @@ mega_usb_pic32.group=chipKIT
 mega_usb_pic32.platform=pic32
 mega_usb_pic32.board=_BOARD_MEGA_
 mega_usb_pic32.board.define=-D_USE_USB_FOR_SERIAL_
+mega_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 mega_usb_pic32.ccflags=ffff
 mega_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
@@ -870,6 +913,7 @@ mega_usb_pic32.build.mcu=32MX795F512L
 mega_usb_pic32.build.f_cpu=80000000L
 mega_usb_pic32.build.core=pic32
 mega_usb_pic32.build.variant=Max32
+mega_usb_pic32.build.board=PIC32_mega_usb_pic32
 
 ############################################################
 ############################################################
@@ -879,6 +923,7 @@ Olimex_Pinguino32.group=Olimex
 Olimex_Pinguino32.platform=pic32
 Olimex_Pinguino32.board=_BOARD_OLIMEX_PIC32_PINGUINO_
 Olimex_Pinguino32.board.define=-D_USE_USB_FOR_SERIAL_
+Olimex_Pinguino32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 Olimex_Pinguino32.ccflags=ffff
 Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
 
@@ -899,6 +944,7 @@ Olimex_Pinguino32.build.mcu=32MX440F256H
 Olimex_Pinguino32.build.f_cpu=80000000L
 Olimex_Pinguino32.build.core=pic32
 Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
+Olimex_Pinguino32.build.board=PIC32_Olimex_Pinguino32
 
 ############################################################
 picadillo_35t.name=PICadillo 35T
@@ -921,7 +967,7 @@ picadillo_35t.build.mcu=32MX795F512L
 picadillo_35t.build.f_cpu=80000000L
 picadillo_35t.build.core=pic32
 picadillo_35t.build.variant=picadillo_35t
-
+picadillo_35t.build.board=PIC32_picadillo_35t
 
 ############################################################
 quick240_usb_pic32.name=PONTECH quicK240
@@ -931,6 +977,7 @@ quick240_usb_pic32.group=PONTECH
 quick240_usb_pic32.platform=pic32
 quick240_usb_pic32.board=_BOARD_PONTECH_QUICK240_USB_
 quick240_usb_pic32.compiler.define=-D_USE_USB_FOR_SERIAL_
+
 quick240_usb_pic32.ccflags=ffff
 quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
@@ -952,6 +999,7 @@ quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
 quick240_usb_pic32.build.core=pic32
 quick240_usb_pic32.build.variant=quicK240
+quick240_usb_pic32.build.board=PIC32_quick240_usb_pic32
 
 ############################################################
 ############################################################
@@ -989,6 +1037,7 @@ chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
 chipkit_uc32.build.core=pic32
 chipkit_uc32.build.variant=uC32
+chipkit_uc32.build.board=PIC32_chipkit_uc32
 
 ############################################################
 ############################################################
@@ -1026,6 +1075,7 @@ uc32_pmod.build.mcu=32MX340F512H
 uc32_pmod.build.f_cpu=80000000L
 uc32_pmod.build.core=pic32
 uc32_pmod.build.variant=uC32_Pmod_Shield
+uc32_pmod.build.board=PIC32_uc32_pmod
 
 ############################################################
 ############################################################
@@ -1066,6 +1116,7 @@ uno_pic32.build.mcu=32MX320F128H
 uno_pic32.build.f_cpu=80000000L
 uno_pic32.build.core=pic32
 uno_pic32.build.variant=Uno32
+uno_pic32.build.board=PIC32_uno_pic32
 
 ############################################################
 ############################################################
@@ -1105,6 +1156,7 @@ uno_pmod.build.mcu=32MX320F128H
 uno_pmod.build.f_cpu=80000000L
 uno_pmod.build.core=pic32
 uno_pmod.build.variant=Uno32_Pmod_shield
+uno_pmod.build.board=PIC32_uno_pmod
 
 ############################################################
 ############################################################
@@ -1137,6 +1189,7 @@ chipkit_WF32.build.mcu=32MX695F512L
 chipkit_WF32.build.f_cpu=80000000L
 chipkit_WF32.build.core=pic32
 chipkit_WF32.build.variant=WF32
+chipkit_WF32.build.board=PIC32_chipkit_WF32
 
 ############################################################
 ############################################################
@@ -1170,6 +1223,7 @@ chipkit_WiFire.build.f_cpu=200000000UL
 chipkit_WiFire.build.core=pic32
 chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire.build.variant=WiFire
+chipkit_WiFire.build.board=PIC32_chipkit_WiFire
 
 ############################################################
 ############################################################
@@ -1203,6 +1257,7 @@ chipkit_WiFire_80MHz.build.f_cpu=80000000UL
 chipkit_WiFire_80MHz.build.core=pic32
 chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire_80MHz.build.variant=WiFire
+chipkit_WiFire_80MHz.build.board=PIC32_chipkit_WiFire_80MHz
 
 ############################################################
 ############################################################
@@ -1213,6 +1268,8 @@ openbci.group=chipKIT
 openbci.platform=pic32
 openbci.board=_BOARD_DP32_
 openbci.board.define=-D_USE_USB_FOR_SERIAL_
+openbci.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
 openbci.ccflags=-Map="map.map"
 openbci.ldscript=chipKIT-application-32MX250F128.ld
 # end of new items
@@ -1241,6 +1298,6 @@ openbci.build.mcu=32MX250F128B
 openbci.build.f_cpu=40000000L
 openbci.build.core=pic32
 openbci.build.variant=OpenBCI
+openbci.build.board=PIC32_openbci
 
 ############################################################
-
