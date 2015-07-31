@@ -28,7 +28,7 @@ cerebot32mx4.build.mcu=32MX460F512L
 cerebot32mx4.build.f_cpu=80000000L
 cerebot32mx4.build.core=pic32
 cerebot32mx4.build.variant=Cerebot_32MX4
-cerebot32mx4.build.board=PIC32_cerebot32mx4
+cerebot32mx4.build.board=BOARD_CEREBOT32MX4
 
 ############################################################
 ############################################################
@@ -60,7 +60,7 @@ cerebot32mx7.build.mcu=32MX795F512L
 cerebot32mx7.build.f_cpu=80000000L
 cerebot32mx7.build.core=pic32
 cerebot32mx7.build.variant=Cerebot_32MX7
-cerebot32mx7.build.board=PIC32_cerebot32mx7
+cerebot32mx7.build.board=BOARD_CEREBOT32MX7
 
 ############################################################
 ############################################################
@@ -98,7 +98,7 @@ cerebot_mx3ck.build.mcu=32MX320F128H
 cerebot_mx3ck.build.f_cpu=80000000L
 cerebot_mx3ck.build.core=pic32
 cerebot_mx3ck.build.variant=Cerebot_MX3cK
-cerebot_mx3ck.build.board=PIC32_cerebot_mx3ck
+cerebot_mx3ck.build.board=BOARD_CEREBOT_MX3CK
 
 ############################################################
 chipkit_mx3.name=chipKIT MX3
@@ -135,7 +135,7 @@ chipkit_mx3.build.mcu=32MX320F128H
 chipkit_mx3.build.f_cpu=80000000L
 chipkit_mx3.build.core=pic32
 chipkit_mx3.build.variant=Cerebot_MX3cK
-chipkit_mx3.build.board=PIC32_chipkit_mx3
+chipkit_mx3.build.board=$1\U$2
 
 ############################################################
 ############################################################
@@ -173,7 +173,7 @@ cerebot_mx3ck_512.build.mcu=32MX340F512H
 cerebot_mx3ck_512.build.f_cpu=80000000L
 cerebot_mx3ck_512.build.core=pic32
 cerebot_mx3ck_512.build.variant=Cerebot_MX3cK_512
-cerebot_mx3ck_512.build.board=PIC32_cerebot_mx3ck_512
+cerebot_mx3ck_512.build.board=BOARD_CEREBOT_MX3CK_512
 
 ############################################################
 ############################################################
@@ -205,7 +205,7 @@ cerebot_mx4ck.build.mcu=32MX460F512L
 cerebot_mx4ck.build.f_cpu=80000000L
 cerebot_mx4ck.build.core=pic32
 cerebot_mx4ck.build.variant=Cerebot_MX4cK
-cerebot_mx4ck.build.board=PIC32_cerebot_mx4ck
+cerebot_mx4ck.build.board=BOARD_CEREBOT_MX4CK
 
 ############################################################
 chipkit_pro_mx4.name=chipKIT Pro MX4
@@ -237,7 +237,7 @@ chipkit_pro_mx4.build.mcu=32MX460F512L
 chipkit_pro_mx4.build.f_cpu=80000000L
 chipkit_pro_mx4.build.core=pic32
 chipkit_pro_mx4.build.variant=Cerebot_MX4cK
-chipkit_pro_mx4.build.board=PIC32_chipkit_pro_mx4
+chipkit_pro_mx4.build.board=BOARD_CHIPKIT_PRO_MX4
 
 ############################################################
 ############################################################
@@ -270,7 +270,7 @@ cerebot_mx7ck.build.mcu=32MX795F512L
 cerebot_mx7ck.build.f_cpu=80000000L
 cerebot_mx7ck.build.core=pic32
 cerebot_mx7ck.build.variant=Cerebot_MX7cK
-cerebot_mx7ck.build.board=PIC32_cerebot_mx7ck
+cerebot_mx7ck.build.board=BOARD_CEREBOT_MX7CK
 
 ############################################################
 chipkit_pro_mx7.name=chipKIT Pro MX7
@@ -302,7 +302,7 @@ chipkit_pro_mx7.build.mcu=32MX795F512L
 chipkit_pro_mx7.build.f_cpu=80000000L
 chipkit_pro_mx7.build.core=pic32
 chipkit_pro_mx7.build.variant=Cerebot_MX7cK
-chipkit_pro_mx7.build.board=PIC32_chipkit_pro_mx7
+chipkit_pro_mx7.build.board=BOARD_CHIPKIT_PRO_MX7
 
 ############################################################
 ############################################################
@@ -341,7 +341,7 @@ chipkit_Pi.build.mcu=32MX250F128B
 chipkit_Pi.build.f_cpu=40000000L
 chipkit_Pi.build.core=pic32
 chipkit_Pi.build.variant=ChipKIT_Pi
-chipkit_Pi.build.board=PIC32_chipkit_Pi
+chipkit_Pi.build.board=BOARD_CHIPKIT_PI
 
 ############################################################
 ############################################################
@@ -383,7 +383,7 @@ chipkit_Pi_USB_Serial.build.mcu=32MX250F128B
 chipkit_Pi_USB_Serial.build.f_cpu=40000000L
 chipkit_Pi_USB_Serial.build.core=pic32
 chipkit_Pi_USB_Serial.build.variant=ChipKIT_Pi
-chipkit_Pi_USB_Serial.build.board=PIC32_chipkit_Pi_USB_Serial
+chipkit_Pi_USB_Serial.build.board=BOARD_CHIPKIT_PI_USB_SERIAL
 
 ############################################################
 ############################################################
@@ -423,7 +423,7 @@ cmod.build.f_cpu=40000000L
 cmod.build.core=pic32
 cmod.build.variant=Cmod
 
-cmod.build.board=PIC32_cmod
+cmod.build.board=BOARD_CMOD
 ############################################################
 ############################################################
 CUI32stem.name=CUI32stem
@@ -457,7 +457,7 @@ CUI32stem.build.mcu=32MX795F512H
 CUI32stem.build.f_cpu=80000000L
 CUI32stem.build.core=pic32
 CUI32stem.build.variant=CUI32stem
-CUI32stem.build.board=PIC32_CUI32stem
+CUI32stem.build.board=BOARD_CUI32STEM
 
 ############################################################
 ############################################################
@@ -491,7 +491,7 @@ ubw32_mx460.build.mcu=32MX460F512L
 ubw32_mx460.build.f_cpu=80000000L
 ubw32_mx460.build.core=pic32
 ubw32_mx460.build.variant=Default_100
-ubw32_mx460.build.board=PIC32_ubw32_mx460
+ubw32_mx460.build.board=BOARD_UBW32_MX460
 
 ############################################################
 ubw32_mx795.name=Pic32 UBW32-MX795
@@ -525,7 +525,7 @@ ubw32_mx795.build.mcu=32MX795F512L
 ubw32_mx795.build.f_cpu=80000000L
 ubw32_mx795.build.core=pic32
 ubw32_mx795.build.variant=Default_100
-ubw32_mx795.build.board=PIC32_ubw32_mx795
+ubw32_mx795.build.board=BOARD_UBW32_MX795
 
 ############################################################
 ############################################################
@@ -558,7 +558,7 @@ cui32.build.mcu=32MX440F512H
 cui32.build.f_cpu=80000000L
 cui32.build.core=pic32
 cui32.build.variant=Default_64
-cui32.build.board=PIC32_cui32
+cui32.build.board=BOARD_CUI32
 
 ############################################################
 usbono_pic32.name=PONTECH UAV100
@@ -598,7 +598,7 @@ usbono_pic32.build.f_cpu=80000000L
 usbono_pic32.build.core=pic32
 usbono_pic32.build.variant=Default_64
 #usbono_pic32.build.variant=Uno32
-usbono_pic32.build.board=PIC32_usbono_pic32
+usbono_pic32.build.board=BOARD_USBONO_PIC32
 
 ############################################################
 ############################################################
@@ -640,7 +640,7 @@ chipkit_DP32.build.mcu=32MX250F128B
 chipkit_DP32.build.f_cpu=40000000L
 chipkit_DP32.build.core=pic32
 chipkit_DP32.build.variant=DP32
-chipkit_DP32.build.board=PIC32_chipkit_DP32
+chipkit_DP32.build.board=BOARD_CHIPKIT_DP32
 
 ############################################################
 ############################################################
@@ -678,7 +678,7 @@ fubarino_mini_dev.build.mcu=32MX250F128D
 fubarino_mini_dev.build.f_cpu=40000000L
 fubarino_mini_dev.build.core=pic32
 fubarino_mini_dev.build.variant=Fubarino_Mini
-fubarino_mini_dev.build.board=PIC32_fubarino_mini_dev
+fubarino_mini_dev.build.board=BOARD_FUBARINO_MINI_DEV
 
 ############################################################
 fubarino_mini.name=Fubarino Mini
@@ -716,7 +716,7 @@ fubarino_mini.build.mcu=32MX250F128D
 fubarino_mini.build.f_cpu=48000000L
 fubarino_mini.build.core=pic32
 fubarino_mini.build.variant=Fubarino_Mini
-fubarino_mini.build.board=PIC32_Fubarino Mini
+fubarino_mini.build.board=BOARD_FUBARINO_MINI
 
 ############################################################
 #fubarino_mini_dbg.name=FubarinoMini Debug
@@ -752,7 +752,7 @@ fubarino_mini.build.board=PIC32_Fubarino Mini
 #fubarino_mini_dbg.build.f_cpu=40000000L
 #fubarino_mini_dbg.build.core=pic32
 #fubarino_mini_dbg.build.variant=Fubarino_Mini
-#fubarino_mini_dbg.build.board=PIC32_fubarino_mini_dbg
+#fubarino_mini_dbg.build.board=BOARD_FUBARINO_MINI_DBG
 
 ############################################################
 ############################################################
@@ -784,7 +784,7 @@ fubarino_sd_seeed.build.mcu=32MX440F256H
 fubarino_sd_seeed.build.f_cpu=80000000L
 fubarino_sd_seeed.build.core=pic32
 fubarino_sd_seeed.build.variant=Fubarino_SD
-fubarino_sd_seeed.build.board=PIC32_fubarino_sd_seeed
+fubarino_sd_seeed.build.board=BOARD_FUBARINO_SD_SEEED
 
 ############################################################
 fubarino_sd.name=Fubarino SD (1.5)
@@ -815,7 +815,7 @@ fubarino_sd.build.mcu=32MX795F512H
 fubarino_sd.build.f_cpu=80000000L
 fubarino_sd.build.core=pic32
 fubarino_sd.build.variant=Fubarino_SD
-fubarino_sd.build.board=PIC32_fubarino_sd
+fubarino_sd.build.board=BOARD_FUBARINO_SD_
 
 ############################################################
 ############################################################
@@ -849,7 +849,7 @@ Fubarino_SDZ.build.f_cpu=200000000UL
 Fubarino_SDZ.build.core=pic32
 Fubarino_SDZ.ldcommon=chipKIT-application-COMMON-MZ.ld
 Fubarino_SDZ.build.variant=Fubarino_SDZ
-Fubarino_SDZ.build.board=PIC32_Fubarino_SDZ
+Fubarino_SDZ.build.board=BOARD_FUBARINO_SDZ
 
 ############################################################
 ############################################################
@@ -881,7 +881,7 @@ mega_pic32.build.mcu=32MX795F512L
 mega_pic32.build.f_cpu=80000000L
 mega_pic32.build.core=pic32
 mega_pic32.build.variant=Max32
-mega_pic32.build.board=PIC32_mega_pic32
+mega_pic32.build.board=BOARD_MEGA_PIC32
 
 ############################################################
 mega_usb_pic32.name=chipKIT MAX32-USB for Serial
@@ -913,7 +913,7 @@ mega_usb_pic32.build.mcu=32MX795F512L
 mega_usb_pic32.build.f_cpu=80000000L
 mega_usb_pic32.build.core=pic32
 mega_usb_pic32.build.variant=Max32
-mega_usb_pic32.build.board=PIC32_mega_usb_pic32
+mega_usb_pic32.build.board=BOARD_MEGA_USB_PIC32
 
 ############################################################
 ############################################################
@@ -944,7 +944,7 @@ Olimex_Pinguino32.build.mcu=32MX440F256H
 Olimex_Pinguino32.build.f_cpu=80000000L
 Olimex_Pinguino32.build.core=pic32
 Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
-Olimex_Pinguino32.build.board=PIC32_Olimex_Pinguino32
+Olimex_Pinguino32.build.board=BOARD_OLIMEX_PINGUINO32
 
 ############################################################
 picadillo_35t.name=PICadillo 35T
@@ -967,7 +967,7 @@ picadillo_35t.build.mcu=32MX795F512L
 picadillo_35t.build.f_cpu=80000000L
 picadillo_35t.build.core=pic32
 picadillo_35t.build.variant=picadillo_35t
-picadillo_35t.build.board=PIC32_picadillo_35t
+picadillo_35t.build.board=BOARD_PICADILLO_35T
 
 ############################################################
 quick240_usb_pic32.name=PONTECH quicK240
@@ -999,7 +999,7 @@ quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
 quick240_usb_pic32.build.core=pic32
 quick240_usb_pic32.build.variant=quicK240
-quick240_usb_pic32.build.board=PIC32_quick240_usb_pic32
+quick240_usb_pic32.build.board=BOARD_QUICK240_USB_PIC32
 
 ############################################################
 ############################################################
@@ -1037,7 +1037,7 @@ chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
 chipkit_uc32.build.core=pic32
 chipkit_uc32.build.variant=uC32
-chipkit_uc32.build.board=PIC32_chipkit_uc32
+chipkit_uc32.build.board=BOARD_CHIPKIT_UC32
 
 ############################################################
 ############################################################
@@ -1075,7 +1075,7 @@ uc32_pmod.build.mcu=32MX340F512H
 uc32_pmod.build.f_cpu=80000000L
 uc32_pmod.build.core=pic32
 uc32_pmod.build.variant=uC32_Pmod_Shield
-uc32_pmod.build.board=PIC32_uc32_pmod
+uc32_pmod.build.board=BOARD_UC32_PMOD
 
 ############################################################
 ############################################################
@@ -1116,7 +1116,7 @@ uno_pic32.build.mcu=32MX320F128H
 uno_pic32.build.f_cpu=80000000L
 uno_pic32.build.core=pic32
 uno_pic32.build.variant=Uno32
-uno_pic32.build.board=PIC32_uno_pic32
+uno_pic32.build.board=BOARD_UNO_PIC32
 
 ############################################################
 ############################################################
@@ -1156,7 +1156,7 @@ uno_pmod.build.mcu=32MX320F128H
 uno_pmod.build.f_cpu=80000000L
 uno_pmod.build.core=pic32
 uno_pmod.build.variant=Uno32_Pmod_shield
-uno_pmod.build.board=PIC32_uno_pmod
+uno_pmod.build.board=BOARD_UNO_PMOD
 
 ############################################################
 ############################################################
@@ -1189,7 +1189,7 @@ chipkit_WF32.build.mcu=32MX695F512L
 chipkit_WF32.build.f_cpu=80000000L
 chipkit_WF32.build.core=pic32
 chipkit_WF32.build.variant=WF32
-chipkit_WF32.build.board=PIC32_chipkit_WF32
+chipkit_WF32.build.board=BOARD_CHIPKIT_WF32
 
 ############################################################
 ############################################################
@@ -1223,7 +1223,7 @@ chipkit_WiFire.build.f_cpu=200000000UL
 chipkit_WiFire.build.core=pic32
 chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire.build.variant=WiFire
-chipkit_WiFire.build.board=PIC32_chipkit_WiFire
+chipkit_WiFire.build.board=BOARD_CHIPKIT_WIFIRE
 
 ############################################################
 ############################################################
@@ -1257,7 +1257,7 @@ chipkit_WiFire_80MHz.build.f_cpu=80000000UL
 chipkit_WiFire_80MHz.build.core=pic32
 chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire_80MHz.build.variant=WiFire
-chipkit_WiFire_80MHz.build.board=PIC32_chipkit_WiFire_80MHz
+chipkit_WiFire_80MHz.build.board=BOARD_CHIPKIT_WIFIRE_80MHZ
 
 ############################################################
 ############################################################
@@ -1298,6 +1298,6 @@ openbci.build.mcu=32MX250F128B
 openbci.build.f_cpu=40000000L
 openbci.build.core=pic32
 openbci.build.variant=OpenBCI
-openbci.build.board=PIC32_openbci
+openbci.build.board=BOARD_OPENBCI
 
 ############################################################
