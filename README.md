@@ -16,6 +16,7 @@ ant linux64-build
 ant raspberrypi-build
 
 ant dist //builds, compresses, prepares deployment for current OS
+ant dist-all //builds all distributions
 
 ant macosx-dist
 ant windows-dist

@@ -232,6 +232,28 @@
     </antcall>
   </target>
 
+  <target depends="increment" description="Create all the distribution zip files." name="dist-all">
+    <antcall target="raspberrypi-dist" >
+      <param name="localplatform" value="arm"/>
+    </antcall>
+
+    <antcall target="macosx-dist" >
+      <param name="localplatform" value="macosx"/>
+    </antcall>
+
+    <antcall target="linux32-dist" >
+      <param name="localplatform" value="linux32"/>
+    </antcall>
+
+    <antcall target="linux64-dist" >
+      <param name="localplatform" value="linux64"/>
+    </antcall>
+
+    <antcall target="windows-dist" >
+      <param name="localplatform" value="windows"/>
+    </antcall>
+  </target>
+
   <target description="update the submodules pic32prog" name="updatepic32prog">
 <!-- unreliable solution but should work
     <exec executable="git">
