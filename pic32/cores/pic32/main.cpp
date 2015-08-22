@@ -43,7 +43,7 @@
 	#include <WProgram.h>
 #endif
 
-#if !define(__PIC32MZXX__)
+#if !defined(__PIC32MZXX__)
 extern "C" {
 extern void __use_isr_install(void);
 __attribute__((section(".comment"))) void (*__use_force_isr_install)(void) = &__use_isr_install;
