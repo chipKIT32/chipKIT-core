@@ -275,12 +275,17 @@
   </target>
 
   <target depends="git.revision" description="Compress the distribution for deployment." name="compress">
-    <zip destfile="dist/${localplatform}/chipkit-core-${platform}.${CHIPKITCOREVER}.${repository.version}.zip">
+    <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
   </target>
 
   <target depends="" description="Clean build" name="clean">
+    <echo message="Cleaning Platform: except for the compiler"/>
+    <delete dir="dist/"/>
+  </target>
+
+  <target depends="" description="Clean ALL build" name="clean-all">
     <echo message="Cleaning Platform: ALL"/>
     <delete dir="./tmp/" failonerror="false"/>
     <delete dir="dist/"/>
