@@ -428,6 +428,7 @@ cmod.build.mcu=32MX150F128D
 cmod.build.f_cpu=40000000L
 cmod.build.core=pic32
 cmod.build.variant=Cmod
+cmod.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################
