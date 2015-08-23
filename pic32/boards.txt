@@ -1237,8 +1237,8 @@ chipkit_WiFire_80MHz.group=chipKIT
 
 # new items
 chipkit_WiFire_80MHz.platform=pic32
-chipkit_WiFire_80MHz.board=_BOARD_WIFIRE_
-chipkit_WiFire_80MHz.build.board=BOARD_WIFIRE_
+chipkit_WiFire_80MHz.board=_BOARD_WIFIRE_80MHZ
+chipkit_WiFire_80MHz.build.board=BOARD_WIFIRE_80MHZ_
 chipkit_WiFire_80MHz.board.define=
 chipkit_WiFire_80MHz.ccflags=ffff
 chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
