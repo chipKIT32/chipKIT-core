@@ -63,7 +63,7 @@ size_t Client::write(uint8_t b) {
 }
 
 size_t Client::write(const char *str) {
-  if (_sock != MAX_SOCK_NUM)
+  if (_sock != MAX_SOCK_NUM) {
     size_t s = strlen(str);
     send(_sock, (const uint8_t *)str, s);
     return s;
