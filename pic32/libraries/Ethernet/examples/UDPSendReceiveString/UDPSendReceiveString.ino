@@ -25,14 +25,14 @@ byte mac[] = {
 byte ip[] = { 
   192,168,1,177 };
 
-unsigned int localPort = 8888;      // local port to listen on
+uint16_t localPort = 8888;      // local port to listen on
 
 // the next two variables are set when a packet is received
 byte remoteIp[4];        // holds received packet's originating IP
-unsigned int remotePort; // holds received packet's originating port
+uint16_t remotePort; // holds received packet's originating port
 
 // buffers for receiving and sending data
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to hold incoming packet,
+char  packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to hold incoming packet,
 char  ReplyBuffer[] = "acknowledged";       // a string to send back
 
 // A UDP instance to let us send and receive packets over UDP
@@ -56,7 +56,7 @@ void loop() {
     Serial.println(packetSize);
 
     // read the packet into packetBufffer and get the senders IP addr and port number
-    Udp.readPacket(packetBuffer,UDP_TX_PACKET_MAX_SIZE, remoteIp, remotePort);
+    Udp.readPacket((uint8_t *)packetBuffer,UDP_TX_PACKET_MAX_SIZE, remoteIp, &remotePort);
     Serial.println("Contents:");
     Serial.println(packetBuffer);
 
