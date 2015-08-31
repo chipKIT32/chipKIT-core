@@ -28,7 +28,7 @@ SPIClass::SPIClass(uint32_t base, int pinMI, int pinMO, ppsFunctionType ppsMI, p
     ppsMOSI = ppsMO;
 }
 #else
-SPIClass::SPIClass(uint33_t base) {
+SPIClass::SPIClass(uint32_t base) {
     pspi = (p32_spi *)base;
 }
 #endif

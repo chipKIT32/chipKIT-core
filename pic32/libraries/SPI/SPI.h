@@ -198,7 +198,7 @@ public:
         return pspi->sxBuf.reg;
     }
     inline uint16_t transfer16(uint16_t data) {
-        pspi->sxCon.set = _SPICON_MODE16;
+        pspi->sxCon.set = 1 << _SPICON_MODE16;
 
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPITBE)) == 0) {
         }
@@ -208,7 +208,7 @@ public:
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPIRBF)) == 0) {
         }
 
-        pspi->sxCon.clr = _SPICON_MODE16;
+        pspi->sxCon.clr = 1 << _SPICON_MODE16;
         return pspi->sxBuf.reg;
     }
     inline void transfer(void *buf, size_t count) {
