@@ -1,22 +1,22 @@
-#include "w5100.h"
-#include "socket.h"
+#include "utility/w5100.h"
+#include "utility/socket.h"
 extern "C" {
 #include "string.h"
 }
 
 #include "Ethernet.h"
-#include "Client.h"
-#include "Server.h"
+#include "EthernetClient.h"
+#include "EthernetServer.h"
 
-Server::Server(uint16_t port)
+EthernetServer::EthernetServer(uint16_t port)
 {
   _port = port;
 }
 
-void Server::begin()
+void EthernetServer::begin()
 {
   for (int sock = 0; sock < MAX_SOCK_NUM; sock++) {
-    Client client(sock);
+    EthernetClient client(sock);
     if (client.status() == SnSR::CLOSED) {
       socket(sock, SnMR::TCP, _port, 0);
       listen(sock);
@@ -26,12 +26,12 @@ void Server::begin()
   }  
 }
 
-void Server::accept()
+void EthernetServer::accept()
 {
   int listening = 0;
 
   for (int sock = 0; sock < MAX_SOCK_NUM; sock++) {
-    Client client(sock);
+    EthernetClient client(sock);
 
     if (EthernetClass::_server_port[sock] == _port) {
       if (client.status() == SnSR::LISTEN) {
@@ -48,12 +48,12 @@ void Server::accept()
   }
 }
 
-Client Server::available()
+EthernetClient EthernetServer::available()
 {
   accept();
 
   for (int sock = 0; sock < MAX_SOCK_NUM; sock++) {
-    Client client(sock);
+    EthernetClient client(sock);
     if (EthernetClass::_server_port[sock] == _port &&
         (client.status() == SnSR::ESTABLISHED ||
          client.status() == SnSR::CLOSE_WAIT)) {
@@ -64,32 +64,28 @@ Client Server::available()
     }
   }
 
-  return Client(MAX_SOCK_NUM);
+  return EthernetClient(MAX_SOCK_NUM);
 }
 
-size_t Server::write(uint8_t b) 
+size_t EthernetServer::write(uint8_t b) 
 {
-    write(&b, 1);
-    return 1;
+  return write(&b, 1);
 }
 
-size_t Server::write(const char *str) 
+size_t EthernetServer::write(const uint8_t *buffer, size_t size) 
 {
-  write((const uint8_t *)str, strlen(str));
-    return strlen(str);
-}
-
-size_t Server::write(const uint8_t *buffer, size_t size) 
-{
+  size_t n = 0;
+  
   accept();
 
   for (int sock = 0; sock < MAX_SOCK_NUM; sock++) {
-    Client client(sock);
+    EthernetClient client(sock);
 
     if (EthernetClass::_server_port[sock] == _port &&
       client.status() == SnSR::ESTABLISHED) {
-      client.write(buffer, size);
+      n += client.write(buffer, size);
     }
   }
-    return size;
+  
+  return n;
 }
