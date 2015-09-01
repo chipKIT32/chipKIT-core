@@ -129,7 +129,6 @@ private:
                 con |= ((1 << _SPICON_CKP) | (0 << _SPICON_CKE));
                 break;
         }
-        con |= (1 << _SPICON_ON);
     }
     uint8_t brg;
     uint8_t con;
@@ -181,8 +180,10 @@ public:
 
         inTransactionFlag = 1;
 #endif
+        pspi->sxCon.clr = (1 << _SPICON_ON);
         pspi->sxBrg.reg = settings.brg;
         pspi->sxCon.reg = settings.con;
+        pspi->sxCon.set = (1 << _SPICON_ON);
     }
 
     // Write to the SPI bus (MOSI pin) and also receive (MISO pin)
