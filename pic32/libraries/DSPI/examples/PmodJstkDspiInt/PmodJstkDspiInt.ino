@@ -121,12 +121,9 @@ int  fUpdate = false;
 **    Initialize the system.
 */
 
-void
-setup() {
-
+void setup() {
     DeviceInit();
     AppInit();
-    
 }
 
 /* ------------------------------------------------------------ */
@@ -147,9 +144,7 @@ setup() {
 
 void
 loop() {
-    
-  AppTask();
-  
+    AppTask();
 }
 
 /* ------------------------------------------------------------ */
@@ -168,34 +163,27 @@ loop() {
 **    Perform basic board/device level initialization.
 */
 
-void
-DeviceInit()
-{
-
-  /* Set the LED pins to be outputs. Some boards support more
-  ** than two LEDs. On those boards, also blink the additional
-  ** LEDs.
-  */
-  pinMode(PIN_LED1, OUTPUT);
-  pinMode(PIN_LED2, OUTPUT);
-  
-  #if defined(PIN_LED3)
-  pinMode(PIN_LED3, OUTPUT);
-  #endif
-  
-  #if defined(PIN_LED4)
-  pinMode(PIN_LED4, OUTPUT);
-  #endif
-
-  /* Initialize the SPI port.
-  ** Setting the SPI clock speed to 250khz will satisfy the 
-  ** PmodJSTK requirement of having at least 6us of delay between
-  ** bytes sent.
-  */
-  spi.begin();
-  spi.setSpeed(250000);
-  spi.enableInterruptTransfer();
-  
+void DeviceInit() {
+    /* Set the LED pins to be outputs. Some boards support more
+    ** than two LEDs. On those boards, also blink the additional
+    ** LEDs.
+    */
+    pinMode(PIN_LED1, OUTPUT);
+    pinMode(PIN_LED2, OUTPUT);
+#if defined(PIN_LED3)
+    pinMode(PIN_LED3, OUTPUT);
+#endif
+#if defined(PIN_LED4)
+    pinMode(PIN_LED4, OUTPUT);
+#endif
+    /* Initialize the SPI port.
+    ** Setting the SPI clock speed to 250khz will satisfy the
+    ** PmodJSTK requirement of having at least 6us of delay between
+    ** bytes sent.
+    */
+    spi.begin();
+    spi.setSpeed(250000);
+    spi.enableInterruptTransfer();
 }
 
 /* ------------------------------------------------------------ */
@@ -215,23 +203,18 @@ DeviceInit()
 **    init functions to initalize the application subsystems.
 */
 
-void
-AppInit()
-  {
-
-  /* Init program state variables.
-  */
-  cntBtnBlink = cntBlinkInit;
-  fbLedPmod = 0x01;
-  fbBtnPmod = 0;
-  xcoPmod = 0;
-  ycoPmod = 0;
-
-  /* Start with LED3 on and LED4 off
-  */
-  fLed3 = HIGH;
-  fLed4 = LOW;
-  
+void AppInit() {
+    /* Init program state variables.
+    */
+    cntBtnBlink = cntBlinkInit;
+    fbLedPmod = 0x01;
+    fbBtnPmod = 0;
+    xcoPmod = 0;
+    ycoPmod = 0;
+    /* Start with LED3 on and LED4 off
+    */
+    fLed3 = HIGH;
+    fLed4 = LOW;
 }
 
 /* ------------------------------------------------------------ */
@@ -251,64 +234,56 @@ AppInit()
 **    each time through the main program loop.
 */
 
-void
-AppTask()
-  {
-  unsigned int	dwBtn;
-
-  /* Check the state of button 1 and set LED 1 accordingly
-  */
-  dwBtn = fbBtnPmod & 0x01;
-  if (dwBtn == 0) {
-    digitalWrite(PIN_LED1, LOW);
-  }
-  else {
-    digitalWrite(PIN_LED1, HIGH);
-  }
-
-  /* Check the state of button 2 and set LED 2 accordingly
-  */
-  dwBtn = fbBtnPmod & 0x02;
-  if (dwBtn == 0) {
-    digitalWrite(PIN_LED2, LOW);
-  }
-  else {
-    digitalWrite(PIN_LED2, HIGH);
-  }
-
-  /* Check if it is time to blink LED3 & LED4
-  */
-  cntBtnBlink -= 1;
-  if (cntBtnBlink == 0) {
-    
-  #if defined(PIN_LED3)
-    digitalWrite(PIN_LED3, fLed3);
-    fLed3 = (fLed3 == HIGH) ? LOW : HIGH;
-  #endif
-  
-  #if defined(PIN_LED4)
-    digitalWrite(PIN_LED4, fLed4);
-    fLed4 = (fLed4 == HIGH) ? LOW : HIGH;
-  #endif
-
-    /* Toggle the state for the LEDs on the Pmod.
+void AppTask() {
+    unsigned int	dwBtn;
+    /* Check the state of button 1 and set LED 1 accordingly
     */
-    fbLedPmod ^= 0x03;
-    
-    /* Start the transaction to update the joystick state.
-    */
-    UpdateJoystick(fbLedPmod);
+    dwBtn = fbBtnPmod & 0x01;
 
-    cntBtnBlink = cntBlinkInit;
-  }
-  
-  /* Check if the transaction with the PmodJSTK has completed
-  ** and update the local state if so.
-  */
-  if (fUpdate) {
-    CompleteTransaction(&fbBtnPmod, &xcoPmod, &ycoPmod);
-  }
-    
+    if (dwBtn == 0) {
+        digitalWrite(PIN_LED1, LOW);
+    } else {
+        digitalWrite(PIN_LED1, HIGH);
+    }
+
+    /* Check the state of button 2 and set LED 2 accordingly
+    */
+    dwBtn = fbBtnPmod & 0x02;
+
+    if (dwBtn == 0) {
+        digitalWrite(PIN_LED2, LOW);
+    } else {
+        digitalWrite(PIN_LED2, HIGH);
+    }
+
+    /* Check if it is time to blink LED3 & LED4
+    */
+    cntBtnBlink -= 1;
+
+    if (cntBtnBlink == 0) {
+#if defined(PIN_LED3)
+        digitalWrite(PIN_LED3, fLed3);
+        fLed3 = (fLed3 == HIGH) ? LOW : HIGH;
+#endif
+#if defined(PIN_LED4)
+        digitalWrite(PIN_LED4, fLed4);
+        fLed4 = (fLed4 == HIGH) ? LOW : HIGH;
+#endif
+        /* Toggle the state for the LEDs on the Pmod.
+        */
+        fbLedPmod ^= 0x03;
+        /* Start the transaction to update the joystick state.
+        */
+        UpdateJoystick(fbLedPmod);
+        cntBtnBlink = cntBlinkInit;
+    }
+
+    /* Check if the transaction with the PmodJSTK has completed
+    ** and update the local state if so.
+    */
+    if (fUpdate) {
+        CompleteTransaction(&fbBtnPmod, &xcoPmod, &ycoPmod);
+    }
 }
 
 /* ------------------------------------------------------------ */
@@ -328,38 +303,30 @@ AppTask()
 **    state. This formats a command packet and begins the transmission
 **    of the packet to the PmodJSTK.
 */
-void
-UpdateJoystick(uint8_t fbLed)
-  {
-
-  /* Init the transmit buffer. This data gets sent to the PmodJSTK
-  */
-  rgbSnd[0] = fbLedPmod + 0x80;
-  rgbSnd[1] = 1;
-  rgbSnd[2] = 2;
-  rgbSnd[3] = 3;
-  rgbSnd[4] = 4;
-  
-  /* Bring SS low. This begins all SPI transfer operations
-  */
-  spi.setSelect(LOW);
-
-  /* Wait 10us for Pmod to become ready. This is a requirement
-  ** of the PmodJSTK as we have to make sure that the microcontroller
-  ** on the board has had time to respond to the SS line coming
-  ** low.
-  */
-  Delay10us();
-
-  /* Shift the data in/out of the Pmod
-  */
-  spi.intTransfer(5, rgbSnd, rgbRcv);
-  
-  /* Set the global state variable to indicate that a transaction
-  ** is in progress.
-  */
-  fUpdate = true;
-  
+void UpdateJoystick(uint8_t fbLed) {
+    /* Init the transmit buffer. This data gets sent to the PmodJSTK
+    */
+    rgbSnd[0] = fbLedPmod + 0x80;
+    rgbSnd[1] = 1;
+    rgbSnd[2] = 2;
+    rgbSnd[3] = 3;
+    rgbSnd[4] = 4;
+    /* Bring SS low. This begins all SPI transfer operations
+    */
+    spi.setSelect(LOW);
+    /* Wait 10us for Pmod to become ready. This is a requirement
+    ** of the PmodJSTK as we have to make sure that the microcontroller
+    ** on the board has had time to respond to the SS line coming
+    ** low.
+    */
+    Delay10us();
+    /* Shift the data in/out of the Pmod
+    */
+    spi.intTransfer(5, rgbSnd, rgbRcv);
+    /* Set the global state variable to indicate that a transaction
+    ** is in progress.
+    */
+    fUpdate = true;
 }
 
 /* ------------------------------------------------------------ */
@@ -382,32 +349,27 @@ UpdateJoystick(uint8_t fbLed)
 **    been sent/received to/from the PmodJSTK and the result
 **    is in the global array rgbRcv.
 */
-void
-CompleteTransaction(uint8_t * pfbBtn, int * pxco, int * pyco)
-  {
-  int		ib;
+void CompleteTransaction(uint8_t * pfbBtn, int * pxco, int * pyco) {
+    int		ib;
 
-  if (spi.transCount() > 0) {
-    /* The transaction with the PmodJSTK hasn't completed yet.
+    if (spi.transCount() > 0) {
+        /* The transaction with the PmodJSTK hasn't completed yet.
+        */
+        return;
+    }
+
+    /* Bring SS high. This ends the SPI data transfer operation.
     */
-    return;
-  }
-  
-  /* Bring SS high. This ends the SPI data transfer operation.
-  */
-  spi.setSelect(HIGH);
-
-  /* Set up the return values with data received from the PmodJSTK.
-  ** The array rgbRcv contains the data that was received.
-  */
-  *pfbBtn = rgbRcv[4] >> 1;    //get the bits for the two push buttons
-  *pxco = (uint16_t)((rgbRcv[1] << 8) + rgbRcv[0]);
-  *pyco = (uint16_t)((rgbRcv[3] << 8) + rgbRcv[2]);
-  
-  /* Reset the global state variable.
-  */
-  fUpdate = false;
-
+    spi.setSelect(HIGH);
+    /* Set up the return values with data received from the PmodJSTK.
+    ** The array rgbRcv contains the data that was received.
+    */
+    *pfbBtn = rgbRcv[4] >> 1;    //get the bits for the two push buttons
+    *pxco = (uint16_t)((rgbRcv[1] << 8) + rgbRcv[0]);
+    *pyco = (uint16_t)((rgbRcv[3] << 8) + rgbRcv[2]);
+    /* Reset the global state variable.
+    */
+    fUpdate = false;
 }
 
 /* ------------------------------------------------------------ */
@@ -426,14 +388,11 @@ CompleteTransaction(uint8_t * pfbBtn, int * pxco, int * pyco)
 **    Delay loop for ~10uS
 */
 
-void
-Delay10us()
-  {
-  volatile int		cnt;
+void Delay10us() {
+    volatile int		cnt;
 
-  for (cnt = 0; cnt < 100; cnt++) {
-  }
-
+    for (cnt = 0; cnt < 100; cnt++) {
+    }
 }
 
 /* ------------------------------------------------------------ */
