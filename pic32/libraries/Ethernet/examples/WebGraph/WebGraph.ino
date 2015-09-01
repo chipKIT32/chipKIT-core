@@ -29,7 +29,7 @@
  */
 
 /*  This small demo illustrates how you can build up graphics using
- *  SVG which is basically an XML file.   The analog inputs 0-5 are
+ *  SVG which is basically an XML file.  The analog inputs 0-5 are
  *  periodically read and stored in an array of historical readings.
  *  A web request to the root page ("/") then includes images pointing
  *  to 6 SVG urls (/graph*.svg) which then produce live graphical
