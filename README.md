@@ -1,7 +1,7 @@
 # chipkit-core
 Downloadable chipKIT core for use with Arduino 1.6x IDE and UECIDE
 ## Build Requirements
-
+ 
 * [ANT](http://ant.apache.org/)
 
 ## Build Options
@@ -16,6 +16,7 @@ ant linux64-build
 ant raspberrypi-build
 
 ant dist //builds, compresses, prepares deployment for current OS
+ant dist-all //builds all distributions
 
 ant macosx-dist
 ant windows-dist
