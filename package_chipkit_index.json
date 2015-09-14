@@ -1,0 +1,145 @@
+ {
+   "packages": [{
+     "name": "chipKIT-core",
+     "maintainer": "chipKIT Community",
+     "websiteURL": "http://chipkit.net/",
+     "email": "packages@chipkit.net",
+     "help": {
+       "online": "http://chipkit.net/started/learn-basics/"
+     },
+     "platforms": [{
+       "name": "chipKIT",
+       "architecture": "pic32",
+       "version": "",
+       "category": "pic32",
+       "url": "asdf.zip",
+       "archiveFileName": "asdf.zip",
+       "checksum": "SHA-256:sdff",
+       "size": "000",
+       "help": {
+         "online": "http://chipkit.net/started/learn-basics/"
+       },
+       "boards": [{
+           "name": "CUI32stem"
+         }, {
+           "name": "Fubarino_SDZ"
+         }, {
+           "name": "Olimex_Pinguino32"
+         }, {
+           "name": "cerebot32mx4"
+         }, {
+           "name": "cerebot32mx7"
+         }, {
+           "name": "cerebot_mx3ck"
+         }, {
+           "name": "cerebot_mx3ck_512"
+         }, {
+           "name": "cerebot_mx4ck"
+         }, {
+           "name": "cerebot_mx7ck"
+         }, {
+           "name": "chipkit_DP32"
+         }, {
+           "name": "chipkit_Pi"
+         }, {
+           "name": "chipkit_Pi_USB_Serial"
+         }, {
+           "name": "chipkit_WF32"
+         }, {
+           "name": "chipkit_WiFire"
+         }, {
+           "name": "chipkit_WiFire_80MHz"
+         }, {
+           "name": "chipkit_mx3"
+         }, {
+           "name": "chipkit_pro_mx4"
+         }, {
+           "name": "chipkit_pro_mx7"
+         }, {
+           "name": "chipkit_uc32"
+         }, {
+           "name": "cmod"
+         }, {
+           "name": "cui32"
+         }, {
+           "name": "fubarino_mini"
+         }, {
+           "name": "fubarino_mini_dev"
+         }, {
+           "name": "fubarino_sd"
+         }, {
+           "name": "fubarino_sd_seeed"
+         }, {
+           "name": "mega_pic32"
+         }, {
+           "name": "mega_usb_pic32"
+         }, {
+           "name": "openbci"
+         }, {
+           "name": "picadillo_35t"
+         }, {
+           "name": "quick240_usb_pic32"
+         }, {
+           "name": "ubw32_mx460"
+         }, {
+           "name": "ubw32_mx795"
+         }, {
+           "name": "uc32_pmod"
+         }, {
+           "name": "uno_pic32"
+         }, {
+           "name": "uno_pmod"
+         }, {
+           "name": "usbono_pic32"
+         }
+
+       ],
+       "toolsDependecies": [{
+         "packager": "chipKIT",
+         "name": "pic32-gcc",
+         "version": "1.0.0"
+       },
+       {
+         "packager": "chipKIT",
+        "name": "pic32prog",
+        "version": "1.0.0"
+
+       }]
+     }],
+     "tools": [{
+       "name": "pic32-gcc",
+       "version": "4.5.2-pic32gcc",
+       "systems": [{
+         "host": "i386-apple-darwin11",
+         "url": "https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip",
+         "archiveFileName": "pic32-tools-Darwin-image-20140530.zip",
+         "size": "",
+         "checksum": ""
+       }, {
+         "host": "x86_64-linux-gnu",
+         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip",
+         "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
+         "size": "",
+         "checksum": ""
+       }, {
+         "host": "i686-linux-gnu",
+         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip",
+         "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
+         "size": "",
+         "checksum": ""
+       }, {
+         "host": "i686-mingw32",
+         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip",
+         "archiveFileName": "pic32-tools-win32-image-20140530.zip",
+         "size": "",
+         "checksum": ""
+       }, {
+         "host": "i686-arm-gnu",
+         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip",
+         "archiveFileName": "pic32-tools-arm-linux-image-20140530.zip",
+         "size": "",
+         "checksum": ""
+       }]
+     }]
+   }]
+ }
