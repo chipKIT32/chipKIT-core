@@ -10,10 +10,10 @@
      "platforms": [{
        "name": "chipKIT",
        "architecture": "pic32",
-       "version": "",
+       "version": "1.6.0",
        "category": "pic32",
-       "url": "asdf.zip",
-       "archiveFileName": "asdf.zip",
+       "url": "https://github.com/chipKIT32/chipKIT-core/archive/1.6.0.zip",
+       "archiveFileName": "1.6.0.zip",
        "checksum": "SHA-256:sdff",
        "size": "000",
        "help": {
@@ -97,7 +97,7 @@
        "toolsDependecies": [{
          "packager": "chipKIT",
          "name": "pic32-gcc",
-         "version": "1.0.0"
+         "version": "4.5.2-pic32gcc"
        },
        {
          "packager": "chipKIT",
