@@ -96,7 +96,7 @@
        ],
        "toolsDependecies": [{
          "packager": "chipKIT",
-         "name": "pic32-gcc",
+         "name": "pic32-tools",
          "version": "4.5.2-pic32gcc"
        }, {
          "packager": "chipKIT",
@@ -106,39 +106,76 @@
        }]
      }],
      "tools": [{
-       "name": "pic32-gcc",
+       "name": "pic32-tools",
        "version": "4.5.2-pic32gcc",
        "systems": [{
          "host": "i386-apple-darwin11",
          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Darwin-image-20140530.zip",
          "archiveFileName": "pic32-tools-Darwin-image-20140530.zip",
-         "size": "",
+         "size": "249488",
          "checksum": "SHA-512:9d506c72ec5154c0ddc36ca589d85e6b8d2d55c146d2ab17dc8c43cf1f6dd2add8857554bd5fa3b6bac581a57b020bceb2085d7de67399452993e174485f6727"
        }, {
          "host": "x86_64-linux-gnu",
          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
          "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
-         "size": "",
+         "size": "252104",
          "checksum": "SHA-512:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
        }, {
          "host": "i686-linux-gnu",
          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
          "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
-         "size": "",
+         "size": "252104",
          "checksum": "SHA-512:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
        }, {
          "host": "i686-mingw32",
          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-win32-image-20140530.zip",
          "archiveFileName": "pic32-tools-win32-image-20140530.zip",
-         "size": "",
+         "size": "251488",
          "checksum": "SHA-512:e11dc00847384ef10cb78b16e30c2f99481797cb2ad684b489cd1224af26465f98081c1faea37f2b7d696ce6e0baa3d81c4389b6da74e644f1a799ece1137279"
        }, {
          "host": "i686-arm-gnu",
          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-arm-linux-image-20140530.zip",
          "archiveFileName": "pic32-tools-arm-linux-image-20140530.zip",
-         "size": "",
+         "size": "244888",
          "checksum": "SHA-512:51a04d6f1e22b14d60717f8d398b8684088c6cb30c2ca1266101a2531b50f9799729421148e167f9e5319b3f86ec39e59bd2886267ea7c04cef75093777e27c1"
        }]
+     },
+     {
+     "name": "pic32prog",
+     "version": "v1.0.01-pic32gcc",
+     "systems": [{
+       "host": "i386-apple-darwin11",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-macosx.zip",
+       "archiveFileName": "pic32prog-macosx.zip",
+       "size": "280",
+       "checksum": "SHA-512:59765a8d25cbd1f79ba9496a5983c5131fd7b05a8004eef8834ba66ba1ae82f27a6e30be394fd3a871312bbb34c8798ffdc8e9b5f6f8db3d83b017743c4cb73a"
+     }, {
+       "host": "x86_64-linux-gnu",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linux64.zip",
+       "archiveFileName": "pic32prog-linux64.zip",
+       "size": "200",
+       "checksum": "SHA-512:597188cebcb9a27acb95de12f287570ec8e16beebbc0c622045ea868aca86e853d7f284f0b8853af7a9c6201e010a8176f025574e43ef982104704f207537b8e"
+     }, {
+       "host": "i686-linux-gnu",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linux32.zip",
+       "archiveFileName": "pic32prog-linux32.zip",
+       "size": "216",
+       "checksum": "SHA-512:ab8774049997aef057a5ce0ec8cc72f08adbfc4d9b491c09b68829002a267270f57952ac96bc1438931051fdba127ac2d88c32a830a4331fbbbd4569c3791fce"
+     }, {
+       "host": "i686-mingw32",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-windows.zip",
+       "archiveFileName": "pic32prog-windows.zip",
+       "size": "104",
+       "checksum": "SHA-512:0b727de05d8b68106157077c249ce79014398aea9efad34694a8a1e37ebf2c802f160082440c4f14e6364783251cefe6593e18ec6f6ba60937750ff4855de48a"
+     }, {
+       "host": "i686-arm-gnu",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linuxarmhf.zip",
+       "archiveFileName": "pic32prog-linuxarmhf.zip",
+       "size": "240",
+       "checksum": "SHA-512:75b39dab688fc3e030390ed1f131227e3e0ea0393c1e0e2348aa8f363eb9eea5db7010c87b51a454b35345c273e46021ab9b5f885fca9cf71df10631168f8ab5"
      }]
+   }
+
+   ]
    }]
  }
