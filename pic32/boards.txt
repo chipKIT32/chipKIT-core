@@ -1263,7 +1263,7 @@ chipkit_WiFire_80MHz.build.f_cpu=80000000UL
 chipkit_WiFire_80MHz.build.core=pic32
 chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire_80MHz.build.variant=WiFire
-chipkit_WiFire_80Mhz.build.ldscript.path={build.variant.path}
+chipkit_WiFire_80MHz.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################
