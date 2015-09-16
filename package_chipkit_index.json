@@ -12,8 +12,8 @@
        "architecture": "pic32",
        "version": "1.6.0",
        "category": "pic32",
-       "url": "https://github.com/chipKIT32/chipKIT-core/archive/1.6.0.zip",
-       "archiveFileName": "1.6.0.zip",
+       "url": "https://github.com/chipKIT32/chipKIT-core/archive/v1.0.0.zip",
+       "archiveFileName": "v1.0.0.zip",
        "checksum": "SHA-512:sdff",
        "size": "000",
        "help": {

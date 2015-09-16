@@ -82,9 +82,14 @@
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
       <fileset dir="modules/pic32prog/${localplatform}"/>
     </copy>
+
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
 
     <get dest="tmp" src="https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip" usetimestamp="true" verbose="false"/>
     <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Darwin-image-20140530.zip"/>
@@ -117,6 +122,10 @@
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+    <echo message="${localplatform}" />
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
 
   </target>
 
@@ -141,6 +150,10 @@
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="linuxarmhf"/>
+    </antcall>
 
   </target>
 
@@ -168,6 +181,10 @@
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
 
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+
   </target>
 
   <target depends="setup" description="Build windows version" name="windows-build">
@@ -193,6 +210,9 @@
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+    <antcall target="checksum-pic32prog-win">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
   </target>
 
   <target depends="arm-build" description="Make dist raspberrypi/arm version" name="arm-dist">
@@ -281,6 +301,18 @@
         <include name="pic32-tools*.zip"/>
       </fileset>
     </checksum>
+  </target>
+
+  <target name="checksum-pic32prog">
+    <zip basedir="modules/pic32prog/${localplatform}" destfile="tmp/pic32prog-${localplatform}.zip"/>
+    <checksum algorithm="SHA-512" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
+  </target>
+
+  <target name="checksum-pic32prog-win" >
+    <zip destfile="tmp/pic32prog-${localplatform}.zip" >
+      <zipfileset dir="modules/pic32prog" includes="pic32prog.exe" />
+    </zip>
+    <checksum algorithm="SHA-512" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
 
   <target depends="git.revision" description="Compress the distribution for deployment." name="compress">
