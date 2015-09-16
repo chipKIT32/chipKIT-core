@@ -14,7 +14,7 @@
        "category": "pic32",
        "url": "https://github.com/chipKIT32/chipKIT-core/archive/1.6.0.zip",
        "archiveFileName": "1.6.0.zip",
-       "checksum": "SHA-256:sdff",
+       "checksum": "SHA-512:sdff",
        "size": "000",
        "help": {
          "online": "http://chipkit.net/started/learn-basics/"
@@ -98,11 +98,10 @@
          "packager": "chipKIT",
          "name": "pic32-gcc",
          "version": "4.5.2-pic32gcc"
-       },
-       {
+       }, {
          "packager": "chipKIT",
-        "name": "pic32prog",
-        "version": "1.0.0"
+         "name": "pic32prog",
+         "version": "1.0.0"
 
        }]
      }],
@@ -111,34 +110,34 @@
        "version": "4.5.2-pic32gcc",
        "systems": [{
          "host": "i386-apple-darwin11",
-         "url": "https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip",
+         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Darwin-image-20140530.zip",
          "archiveFileName": "pic32-tools-Darwin-image-20140530.zip",
          "size": "",
-         "checksum": ""
+         "checksum": "SHA-512:9d506c72ec5154c0ddc36ca589d85e6b8d2d55c146d2ab17dc8c43cf1f6dd2add8857554bd5fa3b6bac581a57b020bceb2085d7de67399452993e174485f6727"
        }, {
          "host": "x86_64-linux-gnu",
-         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip",
+         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
          "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
          "size": "",
-         "checksum": ""
+         "checksum": "SHA-512:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
        }, {
          "host": "i686-linux-gnu",
-         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip",
+         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
          "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
          "size": "",
-         "checksum": ""
+         "checksum": "SHA-512:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
        }, {
          "host": "i686-mingw32",
-         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip",
+         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-win32-image-20140530.zip",
          "archiveFileName": "pic32-tools-win32-image-20140530.zip",
          "size": "",
-         "checksum": ""
+         "checksum": "SHA-512:e11dc00847384ef10cb78b16e30c2f99481797cb2ad684b489cd1224af26465f98081c1faea37f2b7d696ce6e0baa3d81c4389b6da74e644f1a799ece1137279"
        }, {
          "host": "i686-arm-gnu",
-         "url": "https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip",
+         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-arm-linux-image-20140530.zip",
          "archiveFileName": "pic32-tools-arm-linux-image-20140530.zip",
          "size": "",
-         "checksum": ""
+         "checksum": "SHA-512:51a04d6f1e22b14d60717f8d398b8684088c6cb30c2ca1266101a2531b50f9799729421148e167f9e5319b3f86ec39e59bd2886267ea7c04cef75093777e27c1"
        }]
      }]
    }]
