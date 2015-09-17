@@ -296,7 +296,7 @@
   </target>
 
   <target name="checksum-pic32tools">
-    <checksum algorithm="SHA-512" fileext=".asc" forceOverwrite="yes">
+    <checksum algorithm="SHA-256" fileext=".asc" forceOverwrite="yes">
       <fileset dir="tmp">
         <include name="pic32-tools*.zip"/>
       </fileset>
@@ -305,21 +305,21 @@
 
   <target name="checksum-pic32prog">
     <zip basedir="modules/pic32prog/${localplatform}" destfile="tmp/pic32prog-${localplatform}.zip"/>
-    <checksum algorithm="SHA-512" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
+    <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
 
   <target name="checksum-pic32prog-win" >
     <zip destfile="tmp/pic32prog-${localplatform}.zip" >
       <zipfileset dir="modules/pic32prog" includes="pic32prog.exe" />
     </zip>
-    <checksum algorithm="SHA-512" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
+    <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
 
   <target depends="git.revision" description="Compress the distribution for deployment." name="compress">
     <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
-    <checksum algorithm="SHA-512" file="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+    <checksum algorithm="SHA-256" file="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 
   <target depends="" description="Clean build" name="clean">
@@ -346,6 +346,13 @@
         <length length="0" string="${git.revision}" trim="yes" when="greater"/>
       </and>
     </condition>
+  </target>
+
+  <target name="github-release" depends="setup,git.revision">
+    <!-- get the chipKIT core release -->
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/archive/v1.0.0.zip" usetimestamp="true" verbose="false"/>
+    <move file="tmp/v1.0.0.zip" toFile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" />
+    <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 
 <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
