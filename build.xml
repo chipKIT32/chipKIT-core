@@ -315,7 +315,7 @@
     <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
 
-  <target depends="git.revision" description="Compress the distribution for deployment." name="compress">
+  <target name="compress" depends="git.revision" description="Compress the distribution for deployment." >
     <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
@@ -350,8 +350,9 @@
 
   <target name="github-release" depends="setup,git.revision">
     <!-- get the chipKIT core release -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/archive/v1.0.0.zip" usetimestamp="true" verbose="false"/>
-    <move file="tmp/v1.0.0.zip" toFile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" />
+    <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip">
+      <zipfileset dir="pic32" filemode="755"/>
+    </zip>
     <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 

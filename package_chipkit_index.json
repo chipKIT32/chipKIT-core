@@ -10,10 +10,10 @@
      "platforms": [{
        "name": "chipKIT",
        "architecture": "pic32",
-       "version": "1.6.0",
+       "version": "v1.0.0",
        "category": "pic32",
-       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778036.v1.0.0-2-gd0f336e.zip",
-       "archiveFileName": "chipkit-core-16778036.v1.0.0-2-gd0f336e.zip",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
+       "archiveFileName": "chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
        "checksum": "SHA-256:93065aa68f3d6640429c04020f31a6686d32e7e05c9d5291ebde094feb1098f5",
        "size": "25664",
        "help": {
