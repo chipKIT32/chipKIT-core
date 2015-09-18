@@ -10,7 +10,7 @@
      "platforms": [{
        "name": "chipKIT",
        "architecture": "pic32",
-       "version": "v1.0.0",
+       "version": "1.0.0",
        "category": "pic32",
        "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
        "archiveFileName": "chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
