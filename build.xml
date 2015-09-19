@@ -350,9 +350,14 @@
 
   <target name="github-release" depends="setup,git.revision">
     <!-- get the chipKIT core release -->
+
     <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip">
-      <zipfileset dir="pic32" filemode="755"/>
+      <zipfileset dir="pic32" includes="**/*" prefix="pic32" filemode="755"/>
     </zip>
+
+<!--  <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip"
+       basedir="pic32" />
+     -->
     <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 

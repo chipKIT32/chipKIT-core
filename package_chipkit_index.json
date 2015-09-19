@@ -7,92 +7,56 @@
      "help": {
        "online": "http://chipkit.net/started/learn-basics/"
      },
-     "platforms": [{
+     "platforms": [
+       {
        "name": "chipKIT",
        "architecture": "pic32",
        "version": "1.0.0",
        "category": "pic32",
-       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
-       "archiveFileName": "chipkit-core-16778037.v1.0.0-6-gc8bf42e.zip",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
+       "archiveFileName": "chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
        "checksum": "SHA-256:8f2490b6e41586a1b32e37ea2d7e29289daaa0ef51f6f281de51eb8c3d02d7c9",
        "size": "25576",
        "help": {
          "online": "http://chipkit.net/started/learn-basics/"
        },
-       "boards": [{
-           "name": "CUI32stem"
-         }, {
-           "name": "Fubarino_SDZ"
-         }, {
-           "name": "Olimex_Pinguino32"
-         }, {
-           "name": "cerebot32mx4"
-         }, {
-           "name": "cerebot32mx7"
-         }, {
-           "name": "cerebot_mx3ck"
-         }, {
-           "name": "cerebot_mx3ck_512"
-         }, {
-           "name": "cerebot_mx4ck"
-         }, {
-           "name": "cerebot_mx7ck"
-         }, {
-           "name": "chipkit_DP32"
-         }, {
-           "name": "chipkit_Pi"
-         }, {
-           "name": "chipkit_Pi_USB_Serial"
-         }, {
-           "name": "chipkit_WF32"
-         }, {
-           "name": "chipkit_WiFire"
-         }, {
-           "name": "chipkit_WiFire_80MHz"
-         }, {
-           "name": "chipkit_mx3"
-         }, {
-           "name": "chipkit_pro_mx4"
-         }, {
-           "name": "chipkit_pro_mx7"
-         }, {
-           "name": "chipkit_uc32"
-         }, {
-           "name": "cmod"
-         }, {
-           "name": "cui32"
-         }, {
-           "name": "fubarino_mini"
-         }, {
-           "name": "fubarino_mini_dev"
-         }, {
-           "name": "fubarino_sd"
-         }, {
-           "name": "fubarino_sd_seeed"
-         }, {
-           "name": "mega_pic32"
-         }, {
-           "name": "mega_usb_pic32"
-         }, {
-           "name": "openbci"
-         }, {
-           "name": "picadillo_35t"
-         }, {
-           "name": "quick240_usb_pic32"
-         }, {
-           "name": "ubw32_mx460"
-         }, {
-           "name": "ubw32_mx795"
-         }, {
-           "name": "uc32_pmod"
-         }, {
-           "name": "uno_pic32"
-         }, {
-           "name": "uno_pmod"
-         }, {
-           "name": "usbono_pic32"
-         }
-
+       "boards": [
+         {"name": "CUI32stem"},
+         {"name": "Fubarino_SDZ"},
+         {"name": "Olimex_Pinguino32"},
+         {"name": "cerebot32mx4"},
+         {"name": "cerebot32mx7"},
+         {"name": "cerebot_mx3ck"},
+         {"name": "cerebot_mx3ck_512"},
+         {"name": "cerebot_mx4ck"},
+         {"name": "cerebot_mx7ck"},
+         {"name": "chipkit_DP32"},
+         {"name": "chipkit_Pi"},
+         {"name": "chipkit_Pi_USB_Serial"},
+         {"name": "chipkit_WF32"},
+         {"name": "chipkit_WiFire"},
+         {"name": "chipkit_WiFire_80MHz"},
+         {"name": "chipkit_mx3"},
+         {"name": "chipkit_pro_mx4"},
+         {"name": "chipkit_pro_mx7"},
+         {"name": "chipkit_uc32"},
+         {"name": "cmod"},
+         {"name": "cui32"},
+         {"name": "fubarino_mini"},
+         {"name": "fubarino_mini_dev"},
+         {"name": "fubarino_sd"},
+         {"name": "fubarino_sd_seeed"},
+         {"name": "mega_pic32"},
+         {"name": "mega_usb_pic32"},
+         {"name": "openbci"},
+         {"name": "picadillo_35t"},
+         {"name": "quick240_usb_pic32"},
+         {"name": "ubw32_mx460"},
+         {"name": "ubw32_mx795"},
+         {"name": "uc32_pmod"},
+         {"name": "uno_pic32"},
+         {"name": "uno_pmod"},
+         {"name": "usbono_pic32"}
        ],
        "toolsDependecies": [{
          "packager": "chipKIT",
@@ -102,7 +66,6 @@
          "packager": "chipKIT",
          "name": "pic32prog",
          "version": "1.0.0"
-
        }]
      }],
      "tools": [{
