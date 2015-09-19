@@ -15,8 +15,8 @@
        "category": "pic32",
        "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
        "archiveFileName": "chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
-       "checksum": "SHA-256:8f2490b6e41586a1b32e37ea2d7e29289daaa0ef51f6f281de51eb8c3d02d7c9",
-       "size": "25576",
+       "checksum": "SHA-256:090f430039f5c95d4033aa39e755ed22a07bebcfd3536d25918ed952944f59f3",
+       "size": "25592",
        "help": {
          "online": "http://chipkit.net/started/learn-basics/"
        },
