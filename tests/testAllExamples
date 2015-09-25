@@ -1,0 +1,194 @@
+#!/bin/bash
+
+#########
+# chipKIT Core example compilation test script
+#
+# Adjust this entry to suit:
+COMPILER=~/.uecide/compilers/pic32-tools/bin/pic32-
+
+CORE=../../pic32/cores/pic32
+
+BF_uno_pic32=../../pic32/variants/Uno32/boards.txt
+BF_mega_pic32=../../pic32/variants/Max32/boards.txt
+BF_chipkit_WF32=../../pic32/variants/WF32/boards.txt
+BF_chipkit_WiFire=../../pic32/variants/WiFire/boards.txt
+
+ALLBOARDS=uno_pic32,mega_pic32,chipkit_WF32,chipkit_WiFire
+ETHERNET=mega_pic32
+WIFI=chipkit_WF32,chipkit_WiFire
+
+function sketchFailed {
+    echo
+    echo
+    echo "******************************************"
+    echo "$2 failed to build on $1"
+    echo "******************************************"
+    exit 10
+}
+
+function testExample {
+    BOARD=$1
+
+    BOARDLIST=${BOARD//,/ }
+    LIB=$2
+    EXAMPLE=$3
+    LIBRARIES=${@:4}
+
+
+    for BOARD in ${BOARDLIST}; do
+        BF=BF_${BOARD}
+        eval BOARDS=\$${BF}
+        SOURCE=../../pic32/libraries/${LIB}/examples/${EXAMPLE}/${EXAMPLE}.ino
+
+
+        COLUMNS=`tput cols`
+        COLS=`expr ${COLUMNS} - 6`
+
+        printf "%-${COLS}s" "Testing $EXAMPLE from $LIB on $BOARD ... "
+
+        rm -rf build
+        mkdir build
+        (
+            cd build
+            make -s -f ../Makefile CORE="${CORE}" COMPILER="${COMPILER}" BOARDS="${BOARDS}" BOARD="${BOARD}" SKETCH="${SOURCE}" LIBRARIES="${LIBRARIES}" 
+            if [ $? != 0 ]; then
+                echo "[[31mFAIL[0m]"
+                sketchFailed $BOARD $EXAMPLE
+                exit 10
+            fi
+        ) || exit 10
+        rm -rf build
+        echo "[[32mPASS[0m]"
+    done
+}
+
+# SD library
+testExample ${ALLBOARDS} SD ReadWrite ../../pic32/libraries/SD    
+testExample ${ALLBOARDS} SD Files ../../pic32/libraries/SD    
+testExample ${ALLBOARDS} SD Datalogger ../../pic32/libraries/SD   
+testExample ${ALLBOARDS} SD DumpFile ../../pic32/libraries/SD 
+testExample ${ALLBOARDS} SD CardInfo ../../pic32/libraries/SD 
+
+# Servo library
+testExample ${ALLBOARDS} Servo Sweep  ../../pic32/libraries/Servo 
+testExample ${ALLBOARDS} Servo Knob ../../pic32/libraries/Servo   
+
+# SoftwareSerial library
+#            - DOES NOT COMPILE AT THE MOMENT
+#testExample ${ALLBOARDS} SoftwareSerial SoftwareSerialMultiByteTest ../../pic32/libraries/SoftwareSerial  
+#testExample ${ALLBOARDS} SoftwareSerial SoftwareSerialSimpleTest ../../pic32/libraries/SoftwareSerial 
+#testExample ${ALLBOARDS} SoftwareSerial SoftwareSerialExampleTest ../../pic32/libraries/SoftwareSerial    
+
+# EEPROM library
+
+testExample ${ALLBOARDS} EEPROM eeprom_clear ../../pic32/libraries/EEPROM 
+testExample ${ALLBOARDS} EEPROM eeprom_read ../../pic32/libraries/EEPROM  
+testExample ${ALLBOARDS} EEPROM eeprom_write ../../pic32/libraries/EEPROM 
+
+# Firmata library
+
+testExample ${ALLBOARDS} Firmata StandardFirmata ../../pic32/libraries/Firmata ../../pic32/libraries/Servo ../../pic32/libraries/Wire  
+testExample ${ALLBOARDS} Firmata AllInputsFirmata ../../pic32/libraries/Firmata ../../pic32/libraries/Servo    
+testExample ${ALLBOARDS} Firmata AnalogFirmata ../../pic32/libraries/Firmata ../../pic32/libraries/Servo   
+testExample ${ALLBOARDS} Firmata StandardFirmataYun ../../pic32/libraries/Firmata ../../pic32/libraries/Servo ../../pic32/libraries/Wire   
+# This one always fails due to AVR register access
+# testExample ${ALLBOARDS} Firmata OldStandardFirmata ../../pic32/libraries/Firmata ../../pic32/libraries/Servo ../../pic32/libraries/EEPROM   
+testExample ${ALLBOARDS} Firmata StandardFirmataEthernet ../../pic32/libraries/Firmata ../../pic32/libraries/SPI ../../pic32/libraries/Ethernet ../../pic32/libraries/Servo ../../pic32/libraries/Wire 
+testExample ${ALLBOARDS} Firmata StandardFirmataChipKIT ../../pic32/libraries/Firmata ../../pic32/libraries/SoftPWMServo ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Firmata SimpleDigitalFirmata ../../pic32/libraries/Firmata    
+testExample ${ALLBOARDS} Firmata ServoFirmata ../../pic32/libraries/Firmata ../../pic32/libraries/Servo
+testExample ${ALLBOARDS} Firmata EchoString ../../pic32/libraries/Firmata  
+testExample ${ALLBOARDS} Firmata SimpleAnalogFirmata ../../pic32/libraries/Firmata 
+
+# Ethernet library
+
+testExample ${ALLBOARDS} Ethernet WebGraph ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet DhcpChatServer ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet ChatServer ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet UDPSendReceiveString ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet BarometricPressureWebServer ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet AdvancedChatServer ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet WebClientRepeating ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet WebServer ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet XivelyClientString ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet TelnetClient ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet WebClient ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet DhcpAddressPrinter ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet XivelyClient ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} Ethernet UdpNtpClient ../../pic32/libraries/Ethernet ../../pic32/libraries/SPI
+
+# Soft SPI Library
+
+testExample ${ALLBOARDS} SoftSPI PmodJstkSoftSPI ../../pic32/libraries/SoftSPI
+
+# Stepper library
+
+testExample ${ALLBOARDS} Stepper stepper_speedControl ../../pic32/libraries/Stepper
+testExample ${ALLBOARDS} Stepper stepper_oneStepAtATime ../../pic32/libraries/Stepper
+testExample ${ALLBOARDS} Stepper stepper_oneRevolution ../../pic32/libraries/Stepper
+testExample ${ALLBOARDS} Stepper MotorKnob ../../pic32/libraries/Stepper
+
+# SPI library
+
+testExample ${ALLBOARDS} SPI BarometricPressureSensor ../../pic32/libraries/SPI
+testExample ${ALLBOARDS} SPI DigitalPotControl ../../pic32/libraries/SPI
+
+# LiquidCrystal library
+
+testExample ${ALLBOARDS} LiquidCrystal HelloWorld ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal Display ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal Scroll ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal setCursor ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal Cursor ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal Blink ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal TextDirection ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal Autoscroll ../../pic32/libraries/LiquidCrystal
+testExample ${ALLBOARDS} LiquidCrystal SerialDisplay ../../pic32/libraries/LiquidCrystal
+
+# OneWire library
+
+testExample ${ALLBOARDS} OneWire DS2408_Switch ../../pic32/libraries/OneWire
+testExample ${ALLBOARDS} OneWire DS250x_PROM ../../pic32/libraries/OneWire
+testExample ${ALLBOARDS} OneWire DS18x20_Temperature ../../pic32/libraries/OneWire
+
+# Wire library
+
+testExample ${ALLBOARDS} Wire master_reader ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire master_writer ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire slave_receiver ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire I2CMasterEEPROM ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire SFRRanger_reader ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire digital_potentiometer ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire I2CSlaveSimEEPROM ../../pic32/libraries/Wire
+testExample ${ALLBOARDS} Wire slave_sender ../../pic32/libraries/Wire
+
+# DSPI library
+
+testExample ${ALLBOARDS} DSPI PmodJstkDspi ../../pic32/libraries/DSPI
+testExample ${ALLBOARDS} DSPI PmodJstkDspiInt ../../pic32/libraries/DSPI
+
+# SoftPWMServo library
+
+testExample ${ALLBOARDS} SoftPWMServo ChangeFrameTime ../../pic32/libraries/SoftPWMServo
+testExample ${ALLBOARDS} SoftPWMServo AllPinsServo ../../pic32/libraries/SoftPWMServo
+testExample ${ALLBOARDS} SoftPWMServo SimpleServo ../../pic32/libraries/SoftPWMServo
+testExample ${ALLBOARDS} SoftPWMServo AllPinsPWM ../../pic32/libraries/SoftPWMServo
+
+# DEIPcK librray
+
+testExample ${ETHERNET} DEIPcK TCPEchoServer ../../pic32/libraries/DEIPcK ../../pic32/libraries/IM8720PHY
+testExample ${ETHERNET} DEIPcK TCPEchoClient ../../pic32/libraries/DEIPcK ../../pic32/libraries/IM8720PHY
+testExample ${ETHERNET} DEIPcK UDPEchoServer ../../pic32/libraries/DEIPcK ../../pic32/libraries/IM8720PHY
+testExample ${ETHERNET} DEIPcK UDPEchoClient ../../pic32/libraries/DEIPcK ../../pic32/libraries/IM8720PHY
+
+# HTTPServer library
+
+testExample ${WIFI} HTTPServer deWebServer ../../pic32/libraries/HTTPServer ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK ../../pic32/libraries/SD
+
+#DEWFcK library
+
+testExample ${WIFI} DEWFcK WiFiUDPEchoServer ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK
+testExample ${WIFI} DEWFcK WiFiTCPEchoServer ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK
+testExample ${WIFI} DEWFcK WiFiUDPEchoClient ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK
+testExample ${WIFI} DEWFcK WiFiTCPEchoClient ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK
+testExample ${WIFI} DEWFcK WiFiScan ../../pic32/libraries/DEIPcK ../../pic32/libraries/MRF24G ../../pic32/libraries/DEWFcK
