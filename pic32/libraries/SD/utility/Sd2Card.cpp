@@ -158,6 +158,15 @@ uint32_t Sd2Card::cardSize(void) {
 //------------------------------------------------------------------------------
 void Sd2Card::chipSelectHigh(void) {
   digitalWrite(chipSelectPin_, HIGH);
+
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
 #if defined(_BOARD_MEGA_) || defined(_BOARD_UNO_) || defined(_BOARD_UC32_)
   if(fspi_state_saved)
   {
@@ -169,6 +178,14 @@ void Sd2Card::chipSelectHigh(void) {
 }
 //------------------------------------------------------------------------------
 void Sd2Card::chipSelectLow(void) {
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
 #if defined(_BOARD_MEGA_) || defined(_BOARD_UNO_) || defined(_BOARD_UC32_)
     if(!fspi_state_saved)
     {
