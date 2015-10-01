@@ -44,7 +44,9 @@
 /*  Revision History:                                                   */
 /*    8/4/2014(KeithV): Created                                         */
 /************************************************************************/
-#include <DTWI.h>
+// DTWI is not on the path and we don't want the user to have
+// to explicitly include the library. So just grab it and compile it
+#include "../DTWI/DTWI.cpp"
 #define ENABLE_END
 #include <Wire.h>
 
@@ -213,18 +215,25 @@ void TwoWire::beginTransmission(int address)
   beginTransmission((uint8_t)address);
 }
 
+uint8_t TwoWire::endTransmission(uint8_t fStopBit)
+{
+    if(fStopBit)
+    {
+        while(!di2c.stopMaster());
+    }
+    return(true);
+}
 uint8_t TwoWire::endTransmission(void)
 {
-    while(!di2c.stopMaster());
+    return(endTransmission(true));
 }
-
 
 // must be called in:
 // slave tx event callback
 // or after beginTransmission(address)
 int TwoWire::write(uint8_t data)
 {
-    di2c.write((const byte *) &data, 1);
+    return(di2c.write((const byte *) &data, 1));
 }
 void TwoWire::send(uint8_t data) { write(data); }
 
@@ -233,8 +242,7 @@ void TwoWire::send(uint8_t data) { write(data); }
 // or after beginTransmission(address)
 int TwoWire::write(uint8_t* data, uint8_t quantity)
 {
-    di2c.write((const byte *) data, quantity);
-    return 1;
+    return(di2c.write((const byte *) data, quantity));
 }
 void TwoWire::send(uint8_t* data, uint8_t quantity) { write(data, quantity); }
 
@@ -243,7 +251,7 @@ void TwoWire::send(uint8_t* data, uint8_t quantity) { write(data, quantity); }
 // or after beginTransmission(address)
 int TwoWire::write(char* data)
 {
-    return write((uint8_t*)data, strlen(data));
+    return(write((uint8_t*) data, strlen(data)));
 }
 void TwoWire::send(char* data) { write(data); }
 
@@ -252,7 +260,7 @@ void TwoWire::send(char* data) { write(data); }
 // or after beginTransmission(address)
 int TwoWire::write(int data)
 {
-    return write((uint8_t)data);
+    return(write((uint8_t) data));
 }
 void TwoWire::send(int data) { write(data); }
 
@@ -265,7 +273,7 @@ uint8_t TwoWire::available(void)
 }
 
 uint8_t TwoWire::receive(void) {
-	return read();
+	return(read());
 }
 
 // must be called in:
