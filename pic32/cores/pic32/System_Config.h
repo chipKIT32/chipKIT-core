@@ -33,6 +33,7 @@
 //*	Boston, MA  02111-1307  USA
 /************************************************************************/
 
+#include "Harmony_System_Config.h"
 #if !defined(SYSTEM_CONFIG_H)
 #define SYSTEM_CONFIG_H
 

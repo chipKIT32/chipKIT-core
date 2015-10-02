@@ -82,6 +82,7 @@
 #include "pins_arduino.h"
 
 #include "HardwareSerial.h"
+#include "Harmony_Public.h"
 
 #if defined(_USE_USB_FOR_SERIAL_)
 //	#define	_DEBUG_USB_VIA_SERIAL0_
@@ -683,6 +684,8 @@ void HardwareSerial::disableAddressDetection(void) {
 
 #if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
+#ifdef TR_DISABLED
+
 #include	"HardwareSerial_cdcacm.h"
 #include	"HardwareSerial_usb.h"
 
@@ -725,7 +728,7 @@ void	USBresetRoutine(void)
 // Need to return FALSE if we need USB to hold off for awhile
 boolean	USBstoreDataRoutine(const byte *buffer, int length)
 {
-    int	i;
+    unsigned int	i;
 
     // If we have a receive callback defined then repeatedly
     // call it with each character.
@@ -752,8 +755,11 @@ boolean	USBstoreDataRoutine(const byte *buffer, int length)
         return(true);
     }
 }
+#else
 
+#endif
 
+#ifdef TR_DISABLED
 //*******************************************************************************************
 USBSerial::USBSerial(ring_buffer	*rx_buffer)
 {
@@ -762,9 +768,19 @@ USBSerial::USBSerial(ring_buffer	*rx_buffer)
 	_rx_buffer->tail	=	0;
     rxIntr = NULL;
 }
+#else
+USBSerial::USBSerial(void)
+{
+	_port = 0;
+}
+USBSerial::USBSerial(int port)
+{
+	_port = port;
+}
+#endif
 
 USBSerial::operator int() {
-    return gCdcacm_active ? 1 : 0;
+	return Harmony_Cdc_IsPortActive(_port);
 }
 
 #ifdef _DEBUG_USB_VIA_SERIAL0_
@@ -777,19 +793,6 @@ USBSerial::operator int() {
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
 {
-	DebugViaSerial0("USBSerial::begin");
-
-	DebugViaSerial0("calling usb_initialize");
-	usb_initialize();
-	DebugViaSerial0("returned from usb_initialize");
-
-	cdcacm_register(USBresetRoutine, USBstoreDataRoutine);
-	DebugViaSerial0("returned from cdcacm_register");
-
-	// Must enable glocal interrupts - in this case, we are using multi-vector mode
-	//INTEnableSystemMultiVectoredInt();
-	DebugViaSerial0("INTEnableSystemMultiVectoredInt");
-
 }
 
 
@@ -799,35 +802,30 @@ void USBSerial::end()
 }
 
 //*******************************************************************************************
-extern "C" uint8_t *cdcacm_get_line_coding();
-unsigned long USBSerial::getBaudRate() {
-    uint8_t *line_coding = cdcacm_get_line_coding();
-    uint32_t br = line_coding[0] | (line_coding[1] << 8) | (line_coding[2] << 16) | (line_coding[3] << 24);
-    return br;
+
+unsigned long USBSerial::getBaudRate() 
+{
+	USB_CDC_LINE_CODING *line_coding = Harmony_Cdc_GetLineEncoding(_port);
+	if (line_coding == NULL) return 9600;
+	return line_coding->dwDTERate;
 }
 
 //*******************************************************************************************
 int USBSerial::available(void)
 {
-	return (RX_BUFFER_SIZE + _rx_buffer->head - _rx_buffer->tail) % RX_BUFFER_SIZE;
+	return Harmony_Cdc_CanRead(_port);
 }
 
 //*******************************************************************************************
 int USBSerial::peek()
 {
-	if (_rx_buffer->head == _rx_buffer->tail)
-	{
-		return -1;
-	}
-	else
-	{
-		return _rx_buffer->buffer[_rx_buffer->tail];
-	}
+	return Harmony_Cdc_PeekChar(_port);
 }
 
 //*******************************************************************************************
 int USBSerial::read(void)
 {
+#ifdef TR_DISABLED
 	unsigned char theChar;
 
 	// If the head = tail, then the buffer is empty, so nothing to read
@@ -837,18 +835,21 @@ int USBSerial::read(void)
 	}
 	else
 	{
-		theChar				=	_rx_buffer->buffer[_rx_buffer->tail];
-		_rx_buffer->tail	=	(_rx_buffer->tail + 1) % RX_BUFFER_SIZE;
-        
-        // If we just made enough room for the next packet to fit into our buffer,
-        // start the packets flowing from the PC again
-        if (USBSerialBufferFree() >= USB_SERIAL_MIN_BUFFER_FREE)
-        {
-            cdcacm_command_ack();
-        }
-        
+		theChar = _rx_buffer->buffer[_rx_buffer->tail];
+		_rx_buffer->tail = (_rx_buffer->tail + 1) % RX_BUFFER_SIZE;
+
+		// If we just made enough room for the next packet to fit into our buffer,
+		// start the packets flowing from the PC again
+		if (USBSerialBufferFree() >= USB_SERIAL_MIN_BUFFER_FREE)
+		{
+			cdcacm_command_ack();
+		}
+
 		return (theChar);
 	}
+#else
+	return Harmony_Cdc_ReadChar(_port);
+#endif
 }
 
 //*******************************************************************************************
@@ -869,59 +870,40 @@ void USBSerial::flush()
 //*******************************************************************************************
 size_t USBSerial::write(uint8_t theChar)
 {
-unsigned char	usbBuf[4];
-
+	unsigned char	usbBuf[4];
 	usbBuf[0]	=	theChar;
-	
-	cdcacm_print(usbBuf, 1);
-    return 1;
+
+	return write(usbBuf, 1);
 }
 
-/* Attach the interrupt by storing a function pointer in the rxIntr variable */
-void USBSerial::attachInterrupt(void (*callback)(int)) {
-    rxIntr = callback;
-}
-
-/* Detatching the interrupt is as simple as setting the rxIntr to null. */
-void USBSerial::detachInterrupt() {
-    rxIntr = NULL;
-}
-
-//*	testing showed 63 gave better speed results than 64
-
-#define	kMaxUSBxmitPkt	63
 //*******************************************************************************************
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
-
-	if (size < kMaxUSBxmitPkt)
+	size_t totalBytesWritten = 0;
+	size_t bytesWritten = 0;
+	size_t zeroWrites = 0;
+	CDC_STATUS status;
+	while ((size - totalBytesWritten) > 0 && Harmony_Cdc_IsPortActive(_port))
 	{
-		//*	it will fit in one transmit packet
-		cdcacm_print(buffer, size);
-	}
-	else
-	{
-	//*	we can only transmit a maxium of 64 bytes at a time, break it up into 64 byte packets
-	unsigned char	usbBuffer[kMaxUSBxmitPkt + 2];
-	unsigned short	ii;
-	size_t 			packetSize;
-	
-		packetSize	=	0;
-		for (ii=0; ii<size; ii++)
+		status = Harmony_Cdc_Write(_port, &buffer[totalBytesWritten], size, &bytesWritten);
+		if (bytesWritten == 0)
 		{
-			usbBuffer[packetSize++]	=	buffer[ii];
-			if (packetSize >= kMaxUSBxmitPkt)
+			if (zeroWrites++ > USB_CDC_INACTIVE_TIMEOUT_MS)
 			{
-				cdcacm_print(usbBuffer, packetSize);
-				packetSize	=	0;
+				Harmony_Cdc_SetPortActive(_port, false);
+				return totalBytesWritten;
 			}
+
+			delay(1);
 		}
-		if (packetSize > 0)
+		else
 		{
-			cdcacm_print(usbBuffer, packetSize);
+			totalBytesWritten += bytesWritten;
+			zeroWrites = 0;
 		}
 	}
-    return size;
+
+	return totalBytesWritten;
 }
 
 //*******************************************************************************************
@@ -1187,7 +1169,12 @@ void __attribute__((interrupt(), nomips16)) IntSer7Handler(void)
 ** instantiated as Serial and hardware serial port 0 gets
 ** instantiated as Serial0.
 */
+#ifdef TR_DISABLED
 USBSerial		Serial(&rx_bufferUSB);
+#else
+USBSerial		Serial;
+#endif
+
 #if defined(_SER0_BASE)
 #if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);

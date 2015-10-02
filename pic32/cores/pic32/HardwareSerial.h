@@ -141,14 +141,18 @@ class USBSerial : public Stream
 {
 	private:
 		ring_buffer				*_rx_buffer;
-		
+		int						_port;
 	public:
+#ifdef TR_DISABLED
 		USBSerial	(ring_buffer	*rx_buffer);
+		void(*rxIntr)(int); // Interrupt callback routine
 
-        void            (*rxIntr)(int); // Interrupt callback routine
-
-        void            attachInterrupt(void (*callback)(int));
-        void            detachInterrupt();
+		void            attachInterrupt(void(*callback)(int));
+		void            detachInterrupt();
+#else
+		USBSerial(void);
+		USBSerial(int port);
+#endif
 
 		void			begin(unsigned long baudRate);
 		void			end();

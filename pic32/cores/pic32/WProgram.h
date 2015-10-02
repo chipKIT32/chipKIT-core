@@ -20,6 +20,10 @@
 	#include "HardwareSerial.h"
 #endif
 
+#ifndef _USBAPI_H
+	#include "USBAPI.h"
+#endif
+
 //Compatability changes
 #if defined(__PIC32MX__)
   #if defined F
