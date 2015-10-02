@@ -56,6 +56,7 @@
 #include "p32_defs.h"
 
 #include "wiring_private.h"
+#include "Harmony_Sys.h"
 
 #undef _ENABLE_PIC_RTC_
 
@@ -71,6 +72,7 @@ const uint32_t __attribute__((section(".mpide_version"))) _verMPIDE_Stub = MPIDE
 
 // core timer ISR
 void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void);
+
 
 //************************************************************************
 //*	globals
@@ -159,6 +161,7 @@ unsigned long	startMicros	=	micros();
 	}
 }
 
+extern void _IntHandlerUSBInstance0(void);
 
 //************************************************************************
 void init()
@@ -179,6 +182,9 @@ void init()
 	// Configure the processor for the proper number of wait states and caching.
 	_configSystem(F_CPU);
 
+	// Initialize harmony usb driver
+	Harmony_SYS_InitDrivers(NULL);
+
 	// Enable multi-vector interrupts
 	_enableMultiVectorInterrupts();
 
@@ -190,6 +196,13 @@ void init()
 	setIntPriority(_CORE_TIMER_VECTOR, _CT_IPL_IPC, _CT_SPL_IPC);
 	setIntVector(_CORE_TIMER_VECTOR, CoreTimerHandler);
 	setIntEnable(_CORE_TIMER_IRQ);
+
+	// Assign the usb isr funtion
+	setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
+	setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
+
+	// Initialize harmony usb device layer
+	Harmony_SYS_InitDevices(NULL);
 
 	// Save the peripheral bus frequency for later use.
 	__PIC32_pbClk = getPeripheralClock();
@@ -236,6 +249,7 @@ void	_board_init(void);
 	//* Initialize the periodic task manager
 	_initTaskManager();
 
+
 	//*	Issue #84
 	//*	disable the uart so that the pins can be used as general purpose I/O
 #if defined(_SER0_BASE)
@@ -243,6 +257,12 @@ void	_board_init(void);
 	uart = (p32_uart *)_SER0_BASE;
 	uart->uxMode.clr = (1 << _UARTMODE_ON);
 #endif
+
+	// Initialize harmony application layer
+	Harmony_SYS_InitApplication(NULL);
+
+	// Poll harmony system tasks
+	Harmony_SYS_Tasks();
 }
 
 //************************************************************************
