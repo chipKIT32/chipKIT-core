@@ -50,6 +50,9 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 // *****************************************************************************
 
 #include "system_config.h"
+
+#if defined(_USB)
+
 #include "driver/usb/usbfs/src/drv_usbfs_local.h"
 
 // *****************************************************************************
@@ -593,3 +596,5 @@ void _DRV_USBFS_MAKE_NAME(Tasks_ISR_USBDMA)()
      * PIC32MX USB driver and is not required to be called in a PIC32MX USB
      * applicaiton */
 }
+
+#endif

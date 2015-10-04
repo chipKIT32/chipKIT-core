@@ -44,7 +44,11 @@ SUBSTITUTE  GOODS,  TECHNOLOGY,  SERVICES,  OR  ANY  CLAIMS  BY  THIRD   PARTIES
 *******************************************************************************/
 //DOM-IGNORE-END
 
+
 #include "system_config.h"
+
+#if defined(_USB)
+
 #include "driver/usb/drv_usb.h"
 #include "driver/usb/usbfs/src/drv_usbfs_local.h"
 
@@ -2003,4 +2007,4 @@ void _DRV_USBFS_DEVICE_Tasks_ISR(DRV_USBFS_OBJ * hDriver)
     }
 }
 
-
+#endif

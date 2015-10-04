@@ -40,6 +40,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 *******************************************************************************/
 // DOM-IGNORE-END
 
+#include "system_config.h"
+
+#if defined(_USB)
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -2753,4 +2757,6 @@ uint16_t _USB_DEVICE_GetStringDescriptorRequestProcessAdvanced
        would be NULL.  */  
     return DescriptorStringSize;
 }
+
+#endif
 /********************End of file********************************/
