@@ -1,6 +1,6 @@
 
 #include <string.h> 
-#include "Harmony_System_Config.h"
+#include "System_Config.h"
 #include "Harmony_System_Definitions.h"
 #include "Harmony_Sys.h"
 #include "Harmony_Private.h"

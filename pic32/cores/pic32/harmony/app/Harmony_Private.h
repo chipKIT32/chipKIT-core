@@ -9,8 +9,8 @@
 // *****************************************************************************
 
 #include <stdlib.h>
-#include "Harmony_System_Definitions.h"
 #include "System_Config.h"
+#include "Harmony_System_Definitions.h"
 #include "utlist.h"
 #include "osal/osal.h"
 #include "Harmony_Sys.h"

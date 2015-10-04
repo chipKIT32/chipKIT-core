@@ -693,10 +693,12 @@ void Harmony_SYS_InitApplication(void* data)
 // *****************************************************************************
 // *****************************************************************************
 
+#if defined(_USB)
 void __attribute__((vector(_USB_1_VECTOR), interrupt(ipl6SOFT), nomips16)) _IntHandlerUSBInstance0(void)
 {
     DRV_USBFS_Tasks_ISR(HarmonySysObj.drvUSBObject);
 }
+#endif
 
 void Harmony_SYS_Tasks(void)
 {
