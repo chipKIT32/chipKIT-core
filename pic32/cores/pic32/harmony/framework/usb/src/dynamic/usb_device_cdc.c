@@ -39,11 +39,17 @@
  *******************************************************************************/
 // DOM-IGNORE-END
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
+
+#include "system_config.h"
+
+#if defined(_USB)
+
 #include "usb/usb_device_cdc.h"
 #include "usb/src/usb_device_cdc_local.h"
 #include "system/debug/sys_debug.h"
@@ -1325,6 +1331,7 @@ USB_DEVICE_CDC_RESULT USB_DEVICE_CDC_SerialStateNotificationSend
     return(USB_DEVICE_CDC_RESULT_ERROR_TRANSFER_QUEUE_FULL);
 }
 
+#endif
 /*******************************************************************************
  End of File
  */

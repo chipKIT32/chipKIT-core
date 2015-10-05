@@ -1,6 +1,7 @@
 ########################################################
 name=chipKIT
 version=1.6.0
+global.includes=-I{runtime.hardware.path}/pic32/cores/pic32/harmony/app -I{runtime.hardware.path}/pic32/cores/pic32/harmony/framework
 compiler.c.cmd=pic32-gcc
 compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
 # Use a high -Gnum for devices that have less than 64K of data memory
@@ -41,10 +42,10 @@ build.extra_flags=
 core.header=WProgram.h
 
 ##############################################################
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-#recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} {global.includes} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {global.includes} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+#recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {global.includes} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} {global.includes} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
 #recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"

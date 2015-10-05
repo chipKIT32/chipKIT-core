@@ -1,6 +1,6 @@
 
 #include <string.h> 
-#include "Harmony_System_Config.h"
+#include "System_Config.h"
 #include "Harmony_System_Definitions.h"
 #include "Harmony_Sys.h"
 #include "Harmony_Private.h"
@@ -441,10 +441,10 @@ void Harmony_Cdc_ResetStates(void)
     for (portIndex = 0; portIndex < HARMONY_CDC_PORT_COUNT; portIndex++)
     {
         Harmony_AppData.comPorts[portIndex].ReadCompleteList = NULL;
-        Harmony_AppData.comPorts[portIndex].ReadPendingList == NULL;
+        Harmony_AppData.comPorts[portIndex].ReadPendingList = NULL;
         Harmony_AppData.comPorts[portIndex].ReadIdleList = NULL;
 
-        Harmony_AppData.comPorts[portIndex].WritePendingList == NULL;
+        Harmony_AppData.comPorts[portIndex].WritePendingList = NULL;
         Harmony_AppData.comPorts[portIndex].WriteIdleList = NULL;
 
         Harmony_AppData.comPorts[portIndex].IsActive = false;

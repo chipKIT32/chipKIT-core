@@ -197,9 +197,11 @@ void init()
 	setIntVector(_CORE_TIMER_VECTOR, CoreTimerHandler);
 	setIntEnable(_CORE_TIMER_IRQ);
 
+#if defined(_USB)
 	// Assign the usb isr funtion
 	setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
 	setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
+#endif
 
 	// Initialize harmony usb device layer
 	Harmony_SYS_InitDevices(NULL);

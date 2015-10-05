@@ -33,6 +33,12 @@
 //*	Boston, MA  02111-1307  USA
 /************************************************************************/
 
+#include <p32xxxx.h>
+
+#if defined(_U1CON_USBEN_SOFEN_POSITION) && !defined(_USB)
+#define _USB
+#endif
+
 #include "Harmony_System_Config.h"
 #if !defined(SYSTEM_CONFIG_H)
 #define SYSTEM_CONFIG_H
