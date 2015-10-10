@@ -34,7 +34,7 @@ library.core.path=./hardware/pic32/cores/pic32
 library.path=./hardware/pic32/libraries
 ldscript=chipKIT-BL-mega.ld
 ldcommon=chipKIT-application-COMMON.ld
-compiler.define= -DMPIDEVER=16777998 -DMPIDE=150
+compiler.define= -DMPIDEVER=16777998 -DMPIDE=150 -DIDE=Arduino
 build.ldscript.path={build.core.path}
 build.variant=Default_100
 build.extra_flags=
