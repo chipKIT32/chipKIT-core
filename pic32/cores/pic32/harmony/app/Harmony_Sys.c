@@ -760,10 +760,12 @@ void Harmony_SYS_InitApplication(void* data)
 
 		void Harmony_Service_USB(void)
 		{
+			gUsbIntCount++;
 			DRV_USBHS_Tasks_ISR(HarmonySysObj.drvUSBObject);
 		}
 		void Harmony_Service_USBDMA(void)
 		{
+			gUsbDmaIntCount++;
 			DRV_USBHS_Tasks_ISR_USBDMA(HarmonySysObj.drvUSBObject);
 		}
 		/*
