@@ -50,7 +50,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <sys/attribs.h>
 #include "Harmony_Private.h"
 #include "Harmony_Sys.h"
-#include "./peripheral/pcache/plib_pcache.h"
 
 uint32_t gUsbDmaIntCount = 0;
 uint32_t gUsbIntCount = 0;
@@ -680,25 +679,6 @@ const USB_DEVICE_INIT usbDevInitData ={
 /* Structure to hold the object handles for the modules in the system. */
 HARMONY_SYSTEM_OBJECTS HarmonySysObj;
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Module Initialization Data
-// *****************************************************************************
-// *****************************************************************************
-
-/*******************************************************************************
-  Device Control System Service Initialization Data
-  
-  <editor-fold defaultstate="collapsed" 
-  desc="Device Control System Service Initialization Data">
- */
-
-const SYS_DEVCON_INIT sysDevconInit ={
-    .moduleInit =
-    {0},
-};
-
 // </editor-fold>
 
 
@@ -708,103 +688,8 @@ const SYS_DEVCON_INIT sysDevconInit ={
 // *****************************************************************************
 // *****************************************************************************
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Initialization
-// *****************************************************************************
-// *****************************************************************************
-void __attribute__((nomips16)) SYS_DEVCON_PerformanceConfig(unsigned int sysclk)
-{
-	bool int_flag = false;
-	bool ecc;
-
-	/* Set the PFM wait states based on the system clock and ECC setting */
-	if (PLIB_PCACHE_ExistsWaitState(0))
-	{
-		int ws; /* number of wait states */
-
-		/* Is ECC enabled? */
-		/* TODO: replace register read with plib when available */
-		ecc = (((CFGCON & 0x00000030) >> 4) < 2) ? true : false;
-		if (sysclk <= (ecc ? 66000000 : 83000000))
-			ws = 0;
-		else if (sysclk <= (ecc ? 133000000 : 166000000))
-			ws = 1;
-		else
-			ws = 2;
-
-		/* Interrupts must be disabled when changing wait states */
-		int_flag = (bool)(PLIB_INT_GetStateAndDisable(INT_ID_0) & 0x01);
-
-		PLIB_PCACHE_WaitStateSet(0, ws);
-
-		if (int_flag)
-		{
-			PLIB_INT_Enable(INT_ID_0);
-			int_flag = false;
-		}
-	}
-
-	/* Interrupts must be disabled when enabling the Prefetch Cache Module */
-	int_flag = (bool)(PLIB_INT_GetStateAndDisable(INT_ID_0) & 0x01);
-
-	/* Enable Prefetch Cache Module */
-	if (PLIB_PCACHE_ExistsPrefetchEnable(0))
-	{
-		PLIB_PCACHE_PrefetchEnableSet(0, 0x03);
-	}
-
-	if (int_flag)
-	{
-		PLIB_INT_Enable(INT_ID_0);
-	}
-}
-
-#define SYS_CLK_BUS_PERIPHERAL_1            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_2            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_3            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_4            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_5            100000000ul
-#define SYS_CLK_BUS_PERIPHERAL_7            200000000ul
-#define SYS_CLK_BUS_PERIPHERAL_8            100000000ul
-
-void SYS_CLK_Initialize_TR(void)
-{
-	SYSKEY = 0x00000000;
-	SYSKEY = 0xAA996655;
-	SYSKEY = 0x556699AA;
-
-	PLIB_OSC_FRCDivisorSelect(OSC_ID_0, OSC_FRC_DIV_1);
-
-	/* Enable Peripheral Bus 1 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 0, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 0);
-	/* Enable Peripheral Bus 2 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 1, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 1);
-	/* Enable Peripheral Bus 3 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 2, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 2);
-	/* Enable Peripheral Bus 4 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 3, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 3);
-	/* Enable Peripheral Bus 5 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 4, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 4);
-	/* Enable Peripheral Bus 7 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 6, 1);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 6);
-	/* Enable Peripheral Bus 8 */
-	PLIB_OSC_PBClockDivisorSet(OSC_ID_0, 7, 2);
-	PLIB_OSC_PBOutputClockEnable(OSC_ID_0, 7);
-
-	SYSKEY = 0x33333333;
-}
 void Harmony_SYS_InitDrivers(void* data)
 {
-	//SYS_CLK_Initialize_TR();
-	//SYS_DEVCON_PerformanceConfig(200000000ul);
 	/* Initialize Drivers */
 
 #if defined (_USB)
@@ -895,10 +780,6 @@ void Harmony_SYS_InitApplication(void* data)
 
 		}
 		*/
-
-
-
-
 	#else
 
 		void __attribute__((vector(_USB_1_VECTOR), interrupt(ipl6SOFT), nomips16)) _IntHandlerUSBInstance0(void)
