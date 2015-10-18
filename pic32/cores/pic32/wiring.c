@@ -145,6 +145,7 @@ unsigned long	startMillis;
         while ((gTimer0_millis - startMillis) < ms)
 	{
 		_scheduleTask();
+		Harmony_SYS_Tasks();
 	}
 }
 
@@ -161,7 +162,24 @@ unsigned long	startMicros	=	micros();
 	}
 }
 
-extern void _IntHandlerUSBInstance0(void);
+extern void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void);
+#if defined(USB_DRV_HS)
+
+extern void Harmony_Service_USB(void);
+extern void Harmony_Service_USBFMA(void);
+
+//extern void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0_USBDMA(void);
+void __attribute__((at_vector(_USB_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0(void)
+{
+	Harmony_Service_USB();
+}
+
+void __attribute__((at_vector(_USB_DMA_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0_USBDMA(void)
+{
+	Harmony_Service_USBDMA();
+}
+
+#endif
 
 //************************************************************************
 void init()
@@ -198,9 +216,23 @@ void init()
 	setIntEnable(_CORE_TIMER_IRQ);
 
 #if defined(_USB)
-	// Assign the usb isr funtion
-	setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
-	setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
+	#if defined(USB_DRV_HS)
+	
+		setIntPriority(_USB_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
+		setIntPriority(_USB_DMA_VECTOR, _USBDMA_IPL_IPC, _USBDMA_SPL_IPC);
+
+		setIntVector(_USB_VECTOR, _IntHandlerUSBInstance0);
+		setIntVector(_USB_DMA_VECTOR, _IntHandlerUSBInstance0_USBDMA);
+
+		setIntEnable(_USB_VECTOR);
+		setIntEnable(_USB_DMA_VECTOR);
+#elif defined(USB_DRV_FS)
+		// Assign the usb isr funtion
+		setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
+		setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
+	#else
+		#error "_USB_DRV_HS or _USB_DRV_FS must be defined when __USB is defined"
+	#endif
 #endif
 
 	// Initialize harmony usb device layer
