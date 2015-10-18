@@ -6,10 +6,10 @@ compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
 # Use a high -Gnum for devices that have less than 64K of data memory
 # For -G1024, objects 1024 bytes or smaller will be accessed by
 # gp-relative addressing
-compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double -fno-toplevel-reorder
+compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder
 compiler.c.extra_flags=-MMD
 compiler.cpp.cmd=pic32-g++
-compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double -fno-toplevel-reorder
+compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder
 compiler.cpp.extra_flags=-MMD
 compiler.S.flags=-O2 -g1 -c -Wa,--gdwarf-2
 compiler.ar.cmd=pic32-ar
