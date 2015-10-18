@@ -682,7 +682,7 @@ void HardwareSerial::disableAddressDetection(void) {
 
 //*******************************************************************************************
 
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined(_USB)
 
 #ifdef TR_DISABLED
 

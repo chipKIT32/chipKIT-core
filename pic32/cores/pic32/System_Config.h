@@ -35,7 +35,7 @@
 
 #include <p32xxxx.h>
 
-#if defined(_U1CON_USBEN_SOFEN_POSITION) && !defined(_USB)
+#if (defined(_U1CON_USBEN_SOFEN_POSITION) || defined(_USBCSR2_SOFIE_POSITION)) && !defined(_USB)
 #define _USB
 #endif
 
