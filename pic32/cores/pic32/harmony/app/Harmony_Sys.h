@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 
 
 void Harmony_SYS_InitDrivers ( void* data );

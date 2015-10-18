@@ -1,7 +1,7 @@
 
 #include <string.h> 
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 #include "Harmony_Sys.h"
 #include "Harmony_Private.h"
 #include "Harmony_Public.h"
@@ -49,7 +49,8 @@ HID_STATUS Harmony_Hid_SendCollectionReport(uint8_t id, const void* data, int le
 
 bool Harmony_Hid_IsActive(void)
 {
-    return Harmony_AppData.isUsbConfigured && Harmony_AppData.Hid.IsActive;
+	Harmony_SYS_Tasks();
+	return Harmony_AppData.isUsbConfigured && Harmony_AppData.Hid.IsActive;
 }
 
 /************************************************

@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 #include "utlist.h"
 #include "osal/osal.h"
 #include "Harmony_Sys.h"

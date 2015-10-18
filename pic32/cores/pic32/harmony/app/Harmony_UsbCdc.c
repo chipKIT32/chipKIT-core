@@ -1,7 +1,7 @@
 
 #include <string.h> 
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 #include "Harmony_Sys.h"
 #include "Harmony_Private.h"
 #include "Harmony_Public.h"
