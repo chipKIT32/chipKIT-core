@@ -145,7 +145,6 @@ unsigned long	startMillis;
         while ((gTimer0_millis - startMillis) < ms)
 	{
 		_scheduleTask();
-		Harmony_SYS_Tasks();
 	}
 }
 
@@ -224,8 +223,6 @@ void init()
 		setIntVector(_USB_VECTOR, _IntHandlerUSBInstance0);
 		setIntVector(_USB_DMA_VECTOR, _IntHandlerUSBInstance0_USBDMA);
 
-		setIntEnable(_USB_VECTOR);
-		setIntEnable(_USB_DMA_VECTOR);
 #elif defined(USB_DRV_FS)
 		// Assign the usb isr funtion
 		setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
