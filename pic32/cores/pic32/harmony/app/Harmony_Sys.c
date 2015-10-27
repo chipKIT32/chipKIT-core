@@ -51,9 +51,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "Harmony_Private.h"
 #include "Harmony_Sys.h"
 
-uint32_t gUsbDmaIntCount = 0;
-uint32_t gUsbIntCount = 0;
-
 #if defined (_USB)
 
 // *****************************************************************************
@@ -695,10 +692,10 @@ void Harmony_SYS_InitDrivers(void* data)
 #if defined (_USB)
 	#if defined(USB_DRV_HS)
 
-		/* Initialize USB Driver */
+		/* Initialize HS USB Driver */
 		HarmonySysObj.drvUSBObject = DRV_USBHS_Initialize(DRV_USBHS_INDEX_0, (SYS_MODULE_INIT *)&drvUSBInit);
 	#else
-		/* Initialize USB Driver */
+		/* Initialize FS USB Driver */
 		HarmonySysObj.drvUSBObject = DRV_USBFS_Initialize(DRV_USBFS_INDEX_0, (SYS_MODULE_INIT *)&drvUSBInit);
 	#endif
 #endif
@@ -758,35 +755,22 @@ void Harmony_SYS_InitApplication(void* data)
 			return ((millis() - ((SYS_TIMER_OBJECT_HACK*)handle)->timerStartTime) >= ((SYS_TIMER_OBJECT_HACK*)handle)->timerPeriod);
 		}
 
-		void Harmony_Service_USB(void)
+		// USB HS interrupt handler
+		void __attribute__((at_vector(_USB_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0(void)
 		{
-			gUsbIntCount++;
 			DRV_USBHS_Tasks_ISR(HarmonySysObj.drvUSBObject);
 		}
-		void Harmony_Service_USBDMA(void)
+
+		// USBDMA interrupt handler
+		void __attribute__((at_vector(_USB_DMA_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0_USBDMA(void)
 		{
-			gUsbDmaIntCount++;
 			DRV_USBHS_Tasks_ISR_USBDMA(HarmonySysObj.drvUSBObject);
 		}
-		/*
-		void __ISR(_USB_VECTOR, ipl6AUTO) _IntHandlerUSBInstance0(void)
-		{
-
-			DRV_USBHS_Tasks_ISR(HarmonySysObj.drvUSBObject);
-
-		}
-		void __ISR(_USB_DMA_VECTOR, ipl6AUTO) _IntHandlerUSBInstance0_USBDMA(void)
-		{
-
-			DRV_USBHS_Tasks_ISR_USBDMA(HarmonySysObj.drvUSBObject);
-
-		}
-		*/
 	#else
 
-		void __attribute__((vector(_USB_1_VECTOR), interrupt(ipl6SOFT), nomips16)) _IntHandlerUSBInstance0(void)
+		// USB FS interrupt handler
+		void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void)
 		{
-			gUsbIntCount++;
 			DRV_USBFS_Tasks_ISR(HarmonySysObj.drvUSBObject);
 		}
 
