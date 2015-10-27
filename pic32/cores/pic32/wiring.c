@@ -161,23 +161,14 @@ unsigned long	startMicros	=	micros();
 	}
 }
 
+static void Harmony_Scheduled_Task(int taskId, void* userState)
+{
+	Harmony_SYS_Tasks();
+}
+
+#if defined (_USB) && defined(USB_DRV_FS)
+// The full speed PIC module requires setIntVector
 extern void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void);
-#if defined(USB_DRV_HS)
-
-extern void Harmony_Service_USB(void);
-extern void Harmony_Service_USBFMA(void);
-
-//extern void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0_USBDMA(void);
-void __attribute__((at_vector(_USB_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0(void)
-{
-	Harmony_Service_USB();
-}
-
-void __attribute__((at_vector(_USB_DMA_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0_USBDMA(void)
-{
-	Harmony_Service_USBDMA();
-}
-
 #endif
 
 //************************************************************************
@@ -199,40 +190,28 @@ void init()
 	// Configure the processor for the proper number of wait states and caching.
 	_configSystem(F_CPU);
 
-	// Initialize harmony usb driver
+	// Initialize harmony drivers
 	Harmony_SYS_InitDrivers(NULL);
 
 	// Enable multi-vector interrupts
 	_enableMultiVectorInterrupts();
 
 	// Initialize the core timer for use to maintain the system timer tick.
-        _initCoreTimer(CORE_TICK_RATE);
+	_initCoreTimer(CORE_TICK_RATE);
 
-        initIntVector();
+	initIntVector();
 
 	setIntPriority(_CORE_TIMER_VECTOR, _CT_IPL_IPC, _CT_SPL_IPC);
 	setIntVector(_CORE_TIMER_VECTOR, CoreTimerHandler);
 	setIntEnable(_CORE_TIMER_IRQ);
 
-#if defined(_USB)
-	#if defined(USB_DRV_HS)
-	
-		setIntPriority(_USB_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
-		setIntPriority(_USB_DMA_VECTOR, _USBDMA_IPL_IPC, _USBDMA_SPL_IPC);
-
-		setIntVector(_USB_VECTOR, _IntHandlerUSBInstance0);
-		setIntVector(_USB_DMA_VECTOR, _IntHandlerUSBInstance0_USBDMA);
-
-#elif defined(USB_DRV_FS)
+#if defined(_USB) && defined(USB_DRV_FS)
 		// Assign the usb isr funtion
-		setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
-		setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
-	#else
-		#error "_USB_DRV_HS or _USB_DRV_FS must be defined when __USB is defined"
-	#endif
+	setIntVector(_USB_1_VECTOR, _IntHandlerUSBInstance0);
+	setIntPriority(_USB_1_VECTOR, _USB_IPL_IPC, _USB_SPL_IPC);
 #endif
 
-	// Initialize harmony usb device layer
+	// Initialize harmony devices layer
 	Harmony_SYS_InitDevices(NULL);
 
 	// Save the peripheral bus frequency for later use.
@@ -294,6 +273,9 @@ void	_board_init(void);
 
 	// Poll harmony system tasks
 	Harmony_SYS_Tasks();
+
+	// Create the scheduled harmony system task
+	createTask(Harmony_Scheduled_Task, 1, TASK_ENABLE, NULL);
 }
 
 //************************************************************************
