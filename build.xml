@@ -17,6 +17,7 @@
   <property file="upload.properties"/>
   <property file="version.properties"/>
   <property name="aws.bucket" value="chipkit"/>
+  <property environment="env" /> <!-- provides all environment variables as env.* -->
 
   <condition property="macosx">
     <os family="mac"/>
@@ -333,15 +334,30 @@
     <delete dir="dist/"/>
   </target>
 
-  <target description="Store git revision in ${repository.version}" if="git.present" name="git.revision">
+  <target description="Store git branch in ${git.branch} (unless the environment variable GIT_BRANCH is set, then it uses that." if="git.present" name="git.branch">
+
+    <condition property="git.branch" value="${env.GIT_BRANCH}">
+        <isset property="env.GIT_BRANCH" />
+    </condition>
+
+    <condition property="git.branch">
+        <not>
+            <isset property="env.RELEASE_VER" />
+        </not>
+
+        <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.branch">
+            <arg line="rev-parse --abbrev-ref HEAD"/>
+        </exec>
+    </condition>
+  </target>
+
+
+  <target description="Store git revision in ${repository.version}" if="git.present" name="git.revision" depends="git.branch">
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revision">
       <arg value="describe"/>
       <arg value="--tags"/>
       <arg value="--always"/>
       <arg value="HEAD"/>
-    </exec>
-    <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.branch">
-      <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
     <condition else="unknown" property="repository.version" value="${git.branch}-${git.revision}">
       <and>
