@@ -344,7 +344,7 @@
             <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
 
-    <condition property="git.branch" value="${git.revparsebranch}>
+    <condition property="git.branch" value="${git.revparsebranch}">
         <not>
             <isset property="GIT_BRANCH" />
         </not>
