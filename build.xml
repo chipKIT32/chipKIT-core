@@ -338,15 +338,16 @@
     <condition property="git.branch" value="${GIT_BRANCH}">
         <isset property="GIT_BRANCH" />
     </condition>
+        
 
-    <condition property="git.branch">
-        <not>
-            <isset property="${GIT_BRANCH}" />
-        </not>
-
-        <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.branch">
+    <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
             <arg line="rev-parse --abbrev-ref HEAD"/>
-        </exec>
+    </exec
+
+    <condition property="git.branch" value="${git.revparsebranch}>
+        <not>
+            <isset property="GIT_BRANCH" />
+        </not>
     </condition>
   </target>
 
