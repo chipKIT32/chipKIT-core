@@ -17,7 +17,6 @@
   <property file="upload.properties"/>
   <property file="version.properties"/>
   <property name="aws.bucket" value="chipkit"/>
-  <property environment="env" /> <!-- provides all environment variables as env.* -->
 
   <condition property="macosx">
     <os family="mac"/>
@@ -334,15 +333,15 @@
     <delete dir="dist/"/>
   </target>
 
-  <target description="Store git branch in ${git.branch} (unless the environment variable GIT_BRANCH is set, then it uses that." if="git.present" name="git.branch">
+  <target description="Store git branch in ${git.branch} (unless the variable GIT_BRANCH is set, then it uses that." if="git.present" name="git.branch">
 
-    <condition property="git.branch" value="${env.GIT_BRANCH}">
-        <isset property="env.GIT_BRANCH" />
+    <condition property="git.branch" value="${GIT_BRANCH}">
+        <isset property="GIT_BRANCH" />
     </condition>
 
     <condition property="git.branch">
         <not>
-            <isset property="env.RELEASE_VER" />
+            <isset property="${GIT_BRANCH}" />
         </not>
 
         <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.branch">
