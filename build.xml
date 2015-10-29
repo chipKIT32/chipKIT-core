@@ -340,10 +340,15 @@
       <arg value="--always"/>
       <arg value="HEAD"/>
     </exec>
-    <condition else="unknown" property="repository.version" value="${git.revision}">
+    <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.branch">
+      <arg line="rev-parse --abbrev-ref HEAD"/>
+    </exec>
+    <condition else="unknown" property="repository.version" value="${git.branch}-${git.revision}">
       <and>
         <isset property="git.revision"/>
         <length length="0" string="${git.revision}" trim="yes" when="greater"/>
+        <isset property="git.branch"/>
+        <length length="0" string="${git.branch}" trim="yes" when="greater"/>
       </and>
     </condition>
   </target>
