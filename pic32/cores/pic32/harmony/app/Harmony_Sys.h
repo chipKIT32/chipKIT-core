@@ -13,8 +13,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 
+void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void);
 
 void Harmony_SYS_InitDrivers ( void* data );
 void Harmony_SYS_InitDevices ( void* data );

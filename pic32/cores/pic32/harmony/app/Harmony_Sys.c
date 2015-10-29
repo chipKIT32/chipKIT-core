@@ -187,6 +187,24 @@ const USB_DEVICE_FUNCTION_REGISTRATION_TABLE funcRegistrationTable[3] ={
 /*******************************************
  * USB Device Layer Descriptors
  *******************************************/
+
+/*******************************************
+*  USB Device Qualifier Descriptor for this
+*  demo.
+*******************************************/
+const USB_DEVICE_QUALIFIER deviceQualifierDescriptor1 =
+{
+	0x0A,                               // Size of this descriptor in bytes
+	USB_DESCRIPTOR_DEVICE_QUALIFIER,    // Device Qualifier Type
+	0x0200,                             // USB Specification Release number
+	0xEF,                           // Class Code
+	0x02,                           // Subclass code
+	0x01,                           // Protocol code
+	USB_DEVICE_EP0_BUFFER_SIZE,         // Maximum packet size for endpoint 0
+	0x01,                               // Number of possible configurations
+	0x00                                // Reserved for future use.
+};
+
 /*******************************************
  *  USB Device Descriptor 
  *******************************************/
@@ -537,7 +555,7 @@ const USB_DEVICE_MASTER_DESCRIPTOR usbMasterDescriptor ={
     NULL,
     3, // Total number of string descriptors available.
     stringDescriptors, // Pointer to array of string descriptors.
-    NULL,
+	NULL,	// full speed device qualifier
     NULL
 };
 
@@ -563,12 +581,19 @@ const USB_DEVICE_INIT usbDevInitData ={
     /* USB Device Speed */
     .deviceSpeed = USB_SPEED_FULL,
 
+#if defined(USB_DRV_HS)
+	/* Index of the USB Driver to be used by this Device Layer Instance */
+	.driverIndex = DRV_USBHS_INDEX,
+
+	/* Pointer to the USB Driver Functions. */
+	.usbDriverInterface = DRV_USBHS_DEVICE_INTERFACE,
+#else
     /* Index of the USB Driver to be used by this Device Layer Instance */
-    .driverIndex = DRV_USBFS_INDEX_0,
+	.driverIndex = DRV_USBFS_INDEX,
 
     /* Pointer to the USB Driver Functions. */
     .usbDriverInterface = DRV_USBFS_DEVICE_INTERFACE,
-
+#endif
 };
 
 // </editor-fold>
@@ -581,41 +606,66 @@ const USB_DEVICE_INIT usbDevInitData ={
 
 //<editor-fold defaultstate="collapsed" desc="DRV_USB Initialization Data">
 
-/******************************************************
- * USB Driver Initialization
- ******************************************************/
-/****************************************************
- * Endpoint Table needed by the Device Layer.
- ****************************************************/
-uint8_t __attribute__((aligned(512))) endPointTable[DRV_USBFS_ENDPOINTS_NUMBER * 32];
-const DRV_USBFS_INIT drvUSBInit ={
-    /* Assign the endpoint table */
-    .endpointTable = endPointTable,
+#if defined(USB_DRV_HS)
 
-    /* Interrupt Source for USB module */
-    .interruptSource = INT_SOURCE_USB_1,
+	/* USBHS Driver Initialization ********************/
+	const DRV_USBHS_INIT drvUSBInit = {
+		/* Interrupt Source for USB module */
+		.interruptSource = DRV_USBHS_INTERRUPT_SOURCE,
 
-    /* System module initialization */
-    .moduleInit =
-    {SYS_MODULE_POWER_RUN_FULL},
+		/* Interrupt Source for USB module */
+		.interruptSourceUSBDma = INT_SOURCE_USB_1_DMA,
 
-    .operationMode = DRV_USBFS_OPMODE_DEVICE,
+		/* System module initialization */
+		.moduleInit = { SYS_MODULE_POWER_RUN_FULL },
 
-    .operationSpeed = USB_SPEED_FULL,
+		.operationMode = DRV_USBHS_OPMODE_DEVICE,
 
-    /* Stop in idle */
-    .stopInIdle = false,
+		.operationSpeed = USB_SPEED_FULL,
 
-    /* Suspend in sleep */
-    .suspendInSleep = false,
+		/* Stop in idle */
+		.stopInIdle = false,
 
-    /* Identifies peripheral (PLIB-level) ID */
-    .usbID = USB_ID_1
-};
+		/* Suspend in sleep */
+		.suspendInSleep = false,
 
-// </editor-fold>
+		/* Identifies peripheral (PLIB-level) ID */
+		.usbID = DRV_USBHS_PERIPHERAL_ID,
+	};
+
+#else
+
+	/* USBFS Driver Initialization ********************/
+	uint8_t __attribute__((aligned(512))) endPointTable[DRV_USBFS_ENDPOINTS_NUMBER * 32];
+	const DRV_USBFS_INIT drvUSBInit ={
+		/* Assign the endpoint table */
+		.endpointTable = endPointTable,
+
+		/* Interrupt Source for USB module */
+		.interruptSource = DRV_USBFS_INTERRUPT_SOURCE,
+
+		/* System module initialization */
+		.moduleInit =
+		{SYS_MODULE_POWER_RUN_FULL},
+
+		.operationMode = DRV_USBFS_OPMODE_DEVICE,
+
+		.operationSpeed = USB_SPEED_FULL,
+
+		/* Stop in idle */
+		.stopInIdle = false,
+
+		/* Suspend in sleep */
+		.suspendInSleep = false,
+
+		/* Identifies peripheral (PLIB-level) ID */
+		.usbID = DRV_USBFS_PERIPHERAL_ID
+	};
 
 #endif
+// </editor-fold>
+
+#endif // _USB
 
 // *****************************************************************************
 // *****************************************************************************
@@ -626,25 +676,6 @@ const DRV_USBFS_INIT drvUSBInit ={
 /* Structure to hold the object handles for the modules in the system. */
 HARMONY_SYSTEM_OBJECTS HarmonySysObj;
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Module Initialization Data
-// *****************************************************************************
-// *****************************************************************************
-
-/*******************************************************************************
-  Device Control System Service Initialization Data
-  
-  <editor-fold defaultstate="collapsed" 
-  desc="Device Control System Service Initialization Data">
- */
-
-const SYS_DEVCON_INIT sysDevconInit ={
-    .moduleInit =
-    {0},
-};
-
 // </editor-fold>
 
 
@@ -654,20 +685,19 @@ const SYS_DEVCON_INIT sysDevconInit ={
 // *****************************************************************************
 // *****************************************************************************
 
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: System Initialization
-// *****************************************************************************
-// *****************************************************************************
-
 void Harmony_SYS_InitDrivers(void* data)
 {
+	/* Initialize Drivers */
 
 #if defined (_USB)
-    /* Initialize Drivers */
-    /* Initialize USB Driver */
-    HarmonySysObj.drvUSBObject = DRV_USBFS_Initialize(DRV_USBFS_INDEX_0, (SYS_MODULE_INIT *) & drvUSBInit);
+	#if defined(USB_DRV_HS)
+
+		/* Initialize HS USB Driver */
+		HarmonySysObj.drvUSBObject = DRV_USBHS_Initialize(DRV_USBHS_INDEX_0, (SYS_MODULE_INIT *)&drvUSBInit);
+	#else
+		/* Initialize FS USB Driver */
+		HarmonySysObj.drvUSBObject = DRV_USBFS_Initialize(DRV_USBFS_INDEX_0, (SYS_MODULE_INIT *)&drvUSBInit);
+	#endif
 #endif
     
 }
@@ -694,10 +724,58 @@ void Harmony_SYS_InitApplication(void* data)
 // *****************************************************************************
 
 #if defined(_USB)
-void __attribute__((vector(_USB_1_VECTOR), interrupt(ipl6SOFT), nomips16)) _IntHandlerUSBInstance0(void)
-{
-    DRV_USBFS_Tasks_ISR(HarmonySysObj.drvUSBObject);
-}
+
+	#if defined(USB_DRV_HS)
+
+		/* Implemented in wiring.c. Returns MS elapsed since power on. */
+		extern unsigned long millis();
+
+		/* Hacked time structure. */
+		typedef struct _SYS_TIMER_OBJECT_HACK
+		{
+			uint32_t timerStartTime;
+			uint32_t timerPeriod;
+		}SYS_TIMER_OBJECT_HACK;
+
+		/* Hacked timer instance.  One is all that is needed for USBHS driver. */
+		static SYS_TIMER_OBJECT_HACK mTimerObjectHack = { 0, 0 };
+
+		/* Hacked harmony timer function. We include headers but not the harmony source files for sys_tmr.c and drv_tmr.c */
+		SYS_TMR_HANDLE SYS_TMR_DelayMS(uint32_t delayMs)
+		{
+			mTimerObjectHack.timerStartTime = millis();
+			mTimerObjectHack.timerPeriod = delayMs;
+
+			return (SYS_TMR_HANDLE)&mTimerObjectHack;
+		}
+
+		/* Hacked harmony timer function. We include headers but not the harmony source files for sys_tmr.c and drv_tmr.c */
+		bool SYS_TMR_DelayStatusGet(SYS_TMR_HANDLE handle)
+		{
+			return ((millis() - ((SYS_TIMER_OBJECT_HACK*)handle)->timerStartTime) >= ((SYS_TIMER_OBJECT_HACK*)handle)->timerPeriod);
+		}
+
+		// USB HS interrupt handler
+		void __attribute__((at_vector(_USB_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0(void)
+		{
+			DRV_USBHS_Tasks_ISR(HarmonySysObj.drvUSBObject);
+		}
+
+		// USBDMA interrupt handler
+		void __attribute__((at_vector(_USB_DMA_VECTOR), interrupt(IPL6SRS), nomips16)) _IntHandlerUSBInstance0_USBDMA(void)
+		{
+			DRV_USBHS_Tasks_ISR_USBDMA(HarmonySysObj.drvUSBObject);
+		}
+	#else
+
+		// USB FS interrupt handler
+		void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void)
+		{
+			DRV_USBFS_Tasks_ISR(HarmonySysObj.drvUSBObject);
+		}
+
+	#endif
+
 #endif
 
 void Harmony_SYS_Tasks(void)
@@ -710,11 +788,18 @@ void Harmony_SYS_Tasks(void)
     /* Maintain Middleware & Other Libraries */
 
 #if defined(_USB)
-    /* USB FS Driver Task Routine */
-    DRV_USBFS_Tasks(HarmonySysObj.drvUSBObject);
+
+	#if defined(USB_DRV_HS)
+		/* USB FS Driver Task Routine */
+		DRV_USBHS_Tasks(HarmonySysObj.drvUSBObject);
+	#else
+		/* USB FS Driver Task Routine */
+		DRV_USBFS_Tasks(HarmonySysObj.drvUSBObject);
+	#endif
 
     /* USB Device layer tasks routine */
     USB_DEVICE_Tasks(HarmonySysObj.usbDevObject0);
+
 #endif
     
     /* Maintain the application's state machine. */

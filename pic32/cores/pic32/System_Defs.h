@@ -524,9 +524,25 @@
 
 /* USB Interrupt
 */
+#if defined(__PIC32MZXX__)
+
+#define	_USB_IPL_ISR	IPL6SRS
+#define	_USB_IPL_IPC	6
+#define	_USB_SPL_IPC	0
+
+#define	_USBDMA_IPL_ISR	IPL6SRS
+#define	_USBDMA_IPL_IPC	6
+#define	_USBDMA_SPL_IPC	0
+
+#else
+
 #define	_USB_IPL_ISR	IPL6SOFT
 #define	_USB_IPL_IPC	6
 #define	_USB_SPL_IPC	0
+
+#endif
+
+
 
 /* CAN Interrupts
 */

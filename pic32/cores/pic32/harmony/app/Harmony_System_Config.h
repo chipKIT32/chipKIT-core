@@ -82,41 +82,63 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /*** Interrupt System Service Configuration ***/
 #define SYS_INT                     true
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Driver Configuration
-// *****************************************************************************
-// *****************************************************************************
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Middleware & Other Library Configuration
-// *****************************************************************************
-// *****************************************************************************
 
 /*** USB Driver Configuration ***/
 
+/* MZ processors need the high speed driver */
+#if defined(__PIC32MZ)
+	#define USB_DRV_HS 1
+#else
+	#define USB_DRV_FS 1
+#endif
 
-/* Enables Device Support */
-#define DRV_USBFS_DEVICE_SUPPORT      true
+#if defined(USB_DRV_HS)
 
-/* Disable Device Support */
-#define DRV_USBFS_HOST_SUPPORT      false
+	/* Enables Device Support */
+	#define DRV_USBHS_DEVICE_SUPPORT	true
 
-#define DRV_USBFS_PERIPHERAL_ID       USB_ID_1
-#define DRV_USBFS_INTERRUPT_SOURCE    INT_SOURCE_USB_1
-#define DRV_USBFS_INDEX               0
+	/* Disable Device Support */
+	#define DRV_USBHS_HOST_SUPPORT		false
 
+	#define DRV_USBHS_PERIPHERAL_ID		0
+	#define DRV_USBHS_INTERRUPT_SOURCE	INT_SOURCE_USB_1
+	#define DRV_USBHS_INDEX				0
 
-/* Interrupt mode enabled */
-#define DRV_USBFS_INTERRUPT_MODE      true
+	/* Interrupt mode enabled */
+	#define DRV_USBHS_INTERRUPT_MODE	true
 
+	/* Number of Endpoints used */
+	#define DRV_USBHS_ENDPOINTS_NUMBER	6
 
-/* Number of Endpoints used */
-#define DRV_USBFS_ENDPOINTS_NUMBER    6
+	#define APP_MAKE_BUFFER_DMA_READY	__attribute__((coherent)) __attribute__((aligned(4)))
 
+	/* Maximum USB driver instances */
+	#define DRV_USBHS_INSTANCES_NUMBER	1
 
+#else 
+
+	/* Enables Device Support */
+	#define DRV_USBFS_DEVICE_SUPPORT	true
+
+	/* Disable Device Support */
+	#define DRV_USBFS_HOST_SUPPORT		false
+
+	#define DRV_USBFS_PERIPHERAL_ID		USB_ID_1
+	#define DRV_USBFS_INTERRUPT_SOURCE	INT_SOURCE_USB_1
+	#define DRV_USBFS_INDEX				0
+
+	/* Interrupt mode enabled */
+	#define DRV_USBFS_INTERRUPT_MODE	true
+
+	/* Number of Endpoints used */
+	#define DRV_USBFS_ENDPOINTS_NUMBER	6
+
+	#define APP_MAKE_BUFFER_DMA_READY
+
+	/* Maximum USB driver instances */
+	#define DRV_USBFS_INSTANCES_NUMBER	1
+
+#endif
 
 
 /*** USB Device Stack Configuration ***/
@@ -125,67 +147,35 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 /* The USB Device Layer will not initialize the USB Driver */
 #define USB_DEVICE_DRIVER_INITIALIZE_EXPLICIT
 
-/* Maximum device layer instances */
-#define USB_DEVICE_INSTANCES_NUMBER     1
 
 /* EP0 size in bytes */
-#define USB_DEVICE_EP0_BUFFER_SIZE      8
+#define USB_DEVICE_EP0_BUFFER_SIZE      64
 
 /* Enable SOF Events */ 
 #define USB_DEVICE_SOF_EVENT_ENABLE     
-
-
-
 
 /* Enable Advanced String Descriptor table. This feature lets the user specify 
    String Index along with the String descriptor Structure  */
 #define USB_DEVICE_STRING_DESCRIPTOR_TABLE_ADVANCED_ENABLE
 
-
-
-
-
 /* Maximum instances of CDC function driver */
 #define USB_DEVICE_CDC_INSTANCES_NUMBER     2
-
-
-
-
-
-
-
-
-
 
 /* CDC Transfer Queue Size for both read and
    write. Applicable to all instances of the
    function driver */
 #define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED 10
 
-
 /* Maximum instances of HID function driver */
 #define USB_DEVICE_HID_INSTANCES_NUMBER     1
-
-
-
-
-
-
-
-
-
 
 /* HID Transfer Queue Size for both read and
    write. Applicable to all instances of the
    function driver */
 #define USB_DEVICE_HID_QUEUE_DEPTH_COMBINED 2
 
-
-
-
-#define APP_MAKE_BUFFER_DMA_READY
-
-
+/* Maximum device layer instances */
+#define USB_DEVICE_INSTANCES_NUMBER     1
 
 // Number of milliseconds we will wait before giving up while trying to 
 // send data up to the PC.

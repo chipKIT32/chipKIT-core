@@ -1,7 +1,7 @@
 
 #include <string.h> 
 #include "System_Config.h"
-#include "Harmony_System_Definitions.h"
+#include "system_definitions.h"
 #include "Harmony_Sys.h"
 #include "Harmony_Private.h"
 #include "Harmony_Public.h"
@@ -300,6 +300,29 @@ USB_CDC_LINE_CODING* Harmony_Cdc_GetLineEncoding(int32_t portIndex)
         return &Harmony_AppData.comPorts[portIndex].getLineCodingData;
     }
     return NULL;
+}
+
+void Harmony_Cdc_Flush(int32_t portIndex)
+{
+	USB_DEVICE_CDC_RESULT stat = CDC_STATUS_SUCCESS;
+	HARMONY_CDC_TRANSFER_CONTEXT* pTransfer;
+	int bufCounter = 0;
+
+	if (!IsPortValid(portIndex)) return;
+
+	Harmony_SYS_Tasks();
+
+	while ((pTransfer = (HARMONY_CDC_TRANSFER_CONTEXT*)Harmony_AppData.comPorts[portIndex].ReadCompleteList) != NULL)
+	{
+		stat = sumbitFromReadCompleteList(portIndex);
+		if (stat != CDC_STATUS_SUCCESS)
+			break;
+
+		Harmony_SYS_Tasks();
+
+		if (++bufCounter == HARMONY_CDC_READ_BUFFER_COUNT)
+			break;
+	}
 }
 
 /************************************************

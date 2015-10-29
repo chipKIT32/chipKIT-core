@@ -74,7 +74,10 @@ extern "C" {
     /* Reads the first available char if there is one or more bytes available 
      * to read. Returns -1 in all other cases. */
     int Harmony_Cdc_ReadChar(int32_t portIndex);
-    //</editor-fold>
+
+	/* Clears all incomming data. */
+	void Harmony_Cdc_Flush(int32_t portIndex);
+	//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="HID Types and Functions">
     

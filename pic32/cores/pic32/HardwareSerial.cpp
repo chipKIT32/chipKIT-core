@@ -682,93 +682,8 @@ void HardwareSerial::disableAddressDetection(void) {
 
 //*******************************************************************************************
 
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined(_USB)
 
-#ifdef TR_DISABLED
-
-#include	"HardwareSerial_cdcacm.h"
-#include	"HardwareSerial_usb.h"
-
-ring_buffer rx_bufferUSB = { { 0 }, 0, 0 };
-
-#define     USBSerialBufferFree()     (((RX_BUFFER_SIZE - 1) + rx_bufferUSB.tail - rx_bufferUSB.head) % RX_BUFFER_SIZE)
-
-//*******************************************************************************************
-// Return TRUE if we could take the character, return FALSE if there wasn't room
-inline boolean store_char(unsigned char theChar, ring_buffer *rx_buffer)
-{
-int	bufIndex;
-
-    // Compute the place where we want to store this byte - one beyond the head
-	bufIndex	= (rx_buffer->head + 1) % RX_BUFFER_SIZE;
-
-    // If the place where we are about to store the character is the tail, then
-    // we would overflow the buffer if we put our character there. This is because
-    // if head = tail, the buffer is empty. If head = tail-1, then the buffer
-    // is full. So only write into the buffer if we are not writing at the tail.
-	if (bufIndex != rx_buffer->tail)
-	{
-		rx_buffer->buffer[rx_buffer->head]	=	theChar;
-		rx_buffer->head	=	bufIndex;
-        return(true);
-	}
-    else
-    {
-        return(false);
-	}
-}
-
-//****************************************************************
-void	USBresetRoutine(void)
-{
-	
-}
-
-//****************************************************************
-// Need to return FALSE if we need USB to hold off for awhile
-boolean	USBstoreDataRoutine(const byte *buffer, int length)
-{
-    unsigned int	i;
-
-    // If we have a receive callback defined then repeatedly
-    // call it with each character.
-    if (Serial.rxIntr != NULL) {
-        for (i = 0; i < length; i++) {
-            Serial.rxIntr(buffer[i]);
-        }
-        return true;
-    }
-
-    // Put each byte into the serial recieve buffer
-    for (i=0; i<length; i++)
-	{
-        store_char(buffer[i], &rx_bufferUSB);
-	}
-    // If there isn't going to be enough space for a whole nother buffer, then return
-    // false so USB will NAK and we won't get any more data.
-    if (USBSerialBufferFree() < USB_SERIAL_MIN_BUFFER_FREE)
-    {
-        return(false);
-    }
-    else
-    {
-        return(true);
-    }
-}
-#else
-
-#endif
-
-#ifdef TR_DISABLED
-//*******************************************************************************************
-USBSerial::USBSerial(ring_buffer	*rx_buffer)
-{
-	_rx_buffer			=	rx_buffer;
-	_rx_buffer->head	=	0;
-	_rx_buffer->tail	=	0;
-    rxIntr = NULL;
-}
-#else
 USBSerial::USBSerial(void)
 {
 	_port = 0;
@@ -777,7 +692,6 @@ USBSerial::USBSerial(int port)
 {
 	_port = port;
 }
-#endif
 
 USBSerial::operator int() {
 	return Harmony_Cdc_IsPortActive(_port);
@@ -788,7 +702,6 @@ USBSerial::operator int() {
 #else
 	#define	DebugViaSerial0(x)
 #endif
-
 
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
@@ -825,46 +738,13 @@ int USBSerial::peek()
 //*******************************************************************************************
 int USBSerial::read(void)
 {
-#ifdef TR_DISABLED
-	unsigned char theChar;
-
-	// If the head = tail, then the buffer is empty, so nothing to read
-	if (_rx_buffer->head == _rx_buffer->tail)
-	{
-		return -1;
-	}
-	else
-	{
-		theChar = _rx_buffer->buffer[_rx_buffer->tail];
-		_rx_buffer->tail = (_rx_buffer->tail + 1) % RX_BUFFER_SIZE;
-
-		// If we just made enough room for the next packet to fit into our buffer,
-		// start the packets flowing from the PC again
-		if (USBSerialBufferFree() >= USB_SERIAL_MIN_BUFFER_FREE)
-		{
-			cdcacm_command_ack();
-		}
-
-		return (theChar);
-	}
-#else
 	return Harmony_Cdc_ReadChar(_port);
-#endif
 }
 
 //*******************************************************************************************
 void USBSerial::flush()
 {
-	// don't reverse this or there may be problems if the RX interrupt
-	// occurs after reading the value of rx_buffer_head but before writing
-	// the value to rx_buffer_tail; the previous value of rx_buffer_head
-	// may be written to rx_buffer_tail, making it appear as if the buffer
-	// don't reverse this or there may be problems if the RX interrupt
-	// occurs after reading the value of rx_buffer_head but before writing
-	// the value to rx_buffer_tail; the previous value of rx_buffer_head
-	// may be written to rx_buffer_tail, making it appear as if the buffer
-	// were full, not empty.
-	_rx_buffer->head	=	_rx_buffer->tail;
+	Harmony_Cdc_Flush(_port);
 }
 
 //*******************************************************************************************
@@ -909,7 +789,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 //*******************************************************************************************
 size_t USBSerial::write(const char *str)
 {
-size_t size;
+	size_t size;
 
 	size	=	strlen(str);
 	write((const uint8_t *)str, size);
