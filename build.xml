@@ -342,7 +342,7 @@
 
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
             <arg line="rev-parse --abbrev-ref HEAD"/>
-    </exec
+    </exec>
 
     <condition property="git.branch" value="${git.revparsebranch}>
         <not>
