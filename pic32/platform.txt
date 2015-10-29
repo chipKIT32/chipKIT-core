@@ -29,7 +29,7 @@ compiler.elf2hex.cmd=pic32-bin2hex
 compiler.elf2hex.flags=-a
 compiler.elf2hex.extra_flags=
 compiler.c.elf.cmd=pic32-g++
-compiler.c.elf.flags=-Os -Wl,-M={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles 
+compiler.c.elf.flags=-Os -Wl,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles 
 compiler.c.elf.extra_flags=
 compiler.size.cmd=pic32-size
 compiler.cpudef=-mprocessor=
