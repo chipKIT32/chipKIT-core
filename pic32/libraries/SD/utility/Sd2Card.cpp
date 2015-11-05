@@ -30,10 +30,6 @@
 #define CORETIMER_TICKS_PER_HALF_SCK	(((F_CPU / 2) + SPI_DBL_SPEED - 1)  / SPI_DBL_SPEED)
 #define read_count(dest) __asm__ __volatile__("mfc0 %0,$9" : "=r" (dest))
 
-uint32_t	spi_state;
-uint8_t     fspi_state_saved = false;
-uint32_t    interrupt_state = 0;
-
 /** Soft SPI receive */
 uint8_t spiRec(void) {
   uint8_t data = 0;
@@ -100,6 +96,156 @@ void spiSend(uint8_t data) {
     PORTClearBits(prtSCK, bnSCK);
   }
 }
+
+#if defined(_ALT_SD_SPI_CHIP_SELECT_)
+
+extern "C" void altSDInitchipSelectPin(uint8_t csPin);
+extern "C" void altSDchipSelectHigh(uint8_t csPin);
+extern "C" void altSDchipSelectLow(uint8_t csPin);
+
+void Sd2Card::chipSelectHigh(void)
+{
+    altSDchipSelectHigh(chipSelectPin_);
+}
+
+void Sd2Card::chipSelectLow(void) 
+{
+    altSDchipSelectLow(chipSelectPin_);
+}
+
+#else
+//------------------------------------------------------------------------------
+void Sd2Card::chipSelectHigh(void) {
+  digitalWrite(chipSelectPin_, HIGH);
+}
+
+//------------------------------------------------------------------------------
+void Sd2Card::chipSelectLow(void) {
+  digitalWrite(chipSelectPin_, LOW);
+}
+#endif
+
+//------------------------------------------------------------------------------
+/**
+ * Initialize an SD flash memory card.
+ *
+ * \param[in] sckRateID SPI clock rate selector. See setSckRate().
+ * \param[in] chipSelectPin SD chip select pin number.
+ *
+ * \return The value one, true, is returned for success and
+ * the value zero, false, is returned for failure.  The reason for failure
+ * can be determined by calling errorCode() and errorData().
+ */
+uint8_t Sd2Card::init(uint8_t sckRateID, uint8_t chipSelectPin) {
+  errorCode_ = inBlock_ = partialBlockRead_ = type_ = 0;
+
+  // 16-bit init start time allows over a minute
+  uint16_t t0 = (uint16_t)millis();
+  uint32_t arg;
+
+#if defined(__PIC32_PPS__)
+  PORTSetAsDigitalPin(prtSDO, bnSDO);	// Turn off analog input for this pin
+  PORTSetAsDigitalPin(prtSDI, bnSDI);	// Turn off analog input for this pin
+  PORTSetAsDigitalPin(prtSCK, bnSCK);	// Turn off analog input for this pin
+  SD_SDO_PPS();	// Set this pin's PPS mapping to be "GPIO"
+  SD_SDI_PPS();	// Set this pin's PPS mapping to be "GPIO"
+  SD_SCK_PPS();	// Set this pin's PPS mapping to be "GPIO"
+#else
+  // Goal here is to set any bit-banged SPI port pins to be digital I/O rather than analog inputs
+  // The non-PPS PIC32 devices have all of the analog capable pins on
+  // PORTB. If this is a PORTB pin, we have to set it to digital mode.	
+  // You have to set the bit in the AD1PCFG for an analog pin to be used as a 
+  // digital input. They come up after reset as analog input with the digital 
+  // input disabled. For the PORTB pins you switch between analog input and 
+  // digital input using AD1PCFG.
+  // Note that the chip select pin is handleled a bit further down in the pinMode() call.
+  #if (prtSDO == IOPORT_B)
+  {
+    AD1PCFGSET = bnSDO;
+  }
+  #endif
+  #if (prtSDI == IOPORT_B)
+  {
+    AD1PCFGSET = bnSDI;
+  }
+  #endif
+  #if (prtSCK == IOPORT_B)
+  {
+    AD1PCFGSET = bnSCK;
+  }
+  #endif
+#endif
+
+  PORTSetPinsDigitalOut(prtSCK, bnSCK);
+  PORTSetPinsDigitalOut(prtSDO, bnSDO);
+  PORTSetPinsDigitalIn(prtSDI, bnSDI);
+
+
+    chipSelectPin_ = chipSelectPin;
+
+#if defined(_ALT_SD_SPI_CHIP_SELECT_)
+    altSDInitchipSelectPin(chipSelectPin_);
+#else
+    pinMode(chipSelectPin_, OUTPUT);
+#endif
+
+
+  // set pin modes
+  chipSelectHigh();
+
+  // must supply min of 74 clock cycles with CS high.
+  for (uint8_t i = 0; i < 10; i++) spiSend(0XFF);
+
+  chipSelectLow();
+
+  // command to go idle in SPI mode
+  while ((status_ = cardCommand(CMD0, 0)) != R1_IDLE_STATE) {
+    if (((uint16_t)millis() - t0) > SD_INIT_TIMEOUT) {
+      error(SD_CARD_ERROR_CMD0);
+      goto fail;
+    }
+  }
+  // check SD version
+  if ((cardCommand(CMD8, 0x1AA) & R1_ILLEGAL_COMMAND)) {
+    type(SD_CARD_TYPE_SD1);
+  } else {
+    // only need last byte of r7 response
+    for (uint8_t i = 0; i < 4; i++) status_ = spiRec();
+    if (status_ != 0XAA) {
+      error(SD_CARD_ERROR_CMD8);
+      goto fail;
+    }
+    type(SD_CARD_TYPE_SD2);
+  }
+  // initialize card and send host supports SDHC if SD2
+  arg = type() == SD_CARD_TYPE_SD2 ? 0X40000000 : 0;
+
+  while ((status_ = cardAcmd(ACMD41, arg)) != R1_READY_STATE) {
+    // check for timeout
+    if (((uint16_t)millis() - t0) > SD_INIT_TIMEOUT) {
+      error(SD_CARD_ERROR_ACMD41);
+      goto fail;
+    }
+  }
+  // if SD2 read OCR register to check for SDHC card
+  if (type() == SD_CARD_TYPE_SD2) {
+    if (cardCommand(CMD58, 0)) {
+      error(SD_CARD_ERROR_CMD58);
+      goto fail;
+    }
+    if ((spiRec() & 0XC0) == 0XC0) type(SD_CARD_TYPE_SDHC);
+    // discard rest of ocr - contains allowed voltage range
+    for (uint8_t i = 0; i < 3; i++) spiRec();
+  }
+  chipSelectHigh();
+
+  return true;
+
+ fail:
+  chipSelectHigh();
+  return false;
+}
+
 //------------------------------------------------------------------------------
 // send command and return error code.  Return zero for OK
 uint8_t Sd2Card::cardCommand(uint8_t cmd, uint32_t arg) {
@@ -156,48 +302,6 @@ uint32_t Sd2Card::cardSize(void) {
 }
 
 //------------------------------------------------------------------------------
-void Sd2Card::chipSelectHigh(void) {
-  digitalWrite(chipSelectPin_, HIGH);
-
-// On the WiFiShield it is possible for the MRF24 to get an interrupt that
-// the PIC32 needs to service the MRF24 while the SD card is selected.
-// If this happens the PIC32 MRF Universal Driver code provided by MCHP
-// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
-// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
-// causing a SDI/SDO data conflict and hosing both the SD and MRF
-// The not so great, but working solution is to disable the MRF interrupt while
-// the SD card is selected so the Univerdriver will not also select the MRF
-#if defined(_BOARD_MEGA_) || defined(_BOARD_UNO_) || defined(_BOARD_UC32_)
-  if(fspi_state_saved)
-  {
-    SPI2CON = spi_state;
-    fspi_state_saved = false;
-    restoreIntEnable(_EXTERNAL_1_IRQ, interrupt_state);
-  }
-#endif
-}
-//------------------------------------------------------------------------------
-void Sd2Card::chipSelectLow(void) {
-// On the WiFiShield it is possible for the MRF24 to get an interrupt that
-// the PIC32 needs to service the MRF24 while the SD card is selected.
-// If this happens the PIC32 MRF Universal Driver code provided by MCHP
-// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
-// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
-// causing a SDI/SDO data conflict and hosing both the SD and MRF
-// The not so great, but working solution is to disable the MRF interrupt while
-// the SD card is selected so the Univerdriver will not also select the MRF
-#if defined(_BOARD_MEGA_) || defined(_BOARD_UNO_) || defined(_BOARD_UC32_)
-    if(!fspi_state_saved)
-    {
-        interrupt_state = clearIntEnable(_EXTERNAL_1_IRQ);
-        spi_state = SPI2CON;
-        SPI2CONbits.ON = 0; 
-        fspi_state_saved = true;
-    }
-#endif
-  digitalWrite(chipSelectPin_, LOW);
-}
-//------------------------------------------------------------------------------
 /** Erase a range of blocks.
  *
  * \param[in] firstBlock The address of the first block in the range.
@@ -246,121 +350,6 @@ uint8_t Sd2Card::erase(uint32_t firstBlock, uint32_t lastBlock) {
 uint8_t Sd2Card::eraseSingleBlockEnable(void) {
   csd_t csd;
   return readCSD(&csd) ? csd.v1.erase_blk_en : 0;
-}
-//------------------------------------------------------------------------------
-/**
- * Initialize an SD flash memory card.
- *
- * \param[in] sckRateID SPI clock rate selector. See setSckRate().
- * \param[in] chipSelectPin SD chip select pin number.
- *
- * \return The value one, true, is returned for success and
- * the value zero, false, is returned for failure.  The reason for failure
- * can be determined by calling errorCode() and errorData().
- */
-uint8_t Sd2Card::init(uint8_t sckRateID, uint8_t chipSelectPin) {
-  errorCode_ = inBlock_ = partialBlockRead_ = type_ = 0;
-
-  // 16-bit init start time allows over a minute
-  uint16_t t0 = (uint16_t)millis();
-  uint32_t arg;
-
-#if defined(__PIC32_PPS__)
-  PORTSetAsDigitalPin(prtSDO, bnSDO);	// Turn off analog input for this pin
-  PORTSetAsDigitalPin(prtSDI, bnSDI);	// Turn off analog input for this pin
-  PORTSetAsDigitalPin(prtSCK, bnSCK);	// Turn off analog input for this pin
-  SD_SDO_PPS();	// Set this pin's PPS mapping to be "GPIO"
-  SD_SDI_PPS();	// Set this pin's PPS mapping to be "GPIO"
-  SD_SCK_PPS();	// Set this pin's PPS mapping to be "GPIO"
-#else
-  // Goal here is to set any bit-banged SPI port pins to be digital I/O rather than analog inputs
-  // The non-PPS PIC32 devices have all of the analog capable pins on
-  // PORTB. If this is a PORTB pin, we have to set it to digital mode.	
-  // You have to set the bit in the AD1PCFG for an analog pin to be used as a 
-  // digital input. They come up after reset as analog input with the digital 
-  // input disabled. For the PORTB pins you switch between analog input and 
-  // digital input using AD1PCFG.
-  // Note that the chip select pin is handleled a bit further down in the pinMode() call.
-  #if (prtSDO == IOPORT_B)
-  {
-    AD1PCFGSET = bnSDO;
-  }
-  #endif
-  #if (prtSDI == IOPORT_B)
-  {
-    AD1PCFGSET = bnSDI;
-  }
-  #endif
-  #if (prtSCK == IOPORT_B)
-  {
-    AD1PCFGSET = bnSCK;
-  }
-  #endif
-#endif
-
-
-  chipSelectPin_ = chipSelectPin;
-
-  pinMode(chipSelectPin_, OUTPUT);
-
-  PORTSetPinsDigitalOut(prtSCK, bnSCK);
-  PORTSetPinsDigitalOut(prtSDO, bnSDO);
-  PORTSetPinsDigitalIn(prtSDI, bnSDI);
-  
-  // set pin modes
-  chipSelectHigh();
-
-  // must supply min of 74 clock cycles with CS high.
-  for (uint8_t i = 0; i < 10; i++) spiSend(0XFF);
-
-  chipSelectLow();
-
-  // command to go idle in SPI mode
-  while ((status_ = cardCommand(CMD0, 0)) != R1_IDLE_STATE) {
-    if (((uint16_t)millis() - t0) > SD_INIT_TIMEOUT) {
-      error(SD_CARD_ERROR_CMD0);
-      goto fail;
-    }
-  }
-  // check SD version
-  if ((cardCommand(CMD8, 0x1AA) & R1_ILLEGAL_COMMAND)) {
-    type(SD_CARD_TYPE_SD1);
-  } else {
-    // only need last byte of r7 response
-    for (uint8_t i = 0; i < 4; i++) status_ = spiRec();
-    if (status_ != 0XAA) {
-      error(SD_CARD_ERROR_CMD8);
-      goto fail;
-    }
-    type(SD_CARD_TYPE_SD2);
-  }
-  // initialize card and send host supports SDHC if SD2
-  arg = type() == SD_CARD_TYPE_SD2 ? 0X40000000 : 0;
-
-  while ((status_ = cardAcmd(ACMD41, arg)) != R1_READY_STATE) {
-    // check for timeout
-    if (((uint16_t)millis() - t0) > SD_INIT_TIMEOUT) {
-      error(SD_CARD_ERROR_ACMD41);
-      goto fail;
-    }
-  }
-  // if SD2 read OCR register to check for SDHC card
-  if (type() == SD_CARD_TYPE_SD2) {
-    if (cardCommand(CMD58, 0)) {
-      error(SD_CARD_ERROR_CMD58);
-      goto fail;
-    }
-    if ((spiRec() & 0XC0) == 0XC0) type(SD_CARD_TYPE_SDHC);
-    // discard rest of ocr - contains allowed voltage range
-    for (uint8_t i = 0; i < 3; i++) spiRec();
-  }
-  chipSelectHigh();
-
-  return true;
-
- fail:
-  chipSelectHigh();
-  return false;
 }
 //------------------------------------------------------------------------------
 /**
