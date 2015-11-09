@@ -54,7 +54,7 @@
 // the SD SPI implementation used by the SD Volume
 // it is not required that both of these be included, only the one
 // that is needed must be included. If both are included, the code
-// will work but some unnecessary code be linked into your final HEX file.
+// will work but some unnecessary code may be linked into your final HEX file.
 #include <DSPI.h>       // include for hardware SPI
 #include <SoftSPI.h>    // include for bit banged spi
 

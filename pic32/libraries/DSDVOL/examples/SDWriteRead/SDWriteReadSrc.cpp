@@ -1,7 +1,6 @@
 /************************************************************************/
 /*                                                                      */
-/*    SDReadMain.cpp                                                    */
-/*                                                                      */
+/*    SDWriteReadSrc.cpp                                                */
 /*                                                                      */
 /************************************************************************/
 /*    Author:     Keith Vogel                                           */
@@ -44,8 +43,7 @@
 /*    10/20/2015(KeithV): Created                                       */
 /************************************************************************/
 /************************************************************************/
-/*  NOTE:You must have an SD card, and you must copy                    */
-/*      The text file sdread.txt to your SD card.                       */
+/*  NOTE:You must have an SD reader and card insterted enable for write */
 /************************************************************************/
 // Include the SD Volume implemenation
 #include <DSDVOL.h>
@@ -54,11 +52,16 @@
 static FRESULT fr = FR_OK;
 
 // The file to open
-static const char txtFileToOpen[] = "sdread.txt"; 
+static const char txtFileToOpen[] = "sdfile.txt"; 
 
 // the drive to mount the SD volume too.
 // options are: "0:", "1:", "2:", "3:", "4:"
 static const char driveNbr[] = "0:";
+
+static const char szDataToWrite[] = 
+"This is text written to the SD card.\r\n\
+Mulitiple lines are written.\r\n\
+Then all lines are read back.";
 
 // the default buff size is used so that we don't attempt
 // to read/write too many bytes in one call. By default
@@ -78,16 +81,17 @@ DSDVOL      dSDVol(dSDSpi);     // Create an SD Vol
 DFILE       dFile;              // Create a File handle to use to open files with
 
 void setup() {
+    uint32_t cbWritten = 0;
 
     // Open Serial Monitor
     Serial.begin(9600);
 
     // print out sketch title
-    Serial.println("SDRead v1.0");
+    Serial.println("SDWriteRead v1.0");
 
     // Mount the SD Vol to drive "0" as known by FATFS
     // Note that there is only one global pre initialized dFatFs instance
-    if((fr = dFatFs.fsmount (dSDVol, driveNbr, 1)) == FR_OK)
+    if((fr = dFatFs.fsmount(dSDVol, driveNbr, 1)) == FR_OK)
     {
         Serial.print("Drive ");
         Serial.print(driveNbr);
@@ -103,7 +107,8 @@ void setup() {
     }
 
     // Open the file on the current (implied) drive "0"
-    if((fr = dFile.fsopen(txtFileToOpen, FA_READ)) == FR_OK)
+    // create always so it will truncate the file.
+    if((fr = dFile.fsopen(txtFileToOpen, FA_CREATE_ALWAYS | FA_WRITE | FA_READ)) == FR_OK)
     {
         Serial.print(txtFileToOpen);
         Serial.println(" opened successfully");
@@ -114,6 +119,40 @@ void setup() {
         Serial.print(txtFileToOpen);
         Serial.print(" Error: ");
         Serial.println((int) fr, DEC);
+        exit(1);
+    }
+
+    // write to the file
+    if((fr = dFile.fswrite(szDataToWrite, sizeof(szDataToWrite)-1, &cbWritten)) == FR_OK)
+    {
+        
+        Serial.print("Successfully wrote "); 
+        Serial.print(cbWritten, DEC);
+        Serial.print(" bytes to file: "); 
+        Serial.println(txtFileToOpen);
+    }
+    else
+    {
+        Serial.print("Failed to write of file: ");
+        Serial.print(txtFileToOpen);
+        Serial.print(" Error: ");
+        Serial.println((int) fr, DEC);
+        dFile.fsclose();
+        exit(1);
+    }
+
+    if((fr = dFile.fslseek(0)) == FR_OK)
+    {       
+        Serial.print("Successfully seeked to begining of file: "); 
+        Serial.println(txtFileToOpen);
+    }
+    else
+    {
+        Serial.print("Failed to seek to begining of file: ");
+        Serial.print(txtFileToOpen);
+        Serial.print(" Error: ");
+        Serial.println((int) fr, DEC);
+        dFile.fsclose();
         exit(1);
     }
 
@@ -133,6 +172,7 @@ void setup() {
     {
         Serial.print("File already closed");
     }
+
 }
 
 void loop() {

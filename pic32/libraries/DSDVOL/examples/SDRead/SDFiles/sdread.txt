@@ -1,4 +1,0 @@
-This is an example SD text file
-to illistrate how to use the SD FATFS
-library code to read the contents of a
-text file.
