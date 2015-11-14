@@ -1,12 +1,15 @@
 ########################################################
 name=chipKIT
-version=1.6.0
+version=1.6.6
+
+rewriting=disabled
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
 compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
+
 
 compiler.c.cmd=pic32-gcc
 compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
@@ -29,7 +32,7 @@ compiler.elf2hex.cmd=pic32-bin2hex
 compiler.elf2hex.flags=-a
 compiler.elf2hex.extra_flags=
 compiler.c.elf.cmd=pic32-g++
-compiler.c.elf.flags=-Os -Wl,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles 
+compiler.c.elf.flags=-Os -Wl,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles
 compiler.c.elf.extra_flags=
 compiler.size.cmd=pic32-size
 compiler.cpudef=-mprocessor=
@@ -50,22 +53,27 @@ core.header=WProgram.h
 ##############################################################
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-#recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-
-recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
-#recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
-
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}"  "{object_file}"
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mprocessor={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" "{build.ldscript.path}/cpp-startup.S" {object_files} "{build.path}/{archive_file}" -L{build.path} -lm  -T "{build.ldscript.path}/{ldscript}" -T "{build.core.path}/{ldcommon}"
-#recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mmcu={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm
-
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
-#{0}{1} {2} {3}.elf {4}.eep
-#recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
-
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf"
-#{0}{1} {2} {3}.elf
-#recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf"
+
+#########
+## Search for the includes
+preproc.includes.flags=-w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}"
+preproc.macros.flags=-w -x c++ -E -CC
+preproc.macros.compatibility_flags=222
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}"
+
+############
+# ctags
+# # ------------------------------
+tools.ctags.path={runtime.tools.ctags.path}
+tools.ctags.cmd.path={path}/ctags
+tools.ctags.pattern="{cmd.path}" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns "{source_file}"
+
 
 #########
 ## Compute size
@@ -75,6 +83,7 @@ recipe.size.regex.data=^(?:\.ram_exchange_data|\.dbg_data|\.sdata|\.sbss|\.data\
 #recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 
 
+###################
 # pic32prog loader
 # https://code.google.com/p/pic32prog/
 # ----------
