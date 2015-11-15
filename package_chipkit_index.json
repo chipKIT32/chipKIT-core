@@ -7,92 +7,56 @@
      "help": {
        "online": "http://chipkit.net/started/learn-basics/"
      },
-     "platforms": [{
+     "platforms": [
+       {
        "name": "chipKIT",
        "architecture": "pic32",
-       "version": "1.6.0",
+       "version": "1.0.0",
        "category": "pic32",
-       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778036.v1.0.0-2-gd0f336e.zip",
-       "archiveFileName": "chipkit-core-16778036.v1.0.0-2-gd0f336e.zip",
-       "checksum": "SHA-256:93065aa68f3d6640429c04020f31a6686d32e7e05c9d5291ebde094feb1098f5",
-       "size": "25664",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
+       "archiveFileName": "chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
+       "checksum": "SHA-256:090f430039f5c95d4033aa39e755ed22a07bebcfd3536d25918ed952944f59f3",
+       "size": "25592",
        "help": {
          "online": "http://chipkit.net/started/learn-basics/"
        },
-       "boards": [{
-           "name": "CUI32stem"
-         }, {
-           "name": "Fubarino_SDZ"
-         }, {
-           "name": "Olimex_Pinguino32"
-         }, {
-           "name": "cerebot32mx4"
-         }, {
-           "name": "cerebot32mx7"
-         }, {
-           "name": "cerebot_mx3ck"
-         }, {
-           "name": "cerebot_mx3ck_512"
-         }, {
-           "name": "cerebot_mx4ck"
-         }, {
-           "name": "cerebot_mx7ck"
-         }, {
-           "name": "chipkit_DP32"
-         }, {
-           "name": "chipkit_Pi"
-         }, {
-           "name": "chipkit_Pi_USB_Serial"
-         }, {
-           "name": "chipkit_WF32"
-         }, {
-           "name": "chipkit_WiFire"
-         }, {
-           "name": "chipkit_WiFire_80MHz"
-         }, {
-           "name": "chipkit_mx3"
-         }, {
-           "name": "chipkit_pro_mx4"
-         }, {
-           "name": "chipkit_pro_mx7"
-         }, {
-           "name": "chipkit_uc32"
-         }, {
-           "name": "cmod"
-         }, {
-           "name": "cui32"
-         }, {
-           "name": "fubarino_mini"
-         }, {
-           "name": "fubarino_mini_dev"
-         }, {
-           "name": "fubarino_sd"
-         }, {
-           "name": "fubarino_sd_seeed"
-         }, {
-           "name": "mega_pic32"
-         }, {
-           "name": "mega_usb_pic32"
-         }, {
-           "name": "openbci"
-         }, {
-           "name": "picadillo_35t"
-         }, {
-           "name": "quick240_usb_pic32"
-         }, {
-           "name": "ubw32_mx460"
-         }, {
-           "name": "ubw32_mx795"
-         }, {
-           "name": "uc32_pmod"
-         }, {
-           "name": "uno_pic32"
-         }, {
-           "name": "uno_pmod"
-         }, {
-           "name": "usbono_pic32"
-         }
-
+       "boards": [
+         {"name": "CUI32stem"},
+         {"name": "Fubarino_SDZ"},
+         {"name": "Olimex_Pinguino32"},
+         {"name": "cerebot32mx4"},
+         {"name": "cerebot32mx7"},
+         {"name": "cerebot_mx3ck"},
+         {"name": "cerebot_mx3ck_512"},
+         {"name": "cerebot_mx4ck"},
+         {"name": "cerebot_mx7ck"},
+         {"name": "chipkit_DP32"},
+         {"name": "chipkit_Pi"},
+         {"name": "chipkit_Pi_USB_Serial"},
+         {"name": "chipkit_WF32"},
+         {"name": "chipkit_WiFire"},
+         {"name": "chipkit_WiFire_80MHz"},
+         {"name": "chipkit_mx3"},
+         {"name": "chipkit_pro_mx4"},
+         {"name": "chipkit_pro_mx7"},
+         {"name": "chipkit_uc32"},
+         {"name": "cmod"},
+         {"name": "cui32"},
+         {"name": "fubarino_mini"},
+         {"name": "fubarino_mini_dev"},
+         {"name": "fubarino_sd"},
+         {"name": "fubarino_sd_seeed"},
+         {"name": "mega_pic32"},
+         {"name": "mega_usb_pic32"},
+         {"name": "openbci"},
+         {"name": "picadillo_35t"},
+         {"name": "quick240_usb_pic32"},
+         {"name": "ubw32_mx460"},
+         {"name": "ubw32_mx795"},
+         {"name": "uc32_pmod"},
+         {"name": "uno_pic32"},
+         {"name": "uno_pmod"},
+         {"name": "usbono_pic32"}
        ],
        "toolsDependecies": [{
          "packager": "chipKIT",
@@ -102,7 +66,6 @@
          "packager": "chipKIT",
          "name": "pic32prog",
          "version": "1.0.0"
-
        }]
      }],
      "tools": [{

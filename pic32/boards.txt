@@ -10,6 +10,9 @@ cerebot32mx4.build.board=BOARD_CEREBOT_32MX4_
 cerebot32mx4.board.define=
 cerebot32mx4.ccflags=ffff
 cerebot32mx4.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot32mx4.compiler.c.extra_flags=-G1024
+cerebot32mx4.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot32mx4.upload.protocol=stk500v2
@@ -77,6 +80,9 @@ cerebot_mx3ck.build.board=BOARD_CEREBOT_MX3CK_
 cerebot_mx3ck.board.define=
 cerebot_mx3ck.ccflags=ffff
 cerebot_mx3ck.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx3ck.compiler.c.extra_flags=-G1024
+cerebot_mx3ck.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot_mx3ck.upload.protocol=stk500v2
@@ -109,6 +115,9 @@ chipkit_mx3.build.board=BOARD_CEREBOT_MX3CK_
 chipkit_mx3.board.define=
 chipkit_mx3.ccflags=ffff
 chipkit_mx3.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_mx3.compiler.c.extra_flags=-G1024
+chipkit_mx3.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_mx3.upload.protocol=stk500v2
@@ -142,6 +151,9 @@ cerebot_mx3ck_512.build.board=BOARD_CEREBOT_MX3CK_512_
 cerebot_mx3ck_512.board.define=
 cerebot_mx3ck_512.ccflags=ffff
 cerebot_mx3ck_512.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx3ck_512.compiler.c.extra_flags=-G1024
+cerebot_mx3ck_512.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot_mx3ck_512.upload.protocol=stk500v2
@@ -174,6 +186,9 @@ cerebot_mx4ck.build.board=BOARD_CEREBOT_MX4CK_
 cerebot_mx4ck.board.define=
 cerebot_mx4ck.ccflags=ffff
 cerebot_mx4ck.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx4ck.compiler.c.extra_flags=-G1024
+cerebot_mx4ck.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot_mx4ck.upload.protocol=stk500v2
@@ -205,6 +220,9 @@ chipkit_pro_mx4.build.board=BOARD_CEREBOT_MX4CK_
 chipkit_pro_mx4.board.define=
 chipkit_pro_mx4.ccflags=ffff
 chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_pro_mx4.compiler.c.extra_flags=-G1024
+chipkit_pro_mx4.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_pro_mx4.upload.protocol=stk500v2
@@ -303,6 +321,9 @@ chipkit_Pi.build.board=BOARD_CHIPKIT_PI_
 chipkit_Pi.ccflags=-Map="map.map"
 chipkit_Pi.board.define=
 chipkit_Pi.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_Pi.compiler.c.extra_flags=-G1024
+chipkit_Pi.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_Pi.upload.protocol=stk500v2
@@ -338,6 +359,9 @@ chipkit_Pi_USB_Serial.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 chipkit_Pi_USB_Serial.ccflags=-Map="map.map"
 chipkit_Pi_USB_Serial.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_Pi_USB_Serial.compiler.c.extra_flags=-G1024
+chipkit_Pi_USB_Serial.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_Pi_USB_Serial.upload.protocol=stk500v2
@@ -372,6 +396,9 @@ cmod.build.board=BOARD_CMOD_
 cmod.board.define=
 cmod.ccflags=ffff
 cmod.ldscript=chipKIT-application-32MX150F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cmod.compiler.c.extra_flags=-G1024
+cmod.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cmod.upload.protocol=stk500v2
@@ -443,6 +470,9 @@ ubw32_mx460.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 ubw32_mx460.ccflags=ffff
 ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+ubw32_mx460.compiler.c.extra_flags=-G1024
+ubw32_mx460.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 ubw32_mx460.upload.protocol=stk500v2
@@ -510,6 +540,9 @@ cui32.board.define=-D_USE_USB_FOR_SERIAL_
 cui32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 cui32.ccflags=ffff
 cui32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cui32.compiler.c.extra_flags=-G1024
+cui32.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cui32.upload.protocol=stk500v2
@@ -541,6 +574,9 @@ usbono_pic32.build.board=BOARD_PONTECH_UAV100_
 usbono_pic32.compiler.define=-D_USE_USB_FOR_SERIAL_ -Danything=1
 usbono_pic32.ccflags=ffff
 usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+usbono_pic32.compiler.c.extra_flags=-G1024
+usbono_pic32.compiler.cpp.extra_flags=-G1024
 #chipKIT-UNO32-application-32MX320F128L.ld
 # end of new items
 
@@ -578,6 +614,9 @@ chipkit_DP32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 chipkit_DP32.ccflags=-Map="map.map"
 chipkit_DP32.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_DP32.compiler.c.extra_flags=-G1024
+chipkit_DP32.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_DP32.upload.protocol=stk500v2
@@ -613,6 +652,10 @@ fubarino_mini_dev.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_mini_dev.ccflags=-Map="map.map"
 fubarino_mini_dev.ldscript=chipKIT-application-32MX250F128.ld
 
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_mini_dev.compiler.c.extra_flags=-G1024
+fubarino_mini_dev.compiler.cpp.extra_flags=-G1024
+
 fubarino_mini_dev.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 fubarino_mini_dev.upload.maximum_size=122880
@@ -644,6 +687,9 @@ fubarino_mini.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 fubarino_mini.ccflags=-Map="map.map"
 fubarino_mini.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_mini.compiler.c.extra_flags=-G1024
+fubarino_mini.compiler.cpp.extra_flags=-G1024
 
 fubarino_mini.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
@@ -681,6 +727,9 @@ fubarino_mini.build.variant=Fubarino_Mini
 ## 128KB - 4K for EEPROM - 4K for bootloader
 #fubarino_mini_dbg.upload.maximum_size=122880
 #fubarino_mini_dbg.upload.speed=115200
+## Use this -G1024 option ONLY for boards with 64K RAM or less
+#fubarino_mini_dbg.compiler.c.extra_flags=-G1024
+#fubarino_mini_dbg.compiler.cpp.extra_flags=-G1024
 #
 #fubarino_mini_dbg.bootloader.low_fuses=0xff
 #fubarino_mini_dbg.bootloader.high_fuses=0xdd
@@ -705,6 +754,10 @@ fubarino_sd_seeed.board=_BOARD_FUBARINO_SD_
 fubarino_sd_seeed.build.board=BOARD_FUBARINO_SD_
 fubarino_sd_seeed.board.define=-D_USE_USB_FOR_SERIAL_
 fubarino_sd_seeed.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_sd_seeed.compiler.c.extra_flags=-G1024
+fubarino_sd_seeed.compiler.cpp.extra_flags=-G1024
 
 fubarino_sd_seeed.ccflags=ffff
 fubarino_sd_seeed.ldscript=chipKIT-application-32MX440F256.ld
@@ -874,6 +927,10 @@ Olimex_Pinguino32.upload.maximum_size=258048
 Olimex_Pinguino32.upload.speed=115200
 Olimex_Pinguino32.upload.tool=pic32prog
 
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+Olimex_Pinguino32.compiler.c.extra_flags=-G1024
+Olimex_Pinguino32.compiler.cpp.extra_flags=-G1024
+
 Olimex_Pinguino32.bootloader.low_fuses=0xff
 Olimex_Pinguino32.bootloader.high_fuses=0xdd
 Olimex_Pinguino32.bootloader.extended_fuses=0x00
@@ -954,6 +1011,9 @@ chipkit_uc32.build.board=BOARD_UC32_
 chipkit_uc32.board.define=
 chipkit_uc32.ccflags=ffff
 chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_uc32.compiler.c.extra_flags=-G1024
+chipkit_uc32.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_uc32.upload.protocol=stk500v2
@@ -986,6 +1046,9 @@ uc32_pmod.build.board=BOARD_UC32_
 uc32_pmod.board.define=
 uc32_pmod.ccflags=ffff
 uc32_pmod.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uc32_pmod.compiler.c.extra_flags=-G1024
+uc32_pmod.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 uc32_pmod.upload.protocol=stk500v2
@@ -1019,6 +1082,9 @@ uno_pic32.board.define=
 #uno_pic32.compiler.define=
 uno_pic32.ccflags=ffff
 uno_pic32.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pic32.compiler.c.extra_flags=-G1024
+uno_pic32.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 uno_pic32.upload.tool=pic32prog
@@ -1054,6 +1120,9 @@ uno_pmod.board.define=
 #uno_pmod.compiler.define=
 uno_pmod.ccflags=ffff
 uno_pmod.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pmod.compiler.c.extra_flags=-G1024
+uno_pmod.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 uno_pic32.upload.tool=pic32prog
@@ -1190,6 +1259,9 @@ openbci.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 openbci.ccflags=-Map="map.map"
 openbci.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+openbci.compiler.c.extra_flags=-G1024
+openbci.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 openbci.upload.protocol=stk500v2

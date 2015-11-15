@@ -2,7 +2,7 @@
 pic32.recipe.c.o.pattern={0}{1}::{2}::{3}{4}::-DF_CPU={5}::-D{6}::-D{7}::{8}::{9}::{10}::-o::{11}
 pic32.recipe.cpp.o.pattern={0}{1}::{2}::{3}{4}::-DF_CPU={5}::-D{6}::-D{7}::{8}::{9}::{10}::-o::{11}
 pic32.recipe.ar.pattern={0}{1}::{2}::{3}{4}::{5}
-pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{7}::{8}::-L{9}::-lm::-T::{10}/{11}::-T{12}/{13}
+pic32.recipe.c.combine.pattern={0}{1}::{2}::{3}{4}::-o::{5}{6}.elf::{13}\cpp-startup.S::{7}::{8}::{9}::-L{10}::-lm::-T::{11}/{12}::-T{13}/{14}
 pic32.recipe.objcopy.eep.pattern={0}{1}::{2}::{3}.elf::{4}.eep
 pic32.recipe.objcopy.hex.pattern={0}{1}::{2}::{3}.elf
 
@@ -15,9 +15,9 @@ pic32.name=chipKit
 #pic32.compiler.path=/opt/mac-pic32/bin/
 pic32.compiler.c.cmd=pic32-gcc
 pic32.compiler.path={0}/hardware/pic32/compiler/pic32-tools/bin/
-pic32.compiler.c.flags=-O2::-c::-mno-smart-io::-w::-ffunction-sections::-fdata-sections::-g3::-mdebugger::-Wcast-align::-fno-short-double::-fframe-base-loclist
+pic32.compiler.c.flags=-O2::-c::-mno-smart-io::-w::-ffunction-sections::-fdata-sections::-g3::-mdebugger::-Wcast-align::-fno-short-double::-fframe-base-loclist::-ftoplevel-reorder
 pic32.compiler.cpp.cmd=pic32-g++
-pic32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunction-sections::-fdata-sections::-g3::-mdebugger::-Wcast-align::-fno-short-double::-fframe-base-loclist
+pic32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunction-sections::-fdata-sections::-g3::-mdebugger::-Wcast-align::-fno-short-double::-fframe-base-loclist::-ftoplevel-reorder
 pic32.compiler.S.flags=-O2::-g1::-c::-Wa,--gdwarf-2
 pic32.compiler.ar.cmd=pic32-ar
 pic32.compiler.ar.flags=rcs
@@ -41,6 +41,6 @@ pic32.library.core.path=./hardware/pic32/cores/pic32
 pic32.library.path=./hardware/pic32/libraries
 pic32.ldscript=chipKIT-BL-mega.ld
 pic32.ldcommon=chipKIT-application-COMMON.ld
-pic32.compiler.define=::-DMPIDEVER=16778001::-DMPIDE=150::
+pic32.compiler.define=::-DMPIDEVER=16778024::-DMPIDE=150::-DIDE=MPIDE::
 pic32.build.variant=Default_100
 pic32.core.header=WProgram.h
