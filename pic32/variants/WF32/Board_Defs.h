@@ -446,6 +446,61 @@ extern const uint8_t 	digital_pin_to_analog_PGM[];
 #endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/*					Defines for the On Board uSD				*/
+/* ------------------------------------------------------------ */
+
+// SD Card
+//	49  RG15    AERXERR/RG15                    SDI / MISO
+//	50  RG14    TRD2/RG14                       SCK
+//	51  RG12    TRD1/RG12                       CS
+//	52  RG13    TRD0/RG13                       SDO / MOSI
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 51
+
+//uc Pin 52
+#define prtSDO				IOPORT_G
+#define	bnSDO				BIT_13
+
+//uc Pin 49
+#define prtSDI				IOPORT_G
+#define bnSDI				BIT_15
+
+//uc Pin 50
+#define prtSCK				IOPORT_G
+#define bnSCK				BIT_14
+
+// SoftSPI(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt);
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 52, 49, 50)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield MRF24	    	*/
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              4
+#define WF_SPI              4
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+
+#define WF_INT_TRIS         (TRISAbits.TRISA15)
+#define WF_INT_IO           (PORTAbits.RA15)
+
+#define WF_HIBERNATE_TRIS   (TRISGbits.TRISG1)
+#define	WF_HIBERNATE_IO     (PORTGbits.RG1)
+
+#define WF_RESET_TRIS       (TRISGbits.TRISG0)
+#define WF_RESET_IO         (LATGbits.LATG0)
+
+#define WF_CS_TRIS          (TRISFbits.TRISF12)
+#define WF_CS_IO            (LATFbits.LATF12)
+
+/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 

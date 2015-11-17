@@ -426,6 +426,60 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #endif	//OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/*					Defines SD Card on connector JD             */
+/* ------------------------------------------------------------ */
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 24
+
+#define	prtSDO				IOPORT_D	//JD
+#define	bnSDO				BIT_0
+
+#define	prtSDI				IOPORT_C
+#define	bnSDI				BIT_4
+
+#define	prtSCK				IOPORT_D
+#define	bnSCK				BIT_10
+
+#define DefineSDSPI(var) DSPI0 var
+
+/* ------------------------------------------------------------ */
+/*					Defines for the On Board Mac/Phy            */
+/* ------------------------------------------------------------ */
+
+#define _IM8720PHY_PIN_CONFIG_
+
+#define PHY_TRIS            (TRISAbits.TRISA6)        // = 0; output
+#define PHY_ENABLE          (LATAbits.LATA6)          // = 1; to enable
+#define PHY_ADDRESS         0x5                     // something other than 0 or 1 (although 1 is okay)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the MRF on JF                   */
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              2
+#define WF_SPI              4
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISEbits.TRISE9)
+#define WF_INT_IO           (PORTEbits.RE9)
+
+#define WF_HIBERNATE_TRIS   (TRISAbits.TRISA5)
+#define	WF_HIBERNATE_IO     (LATAbits.LATA5)
+
+#define WF_RESET_TRIS       (TRISAbits.TRISA1)
+#define WF_RESET_IO         (LATAbits.LATA1)
+
+#define WF_CS_TRIS          (TRISFbits.TRISF12) // Make sure JP-1 Jumper is correct
+#define WF_CS_IO            (LATFbits.LATF12)
+
+
+/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 

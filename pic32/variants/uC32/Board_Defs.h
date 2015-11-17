@@ -377,6 +377,59 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield uSD				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+#define _ALT_SD_SPI_CHIP_SELECT_
+
+#define SD_CS_PIN 4
+
+//Pin 11
+#define prtSDO				IOPORT_G
+#define	bnSDO				BIT_8
+
+//Pin 12
+#define prtSDI				IOPORT_G
+#define bnSDI				BIT_7
+
+//Pin 13
+#define prtSCK				IOPORT_G
+#define bnSCK				BIT_6
+
+// we could use Hardware SPI, but then that would conflict with the MRF clock speeds
+// the MRF typically runs much faster than we can access the SD card at.
+// so by default, we will bit bang the SD card.
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 11, 12, 13)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield MRF24	    	*/
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              1
+#define WF_SPI              2
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISDbits.TRISD8)
+#define WF_INT_IO           (PORTDbits.RD8)
+
+#define WF_HIBERNATE_TRIS   (TRISDbits.TRISD5)
+#define	WF_HIBERNATE_IO     (PORTDbits.RD5)
+
+#define WF_RESET_TRIS       (TRISDbits.TRISD6)
+#define WF_RESET_IO         (LATDbits.LATD6)
+
+#define WF_CS_TRIS          (TRISGbits.TRISG9)
+#define WF_CS_IO            (LATGbits.LATG9)
+
+
+/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 
