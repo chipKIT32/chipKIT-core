@@ -366,29 +366,3 @@ int GetDayAndTime(unsigned int epochTimeT, char * sz)
     return(cch);
  }
 
- /***    uint32_t SDRead(File fileSD, uint8_t * pbRead, uint32_t cbRead)
- *
- *    Parameters:
- *          fileSD: An open SD file to read from, you must set the positon before calling SDRead
- *          pbRead: A pointer to a buffer to receive the data read
- *          cbRead: Max size of pbRead buffer
- *              
- *    Return Values:
- *          How many bytes were actually read.
- *
- *    Description: 
- *    
- *      Helper routine to read a buffer from a file.
- * ------------------------------------------------------------ */
-uint32_t SDRead(File& fileSD, uint8_t * pbRead, uint32_t cbRead)
- {
-     uint32_t cbA = min(fileSD.available(), cbRead);
-
-     for(uint32_t i = 0; i < cbA; i++)
-     {
-         pbRead[i] = fileSD.read();
-     }
-
-     return(cbA);
- }
-

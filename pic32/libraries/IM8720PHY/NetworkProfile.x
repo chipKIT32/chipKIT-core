@@ -51,15 +51,14 @@
 
 #define IM8720PHY
 
+#include <p32xxxx.h>
+#include <Board_Defs.h>
+
 // board specific stuff
-#if defined(_BOARD_MEGA_)
+#if defined(_IM8720PHY_PIN_CONFIG_)
 
-    #include <MAX32-Pins.x>
-    
-#elif defined(_BOARD_CEREBOT_MX7CK_) || defined(_BOARD_CEREBOT_32MX7_)
+// Definitions in Board_Defs.h
 
-    #include <ProMX7-Pins.x>
-    
 #else
 
     #error IM8720 is not supported by this board.

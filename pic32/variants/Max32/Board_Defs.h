@@ -450,12 +450,74 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 /*					A/D Converter Declarations					*/
 /* ------------------------------------------------------------ */
 
-
-/* ------------------------------------------------------------ */
-
 #endif	//OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield uSD				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+#define _ALT_SD_SPI_CHIP_SELECT_
+
+#define SD_CS_PIN 4
+
+//Pin 43
+#define prtSDO				IOPORT_G
+#define	bnSDO				BIT_8
+
+//Pin 29
+#define prtSDI				IOPORT_G
+#define bnSDI				BIT_7
+
+//Pin 52
+#define prtSCK				IOPORT_G
+#define bnSCK				BIT_6
+
+// we could use Hardware SPI, but then that would conflict with the MRF clock speeds
+// the MRF typically runs much faster than we can access the SD card at.
+// so by default, we will bit bang the SD card.
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 43, 29, 52)
+
+/* ------------------------------------------------------------ */
+/*					Defines for Network Shield                  */
+/* ------------------------------------------------------------ */
+
+#define _IM8720PHY_PIN_CONFIG_
+
+#define PHY_TRIS            (TRISEbits.TRISE9)        // = 0; output
+#define PHY_ENABLE          (LATEbits.LATE9)          // = 1; to enable
+#define PHY_ADDRESS         0x5                     // something other than 0 or 1 (although 1 is okay)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield MRF24	    	*/
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              1
+#define WF_SPI              2
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS			(TRISEbits.TRISE8)  // INT1
+#define WF_INT_IO			(PORTEbits.RE8)
+
+#define WF_HIBERNATE_TRIS	(TRISGbits.TRISG1)
+#define WF_HIBERNATE_IO		(PORTGbits.RG1)
+
+#define WF_RESET_TRIS		(TRISAbits.TRISA6)
+#define WF_RESET_IO			(LATAbits.LATA6)
+
+#define WF_CS_TRIS			(TRISGbits.TRISG9)
+#define WF_CS_IO			(LATGbits.LATG9)
+
+
+/* ------------------------------------------------------------ */
+
 
 #endif	// BOARD_DEFS_H
 

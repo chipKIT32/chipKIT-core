@@ -199,10 +199,10 @@ DSPI::init(uint8_t irqErr, uint8_t irqRx, uint8_t irqTx, isrFunc isrHandler) {
 **		Initialize the SPI port with new PPS mappings.
 */
 
-void DSPI::begin(uint8_t miso, uint8_t mosi) {
+bool DSPI::begin(uint8_t miso, uint8_t mosi) {
     pinMISO = miso;
     pinMOSI = mosi;
-    begin(pinSS);
+    return(begin(pinSS));
 }
 
 /* ------------------------------------------------------------ */
@@ -222,11 +222,11 @@ void DSPI::begin(uint8_t miso, uint8_t mosi) {
 **	Description:
 **		Initialize the SPI port with new PPS mappings.
 */
-void DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
+bool DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
     pinMISO = miso;
     pinMOSI = mosi;
     pinSS = ss;
-    begin(pinSS);
+    return(begin(pinSS));
 }
 #endif
 
@@ -246,12 +246,11 @@ void DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
 **		Initialize the SPI port with all default values.
 */
 
-void
-DSPI::begin() {
+bool DSPI::begin() {
 
 	/* Use the default pin specified in the constructor.
 	*/
-	begin(pinSS);
+	return(begin(pinSS));
 
 }
 
@@ -273,8 +272,7 @@ DSPI::begin() {
 **		pin for SS to the specified pin.
 */
 
-void
-DSPI::begin(uint8_t pinT) {
+bool DSPI::begin(uint8_t pinT) {
 
 	p32_regset *	pregIpc;
 	int				bnVec;
@@ -359,6 +357,7 @@ DSPI::begin(uint8_t pinT) {
 	pspi->sxCon.reg = 0;
 	pspi->sxCon.set = (1 << _SPICON_ON) + (1 << _SPICON_MSTEN) + DSPI_MODE0;
 
+    return(true);
 }	
 
 /* ------------------------------------------------------------ */
