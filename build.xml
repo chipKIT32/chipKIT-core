@@ -133,7 +133,7 @@
     <property name="localplatform">arm</property>
 
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -338,7 +338,7 @@
     <condition property="git.branch" value="${GIT_BRANCH}">
         <isset property="GIT_BRANCH" />
     </condition>
-        
+
 
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
             <arg line="rev-parse --abbrev-ref HEAD"/>
