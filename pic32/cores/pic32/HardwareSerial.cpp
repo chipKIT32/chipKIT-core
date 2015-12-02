@@ -87,6 +87,49 @@
 //	#define	_DEBUG_USB_VIA_SERIAL0_
 #endif
 
+// Definitions for a built-in TX and RX LED for USB serial.
+// Relies on the board defining PIN_LED_TX and PIN_LED_RX
+// Only supports active-high LEDs at the moment.
+// The LED is turned on in the main code, and a timestamp
+// is set for turning it off.  A task is executed every 10ms
+// to turn the LED off between 10 and 20ms after it's been
+// requested with xXOff(); which means that you get to actually
+// see the LED in action.
+
+#ifdef PIN_LED_TX
+static volatile uint32_t gTXLedTimeout = 0;
+# define TXOn() digitalWrite(PIN_LED_TX, HIGH); gTXLedTimeout = 0;
+# define TXOff() gTXLedTimeout = millis();
+static void TXLedSwitchOff(int id, void *tptr) {
+    if (gTXLedTimeout > 0) {
+        if (millis() - gTXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_TX, LOW);
+            gTXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define TXOn()
+# define TXOff()
+#endif
+
+#ifdef PIN_LED_RX
+static volatile uint32_t gRXLedTimeout = 0;
+# define RXOn() digitalWrite(PIN_LED_RX, HIGH); gRXLedTimeout = 0;
+# define RXOff() gRXLedTimeout = millis();
+static void RXLedSwitchOff(int id, void *tptr) {
+    if (gRXLedTimeout > 0) {
+        if (millis() - gRXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_RX, LOW);
+            gRXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define RXOn()
+# define RXOff()
+#endif
+
 extern "C"
 {
 void __attribute__((interrupt(),nomips16)) IntSer0Handler(void);
@@ -726,6 +769,7 @@ void	USBresetRoutine(void)
 boolean	USBstoreDataRoutine(const byte *buffer, int length)
 {
     int	i;
+    RXOn();
 
     // If we have a receive callback defined then repeatedly
     // call it with each character.
@@ -733,6 +777,7 @@ boolean	USBstoreDataRoutine(const byte *buffer, int length)
         for (i = 0; i < length; i++) {
             Serial.rxIntr(buffer[i]);
         }
+        RXOff();
         return true;
     }
 
@@ -745,10 +790,12 @@ boolean	USBstoreDataRoutine(const byte *buffer, int length)
     // false so USB will NAK and we won't get any more data.
     if (USBSerialBufferFree() < USB_SERIAL_MIN_BUFFER_FREE)
     {
+        RXOff();
         return(false);
     }
     else
     {
+        RXOff();
         return(true);
     }
 }
@@ -777,6 +824,19 @@ USBSerial::operator int() {
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
 {
+
+#ifdef PIN_LED_TX
+    pinMode(PIN_LED_TX, OUTPUT);
+    digitalWrite(PIN_LED_TX, LOW);
+    createTask(TXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
+
+#ifdef PIN_LED_RX
+    pinMode(PIN_LED_RX, OUTPUT);
+    digitalWrite(PIN_LED_RX, LOW);
+    createTask(RXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
+
 	DebugViaSerial0("USBSerial::begin");
 
 	DebugViaSerial0("calling usb_initialize");
@@ -873,7 +933,9 @@ unsigned char	usbBuf[4];
 
 	usbBuf[0]	=	theChar;
 	
+    TXOn();
 	cdcacm_print(usbBuf, 1);
+    TXOff();
     return 1;
 }
 
@@ -893,7 +955,7 @@ void USBSerial::detachInterrupt() {
 //*******************************************************************************************
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
-
+    TXOn();
 	if (size < kMaxUSBxmitPkt)
 	{
 		//*	it will fit in one transmit packet
@@ -921,6 +983,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 			cdcacm_print(usbBuffer, packetSize);
 		}
 	}
+    TXOff();
     return size;
 }
 
