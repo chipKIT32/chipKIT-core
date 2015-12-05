@@ -17,10 +17,10 @@ compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
 # For -G1024, objects 1024 bytes or smaller will be accessed by
 # gp-relative addressing
 compiler.c.flags=-O2 -c -mno-smart-io {compiler.warning_flags} -ffunction-sections -fdata-sections -g -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder
-compiler.c.extra_flags=-MMD
+#compiler.c.extra_flags=-MMD
 compiler.cpp.cmd=pic32-g++
 compiler.cpp.flags=-O2 -c -mno-smart-io {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -g -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder
-compiler.cpp.extra_flags=-MMD
+#compiler.cpp.extra_flags=-MMD
 compiler.S.flags=-O2 -g1 -c -Wa,--gdwarf-2
 compiler.ar.cmd=pic32-ar
 compiler.ar.flags=rcs
