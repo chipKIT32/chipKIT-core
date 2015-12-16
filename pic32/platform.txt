@@ -50,37 +50,53 @@ build.variant=Default_100
 build.extra_flags=
 core.header=WProgram.h
 
-##############################################################
+# PIC32 compile patterns
+# --------------------
+
+## Compile c files
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+
+## Compile c++ files
 recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+
+## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+
+## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}"  "{object_file}"
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mprocessor={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" "{build.core.path}/cpp-startup.S" {object_files} "{build.path}/{archive_file}" -L{build.path} -lm  -T "{build.ldscript.path}/{ldscript}" -T "{build.core.path}/{ldcommon}"
+
+## Combine gc-sections, archives, and objects
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mprocessor={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" "{build.ldscript.path}/cpp-startup.S" {object_files} "{build.path}/{archive_file}" -L{build.path} -lm  -T "{build.ldscript.path}/{ldscript}" -T "{build.core.path}/{ldcommon}"
+
+## Create output files (.eep and .hex)
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
+
+## Save hex
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf"
 
-#########
-## Search for the includes
-preproc.includes.flags=-w -x c++ -M -MG -MP
-recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}"
-preproc.macros.flags=-w -x c++ -E -CC
-preproc.macros.compatibility_flags=222
-recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} {includes} "{source_file}"
-
-############
-# ctags
-# # ------------------------------
-tools.ctags.path={runtime.tools.ctags.path}
-tools.ctags.cmd.path={path}/ctags
-tools.ctags.pattern="{cmd.path}" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns "{source_file}"
-
-
-#########
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=^(?:\.reset|\.image_ptr_table|\.app_excpt|\.vector\S*|\.startup|\.init|\.fini|\.ctors|\.dtors|\.header_info|\.dinit|\.text\S*|\.rodata\S*|\.data)\s+([0-9]+).*
 recipe.size.regex.data=^(?:\.ram_exchange_data|\.dbg_data|\.sdata|\.sbss|\.data\S*|\.stack|\.bss|\.comment.__use_force_isr_install|\.eh_frame|\.jcr)\s+([0-9]+).*
 #recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
+
+## Preprocessor
+preproc.includes.flags=-w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}"
+
+preproc.macros.flags=-w -x c++ -E -CC
+
+#preproc.macros.compatibility_flags=222
+
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{preprocessed_file_path}"
+
+############
+# ctags
+# # ------------------------------
+#tools.ctags.path={runtime.tools.ctags.path}
+#tools.ctags.cmd.path={path}/ctags
+#tools.ctags.pattern="{cmd.path}" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns "{source_file}"
+
 
 
 ###################
