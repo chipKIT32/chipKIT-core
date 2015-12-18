@@ -70,68 +70,9 @@
     #define PORTSetAsDigitalPin(PORTx, BITS) PORTSetAsDigitalPinX(PORTx, BITS)
 #endif
 
-/* These are the bit-bang SPI port I/O pins for UNO32, MAX32, and UC32 */
-#if defined(_BOARD_MEGA_) || defined(_BOARD_UNO_) || defined(_BOARD_UC32_)
+#if defined(_uSD_SPI_CONFIG_)
 
-	//Pin 11
-	#define prtSDO				IOPORT_G
-	#define	bnSDO				BIT_8
-
-	//Pin 12
-	#define prtSDI				IOPORT_G
-	#define bnSDI				BIT_7
-
-	//Pin 13
-	#define prtSCK				IOPORT_G
-	#define bnSCK				BIT_6
-
-#elif defined(_BOARD_WF32_)
-
-    //uc Pin 52
-    #define prtSDO				IOPORT_G
-    #define	bnSDO				BIT_13
-
-    //uc Pin 49
-    #define prtSDI				IOPORT_G
-    #define bnSDI				BIT_15
-
-    //uc Pin 50
-    #define prtSCK				IOPORT_G
-    #define bnSCK				BIT_14
-
-#elif defined(_BOARD_WIFIRE_)
-
-    //uc Pin 54
-    #define prtSDO				IOPORT_C
-    #define	bnSDO				BIT_4
-    #define SD_SDO_PPS()                    RPC4R   = 0b0000    // Bit Banging SPI, set as GPIO
-
-    //uc Pin 53
-    #define prtSDI				IOPORT_B
-    #define bnSDI				BIT_10
-    #define SD_SDI_PPS()                                        // Bit Banging SPI, leave as nothing
-
-    //uc Pin 51
-    #define prtSCK				IOPORT_B
-    #define bnSCK				BIT_14
-    #define SD_SCK_PPS()                    RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
-
-#elif defined(_BOARD_OPENSCOPE_)
-
-    //uc Pin 54
-    #define prtSDO				IOPORT_D
-    #define	bnSDO				BIT_12
-    #define SD_SDO_PPS()        RPD12R  = 0b0000    // Bit Banging SPI, set as GPIO
-
-    //uc Pin 53
-    #define prtSDI				IOPORT_D
-    #define bnSDI				BIT_5
-    #define SD_SDI_PPS()        RPD5R  = 0b0000    // Bit Banging SPI, leave as nothing
-
-    //uc Pin 51
-    #define prtSCK				IOPORT_D
-    #define bnSCK				BIT_15
-    #define SD_SCK_PPS()        RPD15R  = 0b0000    // Bit Banging SPI, set as GPIO
+    // specify nothing as this comes from Board_Defs.h
 
 #elif defined(_BOARD_PONTECH_QUICK240_USB_)
 
@@ -146,39 +87,6 @@
     //uc Pin 70
     #define prtSCK				IOPORT_D
     #define bnSCK				BIT_10
-
-#elif defined(_BOARD_CEREBOT_MX3CK_)
-
-	#define	prtSDO				IOPORT_F	//JC
-	#define	bnSDO				BIT_5
-
-	#define	prtSDI				IOPORT_F
-	#define	bnSDI				BIT_4
-
-	#define	prtSCK				IOPORT_B
-	#define	bnSCK				BIT_14
-
-#elif defined(_BOARD_CEREBOT_MX4CK_)
-
-	#define	prtSDO				IOPORT_B	//JK
-	#define	bnSDO				BIT_11
-
-	#define	prtSDI				IOPORT_B
-	#define	bnSDI				BIT_12
-
-	#define	prtSCK				IOPORT_B
-	#define	bnSCK				BIT_13
-
-#elif defined(_BOARD_CEREBOT_MX7CK_)
-
-	#define	prtSDO				IOPORT_F	//JF
-	#define	bnSDO				BIT_5
-
-	#define	prtSDI				IOPORT_F
-	#define	bnSDI				BIT_4
-
-	#define	prtSCK				IOPORT_F
-	#define	bnSCK				BIT_13
 
 #elif defined(_BOARD_FUBARINO_SD_)
 
@@ -225,40 +133,6 @@
 	#define bnSCK				BIT_14
 	#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
 	
-#elif defined(_BOARD_DP32_)
-
-	// Digital pin 18
-	#define prtSDO				IOPORT_A
-	#define	bnSDO				BIT_4
-	#define SD_SDO_PPS()        RPA4R   = 0b0000    // Bit Banging SPI, set as GPIO
-
-	// Digital pin 10
-	#define prtSDI				IOPORT_A
-	#define bnSDI				BIT_1
-	#define SD_SDI_PPS()                            // Bit Banging SPI, leave as nothing
-
-	// Digital pin 7
-	#define prtSCK				IOPORT_B
-	#define bnSCK				BIT_14
-	#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
-
-#elif defined(_BOARD_CMOD_)
-
-	// Digital pin 25
-	#define prtSDO				IOPORT_C
-	#define	bnSDO				BIT_1
-	#define SD_SDO_PPS()        RPC1R   = 0b0000    // Bit Banging SPI, set as GPIO
-
-	// Digital pin 35
-	#define prtSDI				IOPORT_B
-	#define bnSDI				BIT_5
-	#define SD_SDI_PPS()                            // Bit Banging SPI, leave as nothing
-
-	// Digital pin 16
-	#define prtSCK				IOPORT_B
-	#define bnSCK				BIT_14
-	#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
-
 #elif defined(_BOARD_FUBARINO_SDZ_)
 
 	// Digital pin 25

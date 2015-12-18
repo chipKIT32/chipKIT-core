@@ -418,10 +418,34 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					A/D Converter Declarations					*/
 /* ------------------------------------------------------------ */
 
-
 /* ------------------------------------------------------------ */
 
 #endif	// OPT_BOARD_INTERNAL
+
+/* ------------------------------------------------------------ */
+/*					Defines for the SD on JK     				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 9
+
+// Digital pin 18
+#define prtSDO				IOPORT_A
+#define	bnSDO				BIT_4
+#define SD_SDO_PPS()        RPA4R   = 0b0000    // Bit Banging SPI, set as GPIO
+
+// Digital pin 10
+#define prtSDI				IOPORT_A
+#define bnSDI				BIT_1
+#define SD_SDI_PPS()                            // Bit Banging SPI, leave as nothing
+
+// Digital pin 7
+#define prtSCK				IOPORT_B
+#define bnSCK				BIT_14
+#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
+
+#define DefineSDSPI(var) DSPI0 var
 
 /* ------------------------------------------------------------ */
 

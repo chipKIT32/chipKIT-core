@@ -38,10 +38,10 @@
 //*	Boston, MA  02111-1307  USA
 /************************************************************************/
 
+#include <Arduino.h>
+
 #if !defined(BOARD_DATA_C)
 #define BOARD_DATA_C
-
-#include <inttypes.h>
 
 /* ------------------------------------------------------------ */
 /*					Data Tables									*/
@@ -555,9 +555,68 @@ int	_board_analogWrite(uint8_t pin, int val) {
 
 #endif
 
-#endif // OPT_BOARD_DATA
+
+/************************************************************************/
+/*  The WiFiShield share SPI with the uSD, we need to turn OFF          */
+/*	Interrupts so the WiFi MRF24 interrupt does not enable the MRF CS   */
+/*	while the uSD card has CS enabled                                   */
+/*	This is a private implementation of uSD CS							*/
+/************************************************************************/
+
 
 /* ------------------------------------------------------------ */
+
+static uint32_t	spi_state;
+static uint8_t     fspi_state_saved = false;
+static uint32_t    interrupt_state = 0;
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectHigh(uint8_t csPin) {
+  digitalWrite(csPin, HIGH);
+
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+  if(fspi_state_saved)
+  {
+    SPI2CON = spi_state;
+    fspi_state_saved = false;
+    restoreIntEnable(_EXTERNAL_1_IRQ, interrupt_state);
+  }
+}
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectLow(uint8_t csPin) {
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+    if(!fspi_state_saved)
+    {
+        interrupt_state = clearIntEnable(_EXTERNAL_1_IRQ);
+        spi_state = SPI2CON;
+        SPI2CONbits.ON = 0; 
+        fspi_state_saved = true;
+    }
+  digitalWrite(csPin, LOW);
+}
+
+void altSDInitchipSelectPin(uint8_t csPin)
+{
+    pinMode(csPin, OUTPUT);
+}
+#endif // OPT_BOARD_DATA
 
 #endif	// BOARD_DATA_C
 

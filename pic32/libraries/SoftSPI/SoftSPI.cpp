@@ -35,7 +35,6 @@
 */
 /************************************************************************/
 
-
 /* ------------------------------------------------------------ */
 /*				Include File Definitions						*/
 /* ------------------------------------------------------------ */
@@ -44,10 +43,30 @@
 #include	<WProgram.h>
 #include	<SoftSPI.h>
 
+
 /* ------------------------------------------------------------ */
 /*				Local Type and Constant Definitions				*/
 /* ------------------------------------------------------------ */
+#define SSPI_CORETIMER_TICKS_PER_SECOND		    (F_CPU / 2UL)
+#define SSPI_CORETIMER_TICKS_PER_MICROSECOND    (SSPI_CORETIMER_TICKS_PER_SECOND / 1000000UL)
 
+// there is an implication here, at 80MHz, 1.8MHz is about the max spi speed bit banging will go
+// this is the number of nsec that is spent in the code; we need to remove this from our wait time to keep
+// the spi speed accurate. This assumes and 80MHz clock so it can be measured. We scale for actual clock speed
+#define SSPI_80MHZ_CODE_TIME_NANOSEC            (550UL)        // at 80MHz compiled -O2, about 550nsec; measured on a scope
+
+// this is a non-intuitive equation. But what we are looking for is how many core timer ticks elapse while the spi transfer
+// code itself executes. And the number of ticks is constant because as F_CPU increases, so does code execution at exactly the same rate.
+// so tick count is independent of F_CPU.
+// here is the logic...
+// the actual code execution time is inversely proportional to the clock speed. If our clock speed doubles, our execuition time goes in half
+// so (80MHz/F_CPU) = (adj time/80MHz time) ==> (adj time) = 80000000 * (80MHz time) / F_CPU
+// then convert to ticks which is (adj time nsec) * (tick per sec) / 1000000000 nsec per sec => in ticks
+// but tick per sec is F_CPU/2 == (adj time nsec) * F_CPU / 2 / 1000000000 == (80000000 * (80MHz time) / F_CPU) * (F_CPU / 2 / 1000000000)
+// cross out the F_CPU and remove all of the zeros we have (8 * (80MHz time)) / 2 / 100 == 8 * (80MHz time) / 200
+// now we want to split this time in half cycles, so divide by 2 and we get ticks == (8 * (80MHz time)) / 400 == (80MHz time) / 50
+#define SSPI_TICK_USED_BY_CODE (SSPI_80MHZ_CODE_TIME_NANOSEC / 50UL)   
+// which by the way, works out to be 11 core timer ticks for half the code execution time independent of F_CPU time
 
 /* ------------------------------------------------------------ */
 /*				Global Variables								*/
@@ -62,7 +81,11 @@
 /* ------------------------------------------------------------ */
 /*				Forward Declarations							*/
 /* ------------------------------------------------------------ */
-
+#if defined(_ALT_SD_SPI_CHIP_SELECT_)
+    extern "C" void altSDInitchipSelectPin(uint8_t csPin);
+    extern "C" void altSDchipSelectHigh(uint8_t csPin);
+    extern "C" void altSDchipSelectLow(uint8_t csPin);
+#endif
 
 /* ------------------------------------------------------------ */
 /*				Procedure Definitions							*/
@@ -72,6 +95,7 @@
 /* ------------------------------------------------------------ */
 /*				SoftSPI Object Class Implementation				*/
 /* ------------------------------------------------------------ */
+
 /***	SoftSPI::SoftSPI
 **
 **	Parameters:
@@ -90,9 +114,51 @@
 SoftSPI::SoftSPI() {
 
 	modCur = 0;
-	cntClk = 1;
-	cntDly = 1;
+	cntClk = 0;
+	cntDly = 0;
 
+}
+
+SoftSPI::SoftSPI(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt)
+{
+
+	modCur = 0;
+	cntClk = 0;
+	cntDly = 0;
+
+	/* Remember the pin numbers.
+	*/
+	pinSS	= pinSSt;
+	pinMOSI	= pinMOSIt;
+	pinMISO	= pinMISOt;
+	pinSCK	= pinSCKt;
+
+}
+
+/***	SoftSPI::getCoreTime
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**		The current core timer count
+**
+**	Errors:
+**		none
+**
+**	Description:
+*/
+#define read_count(dest) __asm__ __volatile__("mfc0 %0,$9" : "=r" (dest))
+void inline SoftSPI::waitCoreTime(uint32_t clkCnt)
+{
+    uint32_t startTime;
+    uint32_t curTime;
+
+    read_count(startTime);
+    do
+    {
+        read_count(curTime);
+    } while((curTime - startTime) < clkCnt);
 }
 
 /* ------------------------------------------------------------ */
@@ -114,11 +180,8 @@ SoftSPI::SoftSPI() {
 **		Pepare the object for use. Set the pin directions, and
 **		set SS HIGH and the clock to the idle state
 */
-
-int
+bool
 SoftSPI::begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt) {
-
-	uint8_t		port;
 
 	/* Remember the pin numbers.
 	*/
@@ -126,6 +189,14 @@ SoftSPI::begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSC
 	pinMOSI	= pinMOSIt;
 	pinMISO	= pinMISOt;
 	pinSCK	= pinSCKt;
+
+    return(begin());
+}
+
+bool
+SoftSPI::begin(void) {
+
+	uint8_t		port;
 
 	/* Compute the register address and bit position for the SS pin
 	*/
@@ -165,7 +236,11 @@ SoftSPI::begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSC
 
 	/* Set the pin directions.
 	*/
+#if defined(_ALT_SD_SPI_CHIP_SELECT_)
+    altSDInitchipSelectPin(pinSS);
+#else
 	pinMode(pinSS, OUTPUT);
+#endif
 	pinMode(pinMOSI, OUTPUT);
 	pinMode(pinMISO, INPUT);
 	pinMode(pinSCK, OUTPUT);
@@ -191,6 +266,7 @@ SoftSPI::begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSC
 	*/
 	setDelay(0);
 
+    return true;
 }
 
 /* ------------------------------------------------------------ */
@@ -240,25 +316,19 @@ SoftSPI::end() {
 void
 SoftSPI::setSpeed(uint32_t spd) {
 
-	uint32_t	tmp;
-
-	/* The SCK frequency is controlled by having two empty for
-	** loops to delay for half periods of the clock. The realtionship
-	** between delay value and the resulting clcok frequency has been
-	** determined empirically to be:
-	**		S ~ F / (30 + 18*n)
-	**				F - CPU clock speed (80Mhz)
-	**				S - desired SPI clock frequency
-	**		n = (F/S - 30) / 18
-	*/
-	tmp = __PIC32_pbClk / spd;
-	if (tmp > 48) {
-		cntClk = (tmp - 30) / 18;
-	}
-	else {
-		cntClk = 1;
-	}
-
+    // remember, we want only half the time as we apply this
+    // delay after both the rising and falling edge
+    cntClk = SSPI_CORETIMER_TICKS_PER_SECOND / spd / 2;
+    
+    // a crude approximation to take out code execution time.
+    if(cntClk > SSPI_TICK_USED_BY_CODE)
+    {
+        cntClk -= SSPI_TICK_USED_BY_CODE;
+    }
+    else
+    {
+        cntClk = 0;
+    }
 }
 
 /* ------------------------------------------------------------ */
@@ -279,7 +349,7 @@ SoftSPI::setSpeed(uint32_t spd) {
 */
 
 void
-SoftSPI::setMode(int mod) {
+SoftSPI::setMode(uint16_t mod) {
 
 	/* Store the requested mode. The mod variable holds both SPI mode
 	** and shift direction.
@@ -333,7 +403,7 @@ SoftSPI::setDirection(int dir) {
 /***	SoftSPI::setDelay
 **
 **	Parameters:
-**		dly			- interbyte delay in microseconds
+**		dly			- interbyte delay in microseconds (max 4294
 **
 **	Return Value:
 **		none
@@ -357,14 +427,39 @@ SoftSPI::setDirection(int dir) {
 void
 SoftSPI::setDelay(int dly) {
 
-	if (dly == 0) {
-		cntDly = 1;		//set shortest possible delay
-	}
-	else {
-		cntDly = (100 * (80*dly - 47)) / 880;
-	}
-
+    cntDly = (uint32_t) ((((uint64_t) SSPI_CORETIMER_TICKS_PER_SECOND) * ((uint64_t) dly)) / 1000000ULL);
 }
+
+/***	SoftSPI::setSelect
+**
+**	Parameters:
+**		sel			- HIGH / LOW,  how to set CS
+**
+**	Return Value:
+**		none
+**
+**	Errors:
+**		none
+**
+**	Description:
+*/
+void SoftSPI::setSelect(uint8_t sel) 
+{ 
+    #if defined(_ALT_SD_SPI_CHIP_SELECT_)
+
+        if(sel == HIGH)
+        {
+            altSDchipSelectHigh(pinSS);
+        }
+        else
+        {
+            altSDchipSelectLow(pinSS);
+        }
+
+    #else
+        digitalWrite(pinSS, sel); 
+    #endif
+};
 
 /* ------------------------------------------------------------ */
 /***	SoftSPI::transfer
@@ -389,7 +484,7 @@ SoftSPI::transfer(uint8_t bVal) {
 	int				cbit;
 	uint8_t			bOut;
 	uint8_t			bIn;
-	volatile int	cnt;
+//	volatile int	cnt;
 	uint8_t			bit;
 
 	bOut = bVal;
@@ -421,8 +516,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the leading edge of the clock.
 				*/
@@ -434,8 +528,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -457,8 +550,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the leading edge of the clock.
 				*/
@@ -470,8 +562,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -497,8 +588,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -510,8 +600,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 			}
 			break;
 
@@ -533,8 +622,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -546,8 +634,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 			}
 			break;
 
@@ -565,8 +652,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the leading edge of the clock.
 				*/
@@ -578,8 +664,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -601,8 +686,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the leading edge of the clock.
 				*/
@@ -614,8 +698,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -641,8 +724,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -654,8 +736,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 			}
 			break;
 
@@ -677,8 +758,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 
 				/* Set the trailing edge of the clock
 				*/
@@ -690,8 +770,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 				/* Wait for half the clock period.
 				*/
-				for (cnt = 0; cnt < cntClk; cnt++) {
-				}
+                waitCoreTime(cntClk);
 			}
 			break;
 
@@ -727,8 +806,7 @@ SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv) {
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		*pbRcv++ = transfer(*pbSnd++);
-		for (cnt = 0; cnt < cntDly; cnt++) {
-		}
+         waitCoreTime(cntDly);
 	}
 }
 
@@ -758,8 +836,7 @@ SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd) {
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		transfer(*pbSnd++);
-		for (cnt = 0; cnt < cntDly; cnt++) {
-		}
+        waitCoreTime(cntDly);
 	}
 }
 
@@ -790,8 +867,7 @@ SoftSPI::transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv) {
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		*pbRcv++ = transfer(bPad);
-		for (cnt = 0; cnt < cntDly; cnt++) {
-		}
+         waitCoreTime(cntDly);
 	}
 }
 

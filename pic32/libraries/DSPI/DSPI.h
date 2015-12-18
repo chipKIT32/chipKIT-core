@@ -80,10 +80,34 @@ extern "C" {
 };
 
 /* ------------------------------------------------------------ */
+/*		Abstract base class (interface) so DSPI and SoftSPI		*/
+/*		Can implement a generic interface        				*/
+/* ------------------------------------------------------------ */
+
+class DGSPI
+{
+    public:
+
+        // Initialization and setup functions.
+        virtual bool        begin() = 0;
+        virtual void        end() = 0;
+        virtual void        setSpeed(uint32_t spd) = 0;
+        virtual void        setMode(uint16_t mod) = 0;
+
+        // Data transfer functions
+        virtual void        setSelect(uint8_t sel) = 0;
+        virtual uint8_t     transfer(uint8_t bVal) = 0;
+        virtual void        transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv) = 0;
+        virtual void        transfer(uint16_t cbReq, uint8_t * pbSnd) = 0;
+        virtual void        transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv) = 0;
+};
+
+
+/* ------------------------------------------------------------ */
 /*					Object Class Declarations					*/
 /* ------------------------------------------------------------ */
 
-class DSPI {
+class DSPI : public DGSPI {
 
 	friend		void __attribute__((nomips16)) IntDspi0Handler(void);
 	friend		void __attribute__((nomips16)) IntDspi1Handler(void);
@@ -133,11 +157,11 @@ public:
 
 /* Initialization and setup functions.
 */
-void		begin();
-void		begin(uint8_t pin);
+bool		begin();
+bool		begin(uint8_t pin);
 #if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
-void        begin(uint8_t miso, uint8_t mosi);
-void        begin(uint8_t miso, uint8_t mosi, uint8_t pin);
+bool        begin(uint8_t miso, uint8_t mosi);
+bool        begin(uint8_t miso, uint8_t mosi, uint8_t pin);
 #endif
 void		end();
 void		setSpeed(uint32_t spd);
@@ -151,6 +175,7 @@ void		setTransferSize(uint8_t txsize);
 */
 void		setSelect(uint8_t sel) { digitalWrite(pinSS, sel); };
 uint32_t	transfer(uint32_t bVal);
+uint8_t	    transfer(uint8_t bVal) { return((uint8_t) transfer((uint32_t) bVal)); }
 void		transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv);
 void		transfer(uint16_t cbReq, uint8_t * pbSnd);
 void		transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv);
