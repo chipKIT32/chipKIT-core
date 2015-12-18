@@ -40,6 +40,7 @@
 
 #include <WProgram.h>
 #include <p32_defs.h>
+#include "../DSPI/DSPI.h"
 
 /* ------------------------------------------------------------ */
 /*					Miscellaneous Declarations					*/
@@ -62,15 +63,14 @@
 #define SSPI_SPEED_DEFAULT	500000
 
 /* ------------------------------------------------------------ */
-/*					General Type Declarations					*/
+/*					Core Timer defines       					*/
 /* ------------------------------------------------------------ */
-
 
 /* ------------------------------------------------------------ */
 /*					Object Class Declarations					*/
 /* ------------------------------------------------------------ */
 
-class SoftSPI {
+class SoftSPI : public DGSPI {
 private:
 	uint8_t			pinSS;
 	uint8_t			pinMOSI;
@@ -89,27 +89,31 @@ private:
 	uint32_t	cntDly;
 	uint8_t		modCur;
 
+    void inline waitCoreTime(uint32_t clkCnt);
+
 protected:
 
 public:
 				SoftSPI();
+				SoftSPI(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt);
 
 /* Initialization and setup functions.
 */
-int			begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt);
-void		end();
-void		setSpeed(uint32_t spd);
-void		setMode(int mod);
-void		setDirection(int dir);
-void		setDelay(int dly);
+    bool		begin(void);
+    bool		begin(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt);
+    void		end();
+    void		setSpeed(uint32_t spd);
+    void		setMode(uint16_t mod);
+    void		setDirection(int dir);
+    void		setDelay(int dly);
 
-/* Data transfer functions
-*/
-void		setSelect(uint8_t sel) { digitalWrite(pinSS, sel); };
-uint8_t		transfer(uint8_t bVal);
-void		transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv);
-void		transfer(uint16_t cbReq, uint8_t * pbSnd);
-void		transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv);
+    /* Data transfer functions
+    */
+    void		setSelect(uint8_t sel);
+    uint8_t    transfer(uint8_t bVal);
+    void		transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv);
+    void		transfer(uint16_t cbReq, uint8_t * pbSnd);
+    void		transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv);
 
 };
 

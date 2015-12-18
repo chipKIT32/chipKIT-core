@@ -44,25 +44,7 @@
 /*    6/18/2014(KeithV): Created                                        */
 /************************************************************************/
 
-
 #if defined(_BOARD_UC32_)       // this assumes a BasicIO Shield is attached
-
-    // define the IOs and LEDs
-    #define HTTPIO1         7       // switch 2    
-    #define HTTPIO2         8       // switch 3
-    #define HTTPLED1        26      // LED 1
-    #define HTTPLED2        27      // LED 2
-    #define HTTPLED3        28      // LED 3
-    #define HTTPLED4        29      // LED 4
-    #define HTTPLED5        30      // LED 5
-    #define HTTPLED6        31      // LED 6
-    #define HTTPLED7        32      // LED 7
-    #define HTTPLED8        33      // LED 8
-
-    // set up the replacement strings
-    #define HTTPCIO         2
-    #define HTTPCLED        3
-    #define REPLINIT {HTTPIO1, HTTPIO2, HTTPLED1, HTTPLED2, HTTPLED3}
 
     // services for the SD card, status LED and Serial Camera
     // these are required for the HTTP library and the Camera library
@@ -70,20 +52,16 @@
     #define PIN_LED_SAFE    PIN_LED2
     #define CAMSERIAL       Serial1
 
+    // pin 0,1: Serial Monitor UART
+    // pin 2, MRF24 INT
+    // pin PIN_SDCS: Chip Select for the uSD
+    // SS, 44: CS for the MRF24
+    // MOSI, MISO, SCK: SPI to the uSD and MRF24
+    // PIN_LED_SAFE: Heartbeat LED
+    // 34,35,36: MRF24 HIB, WP, RESET
+    #define DEDCATEDPINS {0, 1, 2, PIN_SDCS, SS, 34, 35, 36, 44, MOSI, MISO, SCK, PIN_LED_SAFE}
+
 #elif defined (_BOARD_WF32_)
-
-    // define the IOs and LEDs
-    #define HTTPIO1         PIN_BTN1    
-    #define HTTPIO2         PIN_BTN2
-    #define HTTPLED1        PIN_LED1
-    #define HTTPLED2        PIN_LED2
-    #define HTTPLED3        PIN_LED3
-    #define HTTPLED4        PIN_LED4
-
-    // set up the replacement strings
-    #define HTTPCIO         2
-    #define HTTPCLED        3
-    #define REPLINIT {HTTPIO1, HTTPIO2, HTTPLED1, HTTPLED2, HTTPLED3}
 
     // services for the SD card, status LED and Serial Camera
     // these are required for the HTTP library and the Camera library
@@ -91,20 +69,12 @@
     #define PIN_LED_SAFE    PIN_LED4
     #define CAMSERIAL       Serial1
 
+    // pin 0,1: Serial Monitor UART
+    // 49 - 59, uSD and MRF24
+    // PIN_LED_SAFE: Heartbeat LED
+    #define DEDCATEDPINS {0, 1, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, PIN_LED_SAFE}
+
 #elif defined (_BOARD_WIFIRE_)
-
-    // define the IOs and LEDs
-    #define HTTPIO1         PIN_BTN1    
-    #define HTTPIO2         PIN_BTN2
-    #define HTTPLED1        PIN_LED1
-    #define HTTPLED2        PIN_LED2
-    #define HTTPLED3        PIN_LED3
-    #define HTTPLED4        PIN_LED4
-
-    // set up the replacement strings
-    #define HTTPCIO         2
-    #define HTTPCLED        3
-    #define REPLINIT {HTTPIO1, HTTPIO2, HTTPLED1, HTTPLED2, HTTPLED3}
 
     // services for the SD card, status LED and Serial Camera
     // these are required for the HTTP library and the Camera library
@@ -112,31 +82,92 @@
     #define PIN_LED_SAFE    PIN_LED4
     #define CAMSERIAL       Serial1
 
-#elif defined(_BOARD_CEREBOT_MX7CK_)
+    // pin 0,1: Serial Monitor UART
+    // 51 - 61, uSD and MRF24
+    // PIN_LED_SAFE: Heartbeat LED
+    #define DEDCATEDPINS {0, 1, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, PIN_LED_SAFE}
 
-    // define the IOs and LEDs
-    #define HTTPIO1         PIN_BTN1    
-    #define HTTPIO2         PIN_BTN2
-    #define HTTPLED1        PIN_LED1
-    #define HTTPLED2        PIN_LED2
-    #define HTTPLED3        PIN_LED3
-    #define HTTPLED4        PIN_LED4
-
-    // set up the replacement strings
-    #define HTTPCIO         2
-    #define HTTPCLED        3
-    #define REPLINIT {HTTPIO1, HTTPIO2, HTTPLED1, HTTPLED2, HTTPLED3}
+#elif defined (_BOARD_MEGA_)
 
     // services for the SD card, status LED and Serial Camera
     // these are required for the HTTP library and the Camera library
-    #define PIN_SDCS        SS
-    #define PIN_LED_SAFE    PIN_LED4
+    #define PIN_SDCS        4
+    #define PIN_LED_SAFE    PIN_LED2
     #define CAMSERIAL       Serial1
+
+    // pin 0,1: Serial Monitor UART
+    // 4,29,43,53   uSD
+    // 2,53,78,80   MRF24
+    // PIN_LED_SAFE: Heartbeat LED
+
+    #define DEDCATEDPINS {0, 1, 2, PIN_SDCS, 29, 43, 52, 53, 78, 80, PIN_LED_SAFE}
+
+#elif defined (_BOARD_CEREBOT_MX7CK_) || defined(_BOARD_CEREBOT_32MX7_)
+
+    // PmodSD on JD, Pmod
+    // services for the SD card, status LED and Serial Camera
+    // these are required for the HTTP library and the Camera library
+    #define PIN_SDCS        PIN_DSPI0_SS
+    #define PIN_LED_SAFE    PIN_LED1
+    #define CAMSERIAL       Serial1
+
+    // pin 33,34: Serial Monitor UART
+    // 24,25,26,27   SD
+    // 40,41,42,43,44,45,46,48   MRF24
+    // PIN_LED_SAFE: Heartbeat PIN_LED1
+
+    #define DEDCATEDPINS {33,34,24,25,26,27,40,41,42,43,44,45,46,48,PIN_LED_SAFE}
+
+#elif defined (_BOARD_CEREBOT_MX4CK_) || defined(_BOARD_CEREBOT_32MX4_)
+
+    // PmodSD on JK, PmodWiFi on JB
+    // services for the SD card, status LED and Serial Camera
+    // these are required for the HTTP library and the Camera library
+    #define PIN_SDCS        SD_CS_PIN
+    #define PIN_LED_SAFE    PIN_LED1
+    #define CAMSERIAL       Serial1
+
+    // pin 33,34: Serial Monitor UART
+    // 64,65,66,67   SD, Top of JK
+    // 8,9,10,11,12,13,14,15   MRF24, JB
+    // PIN_LED_SAFE: Heartbeat PIN_LED1
+
+    #define DEDCATEDPINS {33,34,64,65,66,67,8,9,10,11,12,13,14,15,PIN_LED_SAFE}
 
 #else
     #error HTTP Server does not support this board
 #endif
 
-// This must match the order and number of replacement strings in IOPage.htm
-#define cReplacementStrings (HTTPCLED + HTTPCIO)
-extern const uint32_t rgReplacePins[];
+typedef enum
+{
+    DEDICATED       = 0b00000,
+    TRISTATE        = 0b00001,
+    ANALOGIN        = 0b00010,
+    DIGITALIN       = 0b00100,
+    DIGITALOUTLOW   = 0b01000,
+    DIGITALOUTHIGH  = 0b10000
+} PINCFG;
+
+typedef uint32_t PINCAP;
+
+typedef struct _GPIO
+{
+    PINCAP  pincap;     // what this pin can be (can it be analog?)
+    PINCFG  pinState;   // what it is currently set to be
+} GPIO;
+
+typedef struct _PINDATA
+{
+    char szPin[4];
+    char equal;
+    char state;
+} __attribute__((packed)) PINDATA;
+
+#if defined(__PIC32MZ__)
+    #define ANALOGRANGE 4096
+#else
+    #define ANALOGRANGE 1024
+#endif
+
+extern void InitializePins(void);
+

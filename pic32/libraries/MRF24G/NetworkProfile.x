@@ -49,40 +49,24 @@
 #ifndef PMODWIFI_NETWORK_PROFILE_X
 #define PMODWIFI_NETWORK_PROFILE_X
 
+#define MRF24WG 
+
+#include <p32xxxx.h>
+#include <Board_Defs.h>
+
 #define DWIFIcK_WiFi_Hardware
-#define MRF24WG
 #define DNETcK_Network_Hardware
 #define DWIFIcK_PmodWiFi
 #define USING_WIFI 1
 
 // board specific stuff
-#if defined(_BOARD_UC32_) || defined(_BOARD_CEREBOT_MX3CK_512_)
+#if defined(_MRF24_SPI_CONFIG_)
 
-    #include <uC32-MRF24WG.x>
-
-#elif defined (_BOARD_MEGA_)
-
-    #include <Max32-MRF24WG.x>
-
-#elif defined (_BOARD_CEREBOT_MX4CK_)
-
-    #include <MX4cK-MRF24WG.x>
-
-#elif defined (_BOARD_CEREBOT_MX7CK_)
-
-    #include <MX7cK-MRF24WG.x>
-
-#elif defined (_BOARD_WF32_)
-
-    #include <WF32-MRF24WG.x>
+    #include "SPIandINT.h"
 
 #elif defined (_BOARD_FUBARINO_SD_)
 
     #include <FubarSD-MRF24WG.x>
-
-#elif defined (_BOARD_WIFIRE_)
-
-    #include <WiFire-MRF24WG.x>
 
 #else
 

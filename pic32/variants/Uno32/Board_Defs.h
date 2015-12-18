@@ -383,13 +383,39 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define _DTWI1_SDA_PIN  39
 
 /* ------------------------------------------------------------ */
+
+#endif	// OPT_BOARD_INTERNAL
+
+/* ------------------------------------------------------------ */
 /*					A/D Converter Declarations					*/
 /* ------------------------------------------------------------ */
 
-
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield uSD				*/
 /* ------------------------------------------------------------ */
 
-#endif	// OPT_BOARD_INTERNAL
+#define _uSD_SPI_CONFIG_
+#define _ALT_SD_SPI_CHIP_SELECT_
+
+#define SD_CS_PIN 4
+
+//Pin 11
+#define prtSDO				IOPORT_G
+#define	bnSDO				BIT_8
+
+//Pin 12
+#define prtSDI				IOPORT_G
+#define bnSDI				BIT_7
+
+//Pin 13
+#define prtSCK				IOPORT_G
+#define bnSCK				BIT_6
+
+// we could use Hardware SPI, but then that would conflict with the Arduino
+// SPI pins which may use a different clock speed
+// so by default, we will bit bang the SD card.
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 11, 12, 13)
 
 /* ------------------------------------------------------------ */
 

@@ -532,6 +532,67 @@ extern int convertADC(uint8_t channelNumber);
 
 /* ------------------------------------------------------------ */
 
+/* ------------------------------------------------------------ */
+/*					Defines for the On Board uSD				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 52
+
+// Pin 54
+#define prtSDO				IOPORT_C
+#define	bnSDO				BIT_4
+#define SD_SDO_PPS()        RPC4R   = 0b0000    // Bit Banging SPI, set as GPIO
+
+// Pin 53
+#define prtSDI				IOPORT_B
+#define bnSDI				BIT_10
+#define SD_SDI_PPS()                                        // Bit Banging SPI, leave as nothing
+
+// Pin 51
+#define prtSCK				IOPORT_B
+#define bnSCK				BIT_14
+#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
+
+#define DefineSDSPI(var) DSPI2 var
+
+
+/* ------------------------------------------------------------ */
+/*					Defines for the On Board MRF24				*/
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              4
+#define WF_SPI              4
+#define WF_SPI_FREQ         20000000
+#define WF_IPL_ISR          IPL3SRS
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISAbits.TRISA15)
+#define WF_INT_IO           (PORTAbits.RA15)
+
+#define WF_HIBERNATE_TRIS   (TRISGbits.TRISG1)
+#define	WF_HIBERNATE_IO     (PORTGbits.RG1)
+
+#define WF_RESET_TRIS       (TRISFbits.TRISF4)
+#define WF_RESET_IO         (LATFbits.LATF4)
+
+#define WF_CS_TRIS          (TRISDbits.TRISD9)
+#define WF_CS_IO            (LATDbits.LATD9)
+
+// for PPS devices
+#define WF_INT_PPS()    INT4R   = 0b1101    // INT4     A15     INT4R = 0b1101
+#define WF_HIB_PPS()    RPG1R   = 0b0000    // HIB      G1      GPIO
+#define WF_RESET_PPS()  RPF4R   = 0b0000    // RESET    F4      GPIO
+#define WF_CS_PPS()     RPD9R   = 0b0000    // CS       D9      GPIO
+#define WF_SCK_PPS()    RPD10R  = 0b0000    // SCK4     RD10    GPIO
+#define WF_SDI_PPS()    SDI4R   = 0b0010    // SDI4     RF5     SDI4R = 0b0010
+#define WF_SDO_PPS()    RPG0R   = 0b1000    // SDO4     RG0     RPG0R = 0b1000
+
+
 #endif	// BOARD_DEFS_H
 
 /************************************************************************/

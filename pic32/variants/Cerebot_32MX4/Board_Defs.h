@@ -401,6 +401,57 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/*					Defines for the SD on JK     				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 64
+
+//Pin 65
+#define	prtSDO				IOPORT_B	//JK
+#define	bnSDO				BIT_11
+
+//Pin 66
+#define	prtSDI				IOPORT_B
+#define	bnSDI				BIT_12
+
+//Pin 67
+#define	prtSCK				IOPORT_B
+#define	bnSCK				BIT_13
+
+// Leave the real SPI on JB for the MRF24
+// we can bit bang the SPI on JK, plus this is
+// backwards compatible with the old SD library
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 65, 66, 67)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the MRF on JB                   */
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              3
+#define WF_SPI              2
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISAbits.TRISA14)  // INT3, SET JP3 TO INT3
+#define WF_INT_IO           (PORTAbits.RA14)
+
+#define WF_HIBERNATE_TRIS   (TRISBbits.TRISB14)
+#define	WF_HIBERNATE_IO     (LATBbits.LATB14)
+
+#define WF_RESET_TRIS       (TRISDbits.TRISD5)
+#define WF_RESET_IO         (LATDbits.LATD5)
+
+#define WF_CS_TRIS          (TRISGbits.TRISG9)
+#define WF_CS_IO            (LATGbits.LATG9)
+
+/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 
