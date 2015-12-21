@@ -153,10 +153,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 30;		// PIC32 SS2
-const static uint8_t MOSI = 29;		// PIC32 SDO2
-const static uint8_t MISO = 27;		// PIC32 SDI2
-const static uint8_t SCK  = 4;		// PIC32 SCK2
+static const uint8_t SS   = 30;		// PIC32 SS2
+static const uint8_t MOSI = 29;		// PIC32 SDO2
+static const uint8_t MISO = 27;		// PIC32 SDI2
+static const uint8_t SCK  = 4;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */

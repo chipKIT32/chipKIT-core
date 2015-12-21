@@ -824,7 +824,8 @@ USBSerial::operator int() {
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
 {
-
+    // Added to remove warning about unused parameter
+    (void)baudRate;
 #ifdef PIN_LED_TX
     pinMode(PIN_LED_TX, OUTPUT);
     digitalWrite(PIN_LED_TX, LOW);

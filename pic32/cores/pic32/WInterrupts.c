@@ -56,7 +56,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void);
 
-volatile static voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
+static volatile voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
 
 //************************************************************************
 // PIC32 devices only support rising and falling edge triggered interrupts

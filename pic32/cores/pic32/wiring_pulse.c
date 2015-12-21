@@ -45,7 +45,7 @@ unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout)
 {
 int16_t	bit;
 int16_t	port;
-int16_t	stateMask;
+uint16_t	stateMask;
 unsigned long width;
 unsigned long	numloops;
 unsigned long	maxloops;
