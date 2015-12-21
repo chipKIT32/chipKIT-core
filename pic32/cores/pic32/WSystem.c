@@ -743,6 +743,9 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
     uint32_t	wait;
 	register unsigned long tmp;
 #endif
+    
+    // Added to prevent compiler warning about unused parameter
+    (void)clk;
 
 	stInt = disableInterrupts();
 

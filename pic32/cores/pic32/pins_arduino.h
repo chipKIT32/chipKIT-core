@@ -151,14 +151,14 @@
 
 #define _RPOBASE    RPB0R       //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
-#define _PPS_OUT(P) (P)
+#define _PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #elif defined(__PIC32MX47XL__)
 
 #define _RPOBASE    RPA14R      //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
-#define _PPS_OUT(P) (P)
+#define _PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #elif defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
@@ -167,7 +167,7 @@
 */
 #define	_RPOBASE	RPA0R		//base address of PPS output select registers
 #define	_RPIBASE	INT1R		//base address of PPS input select registers
-#define	_PPS_OUT(P) (P)
+#define	_PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #elif defined(__PIC32MZXX__)
@@ -181,7 +181,7 @@
         #define	_RPOBASE	RPA14R		//base address of PPS output select registers
 #endif
 #define	_RPIBASE	INT1R		//base address of PPS input select registers
-#define	_PPS_OUT(P) (P)
+#define	_PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #endif	// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)

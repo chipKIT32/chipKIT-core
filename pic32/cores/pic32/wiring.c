@@ -499,10 +499,10 @@ static volatile uint32_t gLastBaseCount = 0;
 */
 unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // make sure we are not already registered
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it, do nothing
         if(gCoreTimerInfo[i].serivce == service)
@@ -513,7 +513,7 @@ unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 
     // we are not register, find an open slot
     // look for a open slot
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found one, add the service
         if(gCoreTimerInfo[i].serivce == NULL)
@@ -593,10 +593,10 @@ unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 */
 unsigned int detachCoreTimerService(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // look for this serivce in the list
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it
         if(gCoreTimerInfo[i].serivce == service)
@@ -627,10 +627,10 @@ unsigned int detachCoreTimerService(uint32_t (* service)(uint32_t))
 */
 unsigned int callCoreTimerServiceNow(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // look for this serivce in the list
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it
         if(gCoreTimerInfo[i].serivce == service)
@@ -734,7 +734,7 @@ void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void)
     uint32_t relCurTime;
     uint32_t relInt;
 
-    int i;
+    unsigned int i;
 
     // we know that count >= compare, otherwise we would not have been interrupted
     // we also know that count and compare >= gLastBaseCount as this was our last count value.
@@ -750,7 +750,7 @@ void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void)
         relNextInt = 0xFFFFFFFF;
 
         // check to see who all we need to call
-        for(i=0; i<MaxNbrOfCoreTimerServices; i++)
+        for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
         {
             // if the serivce exists
             if(gCoreTimerInfo[i].serivce != NULL)

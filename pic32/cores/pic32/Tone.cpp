@@ -145,6 +145,9 @@ uint8_t port;
 //************************************************************************
 void disableTimer(uint8_t _timer)
 {
+    // Added to prevent compiler warning about unused paraemer
+    (void)_timer;
+    
     clearIntEnable(_TIMER_1_IRQ);
     T1CON		=	0;
     tone_pin	=	255;
