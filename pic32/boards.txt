@@ -42,7 +42,7 @@ cerebot32mx7.group=Cerebot
 # new items
 cerebot32mx7.platform=pic32
 cerebot32mx7.board=_BOARD_CEREBOT_32MX7_
-cerebot32mx7.build.board=BOARD_CEREBOT_32MX7_
+cerebot32mx7.build.board=_BOARD_CEREBOT_32MX7_
 
 cerebot32mx7.board.define=
 cerebot32mx7.ccflags=ffff
@@ -1246,6 +1246,41 @@ chipkit_WiFire_80MHz.build.variant=WiFire
 chipkit_WiFire_80MHz.build.ldscript.path={build.variant.path}
 
 ############################################################
+############################################################
+OpenScope.name=OpenScope
+OpenScope.group=chipKIT
+
+# new items
+OpenScope.platform=pic32
+OpenScope.board=_BOARD_OPENSCOPE_
+OpenScope.build.board=BOARD_OPENSCOPE_
+OpenScope.board.define=
+OpenScope.ccflags=ffff
+OpenScope.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+OpenScope.upload.protocol=stk500v2
+OpenScope.upload.maximum_size=2080768
+OpenScope.upload.speed=115200
+
+OpenScope.bootloader.low_fuses=0xff
+OpenScope.bootloader.high_fuses=0xdd
+OpenScope.bootloader.extended_fuses=0x00
+OpenScope.bootloader.path=not-supported
+OpenScope.bootloader.file=not-supported
+OpenScope.bootloader.unlock_bits=0x3F
+OpenScope.bootloader.lock_bits=0x0F
+
+OpenScope.build.mcu=32MZ2048EFG124
+OpenScope.build.f_cpu=200000000UL
+OpenScope.build.core=pic32
+OpenScope.ldcommon=chipKIT-application-COMMON-MZ.ld
+OpenScope.build.variant=OpenScope
+OpenScope.build.ldscript.path={build.variant.path}
+#OpenScope.upload.using=avrdude1
+OpenScope.upload.tool=pic32prog
+#OpenScope.upload.tool=avrdude
+
 ############################################################
 openbci.name=OpenBCI 32
 openbci.group=chipKIT

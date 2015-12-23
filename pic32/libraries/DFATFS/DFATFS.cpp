@@ -45,13 +45,16 @@
 /************************************************************************/
 #include <DFATFS.h>
 
-// Declare the singleton dFatFs instance
-DFATFS DFATFS::dFatFs;
-DFATFS& dFatFs = DFATFS::dFatFs;
+#define iMKFS (_VOLUMES - 1)    // when we mount, we will do it on the last volume we have 
 
-// Declare the singleton dDirInfo instance
-DDIRINFO DDIRINFO::dDirInfo;
-DDIRINFO& dDirInfo = DDIRINFO::dDirInfo;
+extern "C" int get_ldnumber (		/* Returns logical drive number (-1:invalid drive) */
+	const char** path	/* Pointer to pointer to the path name */
+);
+
+DIR         DDIRINFO::_dir;
+FILINFO     DDIRINFO::_fileInfo;
+DFSVOL *    DFATFS::_arDFSVOL[_VOLUMES]= { NULL };
+char const * const DFATFS::szFatFsVols[_VOLUMES] = {"0:", "1:", "2:", "3:", "4:"};
 
 //**********************************************************************
 //
@@ -176,37 +179,37 @@ FRESULT DDIRINFO::fsutime (const char * path, uint16_t date, uint16_t time)
 //          DFATFS Class Thunks
 //
 //**********************************************************************
-FRESULT DFATFS::fsmkdir (const char* path)
+FRESULT DFATFS::fsmkdir(const char* path)
 {
-    return(f_mkdir (path));
+    return(f_mkdir(path));
 }
 
-FRESULT DFATFS::fsunlink (const char* path)
+FRESULT DFATFS::fsunlink(const char* path)
 {
-    return(f_unlink (path));
+    return(f_unlink(path));
 }
 
-FRESULT DFATFS::fsrename (const char* path_old, const char* path_new)
+FRESULT DFATFS::fsrename(const char* path_old, const char* path_new)
 {
-    return(f_rename (path_old, path_new));
+    return(f_rename(path_old, path_new));
 }
 
-FRESULT DFATFS::fschmod (const char* path, uint8_t value, uint8_t mask)
+FRESULT DFATFS::fschmod(const char* path, uint8_t value, uint8_t mask)
 {
-    return(f_chmod (path, value, mask));
+    return(f_chmod(path, value, mask));
 }
 
-FRESULT DFATFS::fschdir (const char* path)
+FRESULT DFATFS::fschdir(const char* path)
 {
-    return(f_chdir (path));
+    return(f_chdir(path));
 }
 
-FRESULT DFATFS::fschdrive (const char* path)
+FRESULT DFATFS::fschdrive(const char* path)
 {
-    return(f_chdrive (path));
+    return(f_chdrive(path));
 }
 
-FRESULT DFATFS::fsgetcwd (char* buff, uint32_t len)
+FRESULT DFATFS::fsgetcwd(char* buff, uint32_t len)
 {
     return(f_getcwd (buff, len));
 }
@@ -214,35 +217,86 @@ FRESULT DFATFS::fsgetcwd (char* buff, uint32_t len)
 FRESULT DFATFS::fsgetfree (const char* path, uint32_t* nclst)
 {
     FATFS * pfatfs;
-    return(f_getfree (path, nclst, &pfatfs));  
+    return(f_getfree(path, nclst, &pfatfs));  
 }
 
-FRESULT DFATFS::fsgetlabel (const char* path, char * label, uint32_t* vsn) 
+FRESULT DFATFS::fsgetlabel(const char* path, char * label, uint32_t* vsn) 
 {
-    return(f_getlabel (path, label, vsn));
+    return(f_getlabel(path, label, vsn));
 }
 
-FRESULT DFATFS::fssetlabel (const char* label)
+FRESULT DFATFS::fssetlabel(const char* label)
 {
-    return(f_setlabel (label));
+    return(f_setlabel(label));
 }
 
-FRESULT DFATFS::fsmount (DFSVOL& dfsvol, const char* path, uint8_t opt) // FATFS comes from VOL
+FRESULT DFATFS::fsmount(DFSVOL& dfsvol, const char* path, uint8_t opt) // FATFS comes from VOL
+{ 
+    const char *    pathT   = path;
+    FRESULT fr = FR_INVALID_DRIVE;
+    int iVol = get_ldnumber(&pathT);
+
+    if(0 <= iVol && iVol < _VOLUMES)
+    {
+        DFATFS::_arDFSVOL[iVol] = &dfsvol;
+        if((fr = f_mount(&dfsvol._fatfs, path, opt)) != FR_OK)
+        {
+            DFATFS::_arDFSVOL[iVol] = NULL;
+        }
+    }
+
+    return(fr);
+}
+
+FRESULT DFATFS::fsunmount(const char* path) 
 {
-    _pDFSVolMount = &dfsvol;
-    return(f_mount (&dfsvol._fatfs, path, opt));
+    const char *    pathT   = path;
+    int             iVol    = get_ldnumber(&pathT);
+    FRESULT         fr      = f_mount(NULL, path, 1);
+
+    if(0 <= iVol && iVol < _VOLUMES && fr == FR_OK)
+    {
+            DFATFS::_arDFSVOL[iVol] = NULL;
+    }
+    return(fr);
 }
 
-FRESULT DFATFS::fsmkfs (const char* path, uint8_t sfd, uint32_t au)
+FRESULT DFATFS::fsmkfs(DFSVOL& dfsVol)
 {
-    return(f_mkfs (path, sfd, au));
+    FRESULT fr = FR_OK;
+    DFSVOL * pDFSVolSave = _arDFSVOL[iMKFS];
+
+    // unmount the drive, in case it is mounted
+    fsunmount(szFatFsVols[iMKFS]);
+
+    // delay mount the volume   
+    if((fr = fsmount(dfsVol, szFatFsVols[iMKFS], 0)) != FR_OK)
+    {
+        return(fr);
+    }
+
+    // create the file system
+    fr = f_mkfs(szFatFsVols[iMKFS], dfsVol._sfd, dfsVol._au);
+
+    // unmount the drive
+    fsunmount(szFatFsVols[iMKFS]);
+
+    // restore the old mount
+    if(pDFSVolSave != NULL)
+    {
+        fsmount(*pDFSVolSave, szFatFsVols[iMKFS], 0);
+    }
+
+    return(fr);
 }
 
+#ifdef DEAD
 #if (_MULTI_PARTITION == 1)
-FRESULT DFATFS::fsfdisk (uint8_t pdrv, const uint32_t szt[], void* work)
+FRESULT DFATFS::fsfdisk(uint8_t pdrv, const uint32_t szt[], void* work)
 {
     return(f_fdisk (pdrv, szt, work));
 }
+#endif
 #endif
 
 

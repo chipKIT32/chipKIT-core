@@ -177,10 +177,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 44;		// for SPI master operation, shared with pin 10
-const static uint8_t MOSI = 11;		// PIC32 SDO2
-const static uint8_t MISO = 12;		// PIC32 SDI2
-const static uint8_t SCK  = 13;		// PIC32 SCK2
+static const uint8_t SS   = 44;		// for SPI master operation, shared with pin 10
+static const uint8_t MOSI = 11;		// PIC32 SDO2
+static const uint8_t MISO = 12;		// PIC32 SDI2
+static const uint8_t SCK  = 13;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -241,7 +241,7 @@ const static uint8_t SCK  = 13;		// PIC32 SCK2
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog

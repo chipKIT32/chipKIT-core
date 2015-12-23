@@ -54,6 +54,10 @@
 #include "deIP.h"
 static HRRHEAP          g_hSocketHeap = NULL;
 
+const IPv4 IPv4BROADCAST  = {.u8 = {0xFF, 0xFF, 0xFF, 0xFF}};
+const IPv4 IPv4NONE       = {.u8 = {0x00, 0x00, 0x00, 0x00}};    // RFC xxx
+const IPv6 IPv6NONE       = {.u8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};    // RFC xxx
+
 /*****************************************************************************
   Function:
 	bool IPSInitScratchMemory(uint8_t pSMem, uint32_t cbSMem)
@@ -203,7 +207,7 @@ IPSTACK * IPSGetIpStackFromAdaptor(const LLADP * pLLAdp, uint32_t type, IPSTATUS
     return(pIpStack);
 }
 
-IPSTACK * IPSInitIpStack(const LLADP * pLLAdp, uint8_t * pIpStackBuff, uint32_t type)
+IPSTACK * IPSInitIpStack(const LLADP * pLLAdp, void * pIpStackBuff, uint32_t type)
 {
     IPSTACK * pIpStack = (IPSTACK *) pIpStackBuff;
 

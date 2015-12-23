@@ -11,7 +11,7 @@
 /
 /-------------------------------------------------------------------------/
 /
-/* 10/21/2015 Modified by Keith Vogel; Digilent Inc., for use with chipKIT
+/ 10/21/2015 Modified by Keith Vogel; Digilent Inc., for use with chipKIT
 /
 /-------------------------------------------------------------------------*/
 #include <DSDVOL.h>

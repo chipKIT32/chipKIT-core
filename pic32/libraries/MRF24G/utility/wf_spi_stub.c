@@ -69,7 +69,7 @@
 *****************************************************************************/
 void WF_SpiInit(void)
 {
-    uint8_t rxData;
+    volatile uint8_t rxData;
 
 #if defined(__PIC32MZ__)
     WF_INT_PPS();
@@ -98,6 +98,7 @@ void WF_SpiInit(void)
 
     // clear the receive buffer
     rxData = WIFI_SPIBUF;
+    (void) rxData;  //  prevent unsued warning
 
     // set the SPI baud rate to 10MHz
     //   Fsck = Fpb / (2 * (SPI1BRG + 1) = 80MHz / (2 * (3 + 1)) = 80MHz / 8 = 10MHz
@@ -203,7 +204,7 @@ void WF_SpiTxRx(const uint8_t *p_txBuf,
 {
     uint16_t byteCount;
     uint16_t i;
-    uint8_t  rxTrash;
+    volatile uint8_t  rxTrash;
 
     // TODO: need a check either here or somewhere else to flag an error if
     //       MRF24WG is in hibernate mode.  Another stub function to check if
@@ -241,6 +242,7 @@ void WF_SpiTxRx(const uint8_t *p_txBuf,
         else
         {
             rxTrash = WIFI_SPIBUF;  // read and throw away byte
+            (void) rxTrash;  // prevent unused warning
         }
     }  // end for loop 
 }

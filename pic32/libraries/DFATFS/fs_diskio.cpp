@@ -16,7 +16,7 @@ DSTATUS disk_status (
 	BYTE pdrv		/* Physical drive nmuber to identify the drive */
 )
 {
-	return(DFATFS::dFatFs._arDFSVOL[pdrv]->disk_status());
+	return(DFATFS::_arDFSVOL[pdrv]->disk_status());
 }
 
 
@@ -29,8 +29,7 @@ DSTATUS disk_initialize (
 	BYTE pdrv				/* Physical drive nmuber to identify the drive */
 )
 {
-    DFATFS::dFatFs._arDFSVOL[pdrv] = DFATFS::dFatFs._pDFSVolMount;
-    return(DFATFS::dFatFs._arDFSVOL[pdrv]->disk_initialize());
+    return(DFATFS::_arDFSVOL[pdrv]->disk_initialize());
 }
 
 
@@ -46,7 +45,7 @@ DRESULT disk_read (
 	UINT count		/* Number of sectors to read */
 )
 {
-    return(DFATFS::dFatFs._arDFSVOL[pdrv]->disk_read(buff, sector, count));
+    return(DFATFS::_arDFSVOL[pdrv]->disk_read(buff, sector, count));
 }
 
 
@@ -63,7 +62,7 @@ DRESULT disk_write (
 	UINT count			/* Number of sectors to write */
 )
 {
-    return(DFATFS::dFatFs._arDFSVOL[pdrv]->disk_write(buff, sector, count));
+    return(DFATFS::_arDFSVOL[pdrv]->disk_write(buff, sector, count));
 }
 #endif
 
@@ -79,7 +78,7 @@ DRESULT disk_ioctl (
 	void *buff		/* Buffer to send/receive control data */
 )
 {
-    return(DFATFS::dFatFs._arDFSVOL[pdrv]->disk_ioctl(cmd, (uint8_t *)buff));
+    return(DFATFS::_arDFSVOL[pdrv]->disk_ioctl(cmd, (uint8_t *)buff));
 }
 #endif
 

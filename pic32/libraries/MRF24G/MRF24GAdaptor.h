@@ -89,12 +89,12 @@ extern "C" {
 
 typedef struct WFMRF_T
 {
-    bool (* IsInitialized)(IPSTATUS * pStatus);
-    bool (* Connect)(const uint8_t * szSSID, const void * pSecurityPkt, bool fPICKeyCalc, IPSTATUS * pStatus);
-    void (* Disconnect)(void);
-    bool (* StartScan)(t_scanMode filter, IPSTATUS * pStatus);
-    bool (* IsScanDone)(int32_t * pcAP);
-    bool (* GetScanResult)(int32_t index, t_scanResult *pScanResult);
+//    bool (* IsInitialized)(IPSTATUS * pStatus);
+//    bool (* Connect)(const uint8_t * szSSID, const void * pSecurityPkt, bool fPICKeyCalc, IPSTATUS * pStatus);
+//    void (* Disconnect)(void);
+//    bool (* StartScan)(t_scanMode filter, IPSTATUS * pStatus);
+//    bool (* IsScanDone)(int32_t * pcAP);
+//    bool (* GetScanResult)(int32_t index, t_scanResult *pScanResult);
 
     void (* ConnectionStateGet)(uint8_t *p_state);
 

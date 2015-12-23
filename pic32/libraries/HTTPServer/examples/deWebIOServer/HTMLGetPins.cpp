@@ -603,7 +603,6 @@ typedef enum {
 GCMD::ACTION ComposeHTMLPostPINS(CLIENTINFO * pClientInfo)
 {
     GCMD::ACTION retCMD = GCMD::CONTINUE;
-    char * pPattern = NULL;
 
     // a word of caution... DO NOT cast htmlState to your enum type!
     // the compiler will silently remove the HTTPSTART case as
@@ -709,7 +708,7 @@ GCMD::ACTION ComposeHTMLPostPINS(CLIENTINFO * pClientInfo)
                 }
                 else
                 {
-                    int i = 0;
+                    uint32_t i = 0;
                     PINDATA * ppinData = (PINDATA *) &pClientInfo->rgbIn[iIn];
 
                     iIn += sizeof(PINDATA);
@@ -786,7 +785,7 @@ GCMD::ACTION ComposeHTMLPostPINS(CLIENTINFO * pClientInfo)
  * ------------------------------------------------------------ */
 void InitializePins(void)
 {
-    int i = 0;
+    uint32_t i = 0;
 
     memset(gpio, 0, sizeof(gpio));
     cbPage = 0;

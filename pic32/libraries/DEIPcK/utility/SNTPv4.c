@@ -53,9 +53,9 @@
 #include "deIP.h"
 
 // buffers to use for the time service
-static uint8_t * rgNTPServers[] = ntpDefaultServerList;
+static uint8_t const * const rgNTPServers[] = ntpDefaultServerList;
 
-bool SNTPv4Init(const LLADP * pLLAdp, uint8_t * rgbSNTPvMem, uint32_t cbSNTPv4Mem, HPMGR hPMGR, const uint8_t ** rgpServers, uint32_t cServers, IPSTATUS * pStatus)
+bool SNTPv4Init(const LLADP * pLLAdp, void * rgbSNTPvMem, uint32_t cbSNTPv4Mem, HPMGR hPMGR, uint8_t const * const * const rgpServers, uint32_t cServers, IPSTATUS * pStatus)
 {
     IPSTATUS    status  = ipsSuccess;
     NTPMEM *    pNTPMem = (NTPMEM *) rgbSNTPvMem;
@@ -87,7 +87,7 @@ bool SNTPv4Init(const LLADP * pLLAdp, uint8_t * rgbSNTPvMem, uint32_t cbSNTPv4Me
     // this is only to make sure the data looks valid
     // we will reinit again later when we need to use it.
     // this is so I can terminate with a valid ipStack
-    IPSInitIpStack(pLLAdp, pNTPMem->rgbIpStackBuff, ippnUDP);
+    IPSInitIpStack(pLLAdp, &pNTPMem->ntpIpStack, ippnUDP);
 
     pNTPMem->ppNTPServers = rgpServers;
     pNTPMem->cNTPServers = cServers;
@@ -139,7 +139,7 @@ bool SNTPv4Terminate(const LLADP * pLLAdp)
     if(pLLAdp != NULL && pLLAdp->pNTPMem != NULL)
     {
         pLLAdp->pNTPMem->sntpState = sntpUninitialized;
-        if(IPSIsInUse((IPSTACK *) pLLAdp->pNTPMem->rgbIpStackBuff))
+        if(IPSIsInUse(&pLLAdp->pNTPMem->ntpIpStack))
         {
             return(false);
         }
@@ -186,18 +186,18 @@ uint32_t SNTPv4GetUNIXEpochTime(const LLADP * pLLAdp)
     {
         return(0);
     }
-    return(unixTime - 2208988800);
+    return(unixTime - 2208988800ul);
 }
 
 
 static void SNTPv4StateMachine(const LLADP * pLLAdp)
 {
-    IPSTATUS    status = ipsSuccess;
-    IPv4        ipServer;
-    uint8_t *   szServer = NULL;
-    uint32_t    cbDatagram = 0;
+    IPSTATUS            status = ipsSuccess;
+    IPv4                ipServer;
+    uint8_t const *     szServer = NULL;
+    uint32_t            cbDatagram = 0;
 
-    if(pLLAdp == NULL || pLLAdp->pNTPMem == NULL || IPSIsInUse((IPSTACK *) pLLAdp->pNTPMem->rgbIpStackBuff) || !ILIsIPSetup(pLLAdp, NULL))
+    if(pLLAdp == NULL || pLLAdp->pNTPMem == NULL || IPSIsInUse(&pLLAdp->pNTPMem->ntpIpStack) || !ILIsIPSetup(pLLAdp, NULL))
     {
         return;
     }
@@ -215,9 +215,9 @@ static void SNTPv4StateMachine(const LLADP * pLLAdp)
 
             // Resolve the next NTP server to try
             szServer = pLLAdp->pNTPMem->ppNTPServers[pLLAdp->pNTPMem->iServerNext];
-            if(DNSResolve(pLLAdp, szServer, strlen(szServer), &ipServer, &status))
+            if(DNSResolve(pLLAdp, szServer, (uint32_t) strlen((const char *) szServer), &ipServer, &status))
             {
-                IPSTACK * pIpStack  = IPSInitIpStack(pLLAdp, pLLAdp->pNTPMem->rgbIpStackBuff, ippnUDP);
+                IPSTACK * pIpStack  = IPSInitIpStack(pLLAdp, &pLLAdp->pNTPMem->ntpIpStack, ippnUDP);
 
                 // next time, use the next server
                 pLLAdp->pNTPMem->iServerNext = (pLLAdp->pNTPMem->iServerNext + 1) % pLLAdp->pNTPMem->cNTPServers;

@@ -59,11 +59,10 @@
 #endif
 
 #ifdef __cplusplus
+#include "WProgram.h"	
 extern "C" {
     #include "utility/deIP.h"
 }
-#include "WProgram.h"	
-#include "Print.h"
 #include <NetworkProfile.x>
 
 // Unique IP STATUS codes for deIPcK and deWFcK
@@ -113,7 +112,7 @@ private:
     uint16_t        _localPort;
     IPEndPoint      _epRemote;
 
-    TCPSocket(TCPSocket& tcpSocket) {};
+    TCPSocket(TCPSocket& tcpSocket);
     TCPSocket&  operator=(TCPSocket& tcpSocket) {return(tcpSocket);}
 
     // private methods
@@ -193,7 +192,7 @@ private:
 
     // to prevent copies
     UDPSocket&  operator=(UDPSocket& udpSocket) {return(udpSocket);};
-    UDPSocket(UDPSocket& udpSocket) {};
+    UDPSocket(UDPSocket& udpSocket);
 
     // private methods
     void clear(bool fConstruct);
@@ -487,7 +486,7 @@ public:
     bool resolveEndPoint(const char *szRemoteHostName, uint16_t remotePort, IPEndPoint& epRemote, IPSTATUS * pStatus);
     bool resolveEndPoint(const char *szRemoteHostName, uint16_t remotePort, IPEndPoint& epRemote)
     {
-        resolveEndPoint(szRemoteHostName, remotePort, epRemote, NULL);
+        return(resolveEndPoint(szRemoteHostName, remotePort, epRemote, NULL));
     }
     void terminateResolveEndPoint(void)
     {

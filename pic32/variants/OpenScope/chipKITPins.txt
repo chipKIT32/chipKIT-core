@@ -1,0 +1,116 @@
+//              chipKIT PIC32   PIC32 Pin Name                      chipKIT Func        Open Scope Func         
+//              Pin#    Reg                
+_IOPORT_PC      // 0    RC14    SOSCO/RPC14/T1CK/RC14               RX Serial Monitor   RX Serial Monitor
+_IOPORT_PD      // 1    RD11    EMDC/RPD11/RD11                     TX Serial Moinitor  TX Serial Moinitor
+_IOPORT_PD      // 2    RD0     RPD0/RTCC/INT0/RD0                  INT0                INT0, Tin
+_IOPORT_PF      // 3    RF2     RPF2/SDA3/RF2                       PWM1(OC1), INT1     Pro CLK/INT 
+_IOPORT_PA      // 4    RA5     EBIA5/AN34/PMA5/RA5                 GPIO                Tout   
+_IOPORT_PF      // 5    RF4     EBIA9/RPF4/SDA5/PMA9/RF4            PWM2(OC3)           Pro SDA5, RX1, OC3
+_IOPORT_PG      // 6    RG6     AN14/C1IND/RPG6/SCK2/RG6            PWM3(OC5)           SCK2, CTS1  
+_IOPORT_PD      // 7    RD4     SQICS0/RPD4/RD4                     INT2                Digital CLK/INT
+_IOPORT_PF      // 8    RF0     EBID11/RPF0/PMD11/RF0               INT4, SDI2, SDO2    SDI2, SDO2
+_IOPORT_PD      // 9    RD2     EBID14/RPD2/PMD14/RD2               PWM4(OC6)           DC+, OC6
+_IOPORT_PF      // 10   RF3     RPF3/USBID/RF3                      PWM5(OC2)           Pro SS2, RTS1, OC2
+_IOPORT_PC      // 11   RC13    SOSCI/RPC13/RC13                    PWM6(OC4)           DC-,OC4
+_IOPORT_PF      // 12   RF5     EBIA8/RPF5/SCL5/PMA8/RF5            SDI2, SDO2          SDI2, SDO2
+_IOPORT_PJ      // 13   RJ4     RJ4                                 User LED 1          User LED 1
+_IOPORT_PB      // 14   RB0     PGED1/AN0/RPB0/RB0                  A0                  ADC1
+_IOPORT_PB      // 15   RB2     AN2/C2INB/RPB2/RB2                  A1                  ADC2
+_IOPORT_PA      // 16   RA0     TMS/EBIA16/AN24/RA0                 A2                  ADC1 Offset  
+_IOPORT_PA      // 17   RA1     TCK/EBIA19/AN29/RA1                 A3                  ADC2 Offset
+_IOPORT_PB      // 18   RB11    AN6/RB11                            A4                  DC+
+_IOPORT_PB      // 19   RB12    EBIA11/AN7/PMA11/RB12               A5                  DC-  
+_IOPORT_PB      // 20   RB13    AN8/RB13                            A6                  AWG 
+_IOPORT_PJ      // 21   RJ11    AN37/ERXCLK/EREFCLK/RJ11            A7                  USB5V0    
+_IOPORT_PG      // 22   RG15    AN23/RG15                           A8                  VCC3V3  
+_IOPORT_PJ      // 23   RJ8     AN35/ETXD0/RJ8                      A9                  VREF3V0 
+_IOPORT_PJ      // 24   RJ9     AN36/ETXD1/RJ9                      A10                 VREF1V5 
+_IOPORT_PC      // 25   RC4     EBIOE/AN19/RPC4/PMRD/RC4            A11                 VSS5V0-
+_IOPORT_PE      // 26   RE0     EBID0/PMD0/RE0                      GPIO                Digital IO 0
+_IOPORT_PE      // 27   RE1     EBID1/PMD1/RE1                      GPIO                Digital IO 1
+_IOPORT_PE      // 28   RE2     EBID2/SQID2/PMD2/RE2                GPIO                Digital IO 2
+_IOPORT_PE      // 29   RE3     EBID3/RPE3/PMD3/RE3                 GPIO                Digital IO 3
+_IOPORT_PE      // 30   RE4     EBID4/AN18/PMD4/RE4                 GPIO                Digital IO 4
+_IOPORT_PE      // 31   RE5     EBID5/AN17/RPE5/PMD5/RE5            GPIO                Digital IO 5 
+_IOPORT_PE      // 32   RE6     EBID6/AN16/PMD6/RE6                 GPIO                Digital IO 6
+_IOPORT_PE      // 33   RE7     EBID7/AN15/PMD7/RE7                 GPIO                Digital IO 7  
+_IOPORT_PE      // 34   RE8     AN25/RPE8/RE8                       GPIO                Digital IO 8
+_IOPORT_PE      // 35   RE9     AN26/RPE9/RE9                       GPIO                Digital IO 9  
+_IOPORT_PD      // 36   RD1     RPD1/SCK1/RD1                       PGA SCK1            PGA SCK1
+_IOPORT_PA      // 37   RA6     TRCLK/SQICLK/RA6                    PGA CS1             PGA CS1
+_IOPORT_PA      // 38   RA7     TRD3/SQID3/RA7                      PGA CS2             PGA CS2
+_IOPORT_PD      // 39   RD3     EBID15/RPD3/PMD15/RD3               PGA SDO1            PGA SDO1
+_IOPORT_PA      // 40   RA2     EBICS0/SCL2/RA2                     ADC1 EN             ADC1 EN
+_IOPORT_PA      // 41   RA3     EBIRDY1/SDA2/RA3                    ADC2 EN             ADC2 EN
+_IOPORT_PG      // 42   RG12    TRD1/SQID1/RG12                     DCOUT EN            DCOUT EN
+_IOPORT_PG      // 43   RG0     EBID8/RPG0/PMD8/RG0                 AWG OFFSET          AWG OFFSET                        
+_IOPORT_PD      // 44   RD9     EBIA15/RPD9/PMCS2/PMA15/RD9         ADC1 OFFSET         ADC1 OFFSET
+_IOPORT_PC      // 45   RC2     EBIA12/AN21/RPC2/PMA12/RC2          ADC2 OFFSET         ADC2 OFFSET   
+_IOPORT_PA      // 46   RA9     VREF-/CVREF-/AN27/RA9               VREF-               VREF-
+_IOPORT_PA      // 47   RA10    VREF+/CVREF+/AN28/RA10              VREF+               VREF+           
+_IOPORT_PJ      // 48   RJ2     EBIRDY3/RJ2                         LED2                LED2
+_IOPORT_PJ      // 49   RJ1     EMDIO/RJ1                           LED3                LED3
+_IOPORT_PJ      // 50   RJ0     ETXERR/RJ0                          LED4                LED4
+_IOPORT_PD      // 51   RD15    AN33/RPD15/SCK6/RD15                uSD SCK6            uSD SCK6  
+_IOPORT_PD      // 52   RD14    AN32/AETXD0/RPD14/RD14              uSD SS6             uSD SS6 
+_IOPORT_PD      // 53   RD5     SQICS1/RPD5/RD5                     uSD SDI6            uSD SDI6
+_IOPORT_PD      // 54   RD12    EBID12/RPD12/PMD12/RD12             uSD SDO6            uSD SDO6
+_IOPORT_PD      // 55   RD10    RPD10/SCK4/RD10                     MRF24 SCK4          MRF24 SCK4
+_IOPORT_PB      // 56   RB15    EBIA0/AN10/RPB15/OCFB/PMA0/RB15     MRF24 SS4           MRF24 SS4            
+_IOPORT_PG      // 57   RG7     EBIA4/AN13/C1INC/RPG7/SDA4/PMA4/RG7 MRF24 SDI4          MRF24 SDI4
+_IOPORT_PA      // 58   RA15    RPA15/SDA1/RA15                     MRF24 SDO4          MRF24 SDO4
+_IOPORT_PG      // 59   RG8     EBIA3/AN12/C2IND/RPG8/SCL4/PMA3/RG8 MRF24 INT3          MRF24 INT3      
+_IOPORT_PD      // 60   RD13    EBID13/PMD13/RD13                   MRF24 HIB           MRF24 HIB
+_IOPORT_PA      // 61   RA4     EBIA14/PMCS1/PMA14/RA4              MRF24 RESET         MRF24 RESET
+_IOPORT_PA      // 62   RA14    RPA14/SCL1/RA14                     MRF24 WP            MRF24 WP
+_IOPORT_PG      // 63   RG13    TRD0/SQID0/RG13                     SDA5 PULLUP         SDA5 PULLUP
+_IOPORT_PG      // 64   RG14    RD2/SQID2/RG14                      SCL5 PULLUP         SCL PULLUP
+_IOPORT_PH      // 65   RH0     AN38/ETXD2/RH0                      DAC 0               DAC 0    
+_IOPORT_PH      // 66   RH1     AN39/ETXD3/RH1                      DAC 1               DAC 1
+_IOPORT_PH      // 67   RH4     AN40/ERXERR/RH4                     DAC 2               DAC 2  
+_IOPORT_PH      // 68   RH5     AN41/ERXD1/RH5                      DAC 3               DAC 3  
+_IOPORT_PH      // 69   RH6     AN42/ERXD2/RH6                      DAC 4               DAC 4   
+_IOPORT_PH      // 70   RH8     ERXD0/RH8                           DAC 5               DAC 5
+_IOPORT_PH      // 71   RH9     ERXD3/RH9                           DAC 6               DAC 6    
+_IOPORT_PH      // 72   RH10    ECOL/RH10                           DAC 7               DAC 7  
+_IOPORT_PH      // 73   RH12    ECRS/RH12                           DAC 8               DAC 8
+_IOPORT_PH      // 74   RH13    ERXDV/ECRSDV/RH13                   DAC 9               DAC 9
+_IOPORT_PB      // 75   RB14    EBIA1/AN9/RPB14/SCK3/PMA1/RB14      SPI DAC SCK3        SPI DAC SCK3
+_IOPORT_PB      // 76   RB8     EBIA10/AN48/RPB8/PMA10/RB8          SPI DAC SS3         SPI DAC SS3
+_IOPORT_PB      // 77   RB5     AN45/C1INA/RPB5/RB5                 SPI DAC SDI3        SPI DAC SDI3
+_IOPORT_PB      // 78   RB9     EBIA7/AN49/RPB9/PMA7/RB9            SPI DAC SDO3        SPI DAC SDO3
+
+
+
+
+
+
+
+
+
+//_IOPORT_PB      // XX   RB1     PGEC1/AN1/RPB1/RB1  
+//_IOPORT_PB      // XX   RB3     AN3/C2INA/RPB3/RB3     
+//_IOPORT_PB      // XX   RB4     AN4/C1INB/RB4   
+//_IOPORT_PB      // XX   RB6     PGEC2/AN46/RPB6/RB6   
+//_IOPORT_PB      // XX   RB7     PGED2/AN47/RPB7/RB7    
+//_IOPORT_PB      // XX   RB10    EBIA13/CVREFOUT/AN5/RPB10/PMA13/RB10   
+
+//_IOPORT_PC      // XX   RC1     EBIA6/AN22/RPC1/PMA6/RC1   
+//_IOPORT_PC      // XX   RC3     EBIWE/AN20/RPC3/PMWR/RC3  
+//_IOPORT_PC      // XX   RC12    OSC1/CLKI/RC12   
+//_IOPORT_PC      // XX   RC15    OSC2/CLKO/RC15 
+
+//_IOPORT_PD      // XX   RD6     ETXEN/RPD6/RD6
+//_IOPORT_PD      // XX   RD7     ETXCLK/RPD7/RD7
+
+
+//_IOPORT_PF      // XX   RF1     EBID10/RPF1/PMD10/RF1
+//_IOPORT_PF      // XX   RF8     EBIRDY2/RPF8/SCL3/RF8    
+//_IOPORT_PF      // XX   RF12    TDO/EBIA17/AN31/RPF12/RF12  
+//_IOPORT_PF      // XX   RF13    TDI/EBIA18/AN30/RPF13/SCK5/RF13   
+
+//_IOPORT_PG      // XX   RG1     EBID9/RPG1/PMD9/RG1
+//_IOPORT_PG      // XX   RG9     EBIA2/AN11/C2INC/RPG9/PMA2/RG9    
+
+
+

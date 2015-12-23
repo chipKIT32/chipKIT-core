@@ -84,7 +84,7 @@ uint8_t const DATA_RES_MASK = 0X1F;
 uint8_t const DATA_RES_ACCEPTED = 0X05;
 //------------------------------------------------------------------------------
 
-#pragma pack(push 1)
+#pragma pack(push,1)
 
 typedef struct CID {
   // byte 0

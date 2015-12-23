@@ -79,6 +79,9 @@
 #include "./utility/fs_ff.h"
 #include "./utility/fs_diskio.h"
 
+#define _FATFS_CBMINSECTORS_    128
+#define _FATFS_CBSECTOR_        512
+
 #ifdef __cplusplus
 
 class DFATFS;
@@ -86,7 +89,14 @@ class DFATFS;
 class DFSVOL
 {
 private:
-        FATFS   _fatfs;
+    FATFS   _fatfs;
+    const uint8_t _sfd;       // Partitioning rule 0:FDISK, 1:SFD 
+    const uint32_t _au;       // how many sectors in an allocation unit (page size / 512)
+
+    DFSVOL();
+
+protected:
+    DFSVOL(uint8_t sfd, uint32_t au) : _sfd(sfd), _au(au) {}
 
 public:
     virtual DSTATUS disk_initialize (void) = 0;
@@ -101,8 +111,8 @@ friend class DFATFS;
 class DFILE
 {
 private:
-    static const uint32_t _CB_SECTOR_ = 512;        // this is hard coded in the FatFs engine
-    static const uint32_t _DEFAULT_SECTOR_CNT_ = 1; // By default this is how many sectors to read/write in one call (At 4MHz, this is about 1ms).
+    static const uint32_t _CB_SECTOR_ = _FATFS_CBSECTOR_;   // this is hard coded in the FatFs engine
+    static const uint32_t _DEFAULT_SECTOR_CNT_ = 1;         // By default this is how many sectors to read/write in one call (At 4MHz, this is about 1ms).
     FIL _file;
     bool _fOpen;
 
@@ -142,58 +152,58 @@ public:
 class DDIRINFO
 {
 private:
-    DIR     _dir;
-    FILINFO _fileInfo;
+    static DIR     _dir;
+    static FILINFO _fileInfo;
 
     // make the constructor private so no-one can instantiate this
     DDIRINFO() {}
 
 public:
 
-    // declare the singleton DDIRINFO instance
-    static DDIRINFO dDirInfo;
+    static FRESULT fsreaddir(void);							                        /* Read a directory item */
+    static FRESULT fsopendir(const char * path);						            /* Open a directory */
+    static FRESULT fsclosedir(void);										        /* Close an open directory */
+    static FRESULT fsstat(const char * path);
+    static FRESULT fsutime(const char * path, uint16_t date, uint16_t time);        /* Change times-tamp of the file/dir */
 
-    FRESULT fsreaddir (void);							                        /* Read a directory item */
-    FRESULT fsopendir (const char * path);						                /* Open a directory */
-    FRESULT fsclosedir (void);										            /* Close an open directory */
-    FRESULT fsstat (const char * path);
-    FRESULT fsutime (const char * path, uint16_t date, uint16_t time);			/* Change times-tamp of the file/dir */
+    // This gives access to the file info structure
+    static uint32_t fsgetFileSize(void) { return(_fileInfo.fsize); }
+    static uint16_t fsgetDate(void) { return(_fileInfo.fdate); }
+    static uint16_t fsgetTime(void) { return(_fileInfo.ftime); }
+    static uint8_t fsgetAttrib(void) { return(_fileInfo.fattrib); }
+    static const char * fsget8Dot3Filename(void) { return(_fileInfo.fname); }
+#if _USE_LFN
+    static const char * fsgetLongFilename(void) { return(_fileInfo.lfname); }
+    static uint32_t fsgetLongFilenameLength(void) { return(_fileInfo.lfsize); }
+#endif
 };
 
 class DFATFS
 {
 private:
-    DFSVOL * _arDFSVOL[_VOLUMES];
-    DFSVOL * _pDFSVolMount;
+    static DFSVOL * _arDFSVOL[_VOLUMES];
 
     // make the constructor private so no-one can instantiate this
-    DFATFS() 
-    {
-        _arDFSVOL[_VOLUMES] = { NULL };
-        _pDFSVolMount = NULL;
-    }
+    DFATFS() {}
 
 public:
 
-    // declare the singleton FATFS instance
-    static DFATFS dFatFs;
+    static char const * const szFatFsVols[_VOLUMES];
 
-    FRESULT fsmkdir (const char * path);								        /* Create a sub directory */
-    FRESULT fsunlink (const char * path);								        /* Delete an existing file or directory */
-    FRESULT fsrename (const char * path_old, const char* path_new);	            /* Rename/Move a file or directory */
-    FRESULT fschmod (const char * path, uint8_t value, uint8_t mask);			/* Change attribute of the file/dir */
-    FRESULT fschdir (const char * path);								        /* Change current directory */
-    FRESULT fschdrive (const char * path);								        /* Change current drive */
-    FRESULT fsgetcwd (char * buff, uint32_t len);							    /* Get current directory */
-    FRESULT fsgetfree (const char * path, uint32_t* nclst);	                    /* Get number of free clusters on the drive */
-    FRESULT fsgetlabel (const char * path, char * label, uint32_t* vsn);	    /* Get volume label */
-    FRESULT fssetlabel (const char * label);							        /* Set volume label */
-    FRESULT fsmount (DFSVOL& dfsvol, const char * path, uint8_t opt);			/* Mount/Unmount a logical drive */
-    FRESULT fsmkfs (const char * path, uint8_t sfd, uint32_t au);				/* Create a file system on the volume */
-
-#if (_MULTI_PARTITION == 1)
-    FRESULT fsfdisk (uint8_t pdrv, const uint32_t szt[], void* work);			/* Divide a physical drive into some partitions */
-#endif
+    static FRESULT fsmkdir (const char * path);								        /* Create a sub directory */
+    static FRESULT fsunlink (const char * path);								    /* Delete an existing file or directory */
+    static FRESULT fsrename (const char * path_old, const char* path_new);	        /* Rename/Move a file or directory */
+    static FRESULT fschmod (const char * path, uint8_t value, uint8_t mask);        /* Change attribute of the file/dir */
+    static FRESULT fschdir (const char * path);								        /* Change current directory */
+    static FRESULT fschdrive (const char * path);								    /* Change current drive */
+    static FRESULT fsgetcwd (char * buff, uint32_t len);						    /* Get current directory */
+    static FRESULT fsgetfree (const char * path, uint32_t* nclst);	                /* Get number of free clusters on the drive */
+    static FRESULT fsgetlabel (const char * path, char * label, uint32_t* vsn);	    /* Get volume label */
+    static FRESULT fssetlabel (const char * label);							        /* Set volume label */
+    static FRESULT fsmount (DFSVOL& dfsvol, const char * path, uint8_t opt);        /* Mount a logical drive */
+    static FRESULT fsunmount(const char* path);                                     /* UnMount the logical drive */
+    static FRESULT fsmkfs (DFSVOL& dfsvol);				                            /* Create a file system on the volume */
+    static bool fsexists(const char * path) { return(DDIRINFO::fsstat(path) == FR_OK); }
 
     friend DSTATUS disk_initialize (uint8_t pdrv);
     friend DSTATUS disk_status (uint8_t pdrv);
@@ -201,10 +211,6 @@ public:
     friend DRESULT disk_write (uint8_t pdrv, const uint8_t* buff, uint32_t sector, uint32_t count);
     friend DRESULT disk_ioctl (uint8_t pdrv, uint8_t cmd, void* buff);
 };
-
-// extern the singleton DFATFS and DDRIRINFO instances
-extern DFATFS& dFatFs;
-extern DDIRINFO& dDirInfo;
 
 #endif // C++
 

@@ -160,10 +160,10 @@
 ** SPI library and the original pins_arduino.h
 ** The default SPI port is on connector JF.
 */
-const static uint8_t SS   = 40;		// PIC32 SS4
-const static uint8_t MOSI = 41;		// PIC32 SDO4
-const static uint8_t MISO = 42;		// PIC32 SDI4
-const static uint8_t SCK  = 43;		// PIC32 SCK4
+static const uint8_t SS   = 40;		// PIC32 SS4
+static const uint8_t MOSI = 41;		// PIC32 SDO4
+static const uint8_t MISO = 42;		// PIC32 SDI4
+static const uint8_t SCK  = 43;		// PIC32 SCK4
 
 /* The Digilent DSPI library uses these ports.
 **		DSPI0	connector JD
@@ -225,7 +225,7 @@ const static uint8_t SCK  = 43;		// PIC32 SCK4
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog
@@ -336,7 +336,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_DSPI0_IPL			_SPI1_IPL_IPC
 #define	_DSPI0_SPL			_SPI1_SPL_IPC
 
-#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this definition is missing from
+//#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this definition is missing from
 										// the Microchip header file.
 #define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ

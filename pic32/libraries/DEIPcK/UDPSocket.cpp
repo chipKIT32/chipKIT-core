@@ -263,7 +263,7 @@ int UDPSocket::peekByte(size_t index)
 */
 size_t UDPSocket::peekDatagram(byte *rgbPeek, size_t cbPeekMax)
 {
-    peekDatagram(rgbPeek, cbPeekMax, 0);
+    return(peekDatagram(rgbPeek, cbPeekMax, 0));
 }
 size_t UDPSocket::peekDatagram(byte *rgbPeek, size_t cbPeekMax, size_t index)
 {

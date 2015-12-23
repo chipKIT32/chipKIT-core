@@ -54,10 +54,6 @@ static FRESULT fr = FR_OK;
 // The file to open
 static const char txtFileToOpen[] = "sdfile.txt"; 
 
-// the drive to mount the SD volume too.
-// options are: "0:", "1:", "2:", "3:", "4:"
-static const char driveNbr[] = "0:";
-
 static const char szDataToWrite[] = 
 "This is text written to the SD card.\r\n\
 Mulitiple lines are written.\r\n\
@@ -90,17 +86,18 @@ void setup() {
     Serial.println("SDWriteRead v1.0");
 
     // Mount the SD Vol to drive "0" as known by FATFS
+    // Use the helper Volume strings provided by DFATFS szFatFsVols
     // Note that there is only one global pre initialized dFatFs instance
-    if((fr = dFatFs.fsmount(dSDVol, driveNbr, 1)) == FR_OK)
+    if((fr = DFATFS::fsmount(dSDVol, DFATFS::szFatFsVols[0], 1)) == FR_OK)
     {
         Serial.print("Drive ");
-        Serial.print(driveNbr);
+        Serial.print(DFATFS::szFatFsVols[0]);
         Serial.println(" mounted!");
     }
     else
     {
         Serial.print("Failed to mount drive ");
-        Serial.print(driveNbr);
+        Serial.print(DFATFS::szFatFsVols[0]);
         Serial.print("! Error: ");
         Serial.println((int) fr, DEC);
         exit(1);

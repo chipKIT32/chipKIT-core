@@ -256,7 +256,7 @@ static NWADP im8720Adp =
         false,
         IM8720_NWA_MTU_RX,
         IM8720_NWA_MIN_TX_MTU,
-        MACNONE,
+        {.u8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},
         NULL,
         InternalMACPeriodicTasks,
         IsAdaptorLinked,
@@ -617,7 +617,8 @@ static void InitDMADescriptors(void)
 
     // loop the list back to the begining
     // this is a circular array descriptor list
-    *((uint32_t *) (&rxDcpt[CRXDCPT])) = PhyAddrFromVir(rxDcpt);
+    //*((uint32_t *) (&rxDcpt[CRXDCPT])) = PhyAddrFromVir(rxDcpt);
+    rxDcpt[CRXDCPT].hdr.u32 = PhyAddrFromVir(rxDcpt);
     rxDcpt[CRXDCPT-1].hdr.npv   = 1;  // 0 = next in memory, 1 = use ED field
 
     // set us at the start of the list

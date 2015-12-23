@@ -127,7 +127,7 @@ class DSDVOL : public DFSVOL
 
     public:
 
-        DSDVOL(DGSPI& dspi) : dSDspi(dspi), Stat(STA_NOINIT) {}
+        DSDVOL(DGSPI& dspi) : DFSVOL(0,1), dSDspi(dspi), Stat(STA_NOINIT) {}
 
         DSTATUS disk_initialize (void);
         DSTATUS disk_status (void);

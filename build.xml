@@ -91,8 +91,8 @@
       <param name="localplatform" value="${localplatform}"/>
     </antcall>
 
-    <get dest="tmp" src="https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Darwin-image-20140530.zip"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Darwin-image.zip"/>
 
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
@@ -103,9 +103,9 @@
   <target depends="setup" description="Build linux version" name="linux32-build">
     <property name="localplatform">linux32</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Linux32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -132,8 +132,8 @@
   <target depends="setup" description="Build linux ARM version" name="arm-build">
     <property name="localplatform">arm</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-arm-linux-image-20140530.zip"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -161,9 +161,9 @@
     <echo message="When 64bit version is released. A 64 bit compiler will be included."/>
     <property name="localplatform">linux64</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Linux32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -190,9 +190,9 @@
   <target depends="setup" description="Build windows version" name="windows-build">
     <property name="localplatform">windows</property>
 <!-- pic32 compiler -->
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-win32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-win32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -338,7 +338,7 @@
     <condition property="git.branch" value="${GIT_BRANCH}">
         <isset property="GIT_BRANCH" />
     </condition>
-        
+
 
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
             <arg line="rev-parse --abbrev-ref HEAD"/>

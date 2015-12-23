@@ -52,17 +52,6 @@
 
 FFPT TCPServer::_ffptPeriodTask = {NULL, NULL};
 
-/***	Prevent Copies
-**
-**  Notes:
-**      
-**      These are private methods that prevent
-**      copying of the instance. They are
-**      dummy functions and are never used.
-**
-*/
-TCPServer::TCPServer(TCPServer& tcpServer){};
-
 /***	TCPServer Constructors
 **
 **  Notes:

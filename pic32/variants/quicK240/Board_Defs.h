@@ -201,10 +201,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 53;		// PIC32 SS2A
-const static uint8_t MOSI = 3;		// PIC32 SDO2A
-const static uint8_t MISO = 11;		// PIC32 SDI2A
-const static uint8_t SCK  = 38;		// PIC32 SCK2A
+static const uint8_t SS   = 53;		// PIC32 SS2A
+static const uint8_t MOSI = 3;		// PIC32 SDO2A
+static const uint8_t MISO = 11;		// PIC32 SDI2A
+static const uint8_t SCK  = 38;		// PIC32 SCK2A
 
 /* The Digilent DSPI library uses these ports.
 */

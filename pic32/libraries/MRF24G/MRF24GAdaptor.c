@@ -271,7 +271,7 @@ static bool Close(void)
     return(true);
 }
 
-static bool StartScan(t_scanMode filter, IPSTATUS * pStatus)
+static bool StartScan(WFSCANMODE filter, IPSTATUS * pStatus)
 {
     if(IsInitialized(pStatus) && wfmrf24.priv.connectionStatus == ForceIPStatus((InitMask | WF_EVENT_INITIALIZATION)))
     {
@@ -289,11 +289,11 @@ static bool IsScanDone(int32_t * pcAP)
     return(!wfmrf24.priv.fMRFBusy);
 }
 
-static bool GetScanResult(int32_t index, t_scanResult *pScanResult)
+static bool GetScanResult(int32_t index, SCANINFO *pScanResult)
 {
     if(0 <= index && index < wfmrf24.priv.cScanResults)
     {
-        WF_ScanResultGet(index, pScanResult);
+        WF_ScanResultGet(index, (t_scanResult *) pScanResult);
         return(true);
     }
     return(false);
@@ -317,7 +317,7 @@ static bool Connect(SECURITY security, const uint8_t * szSsid, const void * pvPk
     else if(IsInitNotLinked(pStatus))
     {
         // set the SSID
-        WF_SsidSet((uint8_t *) szSsid, strlen(szSsid));
+        WF_SsidSet((uint8_t *) szSsid, (uint8_t) strlen((char *) szSsid));
 
         switch(security)
         {
@@ -349,7 +349,7 @@ static bool Connect(SECURITY security, const uint8_t * szSsid, const void * pvPk
                 wpa.wpaSecurityType     = security;                 // WF_SECURITY_WPA_WITH_KEY, WF_SECURITY_WPA_WITH_PASS_PHRASE, WF_SECURITY_WPA2_WITH_KEY, WF_SECURITY_WPA2_WITH_PASS_PHRASE,WF_SECURITY_WPA_AUTO_WITH_KEY, WF_SECURITY_WPA_AUTO_WITH_PASS_PHRASE
                 wpa.keyInfo.keyLength   = strlen(pvPkt);            // number of bytes in binary key (always 32) or passphrase
                 memcpy(wpa.keyInfo.key, pvPkt, wpa.keyInfo.keyLength);  // binary key or passphrase
-                wpa.keyInfo.ssidLen     = strlen(szSsid);           // number of bytes in SSID
+                wpa.keyInfo.ssidLen     = strlen((char *) szSsid);           // number of bytes in SSID
                 memcpy(wpa.keyInfo.ssid, szSsid, wpa.keyInfo.ssidLen);  // ssid
 
 #if defined(WF_USE_HOST_WPA_KEY_CALCULATION)
@@ -371,7 +371,7 @@ static bool Connect(SECURITY security, const uint8_t * szSsid, const void * pvPk
                 wpa.wpaSecurityType     = security;                             // WF_SECURITY_WPA_WITH_KEY, WF_SECURITY_WPA_WITH_PASS_PHRASE, WF_SECURITY_WPA2_WITH_KEY, WF_SECURITY_WPA2_WITH_PASS_PHRASE,WF_SECURITY_WPA_AUTO_WITH_KEY, WF_SECURITY_WPA_AUTO_WITH_PASS_PHRASE
                 wpa.keyInfo.keyLength   = sizeof(WPA2KEY);                      // number of bytes in binary key (always 32) or passphrase
                 memcpy(wpa.keyInfo.key, pvPkt, sizeof(WPA2KEY));               // binary key or passphrase
-                wpa.keyInfo.ssidLen     = strlen(szSsid);                       // number of bytes in SSID
+                wpa.keyInfo.ssidLen     = strlen((char *) szSsid);                       // number of bytes in SSID
                 memcpy(wpa.keyInfo.ssid, szSsid, wpa.keyInfo.ssidLen);          // ssid
                 WF_SecurityWpaSet(&wpa);
                 break;
@@ -421,7 +421,7 @@ WFMRFD wfmrf24 =
         false,
         MRF24G_NWA_MTU_RX,
         MRF24G_NWA_MIN_TX_MTU,
-        MACNONE,
+        {.u8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},
         NULL,
         MRF24PeriodicTasks,
         IsLinked,
@@ -437,6 +437,8 @@ WFMRFD wfmrf24 =
         StartScan,
         IsScanDone,
         GetScanResult,
+    },
+    {
         WF_ConnectionStateGet,
         WF_RegionalDomainSet,
         WF_SsidSet,
@@ -492,10 +494,14 @@ WFMRFD wfmrf24 =
     },
     {
         {NULL, NULL},
+        {NULL, NULL},
+        NULL,
         ForceIPStatus((InitMask | WF_INIT_ERROR_SPI_NOT_CONNECTED)),
         ForceIPStatus((InitMask | WF_EVENT_INITIALIZATION)),
         -1,
         false,
+        0x00,
+        0x00000000,
     },
 };
 
