@@ -59,6 +59,8 @@
 
 static void ExICMP0(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(fStartsInMachineOrder);
+
     // indentifier
     ExEndian(pv, sizeof(uint16_t));
     pv += sizeof(uint16_t);
@@ -67,25 +69,38 @@ static void ExICMP0(void * pv, bool fStartsInMachineOrder)
     ExEndian(pv, sizeof(uint16_t));
 }
 
+#if defined(ToBeImplemented)
+
 static void ExICMP3(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(pv);
+    UNUSED(fStartsInMachineOrder);
 }
 
 static void ExICMP5(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(pv);
+    UNUSED(fStartsInMachineOrder);
 }
 
 static void ExICMP12(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(pv);
+    UNUSED(fStartsInMachineOrder);
 }
 
 static void ExICMP13(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(pv);
+    UNUSED(fStartsInMachineOrder);
 }
 
 static void ExICMP15(void * pv, bool fStartsInMachineOrder)
 {
+    UNUSED(pv);
+    UNUSED(fStartsInMachineOrder);
 }
+#endif
 
 uint32_t ExICMP(void * pv, uint32_t cb, bool fStartsInMachineOrder)
 {
@@ -145,7 +160,6 @@ uint32_t ExICMP(void * pv, uint32_t cb, bool fStartsInMachineOrder)
 
 void ICMPv4Process(IPSTACK * pIpStack)
 {
-    IPv4 IpSrc;
 
     switch(pIpStack->pICMPHdr->icmpType)
     {

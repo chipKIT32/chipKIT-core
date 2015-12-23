@@ -459,7 +459,7 @@ bool DEIPcK::getSubnetMask(IPv4& subnetMask)
 bool DEIPcK::getDNS(int index, IPv4& ipDNS)
 {
     // get it set up if not already
-    if(_fBegun && index < cDNSMax)
+    if(_fBegun && ((uint32_t) index) < cDNSMax)
     {
         return(DNSGetNS(_pLLAdp, index, &ipDNS));
     }
@@ -469,7 +469,7 @@ bool DEIPcK::getDNS(int index, IPv4& ipDNS)
 bool DEIPcK::setDNS(int index, const IPv4& ipDNS)
 {
     // get it set up if not already
-    if(_fBegun && index < cDNSMax)
+    if(_fBegun && ((uint32_t) index)  < cDNSMax)
     {
         return(DNSAddNS(_pLLAdp, &ipDNS, index));
     }

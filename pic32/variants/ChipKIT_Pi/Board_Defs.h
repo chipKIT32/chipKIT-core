@@ -155,10 +155,10 @@ NOTE: The ChipKIT Pi has two user LEDs
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h. 
 */
-const static uint8_t SS   = 10;
-const static uint8_t MISO = 12;
-const static uint8_t MOSI = 11;
-const static uint8_t SCK  = 13;
+static const uint8_t SS   = 10;
+static const uint8_t MISO = 12;
+static const uint8_t MOSI = 11;
+static const uint8_t SCK  = 13;
 
 /* The Digilent DSPI library uses these ports.
 */

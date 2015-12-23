@@ -1,4 +1,3 @@
-
 # PIC32 chipKIT Core and platform.
 # ------------------------------
 #

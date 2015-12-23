@@ -147,10 +147,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 105;		// PIC32 SS2
-const static uint8_t MOSI =	104;		// PIC32 SDO2
-const static uint8_t MISO = 103;		// PIC32 SDI2
-const static uint8_t SCK  = 102;		// PIC32 SCK2
+static const uint8_t SS   = 105;		// PIC32 SS2
+static const uint8_t MOSI =	104;		// PIC32 SDO2
+static const uint8_t MISO = 103;		// PIC32 SDI2
+static const uint8_t SCK  = 102;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -213,7 +213,7 @@ const static uint8_t SCK  = 102;		// PIC32 SCK2
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 // This board variant doesn't need to change any of the default

@@ -51,6 +51,7 @@
 /*                                                                      */
 /************************************************************************/
 #include "deIP.h"
+#include <ctype.h>
 
 /*********************************************************************
  * Function:        int strncasecmp(const char *s1,	const char *s2,	size_t n)
@@ -203,9 +204,9 @@ static uint32_t DNSGetNameLabelList(const uint8_t * pBase, const uint8_t * pName
 
     // we found everything, lets set our start pointer and counts
     cT = iEnd - iStart;
-    if(iEnd > crgPtr)
+    if(iEnd > (int32_t) crgPtr)
     {
-        iStart = iEnd - crgPtr;
+        iStart = iEnd - (int32_t) crgPtr;
     }
 
     // now exchange the list order
@@ -238,7 +239,7 @@ static uint32_t DNSGetNameLabelList(const uint8_t * pBase, const uint8_t * pName
  * Note:
  *
  ********************************************************************/
-static uint32_t DNSCompareLabelListAndName(const uint8_t * pBase, const uint8_t * pName, const uint8_t * pEnd, uint32_t cEndSkip, const uint16_t * rgPtr, uint32_t crgPtr)
+static uint32_t DNSCompareLabelListAndName(const uint8_t * pBase, const uint8_t * pName, const uint8_t * pEnd, uint32_t cEndSkip, const uint16_t * rgPtr, uint32_t const crgPtr)
 {
     uint16_t    rgLL[DNScLL];
     uint16_t *  prgLL   = rgLL;
@@ -260,7 +261,7 @@ static uint32_t DNSCompareLabelListAndName(const uint8_t * pBase, const uint8_t 
         for(i=0; i<cPass; i++)
         {
             // did not match
-            if(!((*(pBase + *prgLL) == *(pBase + *rgPtr)) && (strncasecmp(pBase+*prgLL+1, pBase+*rgPtr+1, *(pBase + *prgLL)) == 0)))
+            if(!((*(pBase + *prgLL) == *(pBase + *rgPtr)) && (strncasecmp((char *) (pBase+*prgLL+1), (char *) (pBase+*rgPtr+1), *(pBase + *prgLL)) == 0)))
             {
                 // return how many matching values
                 return(cDone);
@@ -332,7 +333,7 @@ static bool DNSCompareRRName(const uint8_t * pBase, const uint8_t * pName, const
 
             //  compare the label in name
             // RFC 1035 2.3.3 case insensitive
-            else if(strncasecmp(pName+1, pRR+1, *pName) != 0)
+            else if(strncasecmp((char *) (pName+1), (char *) (pRR+1), *pName) != 0)
             {
                 return(false);
             }
@@ -522,7 +523,7 @@ static DNSRR * DNSFindRR(DNSDG * pDNSDG, void * pRRCur, uint32_t rrr, uint16_t t
     uint8_t *   pRR     = DNSSkipToRRSection(pDNSDG, rrr, pEnd);
     uint32_t    cRR     = ((uint16_t *) &pDNSDG->dnsHdr.QDCOUNT)[rrr-DNSRRQD];
     uint32_t    cbDNSRR = (rrr == DNSRRQD) ? sizeof(DNSQRR) : sizeof(DNSRR);
-    int         i       = 0;
+    uint32_t    i       = 0;
 
     // if we have indexed in
     for(i=0; i<cRR && pRR < pEnd; i++)
@@ -600,7 +601,7 @@ static DNSRR * DNSFindNSARR(DNSDG * pDNSDG, uint8_t * pName, uint8_t * pEnd, uin
     return(pDNSRRABest);
 }
 
-static uint16_t DNSParseDomainName(const uint8_t * szDomainName, uint32_t cbParse, uint8_t * pchrr, uint16_t cbchrr)
+static uint16_t DNSParseDomainName(uint8_t const * const szDomainName, uint32_t const cbParse, uint8_t * const pchrr, uint16_t const cbchrr)
 {
     uint8_t *   pcbLabel = pchrr;
     uint8_t *   pch = pchrr+1;                      // get past the first count
@@ -610,7 +611,7 @@ static uint16_t DNSParseDomainName(const uint8_t * szDomainName, uint32_t cbPars
     // remember we need to have a leading count and a trailing 0
     // so we need 2 extra bytes of the strlen over the szDomainName.
     *pcbLabel = 0;
-    if(cbParse > cbchrr-2)
+    if((int32_t) cbParse > cbchrr-2)
     {
         return(0);
     }
@@ -983,7 +984,7 @@ bool DNSGetNS(const LLADP * pLLAdp, uint32_t index, void * pIPvX)
     return(false);
 }
 
-bool DNSInit(const LLADP * pLLAdp, uint8_t * rgbDNSMem, uint32_t cbDNSMem, HPMGR hPMGR, IPSTATUS * pStatus)
+bool DNSInit(const LLADP * pLLAdp, void * rgbDNSMem, uint32_t cbDNSMem, HPMGR hPMGR, IPSTATUS * pStatus)
 {
     IPSTATUS    status = ipsSuccess;
     DNSMEM *    pDNSMem = (DNSMEM *) rgbDNSMem;
@@ -1085,7 +1086,7 @@ static bool DNSStartIPv4Request(const LLADP * pLLAdp, const uint8_t * pchDomainN
 
 
 // This is not a URL, this must be a domain nume such as www.foo.bar.com with an optional . at the end.
-bool DNSResolve(const LLADP * pLLAdp, const uint8_t * pchDomainName, uint32_t cchDomanName, void * pIPvX, IPSTATUS * pStatus)
+bool DNSResolve(const LLADP * pLLAdp, uint8_t const * const pchDomainName, uint32_t cchDomanName, void * pIPvX, IPSTATUS * pStatus)
 {
     IPSTATUS    status = ipsSuccess;
 
@@ -1129,7 +1130,7 @@ bool DNSResolve(const LLADP * pLLAdp, const uint8_t * pchDomainName, uint32_t cc
     }
 
     // we are done, see if we got it or not
-    else if(pLLAdp->pDNSMem->pchDomainName == pchDomainName && pLLAdp->pDNSMem->cchDomainName == cchDomanName && strncmp(pLLAdp->pDNSMem->pchDomainName, pchDomainName, cchDomanName) == 0)
+    else if(pLLAdp->pDNSMem->pchDomainName == pchDomainName && pLLAdp->pDNSMem->cchDomainName == cchDomanName && strncmp((char *) pLLAdp->pDNSMem->pchDomainName, (char *) pchDomainName, cchDomanName) == 0)
     {
         if(ILIsIPv6(pLLAdp))
         {
@@ -1168,7 +1169,7 @@ bool DNSResolve(const LLADP * pLLAdp, const uint8_t * pchDomainName, uint32_t cc
         uint32_t i = 0;
         uint32_t j = 0;
         uint32_t k = 0;
-        uint8_t * pch = pchDomainName;
+        uint8_t const * pch = pchDomainName;
         
         if(ILIsIPv6(pLLAdp))
         {
@@ -1224,11 +1225,11 @@ bool DNSResolve(const LLADP * pLLAdp, const uint8_t * pchDomainName, uint32_t cc
 }
 
 // This parses out the domain name and port
-const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, uint16_t * pPort)
+const uint8_t *  DNSParseURL(uint8_t const * const szURL, uint32_t * pcchDomainName, uint16_t * pPort)
 {
-    uint8_t * pchProtocol   = szURL;
-    uint8_t * pchDomainName = NULL;
-    uint8_t * pchPort       = NULL;
+    uint8_t const * pchProtocol   = szURL;
+    uint8_t const * pchDomainName = NULL;
+    uint8_t const * pchPort       = NULL;
     uint32_t  port          = 0;
     uint32_t cchProtocol    = 0;
     uint32_t cchDomanName   = 0;
@@ -1240,7 +1241,7 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
     *pPort = 0;
 
     // search for a :, could be at the port, or after the protocol
-    pchDomainName = strchr(szURL, ':');
+    pchDomainName = (uint8_t const *) strchr((const char *) szURL, ':');
 
     // if either port start or protocol was found
     if(pchDomainName != NULL)
@@ -1257,7 +1258,7 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
         // now look for the port
         else
         {
-            pchPort = strchr(pchDomainName+1, ':');
+            pchPort = (uint8_t const *) strchr((const char *) pchDomainName+1, ':');
             // leave the protocol at the begining of the string as we have a protocol
         }
     }
@@ -1293,8 +1294,8 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
     // get the port number
     if(pchPort != NULL)
     {
-        uint8_t *   pchEnd = strchr(pchDomainName, '/');
-        uint8_t *   pchEnd1 = strchr(pchDomainName, '\\');
+        uint8_t const *   pchEnd = (uint8_t const *) strchr((const char *) pchDomainName, '/');
+        uint8_t const *   pchEnd1 = (uint8_t const *) strchr((const char *) pchDomainName, '\\');
         uint32_t    i = 0;
 
         if(pchEnd != NULL && pchEnd1 != NULL)
@@ -1308,7 +1309,7 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
 
         if(pchEnd == NULL)
         {
-            pchEnd = pchPort + strlen(pchPort);
+            pchEnd = pchPort + strlen((const char *) pchPort);
         }
 
         cchDomanName = pchPort - pchDomainName;
@@ -1332,8 +1333,8 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
     // there is no port number, look for the end of the domain name
     else
     {
-        uint8_t *   pchEnd = strchr(pchDomainName, '/');
-        uint8_t *   pchEnd1 = strchr(pchDomainName, '\\');
+        uint8_t const *   pchEnd = (uint8_t const *) strchr((const char *) pchDomainName, '/');
+        uint8_t const *   pchEnd1 = (uint8_t const *) strchr((const char *) pchDomainName, '\\');
 
         if(pchEnd != NULL && pchEnd1 != NULL)
         {
@@ -1346,7 +1347,7 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
 
         if(pchEnd == NULL)
         {
-            pchEnd = pchDomainName + strlen(pchDomainName);
+            pchEnd = pchDomainName + strlen((const char *) pchDomainName);
         }
 
         cchDomanName = pchEnd - pchDomainName;
@@ -1359,43 +1360,43 @@ const uint8_t *  DNSParseURL(const uint8_t * szURL, uint32_t * pcchDomainName, u
         {
             port = 80;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "http", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "http", cchProtocol) == 0)
         {
             port = 80;
         }
-        else if(cchProtocol == 3 && strncasecmp(pchProtocol, "ftp", cchProtocol) == 0)
+        else if(cchProtocol == 3 && strncasecmp((const char *) pchProtocol, "ftp", cchProtocol) == 0)
         {
             port = 21;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "tftp", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "tftp", cchProtocol) == 0)
         {
             port = 69;
         }
-        else if(cchProtocol == 6 && strncasecmp(pchProtocol, "Telnet", cchProtocol) == 0)
+        else if(cchProtocol == 6 && strncasecmp((const char *) pchProtocol, "Telnet", cchProtocol) == 0)
         {
             port = 23;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "smtp", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "smtp", cchProtocol) == 0)
         {
             port = 25;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "snmp", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "snmp", cchProtocol) == 0)
         {
             port = 161;
         }
-        else if(cchProtocol == 3 && strncasecmp(pchProtocol, "dns", cchProtocol) == 0)
+        else if(cchProtocol == 3 && strncasecmp((const char *) pchProtocol, "dns", cchProtocol) == 0)
         {
             port = 53;
         }
-        else if(cchProtocol == 6 && strncasecmp(pchProtocol, "finger", cchProtocol) == 0)
+        else if(cchProtocol == 6 && strncasecmp((const char *) pchProtocol, "finger", cchProtocol) == 0)
         {
             port = 79;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "pop3", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "pop3", cchProtocol) == 0)
         {
             port = 110;
         }
-        else if(cchProtocol == 4 && strncasecmp(pchProtocol, "nntp", cchProtocol) == 0)
+        else if(cchProtocol == 4 && strncasecmp((const char *) pchProtocol, "nntp", cchProtocol) == 0)
         {
             port = 119;
         }

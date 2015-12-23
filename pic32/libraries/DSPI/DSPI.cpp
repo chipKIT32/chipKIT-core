@@ -274,10 +274,10 @@ bool DSPI::begin() {
 
 bool DSPI::begin(uint8_t pinT) {
 
-	p32_regset *	pregIpc;
-	int				bnVec;
-	uint8_t			bTmp;
-	uint16_t		brg;
+	p32_regset *	    pregIpc;
+	int				    bnVec;
+	volatile uint8_t    bTmp;   // volatile to make sure optimizer does not remove instruction
+	uint16_t		    brg;
 
 #if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
 	/* Map the SPI MISO to the appropriate pin.  Some chips need the
@@ -314,6 +314,7 @@ bool DSPI::begin(uint8_t pinT) {
 	/* Clear the receive buffer.
 	*/
 	bTmp = pspi->sxBuf.reg;
+    (void) bTmp;    // suppress unused variable complier warning
 
 	/* Clear all SPI interrupt flags.
 	*/
@@ -832,11 +833,12 @@ DSPI::disableInterruptTransfer() {
 void
 DSPI::cancelIntTransfer() {
 
-	uint8_t		bTmp;
+	volatile uint8_t		bTmp;   // volatile to make sure optimizer does not remove instruction
 
 	/* Clear the receive buffer.
 	*/
 	bTmp = pspi->sxBuf.reg;
+    (void) bTmp;    // suppress unused variable complier warning
 
 	/* Clear the interrupt flags.
 	*/

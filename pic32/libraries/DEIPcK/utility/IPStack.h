@@ -64,7 +64,7 @@
 
 IPSTACK * IPSGetIpStackFromAdaptor(const LLADP * pLLAdp, uint32_t type, IPSTATUS * pStatus);
 uint16_t IPSGetPayloadFromAdaptor(IPSTACK * pIpStack, uint16_t cbAlloc);
-IPSTACK * IPSInitIpStack(const LLADP * pLLAdp, uint8_t * pIpStackBuff, uint32_t type);
+IPSTACK * IPSInitIpStack(const LLADP * pLLAdp, void * pIpStackBuff, uint32_t type);
 
 #define IPSGetSocketMemorySize(_cEstSockets) (IPSGetSocketHeapSize(_cEstSockets))
 

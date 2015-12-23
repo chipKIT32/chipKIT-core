@@ -48,8 +48,8 @@
 #include    <HTTPServer.h>
 
 #define CBDATETIME          32
-#define TooMuchTime()       (millis() > cMSecEnd)
-#define RestartTimer()      cMSecEnd = millis() + cSecTimeout * 1000
+#define TooMuchTime()       (millis() - tStartTimeOut > cSecTimeout * 1000)
+#define RestartTimer()      tStartTimeOut = millis() 
 #define SetTimeout(cSec)    {cSecTimeout = cSec;}
 
 #define cSecFastRest        10
@@ -58,14 +58,11 @@
 #define cSecIncRest         30
 #define cSecMaxRest         600
 
-static int cSecTimeout = cSecDefault;
-static int cMSecEnd = 0;
-static int cSecRest = cSecInitRest;
+static uint32_t cSecTimeout = cSecDefault;
+static uint32_t tStartTimeOut = 0;
+static uint32_t cSecRest = cSecInitRest;
 
 static IPv4         ipMy;
-static IPEndPoint   ipEP;
-static IPv4         ipRemote;
-static char *       szRemoteURL;
 static IPv4         rgTempDNS[8];
 
 typedef enum 
@@ -158,7 +155,7 @@ static char szTemp[256];            // needs to be long enough to take a WiFi Se
  * ------------------------------------------------------------ */
 void ServerSetup(void) 
 {
-    int i = 0;
+    uint32_t i = 0;
 
     // Set the LED off, for not initialized
     pinMode(PIN_LED_SAFE, OUTPUT);
@@ -243,7 +240,7 @@ void ServerSetup(void)
  * ------------------------------------------------------------ */
 void ProcessServer(void)
 {   
-    int i               = 0;
+    uint32_t i               = 0;
 
   // see if we exceeded our timeout value.
   // then just be done and close the socket 
@@ -285,7 +282,7 @@ void ProcessServer(void)
             if(iNetwork < cNetworks)
             {
                 SCANINFO scanInfo;
-                int j = 0;
+                uint32_t j = 0;
 
 // this is MRF24 specific code
 // this will not run in all implemenations
@@ -498,7 +495,7 @@ void ProcessServer(void)
         // assign the DNS servers
         // these were either init in setup, or redone after DCHP
         {
-            int cDNS = cDNS = min((sizeof(rgTempDNS)/sizeof(IPv4)), deIPcK.getcMaxDNS());
+            uint32_t cDNS = min((sizeof(rgTempDNS)/sizeof(IPv4)), deIPcK.getcMaxDNS());
 
             for(i=0; i < cDNS; i++)
             {
@@ -603,7 +600,7 @@ void ProcessServer(void)
         SetLED(SLED::NOTREADY);
 
         {
-            int cDNS = min(deIPcK.getcDhcpNS(), (sizeof(rgTempDNS)/sizeof(IPv4)));
+            uint32_t cDNS = min(deIPcK.getcDhcpNS(), (sizeof(rgTempDNS)/sizeof(IPv4)));
 
             // save away the DNS servers
             // get the DHCP ones

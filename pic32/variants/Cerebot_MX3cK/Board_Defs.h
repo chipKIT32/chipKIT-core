@@ -154,10 +154,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 32;		// PIC32 SS2
-const static uint8_t MOSI = 33;		// PIC32 SDO2
-const static uint8_t MISO = 34;		// PIC32 SDI2
-const static uint8_t SCK  = 35;		// PIC32 SCK2
+static const uint8_t SS   = 32;		// PIC32 SS2
+static const uint8_t MOSI = 33;		// PIC32 SDO2
+static const uint8_t MISO = 34;		// PIC32 SDI2
+static const uint8_t SCK  = 35;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 **		DSPI0	connector JE

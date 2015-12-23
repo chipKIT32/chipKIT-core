@@ -160,10 +160,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h. 
 */
-const static uint8_t SS   = 9;		// RA0  CS1     PGED3/VREF+/CVREF+/AN0/C3INC/RPA0/CTED1/PMD7/RA0 
-const static uint8_t MISO = 10;		// RA1  SDI1    SDI1R = RPA1 = 0 
-const static uint8_t MOSI =	18;		// RA4  SDO1    RPA4R = SDO1 = 3    
-const static uint8_t SCK  = 7;		// RB14 SCK1    CVREF/AN10/C3INB/RPB14/VBUSON/SCK1/CTED5/RB14
+static const uint8_t SS   = 9;		// RA0  CS1     PGED3/VREF+/CVREF+/AN0/C3INC/RPA0/CTED1/PMD7/RA0 
+static const uint8_t MISO = 10;		// RA1  SDI1    SDI1R = RPA1 = 0 
+static const uint8_t MOSI =	18;		// RA4  SDO1    RPA4R = SDO1 = 3    
+static const uint8_t SCK  = 7;		// RB14 SCK1    CVREF/AN10/C3INB/RPB14/VBUSON/SCK1/CTED5/RB14
 
 /* The Digilent DSPI library uses these ports.
 */

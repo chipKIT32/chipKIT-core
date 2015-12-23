@@ -265,7 +265,7 @@ size_t TCPSocket::peekStream(byte *rgbPeek, size_t cbPeekMax, size_t index)
 
     if(cbReady > 0 )
     {
-        cbReady = cbReady < cbPeekMax ? cbReady : cbPeekMax;
+        cbReady = cbReady < (int32_t) cbPeekMax ? cbReady : cbPeekMax;
         return(TCPPeekIdx(&_socket, index, rgbPeek, cbReady, NULL));
     }
 

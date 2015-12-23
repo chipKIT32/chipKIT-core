@@ -165,11 +165,11 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 10;		// for SPI master operation, this
+static const uint8_t SS   = 10;		// for SPI master operation, this
 									// is actually RD4 (JP4 in RD4 pos)
-const static uint8_t MOSI = 11;		// PIC32 SDO2
-const static uint8_t MISO = 12;		// PIC32 SDI2
-const static uint8_t SCK  = 13;		// PIC32 SCK2
+static const uint8_t MOSI = 11;		// PIC32 SDO2
+static const uint8_t MISO = 12;		// PIC32 SDI2
+static const uint8_t SCK  = 13;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */

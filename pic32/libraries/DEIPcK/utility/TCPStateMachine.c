@@ -755,6 +755,7 @@ static bool TCPCheckForRST(IPSTACK *  pIpStack, TCPSOCKET * pSocket, uint32_t tC
  ********************************************************************/
 static void TCPProcessSYN(IPSTACK *  pIpStack, TCPSOCKET * pSocket, uint32_t tCur, IPSTATUS * pStatus)
 {
+    UNUSED(tCur);
     AssignStatusSafely(pStatus, ipsSuccess);
 
     // Process a SYN
@@ -808,7 +809,7 @@ static void TCPProcessSYN(IPSTACK *  pIpStack, TCPSOCKET * pSocket, uint32_t tCu
                 switch(pOption->optionKind)
                 {
                     case tcpOpKdMaxSegSize:
-                        pSocket->cbRemoteEffMSS    = *((uint16_t *) pOption->rgu8);
+                        pSocket->cbRemoteEffMSS    = pOption->rgu16[0];
                         break;
 
                     case tcpOpKdSAckMult:
@@ -837,7 +838,7 @@ static void TCPProcessSYN(IPSTACK *  pIpStack, TCPSOCKET * pSocket, uint32_t tCu
 
         // now following the instructions of RFC 1122 4.2.2.6
         // we don't send options on anything but the syn, so we don't have to include that.
-        pSocket->cbRemoteEffMSS = min(pSocket->cbRemoteEffMSS+20, LLGetMTUS(pSocket->s.pLLAdp)) - sizeof(TCPHDR);
+        pSocket->cbRemoteEffMSS = min((uint16_t) (pSocket->cbRemoteEffMSS + 20), (uint16_t) LLGetMTUS(pSocket->s.pLLAdp)) - sizeof(TCPHDR);
     }
 }
 
@@ -1368,7 +1369,7 @@ bool TCPTransmit(IPSTACK *  pIpStack, TCPSOCKET * pSocket, int32_t cbSend, int32
         // we have used some of their send window
         // so lets update the send window amount
         // so we don't overrun them
-        if(pSocket->sndWND >= cbSend)
+        if((int32_t) pSocket->sndWND >= cbSend)
         {
             pSocket->sndWND -= cbSend;
         }
@@ -1454,7 +1455,7 @@ static bool TCPProcessTxSocketBuffers(IPSTACK * pIpStack, TCPSOCKET * pSocket, u
     // send as much as we can
     else
     {
-        *pcbSend = min(*pcbSend, pSocket->sndWND);
+        *pcbSend = min(*pcbSend, (int32_t) pSocket->sndWND);
     }
 
     // check to see if we need to force an ack
@@ -1663,7 +1664,7 @@ IPSTACK * TCPCreateSyn(TCPSOCKET * pSocket, uint32_t * pcbOptions, IPSTATUS * pS
         pOption                         = (TCPOPTION *) (pIpStack->pTCPHdr+1);
         pOption->optionKind             = tcpOpKdMaxSegSize;
         pOption->length                 = 4;
-        *((uint16_t *) pOption->rgu8)   = pSocket->cbLocalMSS;
+        pOption->rgu16[0]               = pSocket->cbLocalMSS;
 
         *pcbOptions                     = pOption->length;
 

@@ -483,9 +483,7 @@ SoftSPI::transfer(uint8_t bVal) {
 
 	int				cbit;
 	uint8_t			bOut;
-	uint8_t			bIn;
-//	volatile int	cnt;
-	uint8_t			bit;
+	uint8_t			bIn = 0;
 
 	bOut = bVal;
 
@@ -802,7 +800,6 @@ SoftSPI::transfer(uint8_t bVal) {
 void
 SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv) {
 	uint16_t			cbCur;
-	volatile uint32_t	cnt;
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		*pbRcv++ = transfer(*pbSnd++);
@@ -832,7 +829,6 @@ SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv) {
 void
 SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd) {
 	uint16_t			cbCur;
-	volatile uint32_t	cnt;
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		transfer(*pbSnd++);
@@ -863,7 +859,6 @@ SoftSPI::transfer(uint16_t cbReq, uint8_t * pbSnd) {
 void
 SoftSPI::transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv) {
 	uint16_t			cbCur;
-	volatile uint32_t	cnt;
 
 	for (cbCur = cbReq; cbCur > 0; cbCur--) {
 		*pbRcv++ = transfer(bPad);

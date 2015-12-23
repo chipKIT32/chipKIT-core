@@ -174,7 +174,7 @@ typedef struct NTPV4_T
 #define ntpACQUIRESEC   30      // the poll rate we use if we are still trying to acquire the initial time
 //#define ntpPOLLSEC      30    // the poll rate we use (every half hour)
 
-#define ntpDefaultServerList {"0.us.pool.ntp.org","1.us.pool.ntp.org","2.us.pool.ntp.org","3.us.pool.ntp.org"}
+#define ntpDefaultServerList {(uint8_t const * const) "0.us.pool.ntp.org", (uint8_t const * const) "1.us.pool.ntp.org", (uint8_t const * const) "2.us.pool.ntp.org", (uint8_t const * const) "3.us.pool.ntp.org"}
 
 #pragma pack(pop)
 
@@ -190,17 +190,18 @@ typedef enum
 
 typedef struct NTPMEM_T
 {
-    SNTPSTATE   sntpState;
-    uint8_t **  ppNTPServers;
-    uint32_t    iServerNext;
-    uint16_t    cNTPServers;
-    uint16_t    cAttempt;
-    uint32_t    tStart;
-    NTPV4       ntpv4Request;
-    NTPV4       ntpv4Response;
-    uint32_t    tCorrection;
-    uint8_t     rgbIpStackBuff[IPStackEntrySize];
-    UDPSOCKET   socket;
+    SNTPSTATE               sntpState;
+    uint8_t const * const *  ppNTPServers;
+    uint32_t                iServerNext;
+    uint16_t                cNTPServers;
+    uint16_t                cAttempt;
+    uint32_t                tStart;
+    NTPV4                   ntpv4Request;
+    NTPV4                   ntpv4Response;
+    uint32_t                tCorrection;
+    IPSTACK                 ntpIpStack;
+    uint8_t                 rgbIpStackExBuff[IPStackEntrySize-sizeof(IPSTACK)];
+    UDPSOCKET               socket;
 } NTPMEM;
 
 #define SNTPv4MemSize  (sizeof(NTPMEM))

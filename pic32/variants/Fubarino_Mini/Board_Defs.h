@@ -189,8 +189,8 @@ static const uint8_t SCK  = 4;		// PIC32 SCK2
 /* ------------------------------------------------------------ */
 /* These define the pin numbers for the various change notice
 ** pins.
-/// TODO: MX250 parts have Change Notification on EVERY I/O pin.
-/// How should that get mapped? What calls actually use these values?
+*** TODO: MX250 parts have Change Notification on EVERY I/O pin.
+*** How should that get mapped? What calls actually use these values?
 */
 #define	PIN_CN0		6
 #define	PIN_CN1		5

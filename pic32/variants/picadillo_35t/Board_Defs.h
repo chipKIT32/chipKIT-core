@@ -51,10 +51,10 @@
 #define PIN_INT4    53
 
 // These are mapped to the special SPI header
-const static uint8_t SS   = 52;		
-const static uint8_t MOSI = 51;
-const static uint8_t MISO = 49;
-const static uint8_t SCK  = 50;
+static const uint8_t SS   = 52;		
+static const uint8_t MOSI = 51;
+static const uint8_t MISO = 49;
+static const uint8_t SCK  = 50;
 
 // SD card, SS2
 #define	PIN_DSPI0_SS	48 

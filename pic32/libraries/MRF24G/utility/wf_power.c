@@ -286,6 +286,7 @@ void WF_Hibernate(void)
 
 void WF_TxPowerMaxSet(uint8_t maxTxPower)
 {
+    (void)(maxTxPower);   // prevent unused warning
 #if defined(WF_ERROR_CHECKING)
     uint32_t errorCode = udSetTxPowerMax(maxTxPower);
     if (errorCode != UD_SUCCESS)

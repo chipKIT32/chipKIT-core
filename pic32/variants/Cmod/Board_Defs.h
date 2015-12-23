@@ -152,10 +152,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h. 
 */
-const static uint8_t SS   = 24;		// CS1  RC0     SS1R = 6, RPC0R = 3     24  RC0  AN6/RPC0/RC0  
-const static uint8_t MISO =	35;		// SDI1 RB5     SDI1R = 1               35  RB5  PGED3/RPB5/PMD7/RB5
-const static uint8_t MOSI = 25;		// SDO1 RC1     RPC1R = 3               25  RC1  AN7/RPC1/RC1    
-const static uint8_t SCK  = 16;		// SCK1 RB14    RPB14R = 0              16  RB14 CVREF/AN10/C3INB/RPB14/SCK1/CTED5/PMWR/RB14
+static const uint8_t SS   = 24;		// CS1  RC0     SS1R = 6, RPC0R = 3     24  RC0  AN6/RPC0/RC0  
+static const uint8_t MISO =	35;		// SDI1 RB5     SDI1R = 1               35  RB5  PGED3/RPB5/PMD7/RB5
+static const uint8_t MOSI = 25;		// SDO1 RC1     RPC1R = 3               25  RC1  AN7/RPC1/RC1    
+static const uint8_t SCK  = 16;		// SCK1 RB14    RPB14R = 0              16  RB14 CVREF/AN10/C3INB/RPB14/SCK1/CTED5/PMWR/RB14
 
 /* The Digilent DSPI library uses these ports.
 */

@@ -136,7 +136,7 @@ void SDSetup(void)
 
     // Mount the SD Vol to drive "0" as known by FATFS
     // Note that there is only one global pre initialized dFatFs instance
-    if((fr = dFatFs.fsmount (dSDVol, szDriveNbr, 1)) == FR_OK)
+    if((fr = DFATFS::fsmount (dSDVol, szDriveNbr, 1)) == FR_OK)
     {
 	    // Card successfully initialized, so we have a file system.
     	Serial.println("SD card initialized.");

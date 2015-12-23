@@ -52,6 +52,10 @@
 
 #include "deIP.h"
 
+const MACADDR MACBROADCAST   = {.u8 = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}};    // RFC 894
+const MACADDR MACNONE        = {.u8 = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};    // RFC 894
+
+
 static FFPT             ffptInputIpStack    = {NULL, NULL};
 
 // needed in DHCP and DNS modules
@@ -273,7 +277,7 @@ void LLInitAdaptorList(void)
     memset(&ffptAdaptors, 0, sizeof(ffptAdaptors));
 }
 
-const LLADP * LLAddAdaptor(const NWADP *pNwAdp, uint8_t * pAdpMem, uint32_t cbAdpMem, IPSTATUS * pStatus)
+const LLADP * LLAddAdaptor(const NWADP *pNwAdp, void * pAdpMem, uint32_t cbAdpMem, IPSTATUS * pStatus)
 {
     LLADP *     pLLAdp      = (LLADP *) pAdpMem;
 
@@ -342,8 +346,6 @@ const LLADP * LLAddAdaptor(const NWADP *pNwAdp, uint8_t * pAdpMem, uint32_t cbAd
 
 bool LLRemoveAdaptor(const LLADP * pLLAdp)
 {
-    bool        fStackInUse     = false;
-
     // we can unlink it for our list so no more
     // input will be associated to this adaptor
     // find it in the list
@@ -394,9 +396,9 @@ static bool LLFindARPEntry(const LLADP * pLLAdp, const void * pIPRequest, uint32
     for((*piUse)=0; (*piUse)<pLLAdp->cLLArp; (*piUse)++)
     {
         // see if this is our entry
-        if( pLLAdp->arLLArp[(*piUse)].arpState !=  arpStateUnUsed   &&
-           (!ILIsIPv6(pLLAdp) && (pLLAdp->arLLArp[(*piUse)].ip.ipv4.u32 == ((IPv4 *) pIPRequest)->u32)) ||
-           (ILIsIPv6(pLLAdp) && memcmp(&pLLAdp->arLLArp[(*piUse)].ip.ipv6, pIPRequest, sizeof(IPv6)) == 0)    )
+        if( (pLLAdp->arLLArp[(*piUse)].arpState !=  arpStateUnUsed)   &&
+           ((!ILIsIPv6(pLLAdp) && (pLLAdp->arLLArp[(*piUse)].ip.ipv4.u32 == ((IPv4 *) pIPRequest)->u32)) ||
+           (ILIsIPv6(pLLAdp) && memcmp(&pLLAdp->arLLArp[(*piUse)].ip.ipv6, pIPRequest, sizeof(IPv6)) == 0))    )
         {
             switch(pLLAdp->arLLArp[(*piUse)].arpState)
             {

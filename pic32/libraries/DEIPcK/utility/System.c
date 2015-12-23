@@ -124,7 +124,7 @@ void ExEndian(void * pv, int cb)
  *                  network order structures will have the checksum
  * 
  ********************************************************************/
-static uint16_t inline __attribute__((always_inline))unalignedload (volatile void *ptr)
+static inline uint16_t __attribute__((always_inline)) unalignedload(volatile void *ptr)
  {
     struct unaligned {
       uint16_t u16;

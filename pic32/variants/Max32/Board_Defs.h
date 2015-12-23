@@ -154,10 +154,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 53;		// PIC32 SS2A
-const static uint8_t MOSI = 51;		// PIC32 SDO2A
-const static uint8_t MISO = 50;		// PIC32 SDI2A
-const static uint8_t SCK  = 52;		// PIC32 SCK2A
+static const uint8_t SS   = 53;		// PIC32 SS2A
+static const uint8_t MOSI = 51;		// PIC32 SDO2A
+static const uint8_t MISO = 50;		// PIC32 SDI2A
+static const uint8_t SCK  = 52;		// PIC32 SCK2A
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -223,7 +223,7 @@ const static uint8_t SCK  = 52;		// PIC32 SCK2A
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog
@@ -357,7 +357,7 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define	_DSPI1_IPL			_SPI1_IPL_IPC
 #define	_DSPI1_SPL			_SPI1_SPL_IPC
 
-#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
+// #define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
 										//Microchip header file
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
