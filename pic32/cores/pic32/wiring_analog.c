@@ -161,7 +161,7 @@ int	tmp;
     // we have to manually find the actual digital pin so we can set the PIC registers.
 
     // if this doesn't map, than the analog pin was passed in.
-    if( ain != digitalPinToAnalog(pin))
+    if( ain != digital_pin_to_analog_PGM[pin])
     {
         int i = 0;
 
@@ -169,7 +169,7 @@ int	tmp;
         for(i=0; i<NUM_DIGITAL_PINS; i++)
         {
             // we found the pin
-            if(ain == digitalPinToAnalog(i))
+            if(ain == digital_pin_to_analog_PGM[i])
             {
                 pin = i;
                 break;
