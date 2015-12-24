@@ -17,7 +17,6 @@
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/chipkit-core-16778039.master-0d3a6ce.zip",
           "archiveFileName": "chipkit-core-16778039.master-0d3a6ce.zip",
           "checksum": "SHA-256:1b2c619f06bd418f8f8960504e582044dcfd2be17956c7a940eb39c31b5967fb",
-          "size": "7486796",
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
@@ -60,18 +59,19 @@
             {"name": "OpenScope"},
             {"name": "openbci"}
           ],
-          "toolsDependecies": [
+          "toolsDependencies": [
             {
               "packager": "chipKIT",
-              "name": "pic32-tools",
-              "version": "4.8.3-pic32gcc"
+              "version": "4.8.3-pic32gcc",
+              "name": "pic32-tools"
             }, 
             {
               "packager": "chipKIT",
-              "name": "pic32prog",
-              "version": "1.0.0"
+              "version": "1.0.0",
+              "name": "pic32prog"
             }
-          ]
+          ],
+          "size": "7486796"
         }
       ],
       "tools": [
