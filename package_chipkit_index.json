@@ -11,57 +11,58 @@
        {
        "name": "chipKIT",
        "architecture": "pic32",
-       "version": "1.0.0",
+       "version": "1.0.1",
        "category": "pic32",
-       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
-       "archiveFileName": "chipkit-core-16778038.v1.0.0-12-gb6efda4.zip",
-       "checksum": "SHA-256:090f430039f5c95d4033aa39e755ed22a07bebcfd3536d25918ed952944f59f3",
-       "size": "25592",
+       "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/chipkit-core-16778039.master-0d3a6ce.zip",
+       "archiveFileName": "chipkit-core-16778039.master-0d3a6ce.zip",
+       "checksum": "SHA-256:1b2c619f06bd418f8f8960504e582044dcfd2be17956c7a940eb39c31b5967fb",
+       "size": "7486796",
        "help": {
          "online": "http://chipkit.net/started/learn-basics/"
        },
        "boards": [
-         {"name": "CUI32stem"},
-         {"name": "Fubarino_SDZ"},
-         {"name": "Olimex_Pinguino32"},
          {"name": "cerebot32mx4"},
          {"name": "cerebot32mx7"},
          {"name": "cerebot_mx3ck"},
+         {"name": "chipkit_mx3"},
          {"name": "cerebot_mx3ck_512"},
          {"name": "cerebot_mx4ck"},
+         {"name": "chipkit_pro_mx4"},
          {"name": "cerebot_mx7ck"},
-         {"name": "chipkit_DP32"},
+         {"name": "chipkit_pro_mx7"},
          {"name": "chipkit_Pi"},
          {"name": "chipkit_Pi_USB_Serial"},
-         {"name": "chipkit_WF32"},
-         {"name": "chipkit_WiFire"},
-         {"name": "chipkit_WiFire_80MHz"},
-         {"name": "chipkit_mx3"},
-         {"name": "chipkit_pro_mx4"},
-         {"name": "chipkit_pro_mx7"},
-         {"name": "chipkit_uc32"},
          {"name": "cmod"},
-         {"name": "cui32"},
-         {"name": "fubarino_mini"},
-         {"name": "fubarino_mini_dev"},
-         {"name": "fubarino_sd"},
-         {"name": "fubarino_sd_seeed"},
-         {"name": "mega_pic32"},
-         {"name": "mega_usb_pic32"},
-         {"name": "openbci"},
-         {"name": "picadillo_35t"},
-         {"name": "quick240_usb_pic32"},
+         {"name": "CUI32stem"},
          {"name": "ubw32_mx460"},
          {"name": "ubw32_mx795"},
+         {"name": "cui32"},
+         {"name": "usbono_pic32"}
+         {"name": "chipkit_DP32"},
+         {"name": "fubarino_mini_dev"},
+         {"name": "fubarino_mini"},
+         {"name": "fubarino_sd_seeed"},
+         {"name": "fubarino_sd"},
+         {"name": "Fubarino_SDZ"},
+         {"name": "mega_pic32"},
+         {"name": "mega_usb_pic32"},
+         {"name": "Olimex_Pinguino32"},
+         {"name": "picadillo_35t"},
+         {"name": "quick240_usb_pic32"},
+         {"name": "chipkit_uc32"},
          {"name": "uc32_pmod"},
          {"name": "uno_pic32"},
          {"name": "uno_pmod"},
-         {"name": "usbono_pic32"}
+         {"name": "chipkit_WF32"},
+         {"name": "chipkit_WiFire"},
+         {"name": "chipkit_WiFire_80MHz"},
+		 {"name": "OpenScope"},
+         {"name": "openbci"},
        ],
        "toolsDependecies": [{
          "packager": "chipKIT",
          "name": "pic32-tools",
-         "version": "4.5.2-pic32gcc"
+         "version": "4.8.3-pic32gcc"
        }, {
          "packager": "chipKIT",
          "name": "pic32prog",
@@ -70,37 +71,37 @@
      }],
      "tools": [{
        "name": "pic32-tools",
-       "version": "4.5.2-pic32gcc",
+       "version": "4.8.3-pic32gcc",
        "systems": [{
          "host": "i386-apple-darwin11",
-         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Darwin-image-20140530.zip",
-         "archiveFileName": "pic32-tools-Darwin-image-20140530.zip",
-         "size": "249488",
-         "checksum": "SHA-256:9d506c72ec5154c0ddc36ca589d85e6b8d2d55c146d2ab17dc8c43cf1f6dd2add8857554bd5fa3b6bac581a57b020bceb2085d7de67399452993e174485f6727"
+         "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+         "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+         "size": "100202782",
+         "checksum": "SHA-256:8527857b562fb1982979f43d7b2edf1fc51fa36507ee4b2ddd94c42a9031b5e7"
        }, {
          "host": "x86_64-linux-gnu",
-         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
-         "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
-         "size": "252104",
-         "checksum": "SHA-256:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
+         "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+         "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+         "size": "98961200",
+         "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a"
        }, {
          "host": "i686-linux-gnu",
-         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-Linux32-image-20140530.zip",
-         "archiveFileName": "pic32-tools-Linux32-image-20140530.zip",
-         "size": "252104",
-         "checksum": "SHA-256:829131606bad571deb6cd2a111ef470945f453b46fbb0aa1a6a7aed94014761409c79ac0fbc70757f94dd61ea9bdda5b1e0d73299e8d574dad33d6d837f9c57c"
+         "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+         "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+         "size": "98961200",
+         "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a"
        }, {
          "host": "i686-mingw32",
-         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-win32-image-20140530.zip",
-         "archiveFileName": "pic32-tools-win32-image-20140530.zip",
-         "size": "251488",
-         "checksum": "SHA-256:e11dc00847384ef10cb78b16e30c2f99481797cb2ad684b489cd1224af26465f98081c1faea37f2b7d696ce6e0baa3d81c4389b6da74e644f1a799ece1137279"
+         "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip",
+         "archiveFileName": "pic32-tools-chipKIT-cxx-master-win32-image.zip",
+         "size": "183585125",
+         "checksum": "SHA-256:5c7eff848c20e8148d334dba0202583f3b5ba77abbd9b26dc171f5b20225035b"
        }, {
          "host": "i686-arm-gnu",
-         "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/1.6.0/pic32-tools-arm-linux-image-20140530.zip",
-         "archiveFileName": "pic32-tools-arm-linux-image-20140530.zip",
-         "size": "244888",
-         "checksum": "SHA-256:51a04d6f1e22b14d60717f8d398b8684088c6cb30c2ca1266101a2531b50f9799729421148e167f9e5319b3f86ec39e59bd2886267ea7c04cef75093777e27c1"
+         "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
+         "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
+         "size": "99010758",
+         "checksum": "SHA-256:68a471fbe00266a10ad82ebc230963ed38b026364c32705997b229250aa066ed"
        }]
      },
      {
