@@ -1,13 +1,11 @@
 {
   "packages": [
     {
-      "name": "chipKIT-core",
       "maintainer": "chipKIT Community",
-      "websiteURL": "http://chipkit.net/",
-      "email": "packages@chipkit.net",
       "help": {
         "online": "http://chipkit.net/started/learn-basics/"
       },
+      "websiteURL": "http://chipkit.net/",
       "platforms": [
         {
           "name": "chipKIT",
@@ -157,7 +155,9 @@
             }
           ]
         }
-      ]
+      ],
+      "email": "packages@chipkit.net",
+      "name": "chipKIT"
     }
   ]
 }
