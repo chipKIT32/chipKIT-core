@@ -38,7 +38,7 @@
             {"name": "ubw32_mx460"},
             {"name": "ubw32_mx795"},
             {"name": "cui32"},
-            {"name": "usbono_pic32"}
+            {"name": "usbono_pic32"},
             {"name": "chipkit_DP32"},
             {"name": "fubarino_mini_dev"},
             {"name": "fubarino_mini"},
@@ -58,7 +58,7 @@
             {"name": "chipkit_WiFire"},
             {"name": "chipkit_WiFire_80MHz"},
             {"name": "OpenScope"},
-            {"name": "openbci"},
+            {"name": "openbci"}
           ],
           "toolsDependecies": [
             {
