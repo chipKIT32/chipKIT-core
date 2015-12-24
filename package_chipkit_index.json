@@ -67,7 +67,7 @@
             }, 
             {
               "packager": "chipKIT",
-              "version": "1.0.0",
+              "version": "v1.0.01-pic32gcc",
               "name": "pic32prog"
             }
           ],
