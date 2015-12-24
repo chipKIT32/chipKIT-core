@@ -76,43 +76,43 @@
       ],
       "tools": [
         {
-          "name": "pic32-tools",
           "version": "4.8.3-pic32gcc",
+          "name": "pic32-tools",
           "systems": [
             {
-              "host": "i386-apple-darwin11",
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
-              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
-              "size": "100202782",
-              "checksum": "SHA-256:8527857b562fb1982979f43d7b2edf1fc51fa36507ee4b2ddd94c42a9031b5e7"
-            }, 
-            {
-              "host": "x86_64-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "98961200",
-              "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a"
-            }, 
-            {
-              "host": "i686-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "98961200",
-              "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a"
-            }, 
-            {
-              "host": "i686-mingw32",
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip",
+              "checksum": "SHA-256:5c7eff848c20e8148d334dba0202583f3b5ba77abbd9b26dc171f5b20225035b",
+              "host": "i686-mingw32",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-win32-image.zip",
-              "size": "183585125",
-              "checksum": "SHA-256:5c7eff848c20e8148d334dba0202583f3b5ba77abbd9b26dc171f5b20225035b"
+              "size": "183585125"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+              "checksum": "SHA-256:8527857b562fb1982979f43d7b2edf1fc51fa36507ee4b2ddd94c42a9031b5e7",
+              "host": "i386-apple-darwin",
+              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+              "size": "100202782"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a",
+              "host": "x86_64-linux-gnu",
+              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "size": "98961200"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "checksum": "SHA-256:3a7c1fc3fdaab3bf0ff60daeb51eea8221e4071f13df5c3176fadcf9ac2f110a",
+              "host": "i686-pc-linux-gnu",
+              "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "size": "98961200"
+            }, 
+            {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
+              "checksum": "SHA-256:68a471fbe00266a10ad82ebc230963ed38b026364c32705997b229250aa066ed",
+              "host": "i686-arm-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
-              "size": "99010758",
-              "checksum": "SHA-256:68a471fbe00266a10ad82ebc230963ed38b026364c32705997b229250aa066ed"
+              "size": "99010758"
             }
           ]
         },
