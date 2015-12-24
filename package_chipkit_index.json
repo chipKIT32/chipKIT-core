@@ -143,8 +143,8 @@
               "host": "i686-mingw32",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-windows.zip",
               "archiveFileName": "pic32prog-windows.zip",
-              "size": "104",
-              "checksum": "SHA-256:0b727de05d8b68106157077c249ce79014398aea9efad34694a8a1e37ebf2c802f160082440c4f14e6364783251cefe6593e18ec6f6ba60937750ff4855de48a"
+              "size": "52701",
+              "checksum": "SHA-256:114e96e8ef524979e934168c4b351bc8e95d6f3de9010d8a4e22c20dc0373d4d"
             }, 
             {
               "host": "i686-arm-gnu",
