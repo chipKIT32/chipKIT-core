@@ -14,7 +14,7 @@
           "category": "pic32",
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/chipkit-core-16778039.master-0d3a6ce.zip",
           "archiveFileName": "chipkit-core-16778039.master-0d3a6ce.zip",
-          "checksum": "SHA-256:1b2c619f06bd418f8f8960504e582044dcfd2be17956c7a940eb39c31b5967fb",
+          "checksum": "SHA-256:21B25DBDA78427D5F5DE24F0D70951D7EEF9FF6236E083CB57EBA5EBFCF95A5A",
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
@@ -78,11 +78,11 @@
           "name": "pic32-tools",
           "systems": [
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip",
-              "checksum": "SHA-256:5c7eff848c20e8148d334dba0202583f3b5ba77abbd9b26dc171f5b20225035b",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-win32-image_bps.zip",
+              "checksum": "SHA-256:33CBF281F681CC878EC2D4B9AA76EB3EA60C89E4E94AD3C3933CACD7242CDD11",
               "host": "i686-mingw32",
-              "archiveFileName": "pic32-tools-chipKIT-cxx-master-win32-image.zip",
-              "size": "183585125"
+              "archiveFileName": "pic32-tools-chipKIT-cxx-master-win32-image_bps.zip",
+              "size": "187130873"
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
@@ -141,10 +141,10 @@
             }, 
             {
               "host": "i686-mingw32",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-windows.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-windows.zip",
               "archiveFileName": "pic32prog-windows.zip",
-              "size": "52701",
-              "checksum": "SHA-256:114e96e8ef524979e934168c4b351bc8e95d6f3de9010d8a4e22c20dc0373d4d"
+              "size": "51434",
+              "checksum": "SHA-256:C8F91AD8D29ED4EE2249B8EB9AB476F0B4CB54FF5F856C5953A1DC2EE1D51D19"
             }, 
             {
               "host": "i686-arm-gnu",
