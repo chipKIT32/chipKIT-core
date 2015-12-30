@@ -85,32 +85,32 @@
               "size": "187130873"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
               "checksum": "SHA-256:CDF9B5E27BFAC5552BB212BF1D5EF44F32B829B47A1D1C182F2CF69CCE3B0D0E",
               "host": "i386-apple-darwin",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
-              "size": "100202782"
+              "size": "103730351"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
               "checksum": "SHA-256:C84B033967E6E718009DA5558EB1BC95E484ED0D95A23DB98BB0556917FE534E",
               "host": "x86_64-linux-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "98961200"
+              "size": "105128692"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
               "checksum": "SHA-256:C84B033967E6E718009DA5558EB1BC95E484ED0D95A23DB98BB0556917FE534E",
               "host": "i686-pc-linux-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "98961200"
+              "size": "105128692"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
               "checksum": "SHA-256:AA0B155E60AE53872E55F8557A95C0F995A964BCE65A9EE9138FC9AD1EB81019",
               "host": "i686-arm-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
-              "size": "99010758"
+              "size": "102719933"
             }
           ]
         },
