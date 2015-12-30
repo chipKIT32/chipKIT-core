@@ -85,7 +85,7 @@
               "size": "187130873"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
               "checksum": "SHA-256:8527857b562fb1982979f43d7b2edf1fc51fa36507ee4b2ddd94c42a9031b5e7",
               "host": "i386-apple-darwin",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
