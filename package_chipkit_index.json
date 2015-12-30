@@ -127,17 +127,17 @@
             }, 
             {
               "host": "x86_64-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linux64.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-linux64.zip",
               "archiveFileName": "pic32prog-linux64.zip",
-              "size": "152882",
-              "checksum": "SHA-256:06e195265678a49f8609b47387eba38689c27940e35f327d2eb656670a882993"
+              "size": "104302",
+              "checksum": "SHA-256:E4C0482085B0C9AAE88134AC587010B326DA0F989C1F3AF8BCC5E02C971E48AC"
             }, 
             {
               "host": "i686-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linux32.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-linux32.zip",
               "archiveFileName": "pic32prog-linux32.zip",
-              "size": "216",
-              "checksum": "SHA-256:ab8774049997aef057a5ce0ec8cc72f08adbfc4d9b491c09b68829002a267270f57952ac96bc1438931051fdba127ac2d88c32a830a4331fbbbd4569c3791fce"
+              "size": "111157",
+              "checksum": "SHA-256:3C19482EB6634F8BF0272A7B9786319F4E07B67FCF493842CD29E3086A171245"
             }, 
             {
               "host": "i686-mingw32",
@@ -148,7 +148,7 @@
             }, 
             {
               "host": "i686-arm-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linuxarmhf.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-linuxarmhf.zip",
               "archiveFileName": "pic32prog-linuxarmhf.zip",
               "size": "240",
               "checksum": "SHA-256:75b39dab688fc3e030390ed1f131227e3e0ea0393c1e0e2348aa8f363eb9eea5db7010c87b51a454b35345c273e46021ab9b5f885fca9cf71df10631168f8ab5"
