@@ -122,8 +122,8 @@
               "host": "i386-apple-darwin11",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-macosx.zip",
               "archiveFileName": "pic32prog-macosx.zip",
-              "size": "280",
-              "checksum": "SHA-256:59765a8d25cbd1f79ba9496a5983c5131fd7b05a8004eef8834ba66ba1ae82f27a6e30be394fd3a871312bbb34c8798ffdc8e9b5f6f8db3d83b017743c4cb73a"
+              "size": "152882",
+              "checksum": "SHA-256:06E195265678A49F8609B47387EBA38689C27940E35F327D2EB656670A882993"
             }, 
             {
               "host": "x86_64-linux-gnu",
