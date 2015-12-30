@@ -85,7 +85,7 @@
               "size": "187130873"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
               "checksum": "SHA-256:8527857b562fb1982979f43d7b2edf1fc51fa36507ee4b2ddd94c42a9031b5e7",
               "host": "i386-apple-darwin",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Darwin-image.zip",
@@ -120,7 +120,7 @@
           "systems": [
             {
               "host": "i386-apple-darwin11",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-macosx.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-macosx.zip",
               "archiveFileName": "pic32prog-macosx.zip",
               "size": "280",
               "checksum": "SHA-256:59765a8d25cbd1f79ba9496a5983c5131fd7b05a8004eef8834ba66ba1ae82f27a6e30be394fd3a871312bbb34c8798ffdc8e9b5f6f8db3d83b017743c4cb73a"
@@ -129,8 +129,8 @@
               "host": "x86_64-linux-gnu",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.0/pic32prog-linux64.zip",
               "archiveFileName": "pic32prog-linux64.zip",
-              "size": "200",
-              "checksum": "SHA-256:597188cebcb9a27acb95de12f287570ec8e16beebbc0c622045ea868aca86e853d7f284f0b8853af7a9c6201e010a8176f025574e43ef982104704f207537b8e"
+              "size": "152882",
+              "checksum": "SHA-256:06e195265678a49f8609b47387eba38689c27940e35f327d2eb656670a882993"
             }, 
             {
               "host": "i686-linux-gnu",
