@@ -229,6 +229,9 @@ static const uint8_t SCK  = 52;		// PIC32 SCK2A
 #undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( (P) < 16 ? (P) : ((P) >= 54) && ((P) < 70) ? (P)-54 : NOT_ANALOG_PIN )
 
+#undef digitalPinToCN
+#define digitalPinToCN(P) ( digital_pin_to_cn_PGM[P] )
+
 /* ------------------------------------------------------------ */
 /*					Data Definitions							*/
 /* ------------------------------------------------------------ */
@@ -243,6 +246,7 @@ extern const uint32_t	port_to_tris_PGM[];
 extern const uint8_t	digital_pin_to_port_PGM[];
 extern const uint16_t	digital_pin_to_bit_mask_PGM[];
 extern const uint16_t	digital_pin_to_timer_PGM[];
+extern const uint32_t   digital_pin_to_cn_PGM[];
 
 #endif
 

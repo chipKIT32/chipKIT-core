@@ -241,6 +241,8 @@ boolean callback_pathExists(SdFile& parentDir, char *filePathComponent,
 
   */
   SdFile child;
+  (void) isLastComponent;       // suppress unused parameter warning
+  (void) object;                // suppress unused parameter warning
 
   boolean exists = child.open(parentDir, filePathComponent, O_RDONLY);
   
@@ -310,6 +312,9 @@ boolean callback_openPath(SdFile& parentDir, char *filePathComponent,
 
 boolean callback_remove(SdFile& parentDir, char *filePathComponent, 
 			boolean isLastComponent, void *object) {
+
+  (void) object;                // suppress unused parameter warning
+
   if (isLastComponent) {
     return SdFile::remove(parentDir, filePathComponent);
   }
@@ -318,6 +323,7 @@ boolean callback_remove(SdFile& parentDir, char *filePathComponent,
 
 boolean callback_rmdir(SdFile& parentDir, char *filePathComponent, 
 			boolean isLastComponent, void *object) {
+  (void) object;                // suppress unused parameter warning
   if (isLastComponent) {
     SdFile f;
     if (!f.open(parentDir, filePathComponent, O_READ)) return false;

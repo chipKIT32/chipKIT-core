@@ -23,9 +23,9 @@
  * \file
  * Sd2Card class
  */
+#include <Board_Defs.h>
 #include "Sd2PinMap.h"
 #include "SdInfo.h"
-#include <Board_Defs.h>
 //#include <plib.h>
 
 /** Set SCK to max rate of F_CPU/2. See Sd2Card::setSckRate(). */
