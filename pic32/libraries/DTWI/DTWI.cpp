@@ -707,6 +707,7 @@ bool DTWI::startMaster(uint8_t addrSlave, uint32_t cbRead, bool fRead)
 
     // if we have something in the read buffer, just get it out
     rcvB = ptwi->ixRcv.reg;
+    (void) rcvB;        // suppress set but not used warning
 
     // clear error flags
     ptwi->ixStat.reg = 0;
@@ -996,6 +997,7 @@ bool DTWI::beginSlave(uint8_t addrSlave, uint32_t cbToNak, bool fGenCall)
 
     // if we have something in the read buffer, just get it out
     rcvB = ptwi->ixRcv.reg;
+    (void) rcvB;        // suppress set but not used warning
 
     // make sure the clock is released
     // actually don't because we don't want to accept data
@@ -1173,7 +1175,7 @@ void __attribute__((nomips16)) DTWI::masterMachine(void)
             // if we have room for another byte, lets recieve it
             // otherwise we will just halt the clock until we can read
             // some more data.
-            else if((iReadLast - iReadNext) < sizeof(rgbIn))
+            else if(((uint32_t) (iReadLast - iReadNext)) < sizeof(rgbIn))
             {
                 // the lower 5 bits must be set to zero
                 while(ptwi->ixCon.reg & 0b11111);
@@ -1330,14 +1332,15 @@ void __attribute__((nomips16)) DTWI::slaveMachine(void)
                 else
                 {
                     uint8_t rcvB = ptwi->ixRcv.reg;
-                    ptwi->i2cStat.I2COV = 0;     // clear overflow
-                    ptwi->i2cCon.SCLREL = 1;     // release the clk stretching 
+                    (void) rcvB;                    // suppress set but not used warning
+                    ptwi->i2cStat.I2COV = 0;        // clear overflow
+                    ptwi->i2cCon.SCLREL = 1;        // release the clk stretching 
                 }
 
                 break;
 
             case I2C_DATA_READ:
-                if(ptwi->i2cStat.RBF && iReadLast - iReadNext < sizeof(rgbIn))
+                if(ptwi->i2cStat.RBF && ((uint32_t) (iReadLast - iReadNext)) < sizeof(rgbIn))
                 {
                     rgbIn[iReadLast % sizeof(rgbIn)] = ptwi->ixRcv.reg;
                     iReadLast++;
