@@ -154,6 +154,7 @@ void SDSetup(void);
 
 extern uint32_t sdLockCur;
 extern uint32_t sdLock;
+extern bool fSDfs;
 
 // SD Helper functions
 #define SDUNLOCKED 0
