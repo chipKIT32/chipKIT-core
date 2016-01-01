@@ -93,17 +93,17 @@
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "checksum": "SHA-256:C84B033967E6E718009DA5558EB1BC95E484ED0D95A23DB98BB0556917FE534E",
+              "checksum": "SHA-256:3A7C1FC3FDAAB3BF0FF60DAEB51EEA8221E4071F13DF5C3176FADCF9AC2F110A",
               "host": "x86_64-linux-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "105128692"
+              "size": "98961200"
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "checksum": "SHA-256:C84B033967E6E718009DA5558EB1BC95E484ED0D95A23DB98BB0556917FE534E",
+              "checksum": "SHA-256:3A7C1FC3FDAAB3BF0FF60DAEB51EEA8221E4071F13DF5C3176FADCF9AC2F110A",
               "host": "i686-pc-linux-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-Linux32-image.zip",
-              "size": "105128692"
+              "size": "98961200"
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip",
