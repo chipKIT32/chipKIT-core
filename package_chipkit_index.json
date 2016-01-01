@@ -133,7 +133,7 @@
               "checksum": "SHA-256:E4C0482085B0C9AAE88134AC587010B326DA0F989C1F3AF8BCC5E02C971E48AC"
             }, 
             {
-              "host": "i686-linux-gnu",
+              "host": "i686-pc-linux-gnu", 
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-linux32.zip",
               "archiveFileName": "pic32prog-linux32.zip",
               "size": "111157",
