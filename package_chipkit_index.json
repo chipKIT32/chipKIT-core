@@ -6,7 +6,7 @@
         "online": "http://chipkit.net/started/learn-basics/"
       },
       "websiteURL": "http://chipkit.net/",
-      "platformrs": [
+      "platforms": [
         {
           "name": "chipKIT",
           "architecture": "pic32",
