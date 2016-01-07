@@ -18,7 +18,7 @@
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
-          "size": "7486796",
+          "size": "7567726",
           "boards": [
             {"name": "cerebot32mx4"},
             {"name": "cerebot32mx7"},
