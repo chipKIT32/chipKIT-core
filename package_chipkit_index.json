@@ -18,7 +18,6 @@
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
-          "size": "7567726",
           "boards": [
             {"name": "cerebot32mx4"},
             {"name": "cerebot32mx7"},
@@ -74,7 +73,8 @@
               "version": "v1",
               "name": "drivers-windows"
             }
-          ]
+          ],
+          "size": "7567726"
         },
         {
           "name": "chipKIT",
@@ -87,7 +87,6 @@
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
-          "size": "7486796",
           "boards": [
             {"name": "cerebot32mx4"},
             {"name": "cerebot32mx7"},
@@ -138,7 +137,8 @@
               "version": "v1.0.01-pic32gcc",
               "name": "pic32prog"
             }
-          ]
+          ],
+          "size": "7486796"
         }
       ],
       "tools": [
@@ -225,13 +225,13 @@
           ]
         },
         {
-          "name": "drviers-windows",
+          "name": "drivers-windows",
           "version": "v1",
           "systems": [
             {
               "host": "i686-mingw32",
-              "url": "https://github.com/EmbeddedMan/chipKIT-core/releases/download/v1.1.0/pic32prog-windows.zip",
-              "archiveFileName": "pic32prog-windows.zip",
+              "url": "https://github.com/EmbeddedMan/chipKIT-core/releases/download/v1.1.0/drivers_windows_v1.zip",
+              "archiveFileName": "drivers_windows_v1.zip",
               "size": "962019",
               "checksum": "SHA-256:39F16651C21F451D106B8CDA5281D16129D755A73728E976A725341F3F671A5F"
             }
