@@ -973,10 +973,8 @@ quick240_usb_pic32.group=PONTECH
 
 # new items
 quick240_usb_pic32.platform=pic32
-quick240_usb_pic32.board=_BOARD_PONTECH_QUICK240_USB_
 quick240_usb_pic32.build.board=BOARD_PONTECH_QUICK240_USB_
-quick240_usb_pic32.compiler.define=-D_USE_USB_FOR_SERIAL_
-
+quick240_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 quick240_usb_pic32.ccflags=ffff
 quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
