@@ -230,13 +230,42 @@
           "systems": [
             {
               "host": "i686-mingw32",
-              "url": "https://github.com/EmbeddedMan/chipKIT-core/releases/download/v1.1.0/drivers_windows_v1.zip",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/drivers_windows_v1.zip",
               "archiveFileName": "drivers_windows_v1.zip",
               "size": "962019",
               "checksum": "SHA-256:39F16651C21F451D106B8CDA5281D16129D755A73728E976A725341F3F671A5F"
+            },
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/otherOSes.zip",
+              "archiveFileName": "otherOSes.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "x86_64-linux-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/otherOSes.zip",
+              "archiveFileName": "otherOSes.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "i686-pc-linux-gnu", 
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/otherOSes.zip",
+              "archiveFileName": "otherOSes.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "i686-arm-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/otherOSes.zip",
+              "archiveFileName": "otherOSes.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
             }
           ]
-        }
+
+          }
       ],
       "email": "packages@chipkit.net",
       "name": "chipKIT"
