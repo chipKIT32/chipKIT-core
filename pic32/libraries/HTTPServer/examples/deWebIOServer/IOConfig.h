@@ -102,7 +102,7 @@
 
     #define DEDCATEDPINS {0, 1, 2, PIN_SDCS, 29, 43, 52, 53, 78, 80, PIN_LED_SAFE}
 
-#elif defined (_BOARD_CEREBOT_MX7CK_) || defined(_BOARD_CEREBOT_32MX7_)
+#elif defined (BOARD_CEREBOT_MX7CK_) || defined(BOARD_CEREBOT_32MX7_)
 
     // PmodSD on JD, Pmod
     // services for the SD card, status LED and Serial Camera
