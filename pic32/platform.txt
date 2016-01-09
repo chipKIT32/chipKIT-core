@@ -26,7 +26,7 @@ compiler.c.cmd=pic32-gcc
 # For -G1024, objects 1024 bytes or smaller will be accessed by
 # gp-relative addressing
 compiler.c.flags=-c -g -O2 {compiler.warning_flags} -mno-smart-io -ffunction-sections -fdata-sections  -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder -MMD
-compiler.c.elf.flags={compiler.warning_flags} -Os -Wl,--no-cpp,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles
+compiler.c.elf.flags={compiler.warning_flags} -Os -Wl,--save-gld={build.path}/sketch.ld,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles
 compiler.c.elf.cmd=pic32-g++
 compiler.S.flags=-c -g1 -O2 -Wa,--gdwarf-2
 compiler.cpp.cmd=pic32-g++
@@ -70,13 +70,13 @@ compiler.elf2hex.extra_flags=
 # --------------------
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
 
 ## Compile S files
-recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D_{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}"  "{object_file}"
@@ -98,13 +98,13 @@ recipe.size.regex.data=^(?:\.ram_exchange_data|\.dbg_data|\.sdata|\.sbss|\.data\
 
 ## Preprocessor
 preproc.includes.flags=-w -x c++ -M -MG -MP
-recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}"
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}"
 
 preproc.macros.flags=-w -x c++ -E -CC
 
 #preproc.macros.compatibility_flags=222
 
-recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{preprocessed_file_path}"
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{preprocessed_file_path}"
 
 
 ###################

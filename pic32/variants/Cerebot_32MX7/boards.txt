@@ -4,7 +4,7 @@ cerebot32mx7.group=Cerebot
 
 # new items
 cerebot32mx7.platform=pic32
-cerebot32mx7.board=_BOARD_CEREBOT_32MX7_
+cerebot32mx7.board=BOARD_CEREBOT_32MX7_
 cerebot32mx7.board.define=
 cerebot32mx7.ccflags=ffff
 cerebot32mx7.ldscript=chipKIT-application-32MX795F512.ld
