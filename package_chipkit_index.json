@@ -12,9 +12,10 @@
           "architecture": "pic32",
           "version": "1.1.0",
           "category": "pic32",
-          "url": "https://github.com/EmbeddedMan/chipKIT-core/releases/download/v1.1.0/chipkit-core-16778039.master-657623a.zip",
-          "archiveFileName": "chipkit-core-16778039.master-657623a.zip",
-          "checksum": "SHA-256:44231da24ea476a91e92006bf4219765722c2169a4e42bd029dd6560ec6ab382",
+          "url": "https://github.com/EmbeddedMan/chipKIT-core/releases/download/v1.1.0/chipkit-core-16778040.master-v1.1.0-13-g8d77040.zip",
+          "archiveFileName": "chipkit-core-16778040.master-v1.1.0-13-g8d77040.zip",
+          "checksum": "SHA-256:aac79ee2ecf5b10ed7021ccfd589acf95ec7960dd8e8eb267cddf9670180e2ce",
+          "size": "7388628",
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
@@ -73,8 +74,7 @@
               "version": "v1",
               "name": "drivers-windows"
             }
-          ],
-          "size": "7569799"
+          ]
         },
         {
           "name": "chipKIT",
