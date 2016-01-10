@@ -1,0 +1,121 @@
+# PIC32 chipKIT Core and platform.
+# ------------------------------
+#
+# For more info:
+# https://github.com/someday_we_will_fill_in_this_file_hopefully!
+
+name=chipKIT
+version=1.6.6
+
+# BPS - Not sure if this ever gets used, and if so, how/where
+#rewriting=disabled
+
+# PIC32 compile variables
+# --------------------- 
+
+compiler.warning_flags=-w
+compiler.warning_flags.none=-w
+compiler.warning_flags.default=
+compiler.warning_flags.more=-Wall
+compiler.warning_flags.all=-Wall -Wextra
+
+# Default "compiler.path" is correct, change only if you want to overidde the initial value
+compiler.path={runtime.tools.pic32-tools.path}/bin/
+compiler.c.cmd=pic32-gcc
+# Use a high -Gnum for devices that have less than 64K of data memory
+# For -G1024, objects 1024 bytes or smaller will be accessed by
+# gp-relative addressing
+compiler.c.flags=-c -g -O2 {compiler.warning_flags} -mno-smart-io -ffunction-sections -fdata-sections  -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder -MMD
+compiler.c.elf.flags={compiler.warning_flags} -Os -Wl,--save-gld={build.path}/sketch.ld,-Map={build.path}/sketch.map,--gc-sections -mdebugger -mno-peripheral-libs -nostartfiles
+compiler.c.elf.cmd=pic32-g++
+compiler.S.flags=-c -g1 -O2 -Wa,--gdwarf-2
+compiler.cpp.cmd=pic32-g++
+compiler.cpp.flags=-c -g -O2 {compiler.warning_flags} -mno-smart-io -fno-exceptions -ffunction-sections -fdata-sections -mdebugger -Wcast-align -fno-short-double -ftoplevel-reorder -MMD
+compiler.ar.cmd=pic32-ar
+compiler.ar.flags=rcs
+compiler.objcopy.cmd=pic32-objcopy
+compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+compiler.elf2hex.flags=-a
+compiler.elf2hex.cmd=pic32-bin2hex
+compiler.ldflags=
+compiler.size.cmd=pic32-size
+
+compiler.cpudef=-mprocessor=
+compiler.ldscript=chipKIT-BL.ld
+compiler.upload.cmd=
+compiler.includepath={0}/hardware/pic32/compiler/pic32-tools/pic32mx/include
+compiler.upload.flags=
+library.core.path=./hardware/pic32/cores/pic32
+library.path=./hardware/pic32/libraries
+ldscript=chipKIT-BL-mega.ld
+ldcommon=chipKIT-application-COMMON.ld
+compiler.define= -DMPIDEVER=16777998 -DMPIDE=150 -DIDE=Arduino
+build.ldscript.path={build.core.path}
+build.variant=Default_100
+core.header=WProgram.h
+
+# This can be overriden in boards.txt
+build.extra_flags=
+
+# These can be overridden in platform.local.txt
+compiler.c.extra_flags=
+compiler.c.elf.extra_flags=
+compiler.S.extra_flags=
+compiler.cpp.extra_flags=
+compiler.ar.extra_flags=
+compiler.objcopy.eep.extra_flags=
+compiler.elf2hex.extra_flags=
+
+# PIC32 compile patterns
+# --------------------
+
+## Compile c files
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+
+## Compile c++ files
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+
+## Compile S files
+recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+
+## Create archives
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}"  {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}"  "{object_file}"
+
+## Combine gc-sections, archives, and objects
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mprocessor={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" "{build.core.path}/cpp-startup.S" {object_files} "{build.path}/{archive_file}" -L{build.path} -lm  -T "{build.ldscript.path}/{ldscript}" -T "{build.core.path}/{ldcommon}"
+
+## Create output files (.eep and .hex)
+recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
+
+## Save hex
+recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf"
+
+## Compute size
+recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
+recipe.size.regex=^(?:\.reset|\.image_ptr_table|\.app_excpt|\.vector\S*|\.startup|\.init|\.fini|\.ctors|\.dtors|\.header_info|\.dinit|\.text\S*|\.rodata\S*|\.data)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.ram_exchange_data|\.dbg_data|\.sdata|\.sbss|\.data\S*|\.stack|\.bss|\.comment.__use_force_isr_install|\.eh_frame|\.jcr)\s+([0-9]+).*
+#recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
+
+## Preprocessor
+preproc.includes.flags=-w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} {preproc.includes.flags}  -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}"
+
+preproc.macros.flags=-w -x c++ -E -CC
+
+#preproc.macros.compatibility_flags=222
+
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.macros.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -D{build.board} -DARDUINO_ARCH_{build.arch} {compiler.define} {compiler.cpp.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{preprocessed_file_path}"
+
+
+###################
+# pic32prog loader
+# https://code.google.com/p/pic32prog/
+# ----------
+upload.tool=pic32prog
+tools.pic32prog.cmd=pic32prog
+tools.pic32prog.cmd.windows=pic32prog.exe
+tools.pic32prog.path={runtime.tools.pic32prog.path}
+
+tools.pic32prog.upload.params.verbose=
+tools.pic32prog.upload.params.quiet=
+tools.pic32prog.upload.pattern="{path}/{cmd}" {upload.verbose}  -d "{serial.port}"  -b {upload.speed}  "{build.path}/{build.project_name}.hex"
