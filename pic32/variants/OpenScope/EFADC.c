@@ -80,9 +80,9 @@ void initADC(void)
     ADCCON3     = 0; 
     ADCANCON    = 0;
     ADCTRGMODE  = 0;
-    ADCIMCON1   = 0;
-    ADCIMCON2   = 0;
-    ADCIMCON3   = 0;
+    ADCIMCON1   = 0x00000155;   // signed single ended mode (not differential)
+    ADCIMCON2   = 0x00000000;   // signed single ended mode (not differential)
+    ADCIMCON3   = 0x00000000;   // signed single ended mode (not differential)
     ADCTRGSNS   = 0;
  
     // resolution 0 - 6bits, 1 - 8bits, 2 - 10bits, 3 - 12bits
@@ -135,31 +135,32 @@ void initADC(void)
     // ADC 0
     ADC0TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC0TIMEbits.SAMC       = (ANINADCSH-2);            // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC0TIMEbits.SELRES     = ADCCON3bits.VREFSEL;      // ADC0 resolution is 12 bits 
+    ADC0TIMEbits.SELRES     = ADCCON1bits.SELRES;       // ADC0 resolution is 12 bits 
     ADCIMCON1bits.SIGN0     = 1;                        // signed data format
 
     // ADC 1
     ADC1TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC1 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC1TIMEbits.SAMC       = (ANINADCSH-2);            // ADC1 sampling time = (SAMC+2) * TAD0
-    ADC1TIMEbits.SELRES     = ADCCON3bits.VREFSEL;      // ADC1 resolution is 12 bits 
+    ADC1TIMEbits.SELRES     = ADCCON1bits.SELRES;       // ADC1 resolution is 12 bits 
     ADCIMCON1bits.SIGN1     = 1;                        // signed data format
 
     // ADC 2
     ADC2TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC2 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC2TIMEbits.SAMC       = (ANINADCSH-2);            // ADC2 sampling time = (SAMC+2) * TAD0
-    ADC2TIMEbits.SELRES     = ADCCON3bits.VREFSEL;      // ADC2 resolution is 12 bits 
+    ADC2TIMEbits.SELRES     = ADCCON1bits.SELRES;       // ADC2 resolution is 12 bits 
     ADCIMCON1bits.SIGN2     = 1;                        // signed data format
 
     // ADC 3
     ADC3TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC3 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC3TIMEbits.SAMC       = (ANINADCSH-2);            // ADC3 sampling time = (SAMC+2) * TAD0
-    ADC3TIMEbits.SELRES     = ADCCON3bits.VREFSEL;      // ADC3 resolution is 12 bits 
+    ADC3TIMEbits.SELRES     = ADCCON1bits.SELRES;       // ADC3 resolution is 12 bits 
     ADCIMCON1bits.SIGN3     = 1;                        // signed data format
 
     // ADC 4
     ADC4TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC4 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC4TIMEbits.SAMC       = ADCCON2bits.SAMC;         // ADC4 sampling time = (SAMC+2) * TAD0
-    ADC4TIMEbits.SELRES     = ADCCON3bits.VREFSEL;      // ADC4 resolution is 12 bits 
+    ADC4TIMEbits.SELRES     = ADCCON1bits.SELRES;       // ADC4 resolution is 12 bits 
+    ADCIMCON1bits.SIGN4     = 1;                        // signed data format
 
     /* Configure ADCIRQENx */
     ADCCMPEN1 = 0; // No interrupts are used
@@ -305,3 +306,50 @@ int convertADC(uint8_t channelNumber)
     // return the converted data
     return((int) ((uint32_t *) &ADCDATA0)[vcn]);
 }
+
+/* ------------------------------------------------------------ */
+/***	ReadFeedBackADC
+**
+**	Parameters:
+**		channelNumber - The PIC32 analog channel number as in the PIC32 datasheet
+**
+**	Return Value:
+**      The converted value for that channel
+**
+**	Errors:
+**     If return value of zero and error may have occured
+**
+**	Description:
+**      Converts the analog signal to a digital value on the 
+**      given pic32 analog channel number. The converter must
+**      a class 1 or 2 ADC, that is ADC 0 - 31
+*/
+uint16_t ReadFeedBackADC(uint8_t channelNumber, uint8_t cAverage)
+{
+    uint8_t oversample = 0;
+
+    if(channelNumber >= 32)
+    {
+        return(0);
+    }
+    
+    // figure out the oversampling
+    for(oversample=7; oversample>1 && cAverage>=128; oversample--, cAverage <<= 1);
+    if(cAverage == 128) oversample--;
+    
+    // set up the digital filter to average the 
+    ADCFLTR1            = 0;                // clear the digital filtering
+    ADCFLTR1bits.CHNLID = channelNumber;    // channnel to trigger
+    ADCFLTR1bits.DFMODE = 1;                // go into averaging mode
+    ADCFLTR1bits.OVRSAM = oversample;       // oversample count
+    ADCFLTR1bits.AFEN   = 1;                // enable the digital filtering.   
+
+    ADCCON3bits.ADINSEL  = channelNumber;   // say which channel to manually trigger
+    ADCCON3bits.RQCNVRT  = 1;               // manually trigger it.
+
+    while(ADCFLTR1bits.AFRDY == 0);         // wait until oversampling is done
+    ADCFLTR1bits.AFEN   = 0;                // enable the digital filtering.   
+    
+    return((int16_t) ADCFLTR1bits.FLTRDATA);
+}
+

@@ -564,29 +564,6 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 extern void initADC(void);
 extern int convertADC(uint8_t channelNumber);
 
-/* ------------------------------------------------------------ */
-/*					PGA / SPI support        					*/
-/* ------------------------------------------------------------ */
-    //  36      RD1     RPD1/SCK1/RD1                       PGA SCK1 
-    //  37      RA6     TRCLK/SQICLK/RA6                    PGA CS1  
-    //  38      RA7     TRD3/SQID3/RA7                      PGA CS2  
-    //  39      RD3     EBID15/RPD3/PMD15/RD3               PGA SDO1 
-
-#define PGACS1          37
-#define PGACS2          38
-#define PGASPICON       SPI1CONbits
-#define PGASPICON2      SPI1CON2bits
-#define PGASPISTAT      SPI1STATbits
-#define PGASPIBUF       SPI1BUF
-#define PGASPIBRG       SPI1BRG
-#define PGASPISPEED     1000000
-#define PGAPPSMAPSDO    (RPD3R = 0b0101)            // SDO1 is on D3
-
-// Fsck = (Fpb / (2 * (SPIBRG+1))
-// SPIBRG = (Fpb / (2 * Fsck)) - 1
-#define SPIBRG(Fsck) ((__PIC32_pbClk / (2 * Fsck)) - 1)
-
-
 //**************************************************************************
 //**************************************************************************
 //******************* ADC Macros       *********************************
@@ -670,6 +647,10 @@ extern int convertADC(uint8_t channelNumber);
 #define WF_SCK_PPS()    RPD10R  = 0b0000    // SCK4     RD10    GPIO
 #define WF_SDI_PPS()    SDI4R   = 0b0001    // SDI4     RG7     SDI4R = 0b0001
 #define WF_SDO_PPS()    RPA15R  = 0b1000    // SDO4     RA15    RPA15R = 0b1000
+
+
+#define DefineSDSPI(spi) DSPI2 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 53)     // Create an DSDVOL object
 
 #endif	// BOARD_DEFS_H
 

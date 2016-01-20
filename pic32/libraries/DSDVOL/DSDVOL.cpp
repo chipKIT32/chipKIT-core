@@ -8,11 +8,11 @@
 / * No restriction on use. You can use, modify and redistribute it for
 /   personal, non-profit or commercial products UNDER YOUR RESPONSIBILITY.
 / * Redistributions of source code must retain the above copyright notice.
-/
+/ http://elm-chan.org/docs/mmc/mmc_e.html
 /-------------------------------------------------------------------------/
 /
 / 10/21/2015 Modified by Keith Vogel; Digilent Inc., for use with chipKIT
-/
+/ 
 /-------------------------------------------------------------------------*/
 #include <DSDVOL.h>
 
@@ -24,9 +24,13 @@
 
 void DSDVOL::power_on (void)
 {
-    dSDspi.begin();
- //   dSDdspi._dspi.setTransferSize(DSPI_8BIT);
+    if(pinPullup1 != pinPullupNone)
+    {
+        pinMode(pinPullup1, INPUT_PULLUP);
+    }
 
+    dSDspi.begin();
+ 
     dSDspi.setMode(DSPI_MODE0);
     FCLK_FAST();
 }
@@ -34,6 +38,10 @@ void DSDVOL::power_on (void)
 void DSDVOL::power_off (void)
 {
     dSDspi.end();
+    if(pinPullup1 != pinPullupNone)
+    {
+        pinMode(pinPullup1, INPUT);
+    }
 }
 
 /*-----------------------------------------------------------------------*/

@@ -69,7 +69,7 @@
 #define	NUM_SPI_PORTS		1
 #define	NUM_I2C_PORTS		1
 
-#define NUM_DSPI_PORTS		2
+#define NUM_DSPI_PORTS		1
 #define NUM_DTWI_PORTS		2
 
 /* Define I/O devices on the board.
@@ -407,14 +407,15 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_DSPI0_IPL			3
 #define	_DSPI0_SPL			0
 
-#define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
-#define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
-#define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
-#define	_DSPI1_TX_IRQ		_SPI3_TX_IRQ
-#define	_DSPI1_VECTOR		_SPI_3_VECTOR
-#define	_DSPI1_IPL_ISR		IPL3SOFT
-#define	_DSPI1_IPL			3
-#define	_DSPI1_SPL			0
+// SD seed does not have SPI3
+//#define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
+//#define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
+//#define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
+//#define	_DSPI1_TX_IRQ		_SPI3_TX_IRQ
+//#define	_DSPI1_VECTOR		_SPI_3_VECTOR
+//#define	_DSPI1_IPL_ISR		IPL3SOFT
+//#define	_DSPI1_IPL			3
+//#define	_DSPI1_SPL			0
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
@@ -476,6 +477,9 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /* ------------------------------------------------------------ */
 
 #endif	// OPT_BOARD_INTERNAL
+
+#define DefineSDSPI(spi) DSPI0 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 25)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

@@ -425,6 +425,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 // backwards compatible with the old SD library
 // SoftSPI(CS, SDO, SDI, SCK)
 #define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 65, 66, 67)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 66)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the MRF on JB                   */

@@ -416,6 +416,7 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 // so by default, we will bit bang the SD card.
 // SoftSPI(CS, SDO, SDI, SCK)
 #define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 11, 12, 13)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 12)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 
