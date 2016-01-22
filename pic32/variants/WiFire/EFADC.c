@@ -232,27 +232,27 @@ void initWiFIREadcEF(void)
     // ADC 0
     ADC0TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC0TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC0TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC0TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     // ADC 1
     ADC1TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC1TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC1TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC1TIMEbits.SELRES     = ADCCON1bits.SELRES;;             // ADC0 resolution is 12 bits 
 
     // ADC 2
     ADC2TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC2TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC2TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC2TIMEbits.SELRES     = ADCCON1bits.SELRES;;             // ADC0 resolution is 12 bits 
 
     // ADC 3
     ADC3TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC3TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC3TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC3TIMEbits.SELRES     = ADCCON1bits.SELRES;;             // ADC0 resolution is 12 bits 
 
     // ADC 4
     ADC4TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC4TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC4TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC4TIMEbits.SELRES     = ADCCON1bits.SELRES;;             // ADC0 resolution is 12 bits 
 
     /* Configure ADCIRQENx */
     ADCCMPEN1 = 0; // No interrupts are used
