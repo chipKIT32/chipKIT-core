@@ -1122,7 +1122,7 @@ chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
 chipkit_WiFire.upload.protocol=stk500v2
-chipkit_WiFire.upload.maximum_size=520192
+chipkit_WiFire.upload.maximum_size=2093056
 chipkit_WiFire.upload.speed=115200
 chipkit_WiFire.upload.tool=pic32prog
 

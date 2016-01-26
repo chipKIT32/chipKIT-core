@@ -70,10 +70,10 @@ compiler.elf2hex.extra_flags=
 # --------------------
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}"  {compiler.c.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} {compiler.c.extra_flags} {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -I{build.path} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}"  {compiler.cpp.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
 
 ## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.S.flags} -mprocessor={build.mcu} -DF_CPU={build.f_cpu}  -DARDUINO={runtime.ide.version} -D{build.board} {compiler.define} "{compiler.cpp.extra_flags}" {build.extra_flags} -I{build.path}/sketch {includes} "{source_file}" -o "{object_file}"
