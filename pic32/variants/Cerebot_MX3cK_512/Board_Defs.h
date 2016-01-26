@@ -399,6 +399,26 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #endif	//OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
+/*					Defines for the SD on JC     				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 16
+
+#define	prtSDO				IOPORT_F	//JC
+#define	bnSDO				BIT_5
+
+#define	prtSDI				IOPORT_F
+#define	bnSDI				BIT_4
+
+#define	prtSCK				IOPORT_B
+#define	bnSCK				BIT_14
+
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 17, 18, 19)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 18)     // Create an DSDVOL object
+
+/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 

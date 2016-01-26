@@ -90,15 +90,17 @@
 class DSDVOL : public DFSVOL
 {
     private:
+	    static const uint8_t	pinPullupNone = 0xFF;		// if no pullup is needed on the pin
 
         // point to either a softSPI or a DSPI method
-        DGSPI&     dSDspi;
+        DGSPI&              dSDspi;
 
         // variables used by the MMC/SD
-        volatile DSTATUS Stat;	
+        volatile DSTATUS    Stat;	
+        uint32_t            CardType;
+	    uint8_t				pinPullup1;		// digital pin to turn on the internal pullups
         tmsDefineTimer(1);
         tmsDefineTimer(2);
-        UINT CardType;
 
         // make default constructor illegal to use
         DSDVOL();
@@ -127,7 +129,8 @@ class DSDVOL : public DFSVOL
 
     public:
 
-        DSDVOL(DGSPI& dspi) : DFSVOL(0,1), dSDspi(dspi), Stat(STA_NOINIT) {}
+        DSDVOL(DGSPI& dspi, uint8_t pullup1) : DFSVOL(0,1), dSDspi(dspi), Stat(STA_NOINIT), pinPullup1(pullup1) {}
+        DSDVOL(DGSPI& dspi) : DSDVOL(dspi, pinPullupNone) {}
 
         DSTATUS disk_initialize (void);
         DSTATUS disk_status (void);

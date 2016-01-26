@@ -402,6 +402,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 // so by default, we will bit bang the SD card.
 // SoftSPI(CS, SDO, SDI, SCK)
 #define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 11, 12, 13)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 12)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the WiFiShield MRF24	    	*/

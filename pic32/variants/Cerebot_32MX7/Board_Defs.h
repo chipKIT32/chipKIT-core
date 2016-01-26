@@ -443,6 +443,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	bnSCK				BIT_10
 
 #define DefineSDSPI(var) DSPI0 var
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 26)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the On Board Mac/Phy            */

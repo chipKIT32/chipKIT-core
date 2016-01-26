@@ -69,7 +69,7 @@
 #define	NUM_SPI_PORTS		1
 #define	NUM_I2C_PORTS		1
 
-#define NUM_DSPI_PORTS		1
+#define NUM_DSPI_PORTS		2
 #define NUM_DTWI_PORTS		2
 
 /* Define I/O devices on the board.
@@ -416,6 +416,10 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /* ------------------------------------------------------------ */
 
 #endif	// OPT_BOARD_INTERNAL
+
+#define DefineSDSPI(var) DSPI0 var
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 19)     // Create an DSDVOL object
+
 
 /* ------------------------------------------------------------ */
 

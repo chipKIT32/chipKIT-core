@@ -473,6 +473,7 @@ extern const uint8_t 	digital_pin_to_analog_PGM[];
 
 // SoftSPI(uint8_t pinSSt, uint8_t pinMOSIt, uint8_t pinMISOt, uint8_t pinSCKt);
 #define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 52, 49, 50)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 49)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the WiFiShield MRF24	    	*/

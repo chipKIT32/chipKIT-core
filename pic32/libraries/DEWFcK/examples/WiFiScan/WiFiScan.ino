@@ -137,7 +137,7 @@ void loop()
             if(iNetwork < cNetworks)
             {
                 SCANINFO scanInfo;
-                int j = 0;
+                uint32_t j = 0;
 
                 if(deIPcK.getScanInfo(iNetwork, &scanInfo))
                 {
@@ -212,7 +212,7 @@ void loop()
                     Serial.print("Count of support bit rates: ");
                     Serial.println(scanInfo.cBasicRates, DEC);    
 
-                    for( j= 0; j< scanInfo.cBasicRates; j++)
+                    for(j=0; j<scanInfo.cBasicRates; j++)
                     {
                         uint32_t rate = (scanInfo.basicRateSet[j] & 0x7F) * 500;
                         Serial.print("\tSupported Rate: ");

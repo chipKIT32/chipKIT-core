@@ -464,6 +464,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
 
 #define DefineSDSPI(var) DSPI0 var
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 35)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

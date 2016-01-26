@@ -52,7 +52,7 @@
 /************************************************************************/
 // create the sd volume and a file instance to use
 DefineSDSPI(dSDSpi);            // Macro from Board_Defs.h to create an SPI object to the uSD
-DSDVOL      dSDVol(dSDSpi);     // Create an SD Vol
+DefineDSDVOL(dSDVol, dSDSpi);   // Macro from Board_Defs.h to create an DSDVOL object to the uSD
 DFILE       dFile;              // Create a File handle to use to open files with
 
 // the drive to mount the SD volume too.

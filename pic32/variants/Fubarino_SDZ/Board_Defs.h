@@ -117,6 +117,7 @@
 /* ------------------------------------------------------------ */
 /*					Switch Declarations							*/
 /* ------------------------------------------------------------ */
+#define _TIMER_1_IRQ _TIMER_1_VECTOR
 
 /* No switches on this board.
 */
@@ -248,7 +249,7 @@ static const uint8_t SCK  = 13;		// PIC32 SCK2
 #define	PIN_CN38	38      
 #define	PIN_CN39	39
 #define	PIN_CN40	40
-#define	PIN_CN40	41
+#define	PIN_CN41	41
 
 /* ------------------------------------------------------------ */
 /*					Pin Mapping Macros							*/
@@ -388,10 +389,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // same as the default SPI port
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
-#define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
-#define	_DSPI0_RX_IRQ		_SPI2_RX_IRQ
-#define	_DSPI0_TX_IRQ		_SPI2_TX_IRQ
-#define	_DSPI0_VECTOR		_SPI_2_VECTOR
+#define	_DSPI0_ERR_IRQ		_SPI2_FAULT_VECTOR
+#define	_DSPI0_RX_IRQ		_SPI2_RX_VECTOR
+#define	_DSPI0_TX_IRQ		_SPI2_TX_VECTOR
+#define	_DSPI0_VECTOR		_SPI2_FAULT_VECTOR
 #define _DSPI0_IPL_ISR		IPL3SRS
 #define	_DSPI0_IPL			3
 #define	_DSPI0_SPL			0
@@ -404,10 +405,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // 2nd SPI
 #define	_DSPI1_BASE			_SPI1_BASE_ADDRESS
-#define	_DSPI1_ERR_IRQ		_SPI1_ERR_IRQ
-#define	_DSPI1_RX_IRQ		_SPI1_RX_IRQ
-#define	_DSPI1_TX_IRQ		_SPI1_TX_IRQ
-#define	_DSPI1_VECTOR		_SPI_1_VECTOR
+#define	_DSPI1_ERR_IRQ		_SPI1_FAULT_VECTOR
+#define	_DSPI1_RX_IRQ		_SPI1_RX_VECTOR
+#define	_DSPI1_TX_IRQ		_SPI1_TX_VECTOR
+#define	_DSPI1_VECTOR		_SPI1_FAULT_VECTOR
 #define _DSPI1_IPL_ISR		IPL3SRS
 #define	_DSPI1_IPL			3
 #define	_DSPI1_SPL			0
@@ -419,10 +420,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // SD Card
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
-#define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
-#define	_DSPI2_RX_IRQ		_SPI3_RX_IRQ
-#define	_DSPI2_TX_IRQ		_SPI3_TX_IRQ
-#define	_DSPI2_VECTOR		_SPI_3_VECTOR
+#define	_DSPI2_ERR_IRQ		_SPI3_FAULT_VECTOR
+#define	_DSPI2_RX_IRQ		_SPI3_RX_VECTOR
+#define	_DSPI2_TX_IRQ		_SPI3_TX_VECTOR
+#define	_DSPI2_VECTOR		_SPI3_FAULT_VECTOR
 #define _DSPI2_IPL_ISR		IPL3SRS
 #define	_DSPI2_IPL			3
 #define	_DSPI2_SPL			0
@@ -434,10 +435,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // this is the MRF24
 #define	_DSPI3_BASE			_SPI4_BASE_ADDRESS
-#define	_DSPI3_ERR_IRQ		_SPI4_ERR_IRQ
-#define	_DSPI3_RX_IRQ		_SPI4_RX_IRQ
-#define	_DSPI3_TX_IRQ		_SPI4_TX_IRQ
-#define	_DSPI3_VECTOR		_SPI_4_VECTOR
+#define	_DSPI3_ERR_IRQ		_SPI4_FAULT_VECTOR
+#define	_DSPI3_RX_IRQ		_SPI4_RX_VECTOR
+#define	_DSPI3_TX_IRQ		_SPI4_TX_VECTOR
+#define	_DSPI3_VECTOR		_SPI4_FAULT_VECTOR
 #define _DSPI3_IPL_ISR		IPL3SRS
 #define	_DSPI3_IPL			3
 #define	_DSPI3_SPL			0
@@ -495,6 +496,9 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /* ------------------------------------------------------------ */
 
 #endif	// OPT_BOARD_INTERNAL
+
+#define DefineSDSPI(spi) DSPI0 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 12)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

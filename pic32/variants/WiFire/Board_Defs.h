@@ -555,8 +555,8 @@ extern int convertADC(uint8_t channelNumber);
 #define bnSCK				BIT_14
 #define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
 
-#define DefineSDSPI(var) DSPI2 var
-
+#define DefineSDSPI(spi) DSPI2 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 53)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the On Board MRF24				*/
