@@ -4,7 +4,7 @@ cerebot_mx7ck.group=Cerebot
 
 # new items
 cerebot_mx7ck.platform=pic32
-cerebot_mx7ck.board=BOARD_CEREBOT_MX7CK_
+cerebot_mx7ck.board=_BOARD_CEREBOT_MX7CK_
 cerebot_mx7ck.board.define=
 cerebot_mx7ck.ccflags=ffff
 cerebot_mx7ck.ldscript=chipKIT-application-32MX795F512.ld
@@ -34,7 +34,7 @@ chipkit_pro_mx7.group=chipKIT
 
 # new items
 chipkit_pro_mx7.platform=pic32
-chipkit_pro_mx7.board=BOARD_CEREBOT_MX7CK_
+chipkit_pro_mx7.board=_BOARD_CEREBOT_MX7CK_
 chipkit_pro_mx7.board.define=
 chipkit_pro_mx7.ccflags=ffff
 chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
