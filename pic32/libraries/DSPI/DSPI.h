@@ -126,7 +126,7 @@ private:
 	uint8_t				bPad;		//pad byte for some transfers
 	uint8_t				fRov;		//receive overflow error flag
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	uint8_t				pinMISO;		//digital pin number for MISO
 	uint8_t				pinMOSI;		//digital pin number for MOSI
 	ppsFunctionType		ppsMISO;		//PPS select for SPI MISO
@@ -145,7 +145,7 @@ protected:
 	uint8_t				ipl;		//interrupt priority and sub-priority
 	uint8_t				pinSS;		//digital pin number for slave select pin
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 			DSPI (int pinMI, int pinMO, ppsFunctionType ppsMI, ppsFunctionType ppsMO);
 #else
 			DSPI();
@@ -159,7 +159,7 @@ public:
 */
 bool		begin();
 bool		begin(uint8_t pin);
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 bool        begin(uint8_t miso, uint8_t mosi);
 bool        begin(uint8_t miso, uint8_t mosi, uint8_t pin);
 #endif

@@ -13,13 +13,13 @@
 
 #include "SPI.h"
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 SPIClass SPI(_DSPI0_BASE, _DSPI0_MISO_PIN, _DSPI0_MOSI_PIN, _DSPI0_MISO_IN, _DSPI0_MOSI_OUT);
 #else
 SPIClass SPI(_DSPI0_BASE);
 #endif
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 SPIClass::SPIClass(uint32_t base, int pinMI, int pinMO, ppsFunctionType ppsMI, ppsFunctionType ppsMO) {
     pspi = (p32_spi *)base;
     pinMISO = pinMI;
@@ -38,7 +38,7 @@ void SPIClass::begin() {
     uint32_t sreg = disableInterrupts();
 
     if (!initialized) {
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
         pinMode(pinMISO, INPUT);
         mapPps(pinMISO, ppsMISO);
         pinMode(pinMOSI, OUTPUT);

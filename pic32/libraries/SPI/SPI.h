@@ -139,7 +139,7 @@ private:
 class SPIClass {
 public:
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
     SPIClass(uint32_t base, int pinMI, int pinMO, ppsFunctionType ppsMI, ppsFunctionType ppsMO);
 #else
     SPIClass(uint32_t base);
@@ -317,7 +317,7 @@ private:
     uint32_t inTransactionFlag;
 #endif
     p32_spi *pspi;
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
     uint8_t             pinMISO;        //digital pin number for MISO
     uint8_t             pinMOSI;        //digital pin number for MOSI
     ppsFunctionType     ppsMISO;        //PPS select for SPI MISO

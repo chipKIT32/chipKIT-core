@@ -216,18 +216,7 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI4.  This is the 6 pin SPI header.
-*/
-#define	_SPI_BASE		_SPI4_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI4_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI4_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI4_TX_IRQ
-#define	_SPI_VECTOR		_SPI_4_VECTOR
-#define _SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 
 // DSPI0 talks to the SD card direct (SPI2)

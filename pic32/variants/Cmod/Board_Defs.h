@@ -352,26 +352,8 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The default SPI port uses SPI1.
-*/
-#define	_SPI_BASE		_SPI1_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI1_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI1_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI1_TX_IRQ
-#define	_SPI_VECTOR		_SPI_1_VECTOR
-#define	_SPI_IPL_ISR	_SPI1_IPL_ISR
-#define	_SPI_IPL		_SPI1_IPL_IPC
-#define	_SPI_SPL		_SPI1_SPL_IPC
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI1
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO1
-#define	_SPI_MOSI_PIN	MOSI
-
-
-/* Full SPI1 on J1
+/* The Digilent DSPI and standard SPI libraries uses these ports.
+ * Full SPI1 on J1
 */
 #define	_DSPI0_BASE			_SPI1_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI1_ERR_IRQ
