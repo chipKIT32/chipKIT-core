@@ -335,7 +335,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /* Serial port 0 uses UART1
  * TX on pin 29 (RF5), RX on pin 28 (RF4)
 */
-#define	_SER0_BASE      ((uint32_t) &U1MODE)
+#define	_SER0_BASE      _UART1_BASE_ADDRESS
 #define	_SER0_IRQ       _UART1_FAULT_VECTOR
 #define	_SER0_VECTOR    _UART1_FAULT_VECTOR
 #define	_SER0_IPL_ISR   IPL2SRS
@@ -349,7 +349,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /* Serial port 1 uses UART1; this goes to pins 39&40
  /// TODO: Update to match Fubarino SD
 */
-#define	_SER1_BASE		((uint32_t) &U2MODE)
+#define	_SER1_BASE		_UART2_BASE_ADDRESS
 #define	_SER1_IRQ		_UART2_FAULT_VECTOR
 #define	_SER1_VECTOR	_UART2_FAULT_VECTOR
 #define	_SER1_IPL_ISR	IPL2SRS
@@ -365,26 +365,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define _SPI_IPL_ISR	IPL3SRS
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI2
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO2
-#define	_SPI_MOSI_PIN	MOSI
-
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 
 // same as the default SPI port
@@ -456,7 +437,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /* The standard I2C port uses I2C4 (SCL4/SDA4). These come to pins
 ** A4/A5 pins 18/19 on the analog connector.
 */
-#define	_TWI_BASE		((uint32_t) &I2C4CON)
+#define	_TWI_BASE		_I2C4_BASE_ADDRESS
 #define	_TWI_BUS_IRQ	_I2C4_BUS_VECTOR
 #define	_TWI_SLV_IRQ	_I2C4_SLAVE_VECTOR
 #define	_TWI_MST_IRQ	_I2C4_MASTER_VECTOR
@@ -469,7 +450,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 **		DTWI0 is SDA2/SCL2 on A4/A5 pins 18/19 (see above comment).
 */
 
-#define	_DTWI0_BASE		((uint32_t) &I2C4CON)
+#define	_DTWI0_BASE		_I2C4_BASE_ADDRESS
 #define	_DTWI0_BUS_IRQ	_I2C4_BUS_VECTOR
 #define	_DTWI0_VECTOR	_I2C4_BUS_VECTOR
 #define	_DTWI0_IPL_ISR	IPL3SRS 

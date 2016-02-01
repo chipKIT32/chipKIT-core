@@ -184,7 +184,7 @@
 #define	_PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
-#endif	// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#endif	// defined(__PIC32_PPS__)
 
 /* ------------------------------------------------------------ */
 /*					Pin Mapping Macros							*/
@@ -204,7 +204,7 @@
 #define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
 #define digitalPinToCN(P) (NOT_CN_PIN)
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 // This macro returns a pointer to a p32_ioport structure as defined in p32_defs.h
 // For MX1xx and MX2xx devices, the port register map starts with the ANSELx register.
 #define portRegisters(P) ((p32_ioport *)(port_to_tris_PGM[P] - 0x0010))
@@ -266,7 +266,7 @@
 /* Data tables for PPS pin mapping support defined in pins_arduino.h
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 #if !defined(OPT_BOARD_DATA)
 
 extern const uint8_t output_compare_to_pps_sel_PGM[];

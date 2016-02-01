@@ -318,18 +318,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2. Connector JB
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
 
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 **		DSPI0	connector JB
 **		DSPI1	connector J1
 */

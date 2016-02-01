@@ -250,7 +250,7 @@ void	_board_init(void);
 //*
 /* Currently, PPS is only available in PIC32MX1xx/PIC32MX2xx devices.
 */
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZ__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
 // Locks all PPS functions so that calls to mapPpsInput() or mapPpsOutput() always fail.
 // You would use this function if you set up all of your PPS settings at the beginning
@@ -339,7 +339,7 @@ boolean mapPps(uint8_t pin, ppsFunctionType func)
 	
 }
 
-#endif	// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
+#endif	// defined(__PIC32_PPS__)
 
 //************************************************************************
 //*	Deal with the 'virtual' program button and SoftReset(). This allows

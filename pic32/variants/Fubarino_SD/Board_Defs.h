@@ -383,20 +383,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The default SPI port uses SPI2. The pins for SPI2 stay the
-** same on all PIC32 devices. The pins for SPI1 move around,
-** and the ports beyond SPI2 aren't defined on some parts.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* The Digilent DSPI library uses the same port.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ

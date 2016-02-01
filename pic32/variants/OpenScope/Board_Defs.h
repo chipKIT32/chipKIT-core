@@ -396,7 +396,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 /* Serial port 0 uses UART5
 */
-#define	_SER0_BASE      ((uint32_t) &U5MODE)
+#define	_SER0_BASE      _UART5_BASE_ADDRESS
 #define	_SER0_IRQ       _UART5_FAULT_VECTOR
 #define	_SER0_VECTOR    _UART5_FAULT_VECTOR
 #define	_SER0_IPL_ISR   IPL2SRS
@@ -409,7 +409,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 /* Serial port 1 uses UART1; this goes to pins 39&40
 */
-#define	_SER1_BASE		((uint32_t) &U1MODE)
+#define	_SER1_BASE		_UART1_BASE_ADDRESS
 #define	_SER1_IRQ		_UART1_FAULT_VECTOR
 #define	_SER1_VECTOR	_UART1_FAULT_VECTOR
 #define	_SER1_IPL_ISR	IPL2SRS
@@ -425,30 +425,11 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2.
-*/
-#define	_SPI_BASE		((uint32_t) &SPI2CON)
-#define _SPI_ERR_IRQ	_SPI2_FAULT_VECTOR
-#define	_SPI_RX_IRQ		_SPI2_RX_VECTOR
-#define	_SPI_TX_IRQ		_SPI2_TX_VECTOR
-#define	_SPI_VECTOR		_SPI2_FAULT_VECTOR
-#define _SPI_IPL_ISR	IPL3SRS
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI2
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO2
-#define	_SPI_MOSI_PIN	MOSI
-
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 
 // same as the default SPI port
-#define	_DSPI0_BASE			((uint32_t) &SPI2CON)
+#define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI2_FAULT_VECTOR
 #define	_DSPI0_RX_IRQ		_SPI2_RX_VECTOR
 #define	_DSPI0_TX_IRQ		_SPI2_TX_VECTOR
@@ -463,7 +444,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _DSPI0_MOSI_PIN		MOSI		    
 
 // MRF24 SPI
-#define	_DSPI1_BASE			((uint32_t) &SPI4CON)
+#define	_DSPI1_BASE			_SPI4_BASE_ADDRESS
 #define	_DSPI1_ERR_IRQ		_SPI4_FAULT_VECTOR
 #define	_DSPI1_RX_IRQ		_SPI4_RX_VECTOR
 #define	_DSPI1_TX_IRQ		_SPI4_TX_VECTOR
@@ -478,7 +459,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _DSPI1_MOSI_PIN		58		        
 
 // SD Card
-#define	_DSPI2_BASE			((uint32_t) &SPI6CON)
+#define	_DSPI2_BASE			_SPI6_BASE_ADDRESS
 #define	_DSPI2_ERR_IRQ		_SPI6_FAULT_VECTOR
 #define	_DSPI2_RX_IRQ		_SPI6_RX_VECTOR
 #define	_DSPI2_TX_IRQ		_SPI6_TX_VECTOR
@@ -493,7 +474,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _DSPI2_MOSI_PIN		54		    
 
 // SPI DAC
-#define	_DSPI3_BASE			((uint32_t) &SPI3CON)
+#define	_DSPI3_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI3_ERR_IRQ		_SPI3_FAULT_VECTOR
 #define	_DSPI3_RX_IRQ		_SPI3_RX_VECTOR
 #define	_DSPI3_TX_IRQ		_SPI3_TX_VECTOR
@@ -518,7 +499,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 **		DTWI0 is SDA5/SCL5 on pins 5/12
 */
 
-#define	_DTWI0_BASE		((uint32_t) &I2C5CON)
+#define	_DTWI0_BASE		_I2C5_BASE_ADDRESS
 #define	_DTWI0_BUS_IRQ	_I2C5_BUS_VECTOR
 #define	_DTWI0_VECTOR	_I2C5_BUS_VECTOR
 #define	_DTWI0_IPL_ISR	IPL3SRS 
