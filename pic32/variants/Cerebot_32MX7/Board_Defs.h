@@ -165,13 +165,13 @@ static const uint8_t MISO = 42;		// PIC32 SDI4
 static const uint8_t SCK  = 43;		// PIC32 SCK4
 
 /* The Digilent DSPI library uses these ports.
-**		DSPI0	connector JD
+**		DSPI0	connector JF
 **		DSPI1	connector JE
-**		DSPI2	connector JF
+**		DSPI2	connector JD
 */
-#define	PIN_DSPI0_SS	24
+#define	PIN_DSPI0_SS	40
 #define	PIN_DSPI1_SS	32
-#define	PIN_DSPI2_SS	40
+#define	PIN_DSPI2_SS	24
 
 /* ------------------------------------------------------------ */
 /*					Analog Pins									*/
@@ -311,38 +311,36 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /* ------------------------------------------------------------ */
 
 /* The Digilent DSPI and standard SPI libraries uses these ports.
-**		DSPI0	connector JD
+**		DSPI0	connector JF
 **		DSPI1	connector JE
-**		DSPI2	connector JF
+**		DSPI2	connector JD
 */
-#define	_DSPI0_BASE			_SPI1_BASE_ADDRESS
-#define	_DSPI0_ERR_IRQ		_SPI1_ERR_IRQ
-#define	_DSPI0_RX_IRQ		_SPI1_RX_IRQ
-#define	_DSPI0_TX_IRQ		_SPI1_TX_IRQ
-#define	_DSPI0_VECTOR		_SPI_1_VECTOR
-#define	_DSPI0_IPL_ISR		IPL3SOFT
-#define	_DSPI0_IPL			3
-#define	_DSPI0_SPL			0
+#define	_DSPI0_BASE	        _SPI4_BASE_ADDRESS 		
+#define	_DSPI0_ERR_IRQ		_SPI4_ERR_IRQ      
+#define	_DSPI0_RX_IRQ		_SPI4_RX_IRQ       
+#define	_DSPI0_TX_IRQ		_SPI4_TX_IRQ       
+#define	_DSPI0_VECTOR		_SPI_4_VECTOR      
+#define	_DSPI0_IPL_ISR		_SPI4_IPL_ISR      
+#define	_DSPI0_IPL			_SPI4_IPL_IPC      
+#define	_DSPI0_SPL			_SPI4_SPL_IPC      
 
-//#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this definition is missing from
-										// the Microchip header file.
 #define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
 #define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
 #define	_DSPI1_TX_IRQ		_SPI3_TX_IRQ
 #define	_DSPI1_VECTOR		_SPI_3_VECTOR
-#define	_DSPI1_IPL_ISR		IPL3SOFT
-#define	_DSPI1_IPL			3
-#define	_DSPI1_SPL			0
+#define	_DSPI1_IPL_ISR		_SPI3_IPL_ISR
+#define	_DSPI1_IPL			_SPI3_IPL_IPC
+#define	_DSPI1_SPL			_SPI3_SPL_IPC
 
-#define	_DSPI2_BASE			_SPI4_BASE_ADDRESS
-#define	_DSPI2_ERR_IRQ		_SPI4_ERR_IRQ
-#define	_DSPI2_RX_IRQ		_SPI4_RX_IRQ
-#define	_DSPI2_TX_IRQ		_SPI4_TX_IRQ
-#define	_DSPI2_VECTOR		_SPI_4_VECTOR
-#define	_DSPI2_IPL_ISR		IPL3SOFT
-#define	_DSPI2_IPL			3
-#define	_DSPI2_SPL			0
+#define	_DSPI2_BASE			_SPI1_BASE_ADDRESS
+#define	_DSPI2_ERR_IRQ		_SPI1_ERR_IRQ
+#define	_DSPI2_RX_IRQ		_SPI1_RX_IRQ
+#define	_DSPI2_TX_IRQ		_SPI1_TX_IRQ
+#define	_DSPI2_VECTOR		_SPI_1_VECTOR
+#define	_DSPI2_IPL_ISR		_SPI1_IPL_ISR
+#define	_DSPI2_IPL			_SPI1_IPL_IPC
+#define	_DSPI2_SPL			_SPI1_SPL_IPC
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
@@ -431,8 +429,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	prtSCK				IOPORT_D
 #define	bnSCK				BIT_10
 
-#define DefineSDSPI(var) DSPI0 var
-#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 26)     // Create an DSDVOL object
+#define DefineSDSPI(var) DSPI2 var                      // JD
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 26)      // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 /*					Defines for the On Board Mac/Phy            */
