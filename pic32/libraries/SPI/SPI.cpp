@@ -13,10 +13,52 @@
 
 #include "SPI.h"
 
-#if defined(__PIC32_PPS__)
-SPIClass SPI(_DSPI0_BASE, _DSPI0_MISO_PIN, _DSPI0_MOSI_PIN, _DSPI0_MISO_IN, _DSPI0_MOSI_OUT);
+#ifndef _SPI_PORT
+    #define _SPI_PORT 0
+#endif
+
+#if (_SPI_PORT == 0)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI0_BASE, _DSPI0_MISO_PIN, _DSPI0_MOSI_PIN, _DSPI0_MISO_IN, _DSPI0_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI0_BASE);
+    #endif
+#elif (_SPI_PORT == 1)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI1_BASE, _DSPI1_MISO_PIN, _DSPI1_MOSI_PIN, _DSPI1_MISO_IN, _DSPI1_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI1_BASE);
+    #endif
+#elif (_SPI_PORT == 2)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI2_BASE, _DSPI2_MISO_PIN, _DSPI2_MOSI_PIN, _DSPI2_MISO_IN, _DSPI2_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI2_BASE);
+    #endif
+#elif (_SPI_PORT == 3)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI3_BASE, _DSPI3_MISO_PIN, _DSPI3_MOSI_PIN, _DSPI3_MISO_IN, _DSPI3_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI3_BASE);
+    #endif
+#elif (_SPI_PORT == 4)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI4_BASE, _DSPI4_MISO_PIN, _DSPI4_MOSI_PIN, _DSPI4_MISO_IN, _DSPI4_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI4_BASE);
+    #endif
+#elif (_SPI_PORT == 5)
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI5_BASE, _DSPI5_MISO_PIN, _DSPI5_MOSI_PIN, _DSPI5_MISO_IN, _DSPI5_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI5_BASE);
+    #endif
 #else
-SPIClass SPI(_DSPI0_BASE);
+    #if defined(__PIC32_PPS__)
+        SPIClass SPI(_DSPI0_BASE, _DSPI0_MISO_PIN, _DSPI0_MOSI_PIN, _DSPI0_MISO_IN, _DSPI0_MOSI_OUT);
+    #else
+        SPIClass SPI(_DSPI0_BASE);
+    #endif
 #endif
 
 #if defined(__PIC32_PPS__)
