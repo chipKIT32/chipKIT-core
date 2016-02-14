@@ -85,10 +85,10 @@ public:
         init_AlwaysInline(4000000, MSBFIRST, SPI_MODE0);
     }
 private:
-    void init_MightInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode) {
+    void init_MightInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode) {
         init_AlwaysInline(clock, bitOrder, dataMode);
     }
-    void init_AlwaysInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode)
+    void init_AlwaysInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode)
     __attribute__((__always_inline__)) {
         /* Compute the baud rate divider for this frequency.
         */
@@ -96,29 +96,31 @@ private:
 
         /* That the baud rate value is in the correct range.
         */
-        if (brg == 0xFFFF) {
+        if (brg == 0xFFFFU) {
             /* The user tried to set a frequency that is too high to support.
             ** Set it to the highest supported frequency.
             */
-            brg = 0;
+            brg = 0U;
         }
 
-        if (brg > 0x1FF) {
+        if (brg > 0x1FFU) {
             /* The user tried to set a frequency that is too low to support.
             ** Set it to the lowest supported frequency.
             */
-            brg = 0x1FF;
+            brg = 0x1FFU;
         }
 
-        con = (1 << _SPICON_MSTEN);
+        // By including the needed flag here, we have a speed optimization.
+        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON);
 
         switch (dataMode) {
             case SPI_MODE0:
-                con |= ((0 << _SPICON_CKP) | (1 << _SPICON_CKE));
+                con |= (1 << _SPICON_CKE);
+                //con |= ((0 << _SPICON_CKP) | (1 << _SPICON_CKE));
                 break;
 
             case SPI_MODE1:
-                con |= ((0 << _SPICON_CKP) | (0 << _SPICON_CKE));
+                //con |= ((0 << _SPICON_CKP) | (0 << _SPICON_CKE));
                 break;
 
             case SPI_MODE2:
@@ -126,12 +128,13 @@ private:
                 break;
 
             case SPI_MODE3:
-                con |= ((1 << _SPICON_CKP) | (0 << _SPICON_CKE));
+                con |= (1 << _SPICON_CKP);
+                //con |= ((1 << _SPICON_CKP) | (0 << _SPICON_CKE));
                 break;
         }
     }
-    uint8_t brg;
-    uint8_t con;
+    uint16_t brg;
+    uint32_t con;
     friend class SPIClass;
 };
 
@@ -180,10 +183,10 @@ public:
 
         inTransactionFlag = 1;
 #endif
-        pspi->sxCon.clr = (1 << _SPICON_ON);
+        // This causes a nasty spike
+        //pspi->sxCon.clr = (1 << _SPICON_ON);
         pspi->sxBrg.reg = settings.brg;
         pspi->sxCon.reg = settings.con;
-        pspi->sxCon.set = (1 << _SPICON_ON);
     }
 
     // Write to the SPI bus (MOSI pin) and also receive (MISO pin)
