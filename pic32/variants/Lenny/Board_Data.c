@@ -349,6 +349,44 @@ const uint8_t analog_pin_to_channel_PGM[] = {
 };
 //#endif
 
+const uint8_t digital_pin_to_analog_PGM[] = {
+    // Digital pins
+    NOT_ANALOG_PIN, //  0 
+    NOT_ANALOG_PIN, //  1
+    NOT_ANALOG_PIN, //  2 
+    NOT_ANALOG_PIN, //  3 
+    NOT_ANALOG_PIN, //  4 
+    NOT_ANALOG_PIN, //  5 
+    NOT_ANALOG_PIN, //  6 
+    NOT_ANALOG_PIN, //  7 
+    NOT_ANALOG_PIN, //  8 
+    NOT_ANALOG_PIN, //  9 
+    NOT_ANALOG_PIN, //  10 
+    NOT_ANALOG_PIN, //  11 
+    NOT_ANALOG_PIN, //  12 
+    NOT_ANALOG_PIN, //  13 
+
+    // Analog pins
+    _BOARD_AN0,     // A0 = RA0 = 14
+    _BOARD_AN1,     // A1 = RA1 = 15
+    _BOARD_AN2,     // A2 = RC0 = 16
+    _BOARD_AN3,     // A3 = RC2 = 17
+    _BOARD_AN4,     // A4 = RB2 = 18
+    _BOARD_AN5,     // A5 = RB3 = 19
+
+    // Extra functions - LEDs, buttons, etc
+    NOT_ANALOG_PIN, //  20 
+    NOT_ANALOG_PIN, //  21 
+    NOT_ANALOG_PIN, //  22 
+    NOT_ANALOG_PIN, //  23 
+    NOT_ANALOG_PIN, //  24 
+    NOT_ANALOG_PIN, //  25 
+    NOT_ANALOG_PIN, //  26 
+    NOT_ANALOG_PIN, //  27 
+    NOT_ANALOG_PIN, //  28 
+    NOT_ANALOG_PIN, //  29 
+};
+
 /* ------------------------------------------------------------ */
 /* This table maps from an output compare number as stored in the
 ** digital_pin_to_timer_PGM table to the digital pin number of the

@@ -218,7 +218,8 @@ const static uint8_t SCK  = 13;
 ** These perform slightly better as macros compared to inline functions
 */
 #undef digitalPinToAnalog
-#define digitalPinToAnalog(P) ( (P) < 12 ? (P) : ((P) >= 14) && ((P) < 19) ? (P)-14 : NOT_ANALOG_PIN )
+#define digitalPinToAnalog(P) ( (P) < 6 ? digital_pin_to_analog_PGM[14 + P] : digital_pin_to_analog_PGM[P] )
+extern const uint8_t digital_pin_to_analog_PGM[];
 
 #undef analogInPinToChannel
 #define analogInPinToChannel(P) ( analog_pin_to_channel_PGM[P]  )
