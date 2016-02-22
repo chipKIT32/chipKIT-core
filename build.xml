@@ -246,6 +246,58 @@
     </antcall>
   </target>
 
+  <!-- url builds: do a standard build, update the platforms.txt, then compress -->
+  <target depends="arm-build" description="Make web/url dist raspberrypi/arm version" name="arm-dist-url">
+    <property name="localplatform">arm</property>
+    <antcall target="updatePlatform">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+    <antcall target="compress">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+
+  <target depends="windows-build" description="Make web/url dist windows version" name="windows-dist-url">
+    <property name="localplatform">windows</property>
+    <antcall target="updatePlatform">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+    <antcall target="compress">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+
+  <target depends="macosx-build" description="Make web/url dist macosx version" name="macosx-dist-url">
+    <property name="localplatform">macosx</property>
+    <antcall target="updatePlatform">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+    <antcall target="compress">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+
+  <target depends="linux32-build" description="Make web/url dist linux32 version" name="linux32-dist-url">
+    <property name="localplatform">linux32</property>
+    <antcall target="updatePlatform">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+    <antcall target="compress">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+
+  <target depends="linux64-build" description="Make web/url dist linux64 version" name="linux64-dist-url">
+    <property name="localplatform">linux64</property>
+    <antcall target="updatePlatform">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+    <antcall target="compress">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+  </target>
+
+
   <target depends="build, increment" description="create the distribution zip file." name="dist">
     <antcall target="compress">
       <param name="localplatform" value="${platform}"/>
@@ -270,6 +322,29 @@
     </antcall>
 
     <antcall target="windows-dist">
+      <param name="localplatform" value="windows"/>
+    </antcall>
+    <antcall target="checksum-pic32tools"/>
+  </target>
+
+  <target depends="increment" description="Create all the distribution zip files." name="dist-all-url">
+    <antcall target="arm-dist-url">
+      <param name="localplatform" value="arm"/>
+    </antcall>
+
+    <antcall target="macosx-dist-url">
+      <param name="localplatform" value="macosx"/>
+    </antcall>
+
+    <antcall target="linux32-dist-url">
+      <param name="localplatform" value="linux32"/>
+    </antcall>
+
+    <antcall target="linux64-dist-url">
+      <param name="localplatform" value="linux64"/>
+    </antcall>
+
+    <antcall target="windows-dist-url">
       <param name="localplatform" value="windows"/>
     </antcall>
     <antcall target="checksum-pic32tools"/>
@@ -380,6 +455,19 @@
        basedir="pic32" />
      -->
     <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+  </target>
+
+  <target name="updatePlatform" >
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+            replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+            byline="true"
+        />
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+            replace="\{runtime.tools.pic32prog.path\}"
+            byline="true"
+        />
   </target>
 
 <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
