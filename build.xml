@@ -369,7 +369,31 @@
     </condition>
   </target>
 
+  <target name="updatePlatform" >
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+            replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+            byline="true"
+        />
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+            replace="\{runtime.tools.pic32prog.path\}"
+            byline="true"
+        />
+  </target>
+
   <target name="github-release" depends="setup,git.revision">
+    <replaceregexp file="pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+        replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+        byline="true"
+    />
+    <replaceregexp file="pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+        replace="\{runtime.tools.pic32prog.path\}"
+        byline="true"
+    />
+
     <!-- get the chipKIT core release -->
 
     <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip">
@@ -380,6 +404,12 @@
        basedir="pic32" />
      -->
     <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+    <!-- revert the platform.txt to original version -->
+    <exec executable="git">
+      <arg value="checkout"/>
+      <arg value="pic32/platform.txt"/>
+    </exec>
+
   </target>
 
 <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
