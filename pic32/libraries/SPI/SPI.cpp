@@ -117,8 +117,8 @@ void SPIClass::end() {
     restoreInterrupts(sreg);
 }
 
-void SPIClass::usingInterrupt(uint8_t interruptNumber) {
+void SPIClass::usingInterrupt(uint8_t __attribute__((unused)) interruptNumber) {
 }
 
-void SPIClass::notUsingInterrupt(uint8_t interruptNumber) {
+void SPIClass::notUsingInterrupt(uint8_t __attribute__((unused)) interruptNumber) {
 }
