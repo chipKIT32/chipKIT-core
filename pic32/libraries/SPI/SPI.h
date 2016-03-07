@@ -217,6 +217,8 @@ public:
 
         inTransactionFlag = 1;
 #endif
+        /* Shut off the SPI peripheral to prepare for possibly changing things */
+        // pspi->sxCon.clr = (1 << _SPICON_ON);         // This line can cause glitches on the CLOCK output
         /* Compute and set the proper BRG register value based on our desired SPI clock rate */
         pspi->sxBrg.reg = settings.GenerateBRG();
         /* Copy over the proper value of the CON regsiter for this set of settings, turning SPI peripheral back on */

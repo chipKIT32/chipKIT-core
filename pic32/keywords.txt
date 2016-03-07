@@ -1,0 +1,22 @@
+#######################################
+# Syntax Coloring Map chipKIT platform
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+#SomeDatatype	KEYWORD1
+Serial0	KEYWORD1	Serial	DATA_TYPE
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+#SomeFunction	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#SomeConstant	LITERAL1

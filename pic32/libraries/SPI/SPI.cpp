@@ -167,6 +167,6 @@ void SPIClass::notUsingInterrupt(uint8_t __attribute__((unused)) interruptNumber
         mask = 0xEFU;
         break;
     }
-   interruptMask &= mask;
+    interruptMask &= mask;
     restoreInterrupts(sreg);
 }
