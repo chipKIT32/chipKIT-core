@@ -85,16 +85,52 @@ public:
         init_AlwaysInline(4000000, MSBFIRST, SPI_MODE0);
     }
 private:
+    /* Note that on PIC32, SPI always shifts out Most Significant Bit first, so the bitOrder parameter
+     * is not used, but needs to be retained for compatibility with existing sketches/libraries */
     void init_MightInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode) {
         init_AlwaysInline(clock, bitOrder, dataMode);
     }
     void init_AlwaysInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode)
     __attribute__((__always_inline__)) {
+        
+        DesiredSPIClockFrequency = clock;
+        
+        // By including the needed flag here, we have a speed optimization.
+        // We will always set the Master Enable bit, becuase we are always the SPI master
+        // We will always set the ON bit because we always want the SPI peripheral turned on
+        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON);
+
+        switch (dataMode) {
+            case SPI_MODE0:     // CKE = 1, CKP = 0
+                con |= (1 << _SPICON_CKE);
+                break;
+
+            case SPI_MODE1:     // CKE = 0, CKP = 0
+                break;
+
+            case SPI_MODE2:     // CKE = 1, CKP = 1
+                con |= ((1 << _SPICON_CKP) | (1 << _SPICON_CKE));
+                break;
+
+            case SPI_MODE3:     // CKE = 0, CKP = 1
+                con |= (1 << _SPICON_CKP);
+                break;
+        }
+    }
+    /* This function computes the proper value for the BRG register 
+     * (baudrate generator divisor). This computation can't be done
+     * in this object's intializer, because the value __PIC32_pbClk 
+     * isn't guaranteed to be correct until after all obejcts have
+     * been intialized and the init() call in wiring.c has had a
+     * chance to run. Also, this value can (theoretically) be changed
+     * at runtime (dynamically) and so we need to re-compute the proper
+     * BRG value each time we start a tranasaction to be safe. */
+    uint16_t GenerateBRG(void) {
         /* Compute the baud rate divider for this frequency.
         */
-        brg = (uint16_t)((__PIC32_pbClk / (2 * clock)) - 1);
+        brg = (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
 
-        /* That the baud rate value is in the correct range.
+        /* Check that the baud rate value is in the correct range.
         */
         if (brg == 0xFFFFU) {
             /* The user tried to set a frequency that is too high to support.
@@ -109,32 +145,12 @@ private:
             */
             brg = 0x1FFU;
         }
-
-        // By including the needed flag here, we have a speed optimization.
-        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON);
-
-        switch (dataMode) {
-            case SPI_MODE0:
-                con |= (1 << _SPICON_CKE);
-                //con |= ((0 << _SPICON_CKP) | (1 << _SPICON_CKE));
-                break;
-
-            case SPI_MODE1:
-                //con |= ((0 << _SPICON_CKP) | (0 << _SPICON_CKE));
-                break;
-
-            case SPI_MODE2:
-                con |= ((1 << _SPICON_CKP) | (1 << _SPICON_CKE));
-                break;
-
-            case SPI_MODE3:
-                con |= (1 << _SPICON_CKP);
-                //con |= ((1 << _SPICON_CKP) | (0 << _SPICON_CKE));
-                break;
-        }
+        return brg;
     }
-    uint16_t brg;
     uint32_t con;
+    uint16_t brg;
+    /* A cached copy of the desired SPI clock freqency set at object creation */
+    uint32_t DesiredSPIClockFrequency;
     friend class SPIClass;
 };
 
@@ -171,7 +187,25 @@ public:
     inline void beginTransaction(SPISettings settings) {
         if (interruptMode > 0) {
             int32_t sreg = disableInterrupts();
-            interruptSave = sreg;
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 0;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 0;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 0;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 0;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 0;
+                }
+                restoreInterrupts(sreg);
+            } else interruptSave = sreg;
+            
         }
 
 #ifdef SPI_TRANSACTION_MISMATCH_LED
@@ -183,9 +217,9 @@ public:
 
         inTransactionFlag = 1;
 #endif
-        // This causes a nasty spike
-        //pspi->sxCon.clr = (1 << _SPICON_ON);
-        pspi->sxBrg.reg = settings.brg;
+        /* Compute and set the proper BRG register value based on our desired SPI clock rate */
+        pspi->sxBrg.reg = settings.GenerateBRG();
+        /* Copy over the proper value of the CON regsiter for this set of settings, turning SPI peripheral back on */
         pspi->sxCon.reg = settings.con;
     }
 
@@ -235,7 +269,25 @@ public:
 #endif
 
         if (interruptMode > 0) {
-            restoreInterrupts(interruptSave);
+            uint32_t sreg = disableInterrupts();
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 1;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 1;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 1;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 1;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 1;
+                }
+                restoreInterrupts(sreg);
+            } else restoreInterrupts(interruptSave);
         }
     }
 
@@ -244,7 +296,7 @@ public:
 
     // This function is deprecated.  New applications should use
     // beginTransaction() to configure SPI settings.
-    inline void setBitOrder(uint8_t bitOrder) {
+    inline void setBitOrder(uint8_t __attribute__((unused)) bitOrder) {
         // Not supported
     }
     // This function is deprecated.  New applications should use
