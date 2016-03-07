@@ -155,6 +155,9 @@
 #define	PIN_INT3	8
 #define	PIN_INT4	35
 
+#define NOT_AN_INTERRUPT -1
+#define digitalPinToInterrupt(p) ((p) == PIN_INT0 ? 0 : ((p) == PIN_INT1 ? 1 : ((p) == PIN_INT2 ? 2 : ((p) == PIN_INT3 ? 3 : ((p) == PIN_INT4 ? 4 : NOT_AN_INTERRUPT)))))
+
 /* ------------------------------------------------------------ */
 /*					SPI Pin Declarations						*/
 /* ------------------------------------------------------------ */
