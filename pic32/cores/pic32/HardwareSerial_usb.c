@@ -684,6 +684,18 @@ XXX_SKIP2_XXX:;
 		MCF_USB_OTG_INT_STAT	=	MCF_USB_OTG_INT_STAT_SLEEP;
 	}
 	
+	// if the host resumes
+	if (MCF_USB_OTG_INT_STAT & MCF_USB_OTG_INT_STAT_RESUME)
+	{
+		gCdcacm_active		=	true;
+		gCdcacm_attached	=	1;
+
+		// enable usb sleep interrupts
+		MCF_USB_OTG_INT_ENB		|=	MCF_USB_OTG_INT_ENB_SLEEP_EN;
+		MCF_USB_OTG_INT_STAT	=	MCF_USB_OTG_INT_STAT_TOK_DNE; //0xff;
+	}
+	
+	
 //XXX_SKIP_XXX:
 	assert(usb_in_isr);
 	assert((usb_in_isr = false) ? true : true);
