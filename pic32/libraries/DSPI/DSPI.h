@@ -175,7 +175,9 @@ void		setTransferSize(uint8_t txsize);
 */
 void		setSelect(uint8_t sel) { digitalWrite(pinSS, sel); };
 uint32_t	transfer(uint32_t bVal);
+uint16_t	transfer(uint16_t bVal) { return((uint16_t) transfer((uint32_t) bVal)); }
 uint8_t	    transfer(uint8_t bVal) { return((uint8_t) transfer((uint32_t) bVal)); }
+int 	    transfer(int bVal) { return((int) transfer((uint32_t) bVal)); }
 void		transfer(uint16_t cbReq, uint8_t * pbSnd, uint8_t * pbRcv);
 void		transfer(uint16_t cbReq, uint8_t * pbSnd);
 void		transfer(uint16_t cbReq, uint8_t bPad, uint8_t * pbRcv);
