@@ -98,7 +98,13 @@ private:
         // By including the needed flag here, we have a speed optimization.
         // We will always set the Master Enable bit, becuase we are always the SPI master
         // We will always set the ON bit because we always want the SPI peripheral turned on
-        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON);
+        //
+        // The _SPICON_SMP bit makes the SPI preph actually follow the 
+        // general SPI rules that everyone else uses. Normally an SPI master 
+        // samples just before the next cycle starts.  
+        // At high data rates it becomes very important to sample later 
+        // than center, due to timing constraints in the silicon.
+        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON) | (1 << _SPICON_SMP);
 
         switch (dataMode) {
             case SPI_MODE0:     // CKE = 1, CKP = 0
