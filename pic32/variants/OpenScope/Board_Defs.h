@@ -391,6 +391,17 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
 /* ------------------------------------------------------------ */
+/*  JTAG Support, set to 1 if you want JTAG enabled             */
+/*  otherwise JTAG will be disabled                             */
+/* ------------------------------------------------------------ */
+// OpenScope does not support JTAG
+#define _JTAG 0
+
+/* ------------------------------------------------------------ */
+
+#endif	// OPT_BOARD_INTERNAL
+
+/* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
@@ -521,17 +532,6 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _PORTG
 #define _PORTH
 #define _PORTJ
-
-/* ------------------------------------------------------------ */
-/*  JTAG Support, set to 1 if you want JTAG enabled             */
-/*  otherwise JTAG will be disabled                             */
-/* ------------------------------------------------------------ */
-// OpenScope does not support JTAG
-#define _JTAG 0
-
-/* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 /*					A/D Converter Declarations					*/

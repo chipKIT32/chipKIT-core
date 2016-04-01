@@ -280,6 +280,8 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -401,8 +403,6 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /* ------------------------------------------------------------ */
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 /*					Defines for the SD on JK     				*/
