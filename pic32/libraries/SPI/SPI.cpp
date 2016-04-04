@@ -68,10 +68,12 @@ SPIClass::SPIClass(uint32_t base, int pinMI, int pinMO, ppsFunctionType ppsMI, p
     pinMOSI = pinMO;
     ppsMISO = ppsMI;
     ppsMOSI = ppsMO;
+    softBitOrder = MSBFIRST;
 }
 #else
 SPIClass::SPIClass(uint32_t base) {
     pspi = (p32_spi *)base;
+    softBitOrder = MSBFIRST;
 }
 #endif
 
