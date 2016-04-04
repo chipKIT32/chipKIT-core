@@ -85,6 +85,7 @@ public:
         init_AlwaysInline(4000000, MSBFIRST, SPI_MODE0);
     }
 private:
+    uint32_t softBitOrder;
     /* Note that on PIC32, SPI always shifts out Most Significant Bit first, so the bitOrder parameter
      * is not used, but needs to be retained for compatibility with existing sketches/libraries */
     void init_MightInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode) {
@@ -92,6 +93,8 @@ private:
     }
     void init_AlwaysInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode)
     __attribute__((__always_inline__)) {
+
+        softBitOrder = bitOrder;
         
         DesiredSPIClockFrequency = clock;
         
@@ -205,10 +208,24 @@ public:
         pspi->sxBrg.reg = settings.GenerateBRG();
         /* Copy over the proper value of the CON regsiter for this set of settings, turning SPI peripheral back on */
         pspi->sxCon.reg = settings.con;
+        softBitOrder = settings.softBitOrder;
     }
 
     // Write to the SPI bus (MOSI pin) and also receive (MISO pin)
     inline uint8_t transfer(uint8_t data) {
+        if (softBitOrder == LSBFIRST) {
+            uint8_t sdata = 
+                ((data & 0x80) >> 7) |
+                ((data & 0x40) >> 5) |
+                ((data & 0x20) >> 3) |
+                ((data & 0x10) >> 1) |
+                ((data & 0x08) << 1) |
+                ((data & 0x04) << 3) |
+                ((data & 0x02) << 5) |
+                ((data & 0x01) << 7);
+            data = sdata;
+        }
+
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPITBE)) == 0) {
         }
 
@@ -217,7 +234,21 @@ public:
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPIRBF)) == 0) {
         }
 
-        return pspi->sxBuf.reg;
+        data = pspi->sxBuf.reg;
+        if (softBitOrder == LSBFIRST) {
+            uint8_t sdata = 
+                ((data & 0x80) >> 7) |
+                ((data & 0x40) >> 5) |
+                ((data & 0x20) >> 3) |
+                ((data & 0x10) >> 1) |
+                ((data & 0x08) << 1) |
+                ((data & 0x04) << 3) |
+                ((data & 0x02) << 5) |
+                ((data & 0x01) << 7);
+            data = sdata;
+        }
+
+        return data;
     }
     inline uint16_t transfer16(uint16_t data) {
         pspi->sxCon.set = 1 << _SPICON_MODE16;
@@ -263,7 +294,7 @@ public:
     // This function is deprecated.  New applications should use
     // beginTransaction() to configure SPI settings.
     inline void setBitOrder(uint8_t __attribute__((unused)) bitOrder) {
-        // Not supported
+        softBitOrder = bitOrder;
     }
     // This function is deprecated.  New applications should use
     // beginTransaction() to configure SPI settings.
@@ -330,6 +361,7 @@ public:
     inline void detachInterrupt() { }
 
 private:
+    uint32_t softBitOrder;
     uint32_t initialized;
     uint32_t interruptMode; // 0=none, 1=mask, 2=global
     uint32_t interruptMask; // which interrupts to mask
