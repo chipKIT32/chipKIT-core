@@ -32,7 +32,7 @@ ant updatepic32prog
 
 Option 1:
 * `ant dist`
-* copy the dist/{OS} zip file to {SketchFolder}/Arduino/hardware
+* copy the dist/{OS} zip file to {SketchBookFolder}/hardware
 * unzip the the zip file
 * start Arduino
 * Boards will be listed in the board drop down
@@ -43,6 +43,14 @@ Option 2:
 * The user sketch folder needs a folder called hardware.
 * start Arduino
 * Boards will be listed in the board drop down
+
+Note that we now support direct installation from within Arduino v1.6.7 (and up) via the Boards Manager. Simply place this URL
+
+https://raw.githubusercontent.com/chipKIT32/chipKIT-core/master/package_chipkit_index.json
+
+in the Preferences->Additional Boards Manager URLs: text field and then opening up the Boards Manager in the Tools->Board menu. 
+
+See http://chipkit.net/wiki/index.php?title=ChipKIT_core for complete instructions.
 
 ```
 Copy from dist OS Platform and move to ~/Documents/Arduino/hardware folder
