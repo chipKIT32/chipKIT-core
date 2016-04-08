@@ -58,7 +58,11 @@
 ** refer to periperhals on the board generically.
 */
 
-#define	_BOARD_NAME_	"Majenko Technologies UltraNano"
+#define	_BOARD_NAME_	"chipKIT Lenny"
+#define _USB_PRODUCT_   'L','e','n','n','y'
+#define _USB_PRODUCT_LENGTH_ 5
+#define _USB_MANUFACTURER_      'c','h','i','p','K','I','T'
+#define _USB_MANUFACTURER_LENGTH_ 7
 
 /* Define the peripherals available on the board.
 */
@@ -82,6 +86,9 @@
 #define NUM_BTN				1
 #define	NUM_SWT				0
 #define NUM_SERVO			0
+
+// Set the default SPI port to the 6 pin header
+#define _SPI_PORT 1
 
 /* ------------------------------------------------------------ */
 /*						LED Declarations						*/
@@ -162,9 +169,9 @@
 ** SPI library and the original pins_arduino.h. 
 */
 static const uint8_t SS   = 10;
-static const uint8_t MISO = 12;
-static const uint8_t MOSI =	11;
-static const uint8_t SCK  = 13;
+static const uint8_t MISO = 25;
+static const uint8_t MOSI =	27;
+static const uint8_t SCK  = 26;
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -329,9 +336,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /* SPI pin declarations
 */
 #define _SPI_MISO_IN	PPS_IN_SDI2
-#define	_SPI_MISO_PIN	MISO
+#define	_SPI_MISO_PIN	12
 #define _SPI_MOSI_OUT	PPS_OUT_SDO2
-#define	_SPI_MOSI_PIN	MOSI
+#define	_SPI_MOSI_PIN	11
 
 /* SPI1 
 */
@@ -346,9 +353,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	_DSPI0_SPL			_SPI1_SPL_IPC
 
 #define _DSPI0_MISO_IN		PPS_IN_SDI1
-#define _DSPI0_MISO_PIN		MISO
+#define _DSPI0_MISO_PIN		12
 #define _DSPI0_MOSI_OUT		PPS_OUT_SDO1
-#define _DSPI0_MOSI_PIN		MOSI
+#define _DSPI0_MOSI_PIN		11
 
 /* SPI2 
 */
