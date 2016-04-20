@@ -149,6 +149,23 @@
 	#define prtSCK				IOPORT_G
 	#define bnSCK				BIT_6
 	#define SD_SCK_PPS()        RPG6R  = 0b0000    // Bit Banging SPI, set as GPIO
+#elif defined(_BOARD_LENNY_)
+
+	// Digital pin 25
+	#define prtSDO				IOPORT_B
+	#define	bnSDO				BIT_13
+	#define SD_SDO_PPS()        RPB13R   = 0b0000    // Bit Banging SPI, set as GPIO
+
+	// Digital pin 35
+	#define prtSDI				IOPORT_B
+	#define bnSDI				BIT_1
+	#define SD_SDI_PPS()                            // Bit Banging SPI, leave as nothing
+
+	// Digital pin 16
+	#define prtSCK				IOPORT_B
+	#define bnSCK				BIT_14
+	#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
+
 
 #elif defined(__PIC32_PPS__)
     #error Boards with PPS must be specifically defined
