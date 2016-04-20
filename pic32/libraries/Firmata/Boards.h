@@ -396,6 +396,23 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_PWM(p)           (p)
 #define PIN_TO_SERVO(p)         (p)
 
+// Pic32 chipKIT Lenny
+#elif defined(_BOARD_LENNY_)
+#define TOTAL_ANALOG_PINS       6
+#define TOTAL_PINS              NUM_DIGITAL_PINS 
+#define MAX_SERVOS              NUM_DIGITAL_PINS
+#define VERSION_BLINK_PIN       PIN_LED1
+#define IS_PIN_DIGITAL(p)       ((p < 14) || (p > 19))
+#define IS_PIN_ANALOG(p)        ((p >= 14) && (p <= 19))
+#define IS_PIN_PWM(p)           IS_PIN_DIGITAL(p)
+#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL(p)
+#define IS_PIN_I2C(p)           ((p) == 18 || (p) == 19)
+#define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
+#define PIN_TO_DIGITAL(p)       (p)
+#define PIN_TO_ANALOG(p)        (p)
+#define PIN_TO_PWM(p)           (p)
+#define PIN_TO_SERVO(p)         (p)
+
 
 // Pic32 chipKIT UNO32
 #elif defined(_BOARD_UNO_) && defined(__PIC32)  // NOTE: no _BOARD_UNO32_ to use
