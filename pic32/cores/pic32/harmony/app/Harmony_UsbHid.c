@@ -61,6 +61,8 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
 {
     HARMONY_APP_DATA * pAppData = (HARMONY_APP_DATA *) userData;
     USB_DEVICE_HID_EVENT_DATA_REPORT_RECEIVED* reportReceivedData;
+    USB_DEVICE_HID_EVENT_DATA_SET_REPORT *setReport;
+
 
     if (index != 0) return;
 
@@ -70,12 +72,14 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
         pAppData->Hid.isTxBusy = false;
         break;
 
+    // Responds to "Send Output Report"
     case USB_DEVICE_HID_EVENT_REPORT_RECEIVED:
         reportReceivedData = (USB_DEVICE_HID_EVENT_DATA_REPORT_RECEIVED*) eventData;
         pAppData->Hid.isRxReady = true;
         if (reportReceivedData != NULL)
         {
             pAppData->Hid.ReceivedLength = reportReceivedData->length;
+            USB_DEVICE_ControlReceive(pAppData->deviceHandle, pAppData->Hid.RxBuffer, reportReceivedData->length);
         }
         break;
 
@@ -128,10 +132,25 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
         pAppData->Hid.IsActive = true;
         break;
 
+    case USB_DEVICE_HID_EVENT_CONTROL_TRANSFER_DATA_RECEIVED:
+        USB_DEVICE_ControlStatus(pAppData->deviceHandle, USB_DEVICE_CONTROL_STATUS_OK);
+        break;
+
     case USB_DEVICE_HID_EVENT_GET_REPORT:
         USB_DEVICE_ControlSend(pAppData->deviceHandle, NULL, 0);
         break;
 
+    // Responds to "Send Feature Report"
+    case USB_DEVICE_HID_EVENT_SET_REPORT:
+        setReport = (USB_DEVICE_HID_EVENT_DATA_SET_REPORT *)eventData;
+        pAppData->Hid.isRxReady = true;
+        if (setReport != NULL)
+        {
+            pAppData->Hid.ReceivedLength = setReport->reportLength;
+            USB_DEVICE_ControlReceive(pAppData->deviceHandle, pAppData->Hid.RxBuffer, setReport->reportLength);
+        }
+        USB_DEVICE_ControlSend(pAppData->deviceHandle, NULL, 0);
+        break;
 
     default:
         break;
