@@ -10,9 +10,9 @@ extern void Harmony_Hid_ResetStates(void);
 extern void APP_USBDeviceEventHandler(USB_DEVICE_EVENT event, void * pData, uintptr_t context);
 
 
-void (*pCbReportReceived)(uint8_t *data, uint32_t len) = NULL;
+void (*pCbReportReceived)(int reptype, uint8_t *data, uint32_t len) = NULL;
 
-void Harmony_Hid_onReportReceived(void (*cbFunc)(uint8_t *, uint32_t)) {
+void Harmony_Hid_onReportReceived(void (*cbFunc)(int, uint8_t *, uint32_t)) {
     pCbReportReceived = cbFunc;
 }
 
@@ -184,7 +184,7 @@ HARMONY_APP_STATES Harmony_APP_Tasks(void)
 
         if (Harmony_AppData.Hid.isRxReady == true) {
             if (pCbReportReceived != NULL) {
-                pCbReportReceived((uint8_t *)Harmony_AppData.Hid.RxBuffer, Harmony_AppData.Hid.ReceivedLength);
+                pCbReportReceived(Harmony_AppData.Hid.RxType, (uint8_t *)Harmony_AppData.Hid.RxBuffer, Harmony_AppData.Hid.ReceivedLength);
             }
             Harmony_AppData.Hid.isRxReady = false;
         }

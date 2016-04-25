@@ -78,6 +78,7 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
         pAppData->Hid.isRxReady = true;
         if (reportReceivedData != NULL)
         {
+            pAppData->Hid.RxType = APP_REPORT_OUTPUT;
             pAppData->Hid.ReceivedLength = reportReceivedData->length;
             USB_DEVICE_ControlReceive(pAppData->deviceHandle, pAppData->Hid.RxBuffer, reportReceivedData->length);
         }
@@ -146,6 +147,7 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
         pAppData->Hid.isRxReady = true;
         if (setReport != NULL)
         {
+            pAppData->Hid.RxType = APP_REPORT_FEATURE;
             pAppData->Hid.ReceivedLength = setReport->reportLength;
             USB_DEVICE_ControlReceive(pAppData->deviceHandle, pAppData->Hid.RxBuffer, setReport->reportLength);
         }

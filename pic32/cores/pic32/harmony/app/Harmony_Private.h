@@ -64,6 +64,12 @@ typedef enum
             
 } HARMONY_APP_STATES;
 
+/* Report types */
+typedef enum {
+    APP_REPORT_OUTPUT=0,
+    APP_REPORT_FEATURE,
+} HARMONY_APP_REPORT;
+
 /******************************************************
  * Application COM Port Object
  ******************************************************/
@@ -136,6 +142,9 @@ typedef struct
     
     /* Tracks the progress of the report read */
     bool isRxReady;
+
+    /* Stores the type of the last report received */
+    HARMONY_APP_REPORT RxType;
     
     /* pointer to tx buffer initialized on startup */
     uint8_t* TxBuffer;
@@ -152,6 +161,7 @@ typedef struct
     bool IsActive;
 
 }HARMONY_APP_MOUSE;
+
 
 // *****************************************************************************
 /* Application Data
