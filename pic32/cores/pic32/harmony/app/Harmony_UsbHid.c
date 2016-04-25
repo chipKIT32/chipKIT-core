@@ -128,6 +128,11 @@ void APP_USBDeviceHIDEventHandler(USB_DEVICE_HID_INDEX index,
         pAppData->Hid.IsActive = true;
         break;
 
+    case USB_DEVICE_HID_EVENT_GET_REPORT:
+        USB_DEVICE_ControlSend(pAppData->deviceHandle, NULL, 0);
+        break;
+
+
     default:
         break;
     }
