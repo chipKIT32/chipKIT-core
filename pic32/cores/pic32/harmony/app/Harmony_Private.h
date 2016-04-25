@@ -9,7 +9,7 @@
 // *****************************************************************************
 
 #include <stdlib.h>
-#include "System_Config.h"
+#include "system_config.h"
 #include "system_definitions.h"
 #include "utlist.h"
 #include "osal/osal.h"

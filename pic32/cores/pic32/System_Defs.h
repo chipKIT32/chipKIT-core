@@ -41,7 +41,7 @@
 #if !defined(SYSTEM_DEFS_H)
 #define SYSTEM_DEFS_H
 
-#include "System_Config.h"
+#include "system_config.h"
 #include "cpudefs.h"
 
 /* ------------------------------------------------------------ */
@@ -372,7 +372,7 @@
 #define	_SPI1_IPL_IPC	3		//interrupt priority for the IPC register
 #define	_SPI1_SPL_IPC	0		//interrupt subpriority for the IPC register
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MX3XX__) || defined(__PIC32MX4XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 #define	_SPI2_IPL_ISR	IPL3SOFT    //interrupt priority for the ISR
 #define	_SPI2_IPL_IPC	3       //interrupt priority for the IPC register
 #define	_SPI2_SPL_IPC	0       //interrupt subpriority for the IPC register
