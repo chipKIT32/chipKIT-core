@@ -144,6 +144,9 @@
 #define	PIN_INT3	8
 #define	PIN_INT4	35
 
+#define NOT_AN_INTERRUPT -1
+#define digitalPinToInterrupt(p) ((p) == PIN_INT0 ? 0 : ((p) == PIN_INT1 ? 1 : ((p) == PIN_INT2 ? 2 : ((p) == PIN_INT3 ? 3 : ((p) == PIN_INT4 ? 4 : NOT_AN_INTERRUPT)))))
+
 /* ------------------------------------------------------------ */
 /*					SPI Pin Declarations						*/
 /* ------------------------------------------------------------ */
@@ -274,6 +277,8 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -366,8 +371,6 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 /*					Defines for the WiFiShield uSD				*/

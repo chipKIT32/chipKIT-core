@@ -328,6 +328,8 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -475,8 +477,6 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _PORTG
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 #define DefineSDSPI(spi) DSPI0 spi
 #define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 12)     // Create an DSDVOL object

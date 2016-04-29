@@ -184,6 +184,8 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -295,8 +297,6 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 
