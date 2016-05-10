@@ -50,6 +50,13 @@
 /************************************************************************/
 #include <Arduino.h>
 
+extern void OverRideGenExcpt(void);
+
+// this code only works for __32MZ2048ECG100_
+// but it will run on a __32MZ2048EFG100__
+// when compiled for an __32MZ2048ECG100__
+#if defined(__32MZ2048ECG100__)
+
 extern void initWiFIREadcEF(void);
 extern int convertWiFIREadcEF(uint8_t channelNumber);
 
@@ -337,3 +344,7 @@ int convertADC(uint8_t channelNumber)
         return(convertWiFIREadcEF(channelNumber));
     }
 }
+
+
+// end of EC compile
+#endif
