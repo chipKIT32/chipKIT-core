@@ -98,7 +98,7 @@ typedef struct FFLL_T
     void *     _this;      // A pointer to myself, so I know who I am when I come off the list
 } FFLL;
 
-class TCPSocket {
+class TCPSocket : public Stream {
 private:
 
     FFLL _ffptInfo;
@@ -148,19 +148,22 @@ public:
     }
 
     void discardReadBuffer(void);
-    size_t available(void);
+    int available(void);
 
     int peekByte(void);
     int peekByte(size_t index);
+    int peek() { return peekByte(); }
 
     size_t peekStream(byte *rgbPeek, size_t cbPeekMax);
     size_t peekStream(byte *rgbPeek, size_t cbPeekMax, size_t index);
  
     int readByte(void);
+    int read() { return readByte(); }
     size_t readStream(byte *rgbRead, size_t cbReadMax);
  
     int writeByte(byte bData);                      
     int writeByte(byte bData, IPSTATUS * pStatus);
+    size_t write(byte d) { return writeByte(d); }
 
     size_t writeStream(const byte *rgbWrite, size_t cbWrite);                            
     size_t writeStream(const byte *rgbWrite, size_t cbWrite, IPSTATUS * pStatus);
