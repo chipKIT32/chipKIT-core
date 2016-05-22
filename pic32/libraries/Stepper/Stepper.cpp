@@ -56,6 +56,7 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2)
 {
   this->step_number = 0;      // which step the motor is on
   this->speed = 0;        // the motor speed, in revolutions per minute
+  this->step_delay = -1;  // step delay defaulted to max (minium rpms)
   this->direction = 0;      // motor direction
   this->last_step_time = 0;    // time stamp in ms of the last step taken
   this->number_of_steps = number_of_steps;    // total number of steps for this motor
@@ -86,6 +87,7 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2, int moto
 {
   this->step_number = 0;      // which step the motor is on
   this->speed = 0;        // the motor speed, in revolutions per minute
+  this->step_delay = -1;  // step delay defaulted to max (minimum rpms)
   this->direction = 0;      // motor direction
   this->last_step_time = 0;    // time stamp in ms of the last step taken
   this->number_of_steps = number_of_steps;    // total number of steps for this motor
@@ -112,7 +114,13 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2, int moto
 */
 void Stepper::setSpeed(long whatSpeed)
 {
-  this->step_delay = 60L * 1000L / this->number_of_steps / whatSpeed;
+  // avoid divide by 0
+  if (whatSpeed > 0) {
+    this->step_delay = 60L * 1000L / this->number_of_steps / whatSpeed;
+  } else {
+    // divide by 0 attempted, set speed to minimum rpms
+    this->step_delay = -1; 
+  }
 }
 
 /*
