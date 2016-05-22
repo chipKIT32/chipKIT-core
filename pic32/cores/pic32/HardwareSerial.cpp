@@ -919,10 +919,6 @@ void USBSerial::flush()
 	// occurs after reading the value of rx_buffer_head but before writing
 	// the value to rx_buffer_tail; the previous value of rx_buffer_head
 	// may be written to rx_buffer_tail, making it appear as if the buffer
-	// don't reverse this or there may be problems if the RX interrupt
-	// occurs after reading the value of rx_buffer_head but before writing
-	// the value to rx_buffer_tail; the previous value of rx_buffer_head
-	// may be written to rx_buffer_tail, making it appear as if the buffer
 	// were full, not empty.
 	_rx_buffer->head	=	_rx_buffer->tail;
 }
@@ -957,14 +953,14 @@ void USBSerial::detachInterrupt() {
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
     TXOn();
-	if (size < kMaxUSBxmitPkt)
+	if (size <= kMaxUSBxmitPkt)
 	{
 		//*	it will fit in one transmit packet
 		cdcacm_print(buffer, size);
 	}
 	else
 	{
-	//*	we can only transmit a maxium of 64 bytes at a time, break it up into 64 byte packets
+	//*	we can only transmit a maxium of 63 bytes at a time, break it up into 63 byte packets
 	unsigned char	usbBuffer[kMaxUSBxmitPkt + 2];
 	unsigned short	ii;
 	size_t 			packetSize;
@@ -973,7 +969,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 		for (ii=0; ii<size; ii++)
 		{
 			usbBuffer[packetSize++]	=	buffer[ii];
-			if (packetSize >= kMaxUSBxmitPkt)
+			if (packetSize > kMaxUSBxmitPkt)
 			{
 				cdcacm_print(usbBuffer, packetSize);
 				packetSize	=	0;
