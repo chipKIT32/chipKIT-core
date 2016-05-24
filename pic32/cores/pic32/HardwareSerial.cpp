@@ -953,7 +953,7 @@ void USBSerial::detachInterrupt() {
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
     TXOn();
-	if (size <= kMaxUSBxmitPkt)
+	if (size < kMaxUSBxmitPkt)
 	{
 		//*	it will fit in one transmit packet
 		cdcacm_print(buffer, size);
@@ -969,7 +969,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 		for (ii=0; ii<size; ii++)
 		{
 			usbBuffer[packetSize++]	=	buffer[ii];
-			if (packetSize > kMaxUSBxmitPkt)
+			if (packetSize >= kMaxUSBxmitPkt)
 			{
 				cdcacm_print(usbBuffer, packetSize);
 				packetSize	=	0;
