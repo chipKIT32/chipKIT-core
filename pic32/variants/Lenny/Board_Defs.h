@@ -59,10 +59,19 @@
 */
 
 #define	_BOARD_NAME_	"chipKIT Lenny"
-#define _USB_PRODUCT_   'L','e','n','n','y'
-#define _USB_PRODUCT_LENGTH_ 5
-#define _USB_MANUFACTURER_      'c','h','i','p','K','I','T'
-#define _USB_MANUFACTURER_LENGTH_ 7
+
+// Definitions for Harmony
+#define _USB_PRODUCT_   'c','h','i','p','K','I','T',' ','L','e','n','n','y'
+#define _USB_PRODUCT_LENGTH_ 13
+#define _USB_MANUFACTURER_      'M','a','j','e','n','k','o',' ','T','e','c','h','n','o','l','o','g','i','e','s'
+#define _USB_MANUFACTURER_LENGTH_ 20
+#define _USB_VID_ 0x0403
+#define _USB_PID_ 0xa662
+
+// Definitions for old chipKIT core
+#define CDCACM_MAN "Majenko Technologies"
+#define CDCACM_PROD "chipKIT Lenny"
+#define CDCACM_AUTOSERIAL 1
 
 /* Define the peripherals available on the board.
 */
@@ -113,8 +122,8 @@
 
 /* Also define the virutal program button for soft reset */
 #define USE_VIRTUAL_PROGRAM_BUTTON      1
-#define VIRTUAL_PROGRAM_BUTTON_TRIS     TRISAbits.TRISA3
-#define VIRTUAL_PROGRAM_BUTTON          LATAbits.LATA3
+#define VIRTUAL_PROGRAM_BUTTON_TRIS     TRISBbits.TRISB4
+#define VIRTUAL_PROGRAM_BUTTON          LATBbits.LATB4
 
 /* ------------------------------------------------------------ */
 /*					Switch Declarations							*/
@@ -380,44 +389,33 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /* The standard I2C1 port uses I2C1 (SCL1/SDA1). 
 ** RB8/RB9 pins 38/4
 */
-#define	_TWI_BASE		_I2C1_BASE_ADDRESS
-#define	_TWI_BUS_IRQ	_I2C1_BUS_IRQ
-#define	_TWI_SLV_IRQ	_I2C1_SLAVE_IRQ
-#define	_TWI_MST_IRQ	_I2C1_MASTER_IRQ
-#define	_TWI_VECTOR		_I2C_1_VECTOR
-#define	_TWI_IPL_ISR	_I2C1_IPL_ISR
-#define _TWI_IPL		_I2C1_IPL_IPC
-#define	_TWI_SPL		_I2C1_SPL_IPC
+#define	_TWI_BASE		_I2C2_BASE_ADDRESS
+#define	_TWI_BUS_IRQ	_I2C2_BUS_IRQ
+#define	_TWI_SLV_IRQ	_I2C2_SLAVE_IRQ
+#define	_TWI_MST_IRQ	_I2C2_MASTER_IRQ
+#define	_TWI_VECTOR		_I2C_2_VECTOR
+#define	_TWI_IPL_ISR	_I2C2_IPL_ISR
+#define _TWI_IPL		_I2C2_IPL_IPC
+#define	_TWI_SPL		_I2C2_SPL_IPC
 
-/* Declarations for Digilent DTWI library.
-**		DTWI0 is on RB8/RB9 pins 38/4 
-*/
-#define	_DTWI0_BASE		_I2C1_BASE_ADDRESS
-#define	_DTWI0_BUS_IRQ	_I2C1_BUS_IRQ
-#define	_DTWI0_SLV_IRQ	_I2C1_SLAVE_IRQ
-#define	_DTWI0_MST_IRQ	_I2C1_MASTER_IRQ
-#define	_DTWI0_VECTOR	_I2C_1_VECTOR
-#define	_DTWI0_IPL_ISR	_I2C1_IPL_ISR
-#define	_DTWI0_IPL		_I2C1_IPL_IPC
-#define	_DTWI0_SPL		_I2C1_SPL_IPC
+#define _DTWI1_BASE     _I2C2_BASE_ADDRESS
+#define _DTWI1_BUS_IRQ  _I2C2_BUS_IRQ
+#define _DTWI1_VECTOR   _I2C_2_VECTOR
+#define _DTWI1_IPL_ISR  IPL3SOFT
+#define _DTWI1_IPL      3
+#define _DTWI1_SPL      0
+#define _DTWI1_SCL_PIN  A5
+#define _DTWI1_SDA_PIN  A4
 
-#define _DTWI0_SCL_PIN  12
-#define _DTWI0_SDA_PIN  13
+#define _DTWI0_BASE     _I2C1_BASE_ADDRESS
+#define _DTWI0_BUS_IRQ  _I2C1_BUS_IRQ
+#define _DTWI0_VECTOR   _I2C_1_VECTOR
+#define _DTWI0_IPL_ISR  IPL3SOFT
+#define _DTWI0_IPL      3
+#define _DTWI0_SPL      0
+#define _DTWI0_SCL_PIN  29
+#define _DTWI0_SDA_PIN  28
 
-/* Declarations for Digilent DTWI library.
-**		DTWI0 is on RB8/RB9 pins 38/4 
-*/
-#define	_DTWI1_BASE		_I2C2_BASE_ADDRESS
-#define	_DTWI1_BUS_IRQ	_I2C2_BUS_IRQ
-#define	_DTWI1_SLV_IRQ	_I2C2_SLAVE_IRQ
-#define	_DTWI1_MST_IRQ	_I2C2_MASTER_IRQ
-#define	_DTWI1_VECTOR	_I2C_2_VECTOR
-#define	_DTWI1_IPL_ISR	_I2C2_IPL_ISR
-#define	_DTWI1_IPL		_I2C2_IPL_IPC
-#define	_DTWI1_SPL		_I2C2_SPL_IPC
-
-#define _DTWI1_SCL_PIN  3
-#define _DTWI1_SDA_PIN  5
 
 /* ------------------------------------------------------------ */
 /*					A/D Converter Declarations					*/
