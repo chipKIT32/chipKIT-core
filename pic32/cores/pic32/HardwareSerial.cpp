@@ -88,6 +88,49 @@
 //	#define	_DEBUG_USB_VIA_SERIAL0_
 #endif
 
+// Definitions for a built-in TX and RX LED for USB serial.
+// Relies on the board defining PIN_LED_TX and PIN_LED_RX
+// Only supports active-high LEDs at the moment.
+// The LED is turned on in the main code, and a timestamp
+// is set for turning it off.  A task is executed every 10ms
+// to turn the LED off between 10 and 20ms after it's been
+// requested with xXOff(); which means that you get to actually
+// see the LED in action.
+
+#ifdef PIN_LED_TX
+static volatile uint32_t gTXLedTimeout = 0;
+# define TXOn() digitalWrite(PIN_LED_TX, HIGH); gTXLedTimeout = 0;
+# define TXOff() gTXLedTimeout = millis();
+static void TXLedSwitchOff(int id, void *tptr) {
+    if (gTXLedTimeout > 0) {
+        if (millis() - gTXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_TX, LOW);
+            gTXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define TXOn()
+# define TXOff()
+#endif
+
+#ifdef PIN_LED_RX
+static volatile uint32_t gRXLedTimeout = 0;
+# define RXOn() digitalWrite(PIN_LED_RX, HIGH); gRXLedTimeout = 0;
+# define RXOff() gRXLedTimeout = millis();
+static void RXLedSwitchOff(int id, void *tptr) {
+    if (gRXLedTimeout > 0) {
+        if (millis() - gRXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_RX, LOW);
+            gRXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define RXOn()
+# define RXOff()
+#endif
+
 extern "C"
 {
 void __attribute__((interrupt(),nomips16)) IntSer0Handler(void);
@@ -129,7 +172,7 @@ void __attribute__((interrupt(),nomips16)) IntSer7Handler(void);
 **		any global variables used by the object.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, int splT, isrFunc isrHandler, int pinT, int pinR, ppsFunctionType ppsT, ppsFunctionType ppsR)
 #else
 HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, int splT, isrFunc isrHandler)
@@ -145,7 +188,7 @@ HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, i
     isr  = isrHandler;
     rxIntr = NULL;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	pinTx = (uint8_t)pinT;
 	pinRx = (uint8_t)pinR;
 	ppsTx = ppsT;
@@ -197,7 +240,7 @@ void HardwareSerial::begin(unsigned long baudRate)
 	*/
 	purge();
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
     // set the pins to digital, just in case they 
     // are analog pins. The serial controller will not
@@ -298,7 +341,7 @@ void HardwareSerial::begin(unsigned long baudRate, uint8_t address) {
 	*/
 	purge();
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
     // set the pins to digital, just in case they 
     // are analog pins. The serial controller will not
@@ -706,6 +749,17 @@ USBSerial::operator int() {
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
 {
+#ifdef PIN_LED_TX
+    pinMode(PIN_LED_TX, OUTPUT);
+    digitalWrite(PIN_LED_TX, LOW);
+    createTask(TXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
+
+#ifdef PIN_LED_RX
+    pinMode(PIN_LED_RX, OUTPUT);
+    digitalWrite(PIN_LED_RX, LOW);
+    createTask(RXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
 }
 
 
@@ -752,7 +806,6 @@ size_t USBSerial::write(uint8_t theChar)
 {
 	unsigned char	usbBuf[4];
 	usbBuf[0]	=	theChar;
-
 	return write(usbBuf, 1);
 }
 
@@ -763,6 +816,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 	size_t bytesWritten = 0;
 	size_t zeroWrites = 0;
 	CDC_STATUS status;
+    TXOn();
 	while ((size - totalBytesWritten) > 0 && Harmony_Cdc_IsPortActive(_port))
 	{
 		status = Harmony_Cdc_Write(_port, &buffer[totalBytesWritten], size, &bytesWritten);
@@ -783,6 +837,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 		}
 	}
 
+    TXOff();
 	return totalBytesWritten;
 }
 
@@ -1056,7 +1111,7 @@ USBSerial		Serial;
 #endif
 
 #if defined(_SER0_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler);
@@ -1071,7 +1126,7 @@ HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IP
 ** however MZ have 6
 */
 #if defined(_SER0_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
 HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler);
@@ -1081,7 +1136,7 @@ HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL
 #endif	//defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
 #if defined(_SER1_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IPL, _SER1_SPL, IntSer1Handler, _SER1_TX_PIN, _SER1_RX_PIN, _SER1_TX_OUT, _SER1_RX_IN);
 #else
 HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IPL, _SER1_SPL, IntSer1Handler);

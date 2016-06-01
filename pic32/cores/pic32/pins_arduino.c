@@ -41,7 +41,7 @@
 #include "pins_arduino.h"
 #include "p32_defs.h"
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__)
+#if defined(__PIC32_PPS__)
 //* General data tables to support PPS pin mapping on PIC32MX1xx/2xx devices.
 //*
 #if defined(OPT_BOARD_DATA)

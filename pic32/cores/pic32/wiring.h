@@ -178,6 +178,7 @@ unsigned int executeSoftReset(uint32_t options);
 unsigned int attachCoreTimerService(uint32_t (*)(uint32_t count));
 unsigned int detachCoreTimerService(uint32_t (*)(uint32_t count));
 unsigned int callCoreTimerServiceNow(uint32_t (* service)(uint32_t));
+void _disableSeconaryOscillator(void);
 
 // if you are going to use setIntVector, then specify the interrupt routine as:
 // void __USER_ISR UserInterrupt(void) {}
@@ -411,7 +412,7 @@ extern const uint32_t _IMAGE_HEADER_ADDR;                       // a pointer to 
 	extern unsigned int	__PIC32_pbClk;
 #endif
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZ__)  || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
 // PPS Support for PIC32MX1 and PIC32MX2 parts
 // Locks all PPS functions so that calls to mapPpsInput() or mapPpsOutput() always fail.
@@ -434,7 +435,7 @@ void unlockPps();
 // in a <pin> that can't be assigned to <func>, this function will return 'false'.
 boolean mapPps(uint8_t pin, ppsFunctionType func);
 
-#endif  // defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MX47X__)
+#endif  // defined(__PIC32_PPS__)
 
 #ifdef __cplusplus
 } // extern "C"

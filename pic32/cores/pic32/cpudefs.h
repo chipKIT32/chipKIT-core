@@ -239,6 +239,30 @@
         #define __PIC32_PINS__  44
         #define __PIC32MX2XX__
 
+    #elif defined(__32MX270F256B__)
+        #define _CPU_NAME_      "32MX270F256B"
+        #define FLASHEND        (((256 - 4) * 1024L) - 1)
+        #define RAMEND          ((64 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  28
+        #define __PIC32MX2XX__
+
+    #elif defined(__32MX270F256C__)
+        #define _CPU_NAME_      "32MX270F256C"
+        #define FLASHEND        (((256 - 4) * 1024L) - 1)
+        #define RAMEND          ((64 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  36
+        #define __PIC32MX2XX__
+
+    #elif defined(__32MX270F256D__)
+        #define _CPU_NAME_      "32MX270F256D"
+        #define FLASHEND        (((256 - 4) * 1024L) - 1)
+        #define RAMEND          ((64 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  44
+        #define __PIC32MX2XX__
+
     //************************************************************************
     //*  MX  300 series
 

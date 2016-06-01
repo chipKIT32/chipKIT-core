@@ -9,6 +9,14 @@ extern void Harmony_Hid_ResetStates(void);
 
 extern void APP_USBDeviceEventHandler(USB_DEVICE_EVENT event, void * pData, uintptr_t context);
 
+
+void (*pCbReportReceived)(int reptype, uint8_t *data, uint32_t len) = NULL;
+
+void Harmony_Hid_onReportReceived(void (*cbFunc)(int, uint8_t *, uint32_t)) {
+    pCbReportReceived = cbFunc;
+}
+
+
 /************************************************
  * Application State Reset Function
  ************************************************/
@@ -173,6 +181,14 @@ HARMONY_APP_STATES Harmony_APP_Tasks(void)
             Harmony_AppData.state = APP_STATE_READY;
         }
 #endif
+
+        if (Harmony_AppData.Hid.isRxReady == true) {
+            if (pCbReportReceived != NULL) {
+                pCbReportReceived(Harmony_AppData.Hid.RxType, (uint8_t *)Harmony_AppData.Hid.RxBuffer, Harmony_AppData.Hid.ReceivedLength);
+            }
+            Harmony_AppData.Hid.isRxReady = false;
+        }
+
         break;
     default:
         break;

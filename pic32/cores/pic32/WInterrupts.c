@@ -56,7 +56,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void);
 
-volatile static voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
+static volatile voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
 
 //************************************************************************
 // PIC32 devices only support rising and falling edge triggered interrupts
@@ -71,7 +71,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
     {
         intFunc[interruptNum]	=	userFunc;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
         /* For devices with peripheral pin select (PPS), it is necessary to
         ** map the input function to the pin. This is done by loading the
         ** PPS input select register for the specific interrupt with the value

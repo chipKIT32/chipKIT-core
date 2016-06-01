@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include "System_Config.h"
+#include "system_config.h"
 #include "system_definitions.h"
 
 void __attribute__((interrupt(), nomips16)) _IntHandlerUSBInstance0(void);

@@ -283,7 +283,7 @@ void	_board_init(void);
 //*
 /* Currently, PPS is only available in PIC32MX1xx/PIC32MX2xx devices.
 */
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZ__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
 // Locks all PPS functions so that calls to mapPpsInput() or mapPpsOutput() always fail.
 // You would use this function if you set up all of your PPS settings at the beginning
@@ -372,7 +372,7 @@ boolean mapPps(uint8_t pin, ppsFunctionType func)
 	
 }
 
-#endif	// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
+#endif	// defined(__PIC32_PPS__)
 
 //************************************************************************
 //*	Deal with the 'virtual' program button and SoftReset(). This allows
@@ -532,10 +532,10 @@ static volatile uint32_t gLastBaseCount = 0;
 */
 unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // make sure we are not already registered
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it, do nothing
         if(gCoreTimerInfo[i].serivce == service)
@@ -546,7 +546,7 @@ unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 
     // we are not register, find an open slot
     // look for a open slot
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found one, add the service
         if(gCoreTimerInfo[i].serivce == NULL)
@@ -626,10 +626,10 @@ unsigned int attachCoreTimerService(uint32_t (* service)(uint32_t))
 */
 unsigned int detachCoreTimerService(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // look for this serivce in the list
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it
         if(gCoreTimerInfo[i].serivce == service)
@@ -660,10 +660,10 @@ unsigned int detachCoreTimerService(uint32_t (* service)(uint32_t))
 */
 unsigned int callCoreTimerServiceNow(uint32_t (* service)(uint32_t))
 {
-    int i;
+    unsigned int i;
 
     // look for this serivce in the list
-    for(i = 0; i<MaxNbrOfCoreTimerServices; i++)
+    for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
     {
         // found it
         if(gCoreTimerInfo[i].serivce == service)
@@ -767,7 +767,7 @@ void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void)
     uint32_t relCurTime;
     uint32_t relInt;
 
-    int i;
+    unsigned int i;
 
     // we know that count >= compare, otherwise we would not have been interrupted
     // we also know that count and compare >= gLastBaseCount as this was our last count value.
@@ -783,7 +783,7 @@ void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void)
         relNextInt = 0xFFFFFFFF;
 
         // check to see who all we need to call
-        for(i=0; i<MaxNbrOfCoreTimerServices; i++)
+        for(i = 0; i < MaxNbrOfCoreTimerServices; i++)
         {
             // if the serivce exists
             if(gCoreTimerInfo[i].serivce != NULL)

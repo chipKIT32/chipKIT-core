@@ -185,12 +185,11 @@ createTask(taskFunc task, unsigned long period, unsigned short state, void * var
 
 void
 destroyTask(int id) {
-//	int				itask;
 	unsigned int	st;
 
 	/* Remove the specified task from the table.
 	*/
-	if (id < NUM_TASKS) {
+	if (0 <= id && id < NUM_TASKS) {
 		rgtaskTable[id].pfnTask = 0;
 		rgtaskTable[id].tmsPeriod = 0;
 		rgtaskTable[id].stTask = 0;
@@ -259,7 +258,7 @@ getTaskId(taskFunc task) {
 void
 startTaskAt(int id, unsigned long tms, unsigned short st) {
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		rgtaskTable[id].tmsNext = tms;
 		rgtaskTable[id].stTask = st;
 		_updateTaskEvent(millis());
@@ -285,7 +284,7 @@ startTaskAt(int id, unsigned long tms, unsigned short st) {
 unsigned long
 getTaskNextExec(int id) {
 
-	if ((id < NUM_TASKS) &&
+	if ((0 <= id && id < NUM_TASKS) &&
 		(rgtaskTable[id].pfnTask != 0) && 
 		(rgtaskTable[id].stTask != TASK_DISABLE)) {
 		return rgtaskTable[id].tmsNext;
@@ -321,7 +320,7 @@ void
 setTaskState(int id, unsigned short st) {
 	unsigned long tms;
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		rgtaskTable[id].stTask = st;
 		if (rgtaskTable[id].stTask != TASK_DISABLE) {
 			/* Update when the task should next become active.
@@ -352,7 +351,7 @@ setTaskState(int id, unsigned short st) {
 unsigned short
 getTaskState(int id) {
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		return rgtaskTable[id].stTask;
 	}
 
@@ -381,7 +380,7 @@ void
 setTaskPeriod(int id, unsigned long tmsSet)	{
 	unsigned long tmsCur;
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		/* Set the new scheculing period for this task.
 		*/
 		rgtaskTable[id].tmsPeriod = tmsSet;
@@ -417,7 +416,7 @@ setTaskPeriod(int id, unsigned long tmsSet)	{
 unsigned long
 getTaskPeriod(int id) {
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		return rgtaskTable[id].tmsPeriod;
 	}
 
@@ -444,7 +443,7 @@ getTaskPeriod(int id) {
 void
 setTaskVar(int id, void * var) {
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		rgtaskTable[id].varTask = var;
 	}
 
@@ -469,7 +468,7 @@ setTaskVar(int id, void * var) {
 void *
 getTaskVar(int id) {
 
-	if ((id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
+	if ((0 <= id && id < NUM_TASKS) && (rgtaskTable[id].pfnTask != 0)) {
 		return rgtaskTable[id].varTask;
 	}
 

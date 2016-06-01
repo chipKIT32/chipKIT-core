@@ -241,37 +241,6 @@ string:			if (! dot)
 					PUTC (' ');
 			break;
 
-		case 'r':
-			/* Saturated counters. */
-			base = 10;
-			if (lflag) {
-				ul = va_arg (ap, unsigned long);
-				if (ul == -1) {
-cnt_unknown:				if (ladjust)
-						PUTC ('-');
-					while (--width > 0)
-						PUTC (' ');
-					if (! ladjust)
-						PUTC ('-');
-					break;
-				}
-				if (ul >= -2) {
-					ul = -3;
-					neg = '>';
-					goto nosign;
-				}
-			} else {
-				ul = va_arg (ap, unsigned int);
-				if (ul == (unsigned short) -1)
-					goto cnt_unknown;
-				if (ul >= (unsigned short) -2) {
-					ul = (unsigned short) -3;
-					neg = '>';
-					goto nosign;
-				}
-			}
-			goto nosign;
-
 		case 'u':
 			ul = lflag ? va_arg (ap, unsigned long) :
 				va_arg (ap, unsigned int);
