@@ -135,31 +135,33 @@ void Stepper::step(int steps_to_move)
   if (steps_to_move > 0) {this->direction = 1;}
   if (steps_to_move < 0) {this->direction = 0;}
     
-    
-  // decrement the number of steps, moving one step each time:
-  while(steps_left > 0) {
-  // move only if the appropriate delay has passed:
-  if (millis() - this->last_step_time >= this->step_delay) {
-      // get the timeStamp of when you stepped:
-      this->last_step_time = millis();
-      // increment or decrement the step number,
-      // depending on direction:
-      if (this->direction == 1) {
-        this->step_number++;
-        if (this->step_number == this->number_of_steps) {
-          this->step_number = 0;
-        }
-      } 
-      else { 
-        if (this->step_number == 0) {
-          this->step_number = this->number_of_steps;
-        }
-        this->step_number--;
-      }
-      // decrement the steps left:
-      steps_left--;
-      // step the motor to step number 0, 1, 2, or 3:
-      stepMotor(this->step_number % 4);
+  // check that step_delay has a valid value  
+  if(step_delay > 0)  {
+    // decrement the number of steps, moving one step each time:
+    while(steps_left > 0) {
+    // move only if the appropriate delay has passed:
+    if (millis() - this->last_step_time >= this->step_delay) {
+       // get the timeStamp of when you stepped:
+       this->last_step_time = millis();
+       // increment or decrement the step number,
+       // depending on direction:
+       if (this->direction == 1) {
+         this->step_number++;
+         if (this->step_number == this->number_of_steps) {
+           this->step_number = 0;
+         }
+       } 
+       else { 
+         if (this->step_number == 0) {
+           this->step_number = this->number_of_steps;
+         }
+         this->step_number--;
+       }
+       // decrement the steps left:
+       steps_left--;
+       // step the motor to step number 0, 1, 2, or 3:
+       stepMotor(this->step_number % 4);
+     }
     }
   }
 }
