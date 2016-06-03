@@ -84,6 +84,12 @@
 	#define NUM_EXTERNAL_INTERRUPTS	5
 #endif
 
+#if defined(__PIC32MX37X__)
+    #define NUM_INT_VECTOR 45
+    #define NUM_INT_REQUEST 75
+    #define NUM_EXTERNAL_INTERRUPTS 5
+#endif
+
 #if defined(__PIC32MX47X__)
     #define NUM_INT_VECTOR 45
     #define NUM_INT_REQUEST 75

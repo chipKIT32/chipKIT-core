@@ -147,14 +147,14 @@
 /* The following macros are used in building the data tables
 ** used by the hardware abstraction layer.
 */
-#if defined(__PIC32MX47XH__)
+#if defined(__PIC32MX47XH__) || defined(__PIC32MX37XH__)
 
 #define _RPOBASE    RPB0R       //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
 #define _PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
-#elif defined(__PIC32MX47XL__)
+#elif defined(__PIC32MX47XL__) || defined(__PIC32MX37XL__)
 
 #define _RPOBASE    RPA14R      //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
