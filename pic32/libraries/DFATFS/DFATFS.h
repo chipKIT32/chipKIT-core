@@ -108,7 +108,7 @@ public:
 friend class DFATFS;
 };
 
-class DFILE
+class DFILE : public Stream
 {
 private:
     static const uint32_t _CB_SECTOR_ = _FATFS_CBSECTOR_;   // this is hard coded in the FatFs engine
@@ -132,6 +132,12 @@ public:
     FRESULT fslseek (uint32_t ofs);								                /* Move file pointer of a file object */
     FRESULT fstruncate (void);										            /* Truncate file */
     FRESULT fssync (void);											            /* Flush cached data of a writing file */
+
+    size_t write(uint8_t c) { return fsputc(c); }
+    int read() { uint32_t r; char c; fsread(&c, 1, &r); return c; }
+    int available() { return fssize() - fstell(); }
+    int peek() { uint32_t pos = fstell(); char c = read(); fslseek(pos); }
+    void flush() { fssync(); }
 
     int fsputc (char c);										                /* Put a character to the file */
     int fsputs (const char* str);								                /* Put a string to the file */

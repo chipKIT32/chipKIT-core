@@ -277,7 +277,6 @@ FRESULT DFATFS::fsmkfs(DFSVOL& dfsVol)
 
     // create the file system
     fr = f_mkfs(szFatFsVols[iMKFS], dfsVol._sfd, dfsVol._au);
-
     // unmount the drive
     fsunmount(szFatFsVols[iMKFS]);
 
