@@ -1,6 +1,6 @@
 /************************************************************************/
 /*                                                                      */
-/*    WebServer.h                                                       */
+/*    HTTPServer.h                                                       */
 /*                                                                      */
 /*    A chipKIT WiFi Server implementation                              */
 /*    Designed to look for and parse /GET commands and automatically    */
