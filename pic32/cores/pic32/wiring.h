@@ -74,9 +74,9 @@ extern "C"{
 #define LSBFIRST 0
 #define MSBFIRST 1
 
-#define CHANGE 1
-#define FALLING 2
-#define RISING 3
+#define CHANGE 2
+#define FALLING 3
+#define RISING 4
 
 #define INTERNAL 3
 #define DEFAULT 1

@@ -101,7 +101,13 @@ private:
         // By including the needed flag here, we have a speed optimization.
         // We will always set the Master Enable bit, becuase we are always the SPI master
         // We will always set the ON bit because we always want the SPI peripheral turned on
-        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON);
+        //
+        // The _SPICON_SMP bit makes the SPI preph actually follow the 
+        // general SPI rules that everyone else uses. Normally an SPI master 
+        // samples just before the next cycle starts.  
+        // At high data rates it becomes very important to sample later 
+        // than center, due to timing constraints in the silicon.
+        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON) | (1 << _SPICON_SMP);
 
         switch (dataMode) {
             case SPI_MODE0:     // CKE = 1, CKP = 0
@@ -190,7 +196,25 @@ public:
     inline void beginTransaction(SPISettings settings) {
         if (interruptMode > 0) {
             int32_t sreg = disableInterrupts();
-            interruptSave = sreg;
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 0;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 0;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 0;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 0;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 0;
+                }
+                restoreInterrupts(sreg);
+            } else interruptSave = sreg;
+            
         }
 
 #ifdef SPI_TRANSACTION_MISMATCH_LED
@@ -284,7 +308,25 @@ public:
 #endif
 
         if (interruptMode > 0) {
-            restoreInterrupts(interruptSave);
+            uint32_t sreg = disableInterrupts();
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 1;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 1;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 1;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 1;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 1;
+                }
+                restoreInterrupts(sreg);
+            } else restoreInterrupts(interruptSave);
         }
     }
 

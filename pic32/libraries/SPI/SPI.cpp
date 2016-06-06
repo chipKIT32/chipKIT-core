@@ -111,6 +111,7 @@ void SPIClass::end() {
     if (!initialized) {
         pspi->sxCon.clr = 1<<_SPICON_ON;
         interruptMode = 0;
+        
 #ifdef SPI_TRANSACTION_MISMATCH_LED
         inTransactionFlag = 0;
 #endif
@@ -120,7 +121,54 @@ void SPIClass::end() {
 }
 
 void SPIClass::usingInterrupt(uint8_t __attribute__((unused)) interruptNumber) {
+    uint32_t sreg = disableInterrupts();
+    uint8_t mask = 0x00U;
+    switch (interruptNumber) {
+      case EXT_INT0:
+        mask = 0x01U;
+        break;
+      case EXT_INT1:
+        mask = 0x02U;
+        break;
+        case EXT_INT2:
+        mask = 0x04U;
+        break;
+      case EXT_INT3:
+        mask = 0x08U;
+        break;
+      case EXT_INT4:
+        mask = 0x10U;
+        break;
+      default:
+        interruptMode = 2;
+        break;
+    }
+    interruptMask |= mask;
+    if (!interruptMode) interruptMode = 1;
+    restoreInterrupts(sreg);   
 }
 
 void SPIClass::notUsingInterrupt(uint8_t __attribute__((unused)) interruptNumber) {
+    if (interruptMode == 2) return;
+    uint32_t sreg = disableInterrupts();
+    uint8_t mask = 0xFFU;
+    switch (interruptNumber) {
+      case EXT_INT0:
+        mask = 0xFEU;
+        break;
+      case EXT_INT1:
+        mask = 0xFDU;
+        break;
+        case EXT_INT2:
+        mask = 0xFBU;
+        break;
+      case EXT_INT3:
+        mask = 0xF7U;
+        break;
+      case EXT_INT4:
+        mask = 0xEFU;
+        break;
+    }
+    interruptMask &= mask;
+    restoreInterrupts(sreg);
 }
