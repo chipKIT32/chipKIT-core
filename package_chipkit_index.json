@@ -10,6 +10,75 @@
         {
           "name": "chipKIT",
           "architecture": "pic32",
+          "version": "1.2.0",
+          "category": "pic32",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/chipkit-core-16778039.master-v1.2.0.zip",
+          "archiveFileName": "chipkit-core-16778039.master-v1.2.0.zip",
+          "checksum": "SHA-256:72353c1930e89554b2bfa27121b22a0a9ad39be28e84cec9ab27896abae06b5b",
+          "size": "7623829",
+          "help": {
+            "online": "http://chipkit.net/started/learn-basics/"
+          },
+          "boards": [
+            {"name": "cerebot32mx4"},
+            {"name": "cerebot32mx7"},
+            {"name": "cerebot_mx3ck"},
+            {"name": "chipkit_mx3"},
+            {"name": "cerebot_mx3ck_512"},
+            {"name": "cerebot_mx4ck"},
+            {"name": "chipkit_pro_mx4"},
+            {"name": "cerebot_mx7ck"},
+            {"name": "chipkit_pro_mx7"},
+            {"name": "chipkit_Pi"},
+            {"name": "chipkit_Pi_USB_Serial"},
+            {"name": "cmod"},
+            {"name": "CUI32stem"},
+            {"name": "ubw32_mx460"},
+            {"name": "ubw32_mx795"},
+            {"name": "cui32"},
+            {"name": "usbono_pic32"},
+            {"name": "chipkit_DP32"},
+            {"name": "fubarino_mini_dev"},
+            {"name": "fubarino_mini"},
+            {"name": "fubarino_sd_seeed"},
+            {"name": "fubarino_sd"},
+            {"name": "Fubarino_SDZ"},
+            {"name": "mega_pic32"},
+            {"name": "mega_usb_pic32"},
+            {"name": "Olimex_Pinguino32"},
+            {"name": "picadillo_35t"},
+            {"name": "quick240_usb_pic32"},
+            {"name": "chipkit_uc32"},
+            {"name": "uc32_pmod"},
+            {"name": "uno_pic32"},
+            {"name": "uno_pmod"},
+            {"name": "chipkit_WF32"},
+            {"name": "chipkit_WiFire"},
+            {"name": "chipkit_WiFire_80MHz"},
+            {"name": "OpenScope"},
+            {"name": "openbci"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "chipKIT",
+              "version": "4.8.3-pic32gcc",
+              "name": "pic32-tools"
+            }, 
+            {
+              "packager": "chipKIT",
+              "version": "v2.0.220-pic32gcc",
+              "name": "pic32prog"
+            },
+            {
+              "packager": "chipKIT",
+              "version": "v1",
+              "name": "drivers-windows"
+            }
+          ]
+        },
+        {
+          "name": "chipKIT",
+          "architecture": "pic32",
           "version": "1.1.0",
           "category": "pic32",
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.1.0/chipkit-core-16778040.master-v1.1.0-14-gefc7212.zip",
@@ -180,6 +249,47 @@
               "host": "i686-arm-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz",
               "size": "97933297"
+            }
+          ]
+        },
+        {
+          "name": "pic32prog",
+          "version": "v2.0.220-pic32gcc",
+          "systems": [
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-macosx.tar.gz",
+              "archiveFileName": "pic32prog-macosx.tar.gz",
+              "size": "184974",
+              "checksum": "SHA-256:ed47999be31cc50cd083f7d16c909a3aeb59366f87fb17c3726287dc4bb49319"
+            }, 
+            {
+              "host": "x86_64-linux-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux64.tar.gz",
+              "archiveFileName": "pic32prog-linux64.tar.gz",
+              "size": "106598",
+              "checksum": "SHA-256:edf0c3d363506ee293fbba25104af183263cca5c8e422fec18d9522357685b50"
+            }, 
+            {
+              "host": "i686-pc-linux-gnu", 
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux32.tar.gz",
+              "archiveFileName": "pic32prog-linux32.tar.gz",
+              "size": "110579",
+              "checksum": "SHA-256:7e715d33e87ebbcd114be8388ff96e10d6c01954e281137496fcef496a1e0957"
+            }, 
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-windows.zip",
+              "archiveFileName": "pic32prog-windows.zip",
+              "size": "108652",
+              "checksum": "SHA-256:5B82FF78C44F03E01A14E657875638C05032BDCC5CEB20244C52DADE2120DB5D"
+            }, 
+            {
+              "host": "i686-arm-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-armlinux.tar.gz",
+              "archiveFileName": "pic32prog-armlinux.tar.gz",
+              "size": "120325",
+              "checksum": "SHA-256:fc7db1a43ebf06e7105ac2a112aad90731f9b54790960087161ae5b8767120e4"
             }
           ]
         },
