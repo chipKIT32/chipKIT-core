@@ -74,10 +74,9 @@ static void (*onReceiveServiceR) (uint8_t*, int) = NULL;
 static void (*onRequestServiceR)(void)           = NULL;
 static uint32_t iSessionCur                     = 0xFF;
 
-static void onI2C(int id, void * tptr)
+static void onI2C(int id __attribute__((unused)), void * tptr __attribute__((unused)))
 {
     DTWI::I2C_STATUS status = di2c.getStatus();
-    uint8_t data;
 
     if(status.fSlave)
     {
@@ -341,7 +340,7 @@ uint8_t TwoWire::read(void)
 }
 
 // behind the scenes function that is called when data is received
-void TwoWire::onReceiveService(uint8_t* inBytes, int numBytes)
+void TwoWire::onReceiveService(uint8_t* inBytes __attribute__((unused)), int numBytes)
 {
   // don't bother if user hasn't registered a callback
   if(!user_onReceive){
