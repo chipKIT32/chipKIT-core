@@ -69,8 +69,10 @@ typedef struct MACADDR_T
      };
 } MACADDR;
 
-#define MACBROADCAST    ((MACADDR) {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF})    // RFC 894
-#define MACNONE         ((MACADDR) {0x00, 0x00, 0x00, 0x00, 0x00, 0x00})    // RFC 894
+//#define MACBROADCAST    ((MACADDR) {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF})    // RFC 894
+//#define MACNONE         ((MACADDR) {0x00, 0x00, 0x00, 0x00, 0x00, 0x00})    // RFC 894
+extern const MACADDR MACBROADCAST;
+extern const MACADDR MACNONE;     
 
 #define ethertypeNone               0x0000
 #define ethertypeUniversalPacket    0x0200
@@ -232,6 +234,7 @@ typedef struct LLADP_T
     IPv4or6                 submask;
     IPv4or6                 ipGateway;
 } LLADP;
+
 
 void LLInitAdaptorList(void);
 int32_t ExEthernetFrameHeader(void * pv, uint32_t cb, bool fStartsInMachineOrder);

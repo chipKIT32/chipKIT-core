@@ -293,7 +293,7 @@ void * RRHPAlloc(HRRHEAP hHeap, uint16_t cbAlloc)
             if(phpenCur->cbData >= cbAlloc)
             {
                 // only take what we need
-                if((phpenCur->cbData - cbAlloc) >= (sizeof(RRHE) + RRHPcbMinEn))
+                if((phpenCur->cbData - cbAlloc) >= (uint16_t) (sizeof(RRHE) + RRHPcbMinEn))
                 {
                     RRHE * phpenNext = (RRHE *) (phpenCur->rgbData + cbAlloc);
                     phpenNext->cbData = phpenCur->cbData - cbAlloc - sizeof(RRHE);
@@ -563,7 +563,7 @@ uint16_t SMGRCopyInOut(HSMGR hSMGR, bool fIn, uint16_t index, void * pb, uint16_
         for(i=iPage; i<iPageEnd; i++)
         {
             uint32_t j = i % cPagesT;                                       // wrap the index
-            uint16_t cbCopyThisPass = min(cbPage - oPage, cb - cbCopy);     // cal the nbr of byte to copy into the page
+            uint16_t cbCopyThisPass = min((uint16_t) (cbPage - oPage), (uint16_t) (cb - cbCopy));     // cal the nbr of byte to copy into the page
 
             if(fIn)
             {
@@ -595,7 +595,7 @@ uint16_t SMGRCopyInOut(HSMGR hSMGR, bool fIn, uint16_t index, void * pb, uint16_
         }
 
         // push the end out if we grew
-        if(fIn & (iStart + cbCopy) > pSMGR->iEnd)
+        if(fIn && ((iStart + cbCopy) > pSMGR->iEnd))
         {
             pSMGR->iEnd = iStart + cbCopy;
         }

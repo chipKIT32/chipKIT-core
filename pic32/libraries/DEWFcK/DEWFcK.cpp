@@ -87,7 +87,7 @@ bool DEWFcK::deIPInit(void)
 
 bool DEWFcK::isWFInitialized(void)
 {
-    isWFInitialized(NULL);
+    return(isWFInitialized(NULL));
 }
 bool DEWFcK::isWFInitialized(IPSTATUS * pStatus)
 {

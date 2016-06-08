@@ -45,11 +45,19 @@
 /*    7/19/2013(KeithV): Created                                         */
 /************************************************************************/
 #include    <HTTPServer.h>
+#include    <DSDVOL.h>
 
 /************************************************************************/
 /*    SD Card Reader variables                                          */
 /************************************************************************/
-#define pinSdCs PIN_SDCS
+// create the sd volume and a file instance to use
+DefineSDSPI(dSDSpi);            // Macro from Board_Defs.h to create an SPI object to the uSD
+DefineDSDVOL(dSDVol, dSDSpi);   // Macro from Board_Defs.h to create an DSDVOL object to the uSD
+DFILE       dFile;              // Create a File handle to use to open files with
+
+// the drive to mount the SD volume too.
+// options are: "0:", "1:", "2:", "3:", "4:"
+static const char szDriveNbr[] = "0:";
 
 // used externally to this file
 // this should not be used externally directly
@@ -57,9 +65,6 @@
 bool fSDfs = false;
 uint32_t sdLockCur = SDUNLOCKED;
 uint32_t sdLock = 1;
-
-// you can use this directly externally only if you "take" the card reader
-File fileSD = File();
 
 static const char * szFileName      = NULL;
 static const char   szDefaultPage[] = "HomePage.htm";
@@ -86,6 +91,28 @@ typedef enum {
     DONE
  } STATE;
 
+ /***    uint32_t SDRead(File fileSD, uint8_t * pbRead, uint32_t cbRead)
+ *
+ *    Parameters:
+ *          fileSD: An open SD file to read from, you must set the positon before calling SDRead
+ *          pbRead: A pointer to a buffer to receive the data read
+ *          cbRead: Max size of pbRead buffer
+ *              
+ *    Return Values:
+ *          How many bytes were actually read.
+ *
+ *    Description: 
+ *    
+ *      Helper routine to read a buffer from a file.
+ * ------------------------------------------------------------ */
+uint32_t SDRead(DFILE& dFile, uint8_t * pbRead, uint32_t cbRead)
+ {
+    uint32_t cbA = min(min(dFile.fssize(), cbRead), DFILE::FS_DEFAULT_BUFF_SIZE);
+
+    dFile.fsread(pbRead, cbA, &cbRead);
+    return(cbRead);
+ }
+
 /***    void SDSetup(void)
  *
  *    Parameters:
@@ -101,39 +128,47 @@ typedef enum {
  * ------------------------------------------------------------ */
 void SDSetup(void)
 {
+    FRESULT fr = FR_OK;
+
     // set up the lock counters
     sdLockCur   = SDUNLOCKED;
     sdLock      = SDUNLOCKED + 1; // never want this to be zero
 
-    // Set the pin used to control the SS line on the SD card to output.
-    digitalWrite(pinSdCs, HIGH);
-    pinMode(pinSdCs, OUTPUT);
-
-    // See if there is an SD card connected
-    // and that the motion subdirectory exists
-    fSDfs = false;
-    if (SD.begin(pinSdCs))
+    // Mount the SD Vol to drive "0" as known by FATFS
+    // Note that there is only one global pre initialized dFatFs instance
+    if((fr = DFATFS::fsmount (dSDVol, szDriveNbr, 1)) == FR_OK)
     {
 	    // Card successfully initialized, so we have a file system.
-    	Serial.println("SD card initialized. File system found.");
-
-        if(SD.exists((char *) szDefaultPage))
-        {
-            Serial.print("Default HTML page:");
-            Serial.print(szDefaultPage);
-            Serial.println(" exists!");
-            fSDfs = true;
-        }
-
-        else
-        {
-            Serial.print("Unable to find default HTML page:");
-            Serial.println(szDefaultPage);
-        }
+    	Serial.println("SD card initialized.");
+        Serial.print("Drive ");
+        Serial.print(szDriveNbr);
+        Serial.println(" mounted!");
     }
     else
     {
-            Serial.println("Unable to find SD Card Reader or filesystem");
+        Serial.print("Failed to mount drive ");
+        Serial.println(szDriveNbr);
+        Serial.print("Error: ");
+        Serial.println((int) fr, DEC);
+        return;
+    }
+
+    // Open the file on the current (implied) drive "0"
+    if((fr = dFile.fsopen(szDefaultPage, FA_READ)) == FR_OK)
+    {
+        Serial.print("Default HTML page:");
+        Serial.print(szDefaultPage);
+        Serial.println(" exists!");
+        fSDfs = true;
+        dFile.fsclose();
+    }
+    else
+    {
+        Serial.print("Unable to find default HTML page:");
+        Serial.println(szDefaultPage);
+        Serial.print("Error: ");
+        Serial.println((int) fr, DEC);
+        return;
     }
 }
 
@@ -218,7 +253,7 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
             Serial.print("SD FileName:");
             Serial.println(szFileName);
 
-            if(SD.exists((char *) szFileName))
+            if(dFile.fsopen(szFileName, FA_READ) == FR_OK)
             {
                 Serial.print("HTML page:");
                 Serial.print(szFileName);
@@ -237,9 +272,9 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
         // We need to build the HTTP directive
         case BUILDHTTP:
 
-            if((fileSD = SD.open(szFileName, FILE_READ)) && fileSD.seek(0) )
+            if(dFile && (dFile.fslseek(0) == FR_OK))
             {
-                pClientInfo->cbWrite = BuildHTTPOKStr(false, fileSD.size(), szFileName, (char *) pClientInfo->rgbOut, sizeof(pClientInfo->rgbOut));
+                pClientInfo->cbWrite = BuildHTTPOKStr(false, dFile.fssize(), szFileName, (char *) pClientInfo->rgbOut, sizeof(pClientInfo->rgbOut));
                 if(pClientInfo->cbWrite > 0)
                 {
                     pClientInfo->pbOut = pClientInfo->rgbOut;
@@ -271,7 +306,7 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
             {
                 uint32_t    cbT = 0;
 
-                if((cbT = SDRead(fileSD, pClientInfo->rgbOut, sizeof(pClientInfo->rgbOut))) > 0)
+                if((cbT = SDRead(dFile, pClientInfo->rgbOut, sizeof(pClientInfo->rgbOut))) > 0)
                 {
                     cbSent += cbT;
                     pClientInfo->pbOut = pClientInfo->rgbOut;
@@ -279,7 +314,7 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
                     tStart = millis();
                     retCMD = GCMD::WRITE;
                 }
-                else if(cbSent == fileSD.size())
+                else if(cbSent == dFile.fssize())
                 {
                    pClientInfo->htmlState = EXIT;
                 }
@@ -297,9 +332,13 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
 
         case JMPFILENOTFOUND:
             Serial.println("Jumping to HTTP File Not Found page");
+
             if(isMySD(sdLockId))
             {
-                fileSD.close();
+                if(dFile)
+                {
+                    dFile.fsclose();
+                }
                 sdLockId = unlockSD(sdLockId);
             }
             pClientMutex = NULL;
@@ -318,7 +357,10 @@ GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo)
                 Serial.println((uint32_t) pClientMutex, HEX);
                 if(isMySD(sdLockId))
                 {
-                    fileSD.close();
+                    if(dFile)
+                    {
+                        dFile.fsclose();
+                    }
                     sdLockId = unlockSD(sdLockId);
                 }
                 pClientMutex = NULL;

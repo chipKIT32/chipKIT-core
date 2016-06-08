@@ -186,7 +186,7 @@ void TCPSocket::discardReadBuffer(void)
 **      This call is safe to make without checking the connection status.
 **
 */
-size_t TCPSocket::available(void)
+int TCPSocket::available(void)
 {
     return(TCPAvailable(&_socket, NULL));
 }
@@ -265,7 +265,7 @@ size_t TCPSocket::peekStream(byte *rgbPeek, size_t cbPeekMax, size_t index)
 
     if(cbReady > 0 )
     {
-        cbReady = cbReady < cbPeekMax ? cbReady : cbPeekMax;
+        cbReady = cbReady < (int32_t) cbPeekMax ? cbReady : cbPeekMax;
         return(TCPPeekIdx(&_socket, index, rgbPeek, cbReady, NULL));
     }
 

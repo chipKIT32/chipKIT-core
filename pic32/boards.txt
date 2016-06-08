@@ -4,16 +4,18 @@ cerebot32mx4.group=Cerebot
 
 # new items
 cerebot32mx4.platform=pic32
-cerebot32mx4.board=_BOARD_CEREBOT_32MX4_
-cerebot32mx4.build.board=BOARD_CEREBOT_32MX4_
+cerebot32mx4.build.board=_BOARD_CEREBOT_32MX4_
 
-cerebot32mx4.board.define=
 cerebot32mx4.ccflags=ffff
 cerebot32mx4.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot32mx4.compiler.c.extra_flags=-G1024
+cerebot32mx4.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot32mx4.upload.protocol=stk500v2
 cerebot32mx4.upload.maximum_size=520192
+cerebot32mx4.upload.maximum_data_size=32768
 cerebot32mx4.upload.speed=115200
 cerebot32mx4.upload.tool=pic32prog
 
@@ -21,8 +23,8 @@ cerebot32mx4.upload.tool=pic32prog
 cerebot32mx4.bootloader.low_fuses=0xff
 cerebot32mx4.bootloader.high_fuses=0xdd
 cerebot32mx4.bootloader.extended_fuses=0x00
-cerebot32mx4.bootloader.path=not-supported
-cerebot32mx4.bootloader.file=not-supported
+#cerebot32mx4.bootloader.path=not-supported
+#cerebot32mx4.bootloader.file=not-supported
 cerebot32mx4.bootloader.unlock_bits=0x3F
 cerebot32mx4.bootloader.lock_bits=0x0F
 
@@ -38,24 +40,23 @@ cerebot32mx7.group=Cerebot
 
 # new items
 cerebot32mx7.platform=pic32
-cerebot32mx7.board=_BOARD_CEREBOT_32MX7_
 cerebot32mx7.build.board=_BOARD_CEREBOT_32MX7_
 
-cerebot32mx7.board.define=
 cerebot32mx7.ccflags=ffff
 cerebot32mx7.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
 cerebot32mx7.upload.protocol=stk500v2
 cerebot32mx7.upload.maximum_size=520192
+cerebot32mx7.upload.maximum_data_size=131072
 cerebot32mx7.upload.speed=115200
 cerebot32mx7.upload.tool=pic32prog
 
 cerebot32mx7.bootloader.low_fuses=0xff
 cerebot32mx7.bootloader.high_fuses=0xdd
 cerebot32mx7.bootloader.extended_fuses=0x00
-cerebot32mx7.bootloader.path=not-supported
-cerebot32mx7.bootloader.file=not-supported
+#cerebot32mx7.bootloader.path=not-supported
+#cerebot32mx7.bootloader.file=not-supported
 cerebot32mx7.bootloader.unlock_bits=0x3F
 cerebot32mx7.bootloader.lock_bits=0x0F
 
@@ -71,30 +72,26 @@ cerebot_mx3ck.group=Cerebot
 
 # new items
 cerebot_mx3ck.platform=pic32
-cerebot_mx3ck.board=_BOARD_CEREBOT_MX3CK_
-cerebot_mx3ck.build.board=BOARD_CEREBOT_MX3CK_
+cerebot_mx3ck.build.board=_BOARD_CEREBOT_MX3CK_
 
-cerebot_mx3ck.board.define=
 cerebot_mx3ck.ccflags=ffff
 cerebot_mx3ck.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx3ck.compiler.c.extra_flags=-G1024
+cerebot_mx3ck.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-cerebot_mx3ck.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-cerebot_mx3ck.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 cerebot_mx3ck.upload.protocol=stk500v2
 cerebot_mx3ck.upload.maximum_size=126976
+cerebot_mx3ck.upload.maximum_data_size=16384
 cerebot_mx3ck.upload.speed=115200
 cerebot_mx3ck.upload.tool=pic32prog
 
 cerebot_mx3ck.bootloader.low_fuses=0xff
 cerebot_mx3ck.bootloader.high_fuses=0xdd
 cerebot_mx3ck.bootloader.extended_fuses=0x00
-cerebot_mx3ck.bootloader.path=not-supported
-cerebot_mx3ck.bootloader.file=not-supported
+#cerebot_mx3ck.bootloader.path=not-supported
+#cerebot_mx3ck.bootloader.file=not-supported
 cerebot_mx3ck.bootloader.unlock_bits=0x3F
 cerebot_mx3ck.bootloader.lock_bits=0x0F
 
@@ -109,30 +106,26 @@ chipkit_mx3.group=chipKIT
 
 # new items
 chipkit_mx3.platform=pic32
-chipkit_mx3.board=_BOARD_CEREBOT_MX3CK_
-chipkit_mx3.build.board=BOARD_CEREBOT_MX3CK_
+chipkit_mx3.build.board=_BOARD_CEREBOT_MX3CK_
 
-chipkit_mx3.board.define=
 chipkit_mx3.ccflags=ffff
 chipkit_mx3.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_mx3.compiler.c.extra_flags=-G1024
+chipkit_mx3.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_mx3.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-chipkit_mx3.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 chipkit_mx3.upload.protocol=stk500v2
 chipkit_mx3.upload.maximum_size=126976
+chipkit_mx3.upload.maximum_data_size=16384
 chipkit_mx3.upload.speed=115200
 chipkit_mx3.upload.tool=pic32prog
 
 chipkit_mx3.bootloader.low_fuses=0xff
 chipkit_mx3.bootloader.high_fuses=0xdd
 chipkit_mx3.bootloader.extended_fuses=0x00
-chipkit_mx3.bootloader.path=not-supported
-chipkit_mx3.bootloader.file=not-supported
+#chipkit_mx3.bootloader.path=not-supported
+#chipkit_mx3.bootloader.file=not-supported
 chipkit_mx3.bootloader.unlock_bits=0x3F
 chipkit_mx3.bootloader.lock_bits=0x0F
 
@@ -149,29 +142,25 @@ cerebot_mx3ck_512.group=Cerebot
 
 # new items
 cerebot_mx3ck_512.platform=pic32
-cerebot_mx3ck_512.board=_BOARD_CEREBOT_MX3CK_512_
-cerebot_mx3ck_512.build.board=BOARD_CEREBOT_MX3CK_512_
-cerebot_mx3ck_512.board.define=
+cerebot_mx3ck_512.build.board=_BOARD_CEREBOT_MX3CK_512_
 cerebot_mx3ck_512.ccflags=ffff
 cerebot_mx3ck_512.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx3ck_512.compiler.c.extra_flags=-G1024
+cerebot_mx3ck_512.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-cerebot_mx3ck_512.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-cerebot_mx3ck_512.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 cerebot_mx3ck_512.upload.protocol=stk500v2
 cerebot_mx3ck_512.upload.maximum_size=520192
+cerebot_mx3ck_512.upload.maximum_data_size=32768
 cerebot_mx3ck_512.upload.speed=115200
 cerebot_mx3ck_512.upload.tool=pic32prog
 
 cerebot_mx3ck_512.bootloader.low_fuses=0xff
 cerebot_mx3ck_512.bootloader.high_fuses=0xdd
 cerebot_mx3ck_512.bootloader.extended_fuses=0x00
-cerebot_mx3ck_512.bootloader.path=not-supported
-cerebot_mx3ck_512.bootloader.file=not-supported
+#cerebot_mx3ck_512.bootloader.path=not-supported
+#cerebot_mx3ck_512.bootloader.file=not-supported
 cerebot_mx3ck_512.bootloader.unlock_bits=0x3F
 cerebot_mx3ck_512.bootloader.lock_bits=0x0F
 
@@ -187,23 +176,25 @@ cerebot_mx4ck.group=Cerebot
 
 # new items
 cerebot_mx4ck.platform=pic32
-cerebot_mx4ck.board=_BOARD_CEREBOT_MX4CK_
-cerebot_mx4ck.build.board=BOARD_CEREBOT_MX4CK_
-cerebot_mx4ck.board.define=
+cerebot_mx4ck.build.board=_BOARD_CEREBOT_MX4CK_
 cerebot_mx4ck.ccflags=ffff
 cerebot_mx4ck.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cerebot_mx4ck.compiler.c.extra_flags=-G1024
+cerebot_mx4ck.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cerebot_mx4ck.upload.protocol=stk500v2
 cerebot_mx4ck.upload.maximum_size=520192
+cerebot_mx4ck.upload.maximum_data_size=32768
 cerebot_mx4ck.upload.speed=115200
 cerebot_mx4ck.upload.tool=pic32prog
 
 cerebot_mx4ck.bootloader.low_fuses=0xff
 cerebot_mx4ck.bootloader.high_fuses=0xdd
 cerebot_mx4ck.bootloader.extended_fuses=0x00
-cerebot_mx4ck.bootloader.path=not-supported
-cerebot_mx4ck.bootloader.file=not-supported
+#cerebot_mx4ck.bootloader.path=not-supported
+#cerebot_mx4ck.bootloader.file=not-supported
 cerebot_mx4ck.bootloader.unlock_bits=0x3F
 cerebot_mx4ck.bootloader.lock_bits=0x0F
 
@@ -218,15 +209,17 @@ chipkit_pro_mx4.group=chipKIT
 
 # new items
 chipkit_pro_mx4.platform=pic32
-chipkit_pro_mx4.board=_BOARD_CEREBOT_MX4CK_
-chipkit_pro_mx4.build.board=BOARD_CEREBOT_MX4CK_
-chipkit_pro_mx4.board.define=
+chipkit_pro_mx4.build.board=_BOARD_CEREBOT_MX4CK_
 chipkit_pro_mx4.ccflags=ffff
 chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_pro_mx4.compiler.c.extra_flags=-G1024
+chipkit_pro_mx4.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 chipkit_pro_mx4.upload.protocol=stk500v2
 chipkit_pro_mx4.upload.maximum_size=520192
+chipkit_pro_mx4.upload.maximum_data_size=32768
 chipkit_pro_mx4.upload.speed=115200
 chipkit_pro_mx4.upload.tool=pic32prog
 
@@ -234,8 +227,8 @@ chipkit_pro_mx4.upload.tool=pic32prog
 chipkit_pro_mx4.bootloader.low_fuses=0xff
 chipkit_pro_mx4.bootloader.high_fuses=0xdd
 chipkit_pro_mx4.bootloader.extended_fuses=0x00
-chipkit_pro_mx4.bootloader.path=not-supported
-chipkit_pro_mx4.bootloader.file=not-supported
+#chipkit_pro_mx4.bootloader.path=not-supported
+#chipkit_pro_mx4.bootloader.file=not-supported
 chipkit_pro_mx4.bootloader.unlock_bits=0x3F
 chipkit_pro_mx4.bootloader.lock_bits=0x0F
 
@@ -251,15 +244,14 @@ cerebot_mx7ck.group=Cerebot
 
 # new items
 cerebot_mx7ck.platform=pic32
-cerebot_mx7ck.board=_BOARD_CEREBOT_MX7CK_
-cerebot_mx7ck.build.board=BOARD_CEREBOT_MX7CK_
-cerebot_mx7ck.board.define=
+cerebot_mx7ck.build.board=_BOARD_CEREBOT_MX7CK_
 cerebot_mx7ck.ccflags=ffff
 cerebot_mx7ck.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
 cerebot_mx7ck.upload.protocol=stk500v2
 cerebot_mx7ck.upload.maximum_size=520192
+cerebot_mx7ck.upload.maximum_data_size=131072
 cerebot_mx7ck.upload.speed=115200
 cerebot_mx7ck.upload.tool=pic32prog
 
@@ -267,8 +259,8 @@ cerebot_mx7ck.upload.tool=pic32prog
 cerebot_mx7ck.bootloader.low_fuses=0xff
 cerebot_mx7ck.bootloader.high_fuses=0xdd
 cerebot_mx7ck.bootloader.extended_fuses=0x00
-cerebot_mx7ck.bootloader.path=not-supported
-cerebot_mx7ck.bootloader.file=not-supported
+#cerebot_mx7ck.bootloader.path=not-supported
+#cerebot_mx7ck.bootloader.file=not-supported
 cerebot_mx7ck.bootloader.unlock_bits=0x3F
 cerebot_mx7ck.bootloader.lock_bits=0x0F
 
@@ -283,15 +275,14 @@ chipkit_pro_mx7.group=chipKIT
 
 # new items
 chipkit_pro_mx7.platform=pic32
-chipkit_pro_mx7.board=_BOARD_CEREBOT_MX7CK_
-chipkit_pro_mx7.build.board=BOARD_CEREBOT_MX7CK_
-chipkit_pro_mx7.board.define=
+chipkit_pro_mx7.build.board=_BOARD_CEREBOT_MX7CK_
 chipkit_pro_mx7.ccflags=ffff
 chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
 chipkit_pro_mx7.upload.protocol=stk500v2
 chipkit_pro_mx7.upload.maximum_size=520192
+chipkit_pro_mx7.upload.maximum_data_size=131072
 chipkit_pro_mx7.upload.speed=115200
 chipkit_pro_mx7.upload.tool=pic32prog
 
@@ -299,8 +290,8 @@ chipkit_pro_mx7.upload.tool=pic32prog
 chipkit_pro_mx7.bootloader.low_fuses=0xff
 chipkit_pro_mx7.bootloader.high_fuses=0xdd
 chipkit_pro_mx7.bootloader.extended_fuses=0x00
-chipkit_pro_mx7.bootloader.path=not-supported
-chipkit_pro_mx7.bootloader.file=not-supported
+#chipkit_pro_mx7.bootloader.path=not-supported
+#chipkit_pro_mx7.bootloader.file=not-supported
 chipkit_pro_mx7.bootloader.unlock_bits=0x3F
 chipkit_pro_mx7.bootloader.lock_bits=0x0F
 
@@ -316,30 +307,26 @@ chipkit_Pi.group=chipKIT
 
 # new items
 chipkit_Pi.platform=pic32
-chipkit_Pi.board=_BOARD_CHIPKIT_PI_
-chipkit_Pi.build.board=BOARD_CHIPKIT_PI_
+chipkit_Pi.build.board=_BOARD_CHIPKIT_PI_
 chipkit_Pi.ccflags=-Map="map.map"
-chipkit_Pi.board.define=
 chipkit_Pi.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_Pi.compiler.c.extra_flags=-G1024
+chipkit_Pi.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_Pi.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-chipkit_Pi.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 chipkit_Pi.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_Pi.upload.maximum_size=122880
+chipkit_Pi.upload.maximum_data_size=32768
 chipkit_Pi.upload.speed=115200
 chipkit_Pi.upload.tool=pic32prog
 
 chipkit_Pi.bootloader.low_fuses=0xff
 chipkit_Pi.bootloader.high_fuses=0xdd
 chipkit_Pi.bootloader.extended_fuses=0x00
-chipkit_Pi.bootloader.path=not-supported
-chipkit_Pi.bootloader.file=not-supported
+#chipkit_Pi.bootloader.path=not-supported
+#chipkit_Pi.bootloader.file=not-supported
 chipkit_Pi.bootloader.unlock_bits=0x3F
 chipkit_Pi.bootloader.lock_bits=0x0F
 
@@ -355,24 +342,20 @@ chipkit_Pi_USB_Serial.group=chipKIT
 
 # new items
 chipkit_Pi_USB_Serial.platform=pic32
-chipkit_Pi_USB_Serial.board=_BOARD_CHIPKIT_PI_
-chipkit_Pi_USB_Serial.build.board=BOARD_CHIPKIT_PI_
-chipkit_Pi_USB_Serial.board.define=-D_USE_USB_FOR_SERIAL_
+chipkit_Pi_USB_Serial.build.board=_BOARD_CHIPKIT_PI_
 chipkit_Pi_USB_Serial.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 chipkit_Pi_USB_Serial.ccflags=-Map="map.map"
 chipkit_Pi_USB_Serial.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_Pi_USB_Serial.compiler.c.extra_flags=-G1024
+chipkit_Pi_USB_Serial.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_Pi_USB_Serial.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-chipkit_Pi_USB_Serial.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 chipkit_Pi_USB_Serial.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_Pi_USB_Serial.upload.maximum_size=122880
+chipkit_Pi_USB_Serial.upload.maximum_data_size=32768
 chipkit_Pi_USB_Serial.upload.speed=115200
 chipkit_Pi_USB_Serial.upload.tool=pic32prog
 
@@ -380,8 +363,8 @@ chipkit_Pi_USB_Serial.upload.tool=pic32prog
 chipkit_Pi_USB_Serial.bootloader.low_fuses=0xff
 chipkit_Pi_USB_Serial.bootloader.high_fuses=0xdd
 chipkit_Pi_USB_Serial.bootloader.extended_fuses=0x00
-chipkit_Pi_USB_Serial.bootloader.path=not-supported
-chipkit_Pi_USB_Serial.bootloader.file=not-supported
+#chipkit_Pi_USB_Serial.bootloader.path=not-supported
+#chipkit_Pi_USB_Serial.bootloader.file=not-supported
 chipkit_Pi_USB_Serial.bootloader.unlock_bits=0x3F
 chipkit_Pi_USB_Serial.bootloader.lock_bits=0x0F
 
@@ -397,30 +380,26 @@ cmod.group=chipKIT
 
 # new items
 cmod.platform=pic32
-cmod.board=_BOARD_CMOD_
-cmod.build.board=BOARD_CMOD_
-cmod.board.define=
+cmod.build.board=_BOARD_CMOD_
 cmod.ccflags=ffff
 cmod.ldscript=chipKIT-application-32MX150F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cmod.compiler.c.extra_flags=-G1024
+cmod.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-cmod.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-cmod.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 cmod.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM
 cmod.upload.maximum_size=126976
+cmod.upload.maximum_data_size=32768
 cmod.upload.speed=115200
 cmod.upload.tool=pic32prog
 
 cmod.bootloader.low_fuses=0xff
 cmod.bootloader.high_fuses=0xdd
 cmod.bootloader.extended_fuses=0x00
-cmod.bootloader.path=not-supported
-cmod.bootloader.file=not-supported
+#cmod.bootloader.path=not-supported
+#cmod.bootloader.file=not-supported
 cmod.bootloader.unlock_bits=0x3F
 cmod.bootloader.lock_bits=0x0F
 
@@ -437,9 +416,7 @@ CUI32stem.group=CUI32
 
 # new items
 CUI32stem.platform=pic32
-CUI32stem.board=_BOARD_CUI32_
-CUI32stem.build.board=BOARD_CUI32_
-CUI32stem.board.define=-D_USE_USB_FOR_SERIAL_
+CUI32stem.build.board=_BOARD_CUI32_
 CUI32stem.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 CUI32stem.ccflags=ffff
@@ -448,6 +425,7 @@ CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
 
 CUI32stem.upload.protocol=stk500v2
 CUI32stem.upload.maximum_size=520192
+CUI32stem.upload.maximum_data_size=131072
 CUI32stem.upload.speed=115200
 CUI32stem.upload.tool=pic32prog
 
@@ -455,8 +433,8 @@ CUI32stem.upload.tool=pic32prog
 CUI32stem.bootloader.low_fuses=0xff
 CUI32stem.bootloader.high_fuses=0xdd
 CUI32stem.bootloader.extended_fuses=0x00
-CUI32stem.bootloader.path=not-supported
-CUI32stem.bootloader.file=not-supported
+#CUI32stem.bootloader.path=not-supported
+#CUI32stem.bootloader.file=not-supported
 CUI32stem.bootloader.unlock_bits=0x3F
 CUI32stem.bootloader.lock_bits=0x0F
 
@@ -472,25 +450,27 @@ ubw32_mx460.group=UBW32
 
 # new items
 ubw32_mx460.platform=pic32
-ubw32_mx460.board=_BOARD_UBW32_MX460_
-ubw32_mx460.build.board=BOARD_UBW32_MX460_
-ubw32_mx460.board.define=-D_USE_USB_FOR_SERIAL_
+ubw32_mx460.build.board=_BOARD_UBW32_MX460_
 ubw32_mx460.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 ubw32_mx460.ccflags=ffff
 ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+ubw32_mx460.compiler.c.extra_flags=-G1024
+ubw32_mx460.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 ubw32_mx460.upload.protocol=stk500v2
 ubw32_mx460.upload.maximum_size=520192
+ubw32_mx460.upload.maximum_data_size=32768
 ubw32_mx460.upload.speed=115200
 ubw32_mx460.upload.tool=pic32prog
 
 ubw32_mx460.bootloader.low_fuses=0xff
 ubw32_mx460.bootloader.high_fuses=0xdd
 ubw32_mx460.bootloader.extended_fuses=0x00
-ubw32_mx460.bootloader.path=not-supported
-ubw32_mx460.bootloader.file=not-supported
+#ubw32_mx460.bootloader.path=not-supported
+#ubw32_mx460.bootloader.file=not-supported
 ubw32_mx460.bootloader.unlock_bits=0x3F
 ubw32_mx460.bootloader.lock_bits=0x0F
 
@@ -505,9 +485,7 @@ ubw32_mx795.group=UBW32
 
 # new items
 ubw32_mx795.platform=pic32
-ubw32_mx795.board=_BOARD_UBW32_MX795_
-ubw32_mx795.build.board=BOARD_UBW32_MX795_
-ubw32_mx795.board.define=-D_USE_USB_FOR_SERIAL_
+ubw32_mx795.build.board=_BOARD_UBW32_MX795_
 ubw32_mx795.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 ubw32_mx795.ccflags=ffff
@@ -516,6 +494,7 @@ ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
 
 ubw32_mx795.upload.protocol=stk500v2
 ubw32_mx795.upload.maximum_size=520192
+ubw32_mx795.upload.maximum_data_size=131072
 ubw32_mx795.upload.speed=115200
 ubw32_mx795.upload.tool=pic32prog
 
@@ -523,8 +502,8 @@ ubw32_mx795.upload.tool=pic32prog
 ubw32_mx795.bootloader.low_fuses=0xff
 ubw32_mx795.bootloader.high_fuses=0xdd
 ubw32_mx795.bootloader.extended_fuses=0x00
-ubw32_mx795.bootloader.path=not-supported
-ubw32_mx795.bootloader.file=not-supported
+#ubw32_mx795.bootloader.path=not-supported
+#ubw32_mx795.bootloader.file=not-supported
 ubw32_mx795.bootloader.unlock_bits=0x3F
 ubw32_mx795.bootloader.lock_bits=0x0F
 
@@ -540,24 +519,26 @@ cui32.group=CUI32
 
 # new items
 cui32.platform=pic32
-cui32.board=_BOARD_CUI32_
-cui32.build.board=BOARD_CUI32_
-cui32.board.define=-D_USE_USB_FOR_SERIAL_
+cui32.build.board=_BOARD_CUI32_
 cui32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 cui32.ccflags=ffff
 cui32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cui32.compiler.c.extra_flags=-G1024
+cui32.compiler.cpp.extra_flags=-G1024
 # end of new items
 
 cui32.upload.protocol=stk500v2
 cui32.upload.maximum_size=520192
+cui32.upload.maximum_data_size=32768
 cui32.upload.speed=115200
 cui32.upload.tool=pic32prog
 
 cui32.bootloader.low_fuses=0xff
 cui32.bootloader.high_fuses=0xdd
 cui32.bootloader.extended_fuses=0x00
-cui32.bootloader.path=not-supported
-cui32.bootloader.file=not-supported
+#cui32.bootloader.path=not-supported
+#cui32.bootloader.file=not-supported
 cui32.bootloader.unlock_bits=0x3F
 cui32.bootloader.lock_bits=0x0F
 
@@ -572,22 +553,19 @@ usbono_pic32.group=PONTECH
 
 # new items
 usbono_pic32.platform=pic32
-usbono_pic32.board=_BOARD_PONTECH_UAV100_
-usbono_pic32.build.board=BOARD_PONTECH_UAV100_
-usbono_pic32.compiler.define=-D_USE_USB_FOR_SERIAL_ -Danything=1
+usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
+usbono_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_ -Danything=1
 usbono_pic32.ccflags=ffff
 usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+usbono_pic32.compiler.c.extra_flags=-G1024
+usbono_pic32.compiler.cpp.extra_flags=-G1024
 #chipKIT-UNO32-application-32MX320F128L.ld
 # end of new items
 
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-#usbono_pic32.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-#usbono_pic32.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-
 usbono_pic32.upload.protocol=stk500v2
 usbono_pic32.upload.maximum_size=520192
+usbono_pic32.upload.maximum_data_size=32768
 usbono_pic32.upload.speed=115200
 usbono_pic32.upload.tool=pic32prog
 
@@ -595,15 +573,15 @@ usbono_pic32.upload.tool=pic32prog
 usbono_pic32.bootloader.low_fuses=0xff
 usbono_pic32.bootloader.high_fuses=0xdd
 usbono_pic32.bootloader.extended_fuses=0x00
-usbono_pic32.bootloader.path=not-supported
-usbono_pic32.bootloader.file=not-supported
+#usbono_pic32.bootloader.path=not-supported
+#usbono_pic32.bootloader.file=not-supported
 usbono_pic32.bootloader.unlock_bits=0x3F
 usbono_pic32.bootloader.lock_bits=0x0F
 
 usbono_pic32.build.mcu=32MX440F512H
 usbono_pic32.build.f_cpu=80000000L
 usbono_pic32.build.core=pic32
-usbono_pic32.build.variant=Default_64
+usbono_pic32.build.variant=PONTECH_UAV100
 #usbono_pic32.build.variant=Uno32
 
 ############################################################
@@ -613,24 +591,20 @@ chipkit_DP32.group=chipKIT
 
 # new items
 chipkit_DP32.platform=pic32
-chipkit_DP32.board=_BOARD_DP32_
-chipkit_DP32.build.board=BOARD_DP32_
-chipkit_DP32.board.define=-D_USE_USB_FOR_SERIAL_
+chipkit_DP32.build.board=_BOARD_DP32_
 chipkit_DP32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 chipkit_DP32.ccflags=-Map="map.map"
 chipkit_DP32.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_DP32.compiler.c.extra_flags=-G1024
+chipkit_DP32.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_DP32.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-chipkit_DP32.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 chipkit_DP32.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 chipkit_DP32.upload.maximum_size=122880
+chipkit_DP32.upload.maximum_data_size=32768
 chipkit_DP32.upload.speed=115200
 chipkit_DP32.upload.tool=pic32prog
 
@@ -638,8 +612,8 @@ chipkit_DP32.upload.tool=pic32prog
 chipkit_DP32.bootloader.low_fuses=0xff
 chipkit_DP32.bootloader.high_fuses=0xdd
 chipkit_DP32.bootloader.extended_fuses=0x00
-chipkit_DP32.bootloader.path=not-supported
-chipkit_DP32.bootloader.file=not-supported
+#chipkit_DP32.bootloader.path=not-supported
+#chipkit_DP32.bootloader.file=not-supported
 chipkit_DP32.bootloader.unlock_bits=0x3F
 chipkit_DP32.bootloader.lock_bits=0x0F
 
@@ -654,30 +628,27 @@ fubarino_mini_dev.name=Fubarino Mini (dev)
 fubarino_mini_dev.group=Fubarino
 
 fubarino_mini_dev.platform=pic32
-fubarino_mini_dev.board=_BOARD_FUBARINO_MINI_
-fubarino_mini_dev.build.board=BOARD_FUBARINO_MINI_
-fubarino_mini_dev.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_mini_dev.build.board=_BOARD_FUBARINO_MINI_
 fubarino_mini_dev.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_mini_dev.ccflags=-Map="map.map"
 fubarino_mini_dev.ldscript=chipKIT-application-32MX250F128.ld
 
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-fubarino_mini_dev.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-fubarino_mini_dev.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_mini_dev.compiler.c.extra_flags=-G1024
+fubarino_mini_dev.compiler.cpp.extra_flags=-G1024
 
 fubarino_mini_dev.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 fubarino_mini_dev.upload.maximum_size=122880
+fubarino_mini_dev.upload.maximum_data_size=32768
 fubarino_mini_dev.upload.speed=115200
 fubarino_mini_dev.upload.tool=pic32prog
 
 fubarino_mini_dev.bootloader.low_fuses=0xff
 fubarino_mini_dev.bootloader.high_fuses=0xdd
 fubarino_mini_dev.bootloader.extended_fuses=0x00
-fubarino_mini_dev.bootloader.path=not-supported
-fubarino_mini_dev.bootloader.file=not-supported
+#fubarino_mini_dev.bootloader.path=not-supported
+#fubarino_mini_dev.bootloader.file=not-supported
 fubarino_mini_dev.bootloader.unlock_bits=0x3F
 fubarino_mini_dev.bootloader.lock_bits=0x0F
 
@@ -691,31 +662,27 @@ fubarino_mini.name=Fubarino Mini
 fubarino_mini.group=Fubarino
 
 fubarino_mini.platform=pic32
-fubarino_mini.board=_BOARD_FUBARINO_MINI_
-fubarino_mini.build.board=BOARD_FUBARINO_MINI_
-fubarino_mini.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_mini.build.board=_BOARD_FUBARINO_MINI_
 fubarino_mini.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 fubarino_mini.ccflags=-Map="map.map"
 fubarino_mini.ldscript=chipKIT-application-32MX250F128.ld
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-fubarino_mini.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-fubarino_mini.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_mini.compiler.c.extra_flags=-G1024
+fubarino_mini.compiler.cpp.extra_flags=-G1024
 
 fubarino_mini.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 fubarino_mini.upload.maximum_size=122880
+fubarino_mini.upload.maximum_data_size=32768
 fubarino_mini.upload.speed=115200
 fubarino_mini.upload.tool=pic32prog
 
 fubarino_mini.bootloader.low_fuses=0xff
 fubarino_mini.bootloader.high_fuses=0xdd
 fubarino_mini.bootloader.extended_fuses=0x00
-fubarino_mini.bootloader.path=not-supported
-fubarino_mini.bootloader.file=not-supported
+#fubarino_mini.bootloader.path=not-supported
+#fubarino_mini.bootloader.file=not-supported
 fubarino_mini.bootloader.unlock_bits=0x3F
 fubarino_mini.bootloader.lock_bits=0x0F
 
@@ -729,23 +696,20 @@ fubarino_mini.build.variant=Fubarino_Mini
 #
 ## new items
 #fubarino_mini_dbg.platform=pic32
-#fubarino_mini_dbg.board=_BOARD_FUBARINO_MINI_
-#fubarino_mini_dbg.build.board=BOARD_FUBARINO_MINI_
-#fubarino_mini_dbg.board.define=-D_USE_USB_FOR_SERIAL_
+#fubarino_mini_dbg.build.board=_BOARD_FUBARINO_MINI_
 #fubarino_mini_dbg.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 #fubarino_mini_dbg.ccflags=-Map="map.map"
 #fubarino_mini_dbg.ldscript=chipKIT-application-32MX250F128-nobootloader.ld
 ## end of new items
 #
-## Use a high -Gnum for devices that have less than 64K of data memory
-## For -G1024, objects 1024 bytes or smaller will be accessed by
-## gp-relative addressing
-#fubarino_mini_dbg.compiler.c.flags=-O0 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-#fubarino_mini_dbg.compiler.cpp.flags=-O0 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 #fubarino_mini_dbg.upload.protocol=stk500v2
 ## 128KB - 4K for EEPROM - 4K for bootloader
 #fubarino_mini_dbg.upload.maximum_size=122880
+#fubarino_mini_dbg.upload.maximum_data_size=32768
 #fubarino_mini_dbg.upload.speed=115200
+## Use this -G1024 option ONLY for boards with 64K RAM or less
+#fubarino_mini_dbg.compiler.c.extra_flags=-G1024
+#fubarino_mini_dbg.compiler.cpp.extra_flags=-G1024
 #
 #fubarino_mini_dbg.bootloader.low_fuses=0xff
 #fubarino_mini_dbg.bootloader.high_fuses=0xdd
@@ -766,24 +730,27 @@ fubarino_sd_seeed.name=Fubarino SD (Seeed/1.4)
 fubarino_sd_seeed.group=Fubarino
 
 fubarino_sd_seeed.platform=pic32
-fubarino_sd_seeed.board=_BOARD_FUBARINO_SD_
-fubarino_sd_seeed.build.board=BOARD_FUBARINO_SD_
-fubarino_sd_seeed.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_sd_seeed.build.board=_BOARD_FUBARINO_SD_
 fubarino_sd_seeed.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_sd_seeed.compiler.c.extra_flags=-G1024
+fubarino_sd_seeed.compiler.cpp.extra_flags=-G1024
 
 fubarino_sd_seeed.ccflags=ffff
 fubarino_sd_seeed.ldscript=chipKIT-application-32MX440F256.ld
 
 fubarino_sd_seeed.upload.protocol=stk500v2
 fubarino_sd_seeed.upload.maximum_size=258048
+fubarino_sd_seeed.upload.maximum_data_size=32768
 fubarino_sd_seeed.upload.speed=115200
 fubarino_sd_seeed.upload.tool=pic32prog
 
 fubarino_sd_seeed.bootloader.low_fuses=0xff
 fubarino_sd_seeed.bootloader.high_fuses=0xdd
 fubarino_sd_seeed.bootloader.extended_fuses=0x00
-fubarino_sd_seeed.bootloader.path=not-supported
-fubarino_sd_seeed.bootloader.file=not-supported
+#fubarino_sd_seeed.bootloader.path=not-supported
+#fubarino_sd_seeed.bootloader.file=not-supported
 fubarino_sd_seeed.bootloader.unlock_bits=0x3F
 fubarino_sd_seeed.bootloader.lock_bits=0x0F
 
@@ -797,15 +764,14 @@ fubarino_sd.name=Fubarino SD (1.5)
 fubarino_sd.group=Fubarino
 
 fubarino_sd.platform=pic32
-fubarino_sd.board=_BOARD_FUBARINO_SD_
-fubarino_sd.build.board=BOARD_FUBARINO_SD_
-#fubarino_sd.board.define=-D_USE_USB_FOR_SERIAL_
+fubarino_sd.build.board=_BOARD_FUBARINO_SD_
 fubarino_sd.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_sd.ccflags=ffff
 fubarino_sd.ldscript=chipKIT-application-32MX795F512.ld
 
 fubarino_sd.upload.protocol=stk500v2
 fubarino_sd.upload.maximum_size=520192
+fubarino_sd.upload.maximum_data_size=131072
 fubarino_sd.upload.speed=115200
 fubarino_sd.upload.tool=pic32prog
 
@@ -813,8 +779,8 @@ fubarino_sd.upload.tool=pic32prog
 fubarino_sd.bootloader.low_fuses=0xff
 fubarino_sd.bootloader.high_fuses=0xdd
 fubarino_sd.bootloader.extended_fuses=0x00
-fubarino_sd.bootloader.path=not-supported
-fubarino_sd.bootloader.file=not-supported
+#fubarino_sd.bootloader.path=not-supported
+#fubarino_sd.bootloader.file=not-supported
 fubarino_sd.bootloader.unlock_bits=0x3F
 fubarino_sd.bootloader.lock_bits=0x0F
 
@@ -831,23 +797,22 @@ Fubarino_SDZ.group=Fubarino
 
 # new items
 Fubarino_SDZ.platform=pic32
-Fubarino_SDZ.board=_BOARD_FUBARINO_SDZ_
-Fubarino_SDZ.build.board=BOARD_FUBARINO_SDZ_
-Fubarino_SDZ.board.define=
+Fubarino_SDZ.build.board=_BOARD_FUBARINO_SDZ_
 Fubarino_SDZ.ccflags=ffff
 Fubarino_SDZ.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
 Fubarino_SDZ.upload.protocol=stk500v2
 Fubarino_SDZ.upload.maximum_size=2093056
+Fubarino_SDZ.upload.maximum_data_size=524288
 Fubarino_SDZ.upload.speed=115200
 Fubarino_SDZ.upload.tool=pic32prog
 
 Fubarino_SDZ.bootloader.low_fuses=0xff
 Fubarino_SDZ.bootloader.high_fuses=0xdd
 Fubarino_SDZ.bootloader.extended_fuses=0x00
-Fubarino_SDZ.bootloader.path=not-supported
-Fubarino_SDZ.bootloader.file=not-supported
+#Fubarino_SDZ.bootloader.path=not-supported
+#Fubarino_SDZ.bootloader.file=not-supported
 Fubarino_SDZ.bootloader.unlock_bits=0x3F
 Fubarino_SDZ.bootloader.lock_bits=0x0F
 
@@ -856,6 +821,7 @@ Fubarino_SDZ.build.f_cpu=200000000UL
 Fubarino_SDZ.build.core=pic32
 Fubarino_SDZ.ldcommon=chipKIT-application-COMMON-MZ.ld
 Fubarino_SDZ.build.variant=Fubarino_SDZ
+Fubarino_SDZ.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################
@@ -864,23 +830,22 @@ mega_pic32.group=chipKIT
 
 # new items
 mega_pic32.platform=pic32
-mega_pic32.board=_BOARD_MEGA_
-mega_pic32.build.board=BOARD_MEGA_
-mega_pic32.board.define=
+mega_pic32.build.board=_BOARD_MEGA_
 mega_pic32.ccflags=ffff
 mega_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
 mega_pic32.upload.protocol=stk500v2
 mega_pic32.upload.maximum_size=520192
+mega_pic32.upload.maximum_data_size=131072
 mega_pic32.upload.speed=115200
 mega_pic32.upload.tool=pic32prog
 
 mega_pic32.bootloader.low_fuses=0xff
 mega_pic32.bootloader.high_fuses=0xdd
 mega_pic32.bootloader.extended_fuses=0x00
-mega_pic32.bootloader.path=not-supported
-mega_pic32.bootloader.file=not-supported
+#mega_pic32.bootloader.path=not-supported
+#mega_pic32.bootloader.file=not-supported
 mega_pic32.bootloader.unlock_bits=0x3F
 mega_pic32.bootloader.lock_bits=0x0F
 
@@ -895,9 +860,7 @@ mega_usb_pic32.group=chipKIT
 
 # new items
 mega_usb_pic32.platform=pic32
-mega_usb_pic32.board=_BOARD_MEGA_
-mega_usb_pic32.build.board=BOARD_MEGA_
-mega_usb_pic32.board.define=-D_USE_USB_FOR_SERIAL_
+mega_usb_pic32.build.board=_BOARD_MEGA_
 mega_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 mega_usb_pic32.ccflags=ffff
 mega_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
@@ -905,14 +868,15 @@ mega_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 
 mega_usb_pic32.upload.protocol=stk500v2
 mega_usb_pic32.upload.maximum_size=520192
+mega_usb_pic32.upload.maximum_data_size=131072
 mega_usb_pic32.upload.speed=115200
 mega_usb_pic32.upload.tool=pic32prog
 
 mega_usb_pic32.bootloader.low_fuses=0xff
 mega_usb_pic32.bootloader.high_fuses=0xdd
 mega_usb_pic32.bootloader.extended_fuses=0x00
-mega_usb_pic32.bootloader.path=not-supported
-mega_usb_pic32.bootloader.file=not-supported
+#mega_usb_pic32.bootloader.path=not-supported
+#mega_usb_pic32.bootloader.file=not-supported
 mega_usb_pic32.bootloader.unlock_bits=0x3F
 mega_usb_pic32.bootloader.lock_bits=0x0F
 
@@ -927,23 +891,26 @@ Olimex_Pinguino32.name=PIC32 Pinguino
 Olimex_Pinguino32.group=Olimex
 
 Olimex_Pinguino32.platform=pic32
-Olimex_Pinguino32.board=_BOARD_OLIMEX_PIC32_PINGUINO_
-Olimex_Pinguino32.build.board=BOARD_OLIMEX_PIC32_PINGUINO_
-Olimex_Pinguino32.board.define=-D_USE_USB_FOR_SERIAL_
+Olimex_Pinguino32.build.board=_BOARD_OLIMEX_PIC32_PINGUINO_
 Olimex_Pinguino32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 Olimex_Pinguino32.ccflags=ffff
 Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
 
 Olimex_Pinguino32.upload.protocol=stk500v2
 Olimex_Pinguino32.upload.maximum_size=258048
+Olimex_Pinguino32.upload.maximum_data_size=32768
 Olimex_Pinguino32.upload.speed=115200
 Olimex_Pinguino32.upload.tool=pic32prog
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+Olimex_Pinguino32.compiler.c.extra_flags=-G1024
+Olimex_Pinguino32.compiler.cpp.extra_flags=-G1024
 
 Olimex_Pinguino32.bootloader.low_fuses=0xff
 Olimex_Pinguino32.bootloader.high_fuses=0xdd
 Olimex_Pinguino32.bootloader.extended_fuses=0x00
-Olimex_Pinguino32.bootloader.path=not-supported
-Olimex_Pinguino32.bootloader.file=not-supported
+#Olimex_Pinguino32.bootloader.path=not-supported
+#Olimex_Pinguino32.bootloader.file=not-supported
 Olimex_Pinguino32.bootloader.unlock_bits=0x3F
 Olimex_Pinguino32.bootloader.lock_bits=0x0F
 
@@ -956,9 +923,7 @@ Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
 picadillo_35t.name=PICadillo 35T
 picadillo_35t.group=4D Systems
 picadillo_35t.platform=pic32
-picadillo_35t.board=_BOARD_PICADILLO_35T_
-picadillo_35t.build.board=BOARD_PICADILLO_35T_
-picadillo_35t.board.define=
+picadillo_35t.build.board=_BOARD_PICADILLO_35T_
 picadillo_35t.ldscript=chipKIT-application-32MX795F512.ld
 
 picadillo_35t.variant=picadillo_35t
@@ -967,6 +932,7 @@ picadillo_35t.bootloader=bootloader.hex
 picadillo_35t.ccflags=ffff
 picadillo_35t.upload.protocol=stk500v2
 picadillo_35t.upload.maximum_size=520192
+picadillo_35t.upload.maximum_data_size=131072
 picadillo_35t.upload.speed=115200
 picadillo_35t.upload.tool=pic32prog
 
@@ -981,24 +947,23 @@ quick240_usb_pic32.group=PONTECH
 
 # new items
 quick240_usb_pic32.platform=pic32
-quick240_usb_pic32.board=_BOARD_PONTECH_QUICK240_USB_
-quick240_usb_pic32.build.board=BOARD_PONTECH_QUICK240_USB_
-quick240_usb_pic32.compiler.define=-D_USE_USB_FOR_SERIAL_
-
+quick240_usb_pic32.build.board=_BOARD_PONTECH_QUICK240_USB_
+quick240_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 quick240_usb_pic32.ccflags=ffff
 quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
 quick240_usb_pic32.upload.protocol=stk500v2
 quick240_usb_pic32.upload.maximum_size=520192
+quick240_usb_pic32.upload.maximum_data_size=131072
 quick240_usb_pic32.upload.speed=115200
 quick240_usb_pic32.upload.tool=pic32prog
 
 quick240_usb_pic32.bootloader.low_fuses=0xff
 quick240_usb_pic32.bootloader.high_fuses=0xdd
 quick240_usb_pic32.bootloader.extended_fuses=0x00
-quick240_usb_pic32.bootloader.path=not-supported
-quick240_usb_pic32.bootloader.file=not-supported
+#quick240_usb_pic32.bootloader.path=not-supported
+#quick240_usb_pic32.bootloader.file=not-supported
 quick240_usb_pic32.bootloader.unlock_bits=0x3F
 quick240_usb_pic32.bootloader.lock_bits=0x0F
 
@@ -1014,29 +979,25 @@ chipkit_uc32.group=chipKIT
 
 # new items
 chipkit_uc32.platform=pic32
-chipkit_uc32.board=_BOARD_UC32_
-chipkit_uc32.build.board=BOARD_UC32_
-chipkit_uc32.board.define=
+chipkit_uc32.build.board=_BOARD_UC32_
 chipkit_uc32.ccflags=ffff
 chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_uc32.compiler.c.extra_flags=-G1024
+chipkit_uc32.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_uc32.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-chipkit_uc32.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 chipkit_uc32.upload.protocol=stk500v2
 chipkit_uc32.upload.maximum_size=520192
+chipkit_uc32.upload.maximum_data_size=16384
 chipkit_uc32.upload.speed=115200
 chipkit_uc32.upload.tool=pic32prog
 
 chipkit_uc32.bootloader.low_fuses=0xff
 chipkit_uc32.bootloader.high_fuses=0xdd
 chipkit_uc32.bootloader.extended_fuses=0x00
-chipkit_uc32.bootloader.path=not-supported
-chipkit_uc32.bootloader.file=not-supported
+#chipkit_uc32.bootloader.path=not-supported
+#chipkit_uc32.bootloader.file=not-supported
 chipkit_uc32.bootloader.unlock_bits=0x3F
 chipkit_uc32.bootloader.lock_bits=0x0F
 
@@ -1052,29 +1013,25 @@ uc32_pmod.group=chipKIT
 
 # new items
 uc32_pmod.platform=pic32
-uc32_pmod.board=_BOARD_UC32_
-uc32_pmod.build.board=BOARD_UC32_
-uc32_pmod.board.define=
+uc32_pmod.build.board=_BOARD_UC32_
 uc32_pmod.ccflags=ffff
 uc32_pmod.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uc32_pmod.compiler.c.extra_flags=-G1024
+uc32_pmod.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-uc32_pmod.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-uc32_pmod.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 uc32_pmod.upload.protocol=stk500v2
 uc32_pmod.upload.maximum_size=520192
+uc32_pmod.upload.maximum_data_size=16384
 uc32_pmod.upload.speed=115200
 uc32_pmod.upload.tool=pic32prog
 
 uc32_pmod.bootloader.low_fuses=0xff
 uc32_pmod.bootloader.high_fuses=0xdd
 uc32_pmod.bootloader.extended_fuses=0x00
-uc32_pmod.bootloader.path=not-supported
-uc32_pmod.bootloader.file=not-supported
+#uc32_pmod.bootloader.path=not-supported
+#uc32_pmod.bootloader.file=not-supported
 uc32_pmod.bootloader.unlock_bits=0x3F
 uc32_pmod.bootloader.lock_bits=0x0F
 
@@ -1090,23 +1047,18 @@ uno_pic32.name=chipKIT UNO32
 # new items
 uno_pic32.group=chipKIT
 uno_pic32.platform=pic32
-uno_pic32.board=_BOARD_UNO_
-uno_pic32.build.board=BOARD_UNO_
-uno_pic32.board.define=
-#uno_pic32.compiler.define=
+uno_pic32.build.board=_BOARD_UNO_
 uno_pic32.ccflags=ffff
 uno_pic32.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pic32.compiler.c.extra_flags=-G1024
+uno_pic32.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-uno_pic32.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-uno_pic32.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 uno_pic32.upload.tool=pic32prog
 uno_pic32.upload.protocol=stk500v2
 uno_pic32.upload.maximum_size=126976
+uno_pic32.upload.maximum_data_size=16384
 uno_pic32.upload.speed=115200
 uno_pic32.upload.tool=pic32prog
 
@@ -1114,8 +1066,8 @@ uno_pic32.upload.tool=pic32prog
 uno_pic32.bootloader.low_fuses=0xff
 uno_pic32.bootloader.high_fuses=0xdd
 uno_pic32.bootloader.extended_fuses=0x00
-uno_pic32.bootloader.path=not-supported
-uno_pic32.bootloader.file=not-supported
+#uno_pic32.bootloader.path=not-supported
+#uno_pic32.bootloader.file=not-supported
 uno_pic32.bootloader.unlock_bits=0x3F
 uno_pic32.bootloader.lock_bits=0x0F
 
@@ -1131,31 +1083,26 @@ uno_pmod.group=chipKIT
 
 # new items
 uno_pmod.platform=pic32
-uno_pmod.board=_BOARD_UNO_
-uno_pmod.build.board=BOARD_UNO_
-uno_pmod.board.define=
-#uno_pmod.compiler.define=
+uno_pmod.build.board=_BOARD_UNO_
 uno_pmod.ccflags=ffff
 uno_pmod.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pmod.compiler.c.extra_flags=-G1024
+uno_pmod.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-uno_pmod.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-uno_pmod.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 uno_pic32.upload.tool=pic32prog
 uno_pmod.upload.protocol=stk500v2
 uno_pmod.upload.maximum_size=126976
+uno_pmod.upload.maximum_data_size=16384
 uno_pmod.upload.speed=115200
 uno_pmod.upload.tool=pic32prog
 
 uno_pmod.bootloader.low_fuses=0xff
 uno_pmod.bootloader.high_fuses=0xdd
 uno_pmod.bootloader.extended_fuses=0x00
-uno_pmod.bootloader.path=not-supported
-uno_pmod.bootloader.file=not-supported
+#uno_pmod.bootloader.path=not-supported
+#uno_pmod.bootloader.file=not-supported
 uno_pmod.bootloader.unlock_bits=0x3F
 uno_pmod.bootloader.lock_bits=0x0F
 
@@ -1171,23 +1118,22 @@ chipkit_WF32.group=chipKIT
 
 # new items
 chipkit_WF32.platform=pic32
-chipkit_WF32.board=_BOARD_WF32_
-chipkit_WF32.build.board=BOARD_WF32_
-chipkit_WF32.board.define=
+chipkit_WF32.build.board=_BOARD_WF32_
 chipkit_WF32.ccflags=ffff
 chipkit_WF32.ldscript=chipKIT-application-32MX695F512.ld
 # end of new items
 
 chipkit_WF32.upload.protocol=stk500v2
 chipkit_WF32.upload.maximum_size=520192
+chipkit_WF32.upload.maximum_data_size=131072
 chipkit_WF32.upload.speed=115200
 chipkit_WF32.upload.tool=pic32prog
 
 chipkit_WF32.bootloader.low_fuses=0xff
 chipkit_WF32.bootloader.high_fuses=0xdd
 chipkit_WF32.bootloader.extended_fuses=0x00
-chipkit_WF32.bootloader.path=not-supported
-chipkit_WF32.bootloader.file=not-supported
+#chipkit_WF32.bootloader.path=not-supported
+#chipkit_WF32.bootloader.file=not-supported
 chipkit_WF32.bootloader.unlock_bits=0x3F
 chipkit_WF32.bootloader.lock_bits=0x0F
 
@@ -1204,27 +1150,26 @@ chipkit_WiFire.group=chipKIT
 
 # new items
 chipkit_WiFire.platform=pic32
-chipkit_WiFire.board=_BOARD_WIFIRE_
-chipkit_WiFire.build.board=BOARD_WIFIRE_
-chipkit_WiFire.board.define=
+chipkit_WiFire.build.board=_BOARD_WIFIRE_
 chipkit_WiFire.ccflags=ffff
 chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
 chipkit_WiFire.upload.protocol=stk500v2
-chipkit_WiFire.upload.maximum_size=520192
+chipkit_WiFire.upload.maximum_size=2080768
+chipkit_WiFire.upload.maximum_data_size=524288
 chipkit_WiFire.upload.speed=115200
 chipkit_WiFire.upload.tool=pic32prog
 
 chipkit_WiFire.bootloader.low_fuses=0xff
 chipkit_WiFire.bootloader.high_fuses=0xdd
 chipkit_WiFire.bootloader.extended_fuses=0x00
-chipkit_WiFire.bootloader.path=not-supported
-chipkit_WiFire.bootloader.file=not-supported
+#chipkit_WiFire.bootloader.path=not-supported
+#chipkit_WiFire.bootloader.file=not-supported
 chipkit_WiFire.bootloader.unlock_bits=0x3F
 chipkit_WiFire.bootloader.lock_bits=0x0F
 
-chipkit_WiFire.build.mcu=32MZ2048ECG100
+chipkit_WiFire.build.mcu=32MZ2048EFG100
 chipkit_WiFire.build.f_cpu=200000000UL
 chipkit_WiFire.build.core=pic32
 chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
@@ -1233,28 +1178,60 @@ chipkit_WiFire.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################
+chipkit_WiFire_AB.name=chipKIT WiFire (RevA&B, No FPU)
+chipkit_WiFire_AB.group=chipKIT
+
+# new items
+chipkit_WiFire_AB.platform=pic32
+chipkit_WiFire_AB.build.board=_BOARD_WIFIRE_
+chipkit_WiFire_AB.ccflags=ffff
+chipkit_WiFire_AB.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+chipkit_WiFire_AB.upload.protocol=stk500v2
+chipkit_WiFire_AB.upload.maximum_size=2080768
+chipkit_WiFire_AB.upload.maximum_data_size=524288
+chipkit_WiFire_AB.upload.speed=115200
+chipkit_WiFire_AB.upload.tool=pic32prog
+
+chipkit_WiFire_AB.bootloader.low_fuses=0xff
+chipkit_WiFire_AB.bootloader.high_fuses=0xdd
+chipkit_WiFire_AB.bootloader.extended_fuses=0x00
+#chipkit_WiFire_AB.bootloader.path=not-supported
+#chipkit_WiFire_AB.bootloader.file=not-supported
+chipkit_WiFire_AB.bootloader.unlock_bits=0x3F
+chipkit_WiFire_AB.bootloader.lock_bits=0x0F
+
+chipkit_WiFire_AB.build.mcu=32MZ2048ECG100
+chipkit_WiFire_AB.build.f_cpu=200000000UL
+chipkit_WiFire_AB.build.core=pic32
+chipkit_WiFire_AB.ldcommon=chipKIT-application-COMMON-MZ.ld
+chipkit_WiFire_AB.build.variant=WiFire
+chipkit_WiFire_AB.build.ldscript.path={build.variant.path}
+
+############################################################
+############################################################
 chipkit_WiFire_80MHz.name=chipKIT WiFire 80MHz
 chipkit_WiFire_80MHz.group=chipKIT
 
 # new items
 chipkit_WiFire_80MHz.platform=pic32
-chipkit_WiFire_80MHz.board=_BOARD_WIFIRE_80MHZ
-chipkit_WiFire_80MHz.build.board=BOARD_WIFIRE_80MHZ_
-chipkit_WiFire_80MHz.board.define=
+chipkit_WiFire_80MHz.build.board=_BOARD_WIFIRE_80MHZ_
 chipkit_WiFire_80MHz.ccflags=ffff
 chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
 chipkit_WiFire_80MHz.upload.protocol=stk500v2
 chipkit_WiFire_80MHz.upload.maximum_size=520192
+chipkit_WiFire_80MHz.upload.maximum_data_size=524288
 chipkit_WiFire_80MHz.upload.speed=115200
 chipkit_WiFire_80MHz.upload.tool=pic32prog
 
 chipkit_WiFire_80MHz.bootloader.low_fuses=0xff
 chipkit_WiFire_80MHz.bootloader.high_fuses=0xdd
 chipkit_WiFire_80MHz.bootloader.extended_fuses=0x00
-chipkit_WiFire_80MHz.bootloader.path=not-supported
-chipkit_WiFire_80MHz.bootloader.file=not-supported
+#chipkit_WiFire_80MHz.bootloader.path=not-supported
+#chipkit_WiFire_80MHz.bootloader.file=not-supported
 chipkit_WiFire_80MHz.bootloader.unlock_bits=0x3F
 chipkit_WiFire_80MHz.bootloader.lock_bits=0x0F
 
@@ -1263,41 +1240,71 @@ chipkit_WiFire_80MHz.build.f_cpu=80000000UL
 chipkit_WiFire_80MHz.build.core=pic32
 chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
 chipkit_WiFire_80MHz.build.variant=WiFire
-chipkit_WiFire_80Mhz.build.ldscript.path={build.variant.path}
+chipkit_WiFire_80MHz.build.ldscript.path={build.variant.path}
 
 ############################################################
+############################################################
+OpenScope.name=OpenScope
+OpenScope.group=chipKIT
+
+# new items
+OpenScope.platform=pic32
+OpenScope.build.board=_BOARD_OPENSCOPE_
+OpenScope.ccflags=ffff
+OpenScope.ldscript=OpenScope.ld
+# end of new items
+
+OpenScope.upload.protocol=stk500v2
+OpenScope.upload.maximum_size=2031616
+OpenScope.upload.maximum_data_size=524288
+OpenScope.upload.speed=115200
+
+OpenScope.bootloader.low_fuses=0xff
+OpenScope.bootloader.high_fuses=0xdd
+OpenScope.bootloader.extended_fuses=0x00
+#OpenScope.bootloader.path=not-supported
+#OpenScope.bootloader.file=not-supported
+OpenScope.bootloader.unlock_bits=0x3F
+OpenScope.bootloader.lock_bits=0x0F
+
+OpenScope.build.mcu=32MZ2048EFG124
+OpenScope.build.f_cpu=200000000UL
+OpenScope.build.core=pic32
+OpenScope.ldcommon=chipKIT-application-COMMON-MZ.ld
+OpenScope.build.variant=OpenScope
+OpenScope.build.ldscript.path={build.variant.path}
+#OpenScope.upload.using=avrdude1
+OpenScope.upload.tool=pic32prog
+#OpenScope.upload.tool=avrdude
+
 ############################################################
 openbci.name=OpenBCI 32
 openbci.group=chipKIT
 
 # new items
 openbci.platform=pic32
-openbci.board=_BOARD_DP32_
-openbci.build.board=BOARD_DP32_
-openbci.board.define=-D_USE_USB_FOR_SERIAL_
+openbci.build.board=_BOARD_DP32_
 openbci.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
 openbci.ccflags=-Map="map.map"
 openbci.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+openbci.compiler.c.extra_flags=-G1024
+openbci.compiler.cpp.extra_flags=-G1024
 # end of new items
-
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-openbci.compiler.c.flags=-O2 -c -mno-smart-io -w -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
-openbci.compiler.cpp.flags=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections -G1024 -g -mdebugger -Wcast-align -fno-short-double
 
 openbci.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
 openbci.upload.maximum_size=122880
+openbci.upload.maximum_data_size=32768
 openbci.upload.speed=115200
 openbci.upload.tool=pic32prog
 
 openbci.bootloader.low_fuses=0xff
 openbci.bootloader.high_fuses=0xdd
 openbci.bootloader.extended_fuses=0x00
-openbci.bootloader.path=not-supported
-openbci.bootloader.file=not-supported
+#openbci.bootloader.path=not-supported
+#openbci.bootloader.file=not-supported
 openbci.bootloader.unlock_bits=0x3F
 openbci.bootloader.lock_bits=0x0F
 
@@ -1307,3 +1314,34 @@ openbci.build.core=pic32
 openbci.build.variant=OpenBCI
 
 ############################################################
+
+lenny.name=chipKIT Lenny
+lenny.group=chipKIT
+lenny.platform=pic32
+lenny.build.board=_BOARD_LENNY_
+lenny.build.extra_flags=-D_USE_USB_FOR_SERIAL_
+lenny.ccflags=-Map="map.map"
+lenny.ldscript=chipKIT-application-32MX270F256.ld
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+lenny.compiler.c.extra_flags=-G1024
+lenny.compiler.cpp.extra_flags=-G1024
+lenny.upload.protocol=stk500v2
+
+# 128KB - 4K for EEPROM - 4K for bootloader
+lenny.upload.maximum_size=122880
+lenny.upload.speed=115200
+lenny.upload.tool=pic32prog
+
+lenny.bootloader.low_fuses=0xff
+lenny.bootloader.high_fuses=0xdd
+lenny.bootloader.extended_fuses=0x00
+#lenny.bootloader.path=not-supported
+#lenny.bootloader.file=not-supported
+lenny.bootloader.unlock_bits=0x3F
+lenny.bootloader.lock_bits=0x0F
+
+lenny.build.mcu=32MX270F256D
+lenny.build.f_cpu=40000000L
+lenny.build.core=pic32
+lenny.build.variant=Lenny

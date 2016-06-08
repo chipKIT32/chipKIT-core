@@ -51,10 +51,10 @@
 #define PIN_INT4    53
 
 // These are mapped to the special SPI header
-const static uint8_t SS   = 52;		
-const static uint8_t MOSI = 51;
-const static uint8_t MISO = 49;
-const static uint8_t SCK  = 50;
+static const uint8_t SS   = 52;		
+static const uint8_t MOSI = 51;
+static const uint8_t MISO = 49;
+static const uint8_t SCK  = 50;
 
 // SD card, SS2
 #define	PIN_DSPI0_SS	48 
@@ -184,6 +184,8 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -216,18 +218,7 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI4.  This is the 6 pin SPI header.
-*/
-#define	_SPI_BASE		_SPI4_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI4_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI4_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI4_TX_IRQ
-#define	_SPI_VECTOR		_SPI_4_VECTOR
-#define _SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 
 // DSPI0 talks to the SD card direct (SPI2)
@@ -306,8 +297,6 @@ extern const uint8_t    digital_pin_to_analog_PGM[];
 
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 

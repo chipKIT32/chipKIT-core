@@ -152,10 +152,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h. 
 */
-const static uint8_t SS   = 24;		// CS1  RC0     SS1R = 6, RPC0R = 3     24  RC0  AN6/RPC0/RC0  
-const static uint8_t MISO =	35;		// SDI1 RB5     SDI1R = 1               35  RB5  PGED3/RPB5/PMD7/RB5
-const static uint8_t MOSI = 25;		// SDO1 RC1     RPC1R = 3               25  RC1  AN7/RPC1/RC1    
-const static uint8_t SCK  = 16;		// SCK1 RB14    RPB14R = 0              16  RB14 CVREF/AN10/C3INB/RPB14/SCK1/CTED5/PMWR/RB14
+static const uint8_t SS   = 24;		// CS1  RC0     SS1R = 6, RPC0R = 3     24  RC0  AN6/RPC0/RC0  
+static const uint8_t MISO =	35;		// SDI1 RB5     SDI1R = 1               35  RB5  PGED3/RPB5/PMD7/RB5
+static const uint8_t MOSI = 25;		// SDO1 RC1     RPC1R = 3               25  RC1  AN7/RPC1/RC1    
+static const uint8_t SCK  = 16;		// SCK1 RB14    RPB14R = 0              16  RB14 CVREF/AN10/C3INB/RPB14/SCK1/CTED5/PMWR/RB14
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -299,6 +299,8 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -352,26 +354,8 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The default SPI port uses SPI1.
-*/
-#define	_SPI_BASE		_SPI1_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI1_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI1_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI1_TX_IRQ
-#define	_SPI_VECTOR		_SPI_1_VECTOR
-#define	_SPI_IPL_ISR	_SPI1_IPL_ISR
-#define	_SPI_IPL		_SPI1_IPL_IPC
-#define	_SPI_SPL		_SPI1_SPL_IPC
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI1
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO1
-#define	_SPI_MOSI_PIN	MOSI
-
-
-/* Full SPI1 on J1
+/* The Digilent DSPI and standard SPI libraries uses these ports.
+ * Full SPI1 on J1
 */
 #define	_DSPI0_BASE			_SPI1_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI1_ERR_IRQ
@@ -438,7 +422,31 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	// OPT_BOARD_INTERNAL
+/* ------------------------------------------------------------ */
+/*					Defines for the SD on JK     				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 24
+
+// Digital pin 25
+#define prtSDO				IOPORT_C
+#define	bnSDO				BIT_1
+#define SD_SDO_PPS()        RPC1R   = 0b0000    // Bit Banging SPI, set as GPIO
+
+// Digital pin 35
+#define prtSDI				IOPORT_B
+#define bnSDI				BIT_5
+#define SD_SDI_PPS()                            // Bit Banging SPI, leave as nothing
+
+// Digital pin 16
+#define prtSCK				IOPORT_B
+#define bnSCK				BIT_14
+#define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
+
+#define DefineSDSPI(var) DSPI0 var
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 35)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

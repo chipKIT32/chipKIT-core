@@ -85,53 +85,81 @@ public:
         init_AlwaysInline(4000000, MSBFIRST, SPI_MODE0);
     }
 private:
-    void init_MightInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode) {
+    uint32_t softBitOrder;
+    /* Note that on PIC32, SPI always shifts out Most Significant Bit first, so the bitOrder parameter
+     * is not used, but needs to be retained for compatibility with existing sketches/libraries */
+    void init_MightInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode) {
         init_AlwaysInline(clock, bitOrder, dataMode);
     }
-    void init_AlwaysInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode)
+    void init_AlwaysInline(uint32_t clock, uint8_t __attribute__((unused)) bitOrder, uint8_t dataMode)
     __attribute__((__always_inline__)) {
-        /* Compute the baud rate divider for this frequency.
-        */
-        brg = (uint16_t)((__PIC32_pbClk / (2 * clock)) - 1);
 
-        /* That the baud rate value is in the correct range.
-        */
-        if (brg == 0xFFFF) {
-            /* The user tried to set a frequency that is too high to support.
-            ** Set it to the highest supported frequency.
-            */
-            brg = 0;
-        }
-
-        if (brg > 0x1FF) {
-            /* The user tried to set a frequency that is too low to support.
-            ** Set it to the lowest supported frequency.
-            */
-            brg = 0x1FF;
-        }
-
-        con = (1 << _SPICON_MSTEN);
+        softBitOrder = bitOrder;
+        
+        DesiredSPIClockFrequency = clock;
+        
+        // By including the needed flag here, we have a speed optimization.
+        // We will always set the Master Enable bit, becuase we are always the SPI master
+        // We will always set the ON bit because we always want the SPI peripheral turned on
+        //
+        // The _SPICON_SMP bit makes the SPI preph actually follow the 
+        // general SPI rules that everyone else uses. Normally an SPI master 
+        // samples just before the next cycle starts.  
+        // At high data rates it becomes very important to sample later 
+        // than center, due to timing constraints in the silicon.
+        con = (1 << _SPICON_MSTEN) | (1 << _SPICON_ON) | (1 << _SPICON_SMP);
 
         switch (dataMode) {
-            case SPI_MODE0:
-                con |= ((0 << _SPICON_CKP) | (1 << _SPICON_CKE));
+            case SPI_MODE0:     // CKE = 1, CKP = 0
+                con |= (1 << _SPICON_CKE);
                 break;
 
-            case SPI_MODE1:
-                con |= ((0 << _SPICON_CKP) | (0 << _SPICON_CKE));
+            case SPI_MODE1:     // CKE = 0, CKP = 0
                 break;
 
-            case SPI_MODE2:
+            case SPI_MODE2:     // CKE = 1, CKP = 1
                 con |= ((1 << _SPICON_CKP) | (1 << _SPICON_CKE));
                 break;
 
-            case SPI_MODE3:
-                con |= ((1 << _SPICON_CKP) | (0 << _SPICON_CKE));
+            case SPI_MODE3:     // CKE = 0, CKP = 1
+                con |= (1 << _SPICON_CKP);
                 break;
         }
     }
-    uint8_t brg;
-    uint8_t con;
+    /* This function computes the proper value for the BRG register 
+     * (baudrate generator divisor). This computation can't be done
+     * in this object's intializer, because the value __PIC32_pbClk 
+     * isn't guaranteed to be correct until after all obejcts have
+     * been intialized and the init() call in wiring.c has had a
+     * chance to run. Also, this value can (theoretically) be changed
+     * at runtime (dynamically) and so we need to re-compute the proper
+     * BRG value each time we start a tranasaction to be safe. */
+    uint16_t GenerateBRG(void) {
+        /* Compute the baud rate divider for this frequency.
+        */
+        brg = (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
+
+        /* Check that the baud rate value is in the correct range.
+        */
+        if (brg == 0xFFFFU) {
+            /* The user tried to set a frequency that is too high to support.
+            ** Set it to the highest supported frequency.
+            */
+            brg = 0U;
+        }
+
+        if (brg > 0x1FFU) {
+            /* The user tried to set a frequency that is too low to support.
+            ** Set it to the lowest supported frequency.
+            */
+            brg = 0x1FFU;
+        }
+        return brg;
+    }
+    uint32_t con;
+    uint16_t brg;
+    /* A cached copy of the desired SPI clock freqency set at object creation */
+    uint32_t DesiredSPIClockFrequency;
     friend class SPIClass;
 };
 
@@ -139,7 +167,7 @@ private:
 class SPIClass {
 public:
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
     SPIClass(uint32_t base, int pinMI, int pinMO, ppsFunctionType ppsMI, ppsFunctionType ppsMO);
 #else
     SPIClass(uint32_t base);
@@ -168,7 +196,25 @@ public:
     inline void beginTransaction(SPISettings settings) {
         if (interruptMode > 0) {
             int32_t sreg = disableInterrupts();
-            interruptSave = sreg;
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 0;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 0;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 0;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 0;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 0;
+                }
+                restoreInterrupts(sreg);
+            } else interruptSave = sreg;
+            
         }
 
 #ifdef SPI_TRANSACTION_MISMATCH_LED
@@ -180,14 +226,30 @@ public:
 
         inTransactionFlag = 1;
 #endif
-        pspi->sxCon.clr = (1 << _SPICON_ON);
-        pspi->sxBrg.reg = settings.brg;
+        /* Shut off the SPI peripheral to prepare for possibly changing things */
+        // pspi->sxCon.clr = (1 << _SPICON_ON);         // This line can cause glitches on the CLOCK output
+        /* Compute and set the proper BRG register value based on our desired SPI clock rate */
+        pspi->sxBrg.reg = settings.GenerateBRG();
+        /* Copy over the proper value of the CON regsiter for this set of settings, turning SPI peripheral back on */
         pspi->sxCon.reg = settings.con;
-        pspi->sxCon.set = (1 << _SPICON_ON);
+        softBitOrder = settings.softBitOrder;
     }
 
     // Write to the SPI bus (MOSI pin) and also receive (MISO pin)
     inline uint8_t transfer(uint8_t data) {
+        if (softBitOrder == LSBFIRST) {
+            uint8_t sdata = 
+                ((data & 0x80) >> 7) |
+                ((data & 0x40) >> 5) |
+                ((data & 0x20) >> 3) |
+                ((data & 0x10) >> 1) |
+                ((data & 0x08) << 1) |
+                ((data & 0x04) << 3) |
+                ((data & 0x02) << 5) |
+                ((data & 0x01) << 7);
+            data = sdata;
+        }
+
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPITBE)) == 0) {
         }
 
@@ -196,7 +258,21 @@ public:
         while ((pspi->sxStat.reg & (1 << _SPISTAT_SPIRBF)) == 0) {
         }
 
-        return pspi->sxBuf.reg;
+        data = pspi->sxBuf.reg;
+        if (softBitOrder == LSBFIRST) {
+            uint8_t sdata = 
+                ((data & 0x80) >> 7) |
+                ((data & 0x40) >> 5) |
+                ((data & 0x20) >> 3) |
+                ((data & 0x10) >> 1) |
+                ((data & 0x08) << 1) |
+                ((data & 0x04) << 3) |
+                ((data & 0x02) << 5) |
+                ((data & 0x01) << 7);
+            data = sdata;
+        }
+
+        return data;
     }
     inline uint16_t transfer16(uint16_t data) {
         pspi->sxCon.set = 1 << _SPICON_MODE16;
@@ -232,7 +308,25 @@ public:
 #endif
 
         if (interruptMode > 0) {
-            restoreInterrupts(interruptSave);
+            uint32_t sreg = disableInterrupts();
+            if (interruptMode == 1) {
+                if(interruptMask & 0x01) {
+                    IEC0bits.INT0IE = 1;
+                }
+                if(interruptMask & 0x02) {
+                    IEC0bits.INT1IE = 1;
+                }
+                if(interruptMask & 0x04) {
+                    IEC0bits.INT2IE = 1;
+                }
+                if(interruptMask & 0x08) {
+                    IEC0bits.INT3IE = 1;
+                }
+                if(interruptMask & 0x10) {
+                    IEC0bits.INT4IE = 1;
+                }
+                restoreInterrupts(sreg);
+            } else restoreInterrupts(interruptSave);
         }
     }
 
@@ -241,8 +335,8 @@ public:
 
     // This function is deprecated.  New applications should use
     // beginTransaction() to configure SPI settings.
-    inline void setBitOrder(uint8_t bitOrder) {
-        // Not supported
+    inline void setBitOrder(uint8_t __attribute__((unused)) bitOrder) {
+        softBitOrder = bitOrder;
     }
     // This function is deprecated.  New applications should use
     // beginTransaction() to configure SPI settings.
@@ -309,6 +403,7 @@ public:
     inline void detachInterrupt() { }
 
 private:
+    uint32_t softBitOrder;
     uint32_t initialized;
     uint32_t interruptMode; // 0=none, 1=mask, 2=global
     uint32_t interruptMask; // which interrupts to mask
@@ -317,7 +412,7 @@ private:
     uint32_t inTransactionFlag;
 #endif
     p32_spi *pspi;
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
     uint8_t             pinMISO;        //digital pin number for MISO
     uint8_t             pinMOSI;        //digital pin number for MOSI
     ppsFunctionType     ppsMISO;        //PPS select for SPI MISO

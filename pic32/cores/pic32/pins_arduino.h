@@ -147,18 +147,18 @@
 /* The following macros are used in building the data tables
 ** used by the hardware abstraction layer.
 */
-#if defined(__PIC32MX47XH__)
+#if defined(__PIC32MX47XH__) || defined(__PIC32MX37XH__)
 
 #define _RPOBASE    RPB0R       //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
-#define _PPS_OUT(P) (P)
+#define _PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
-#elif defined(__PIC32MX47XL__)
+#elif defined(__PIC32MX47XL__) || defined(__PIC32MX37XL__)
 
 #define _RPOBASE    RPA14R      //base address of PPS output select registers
 #define _RPIBASE    INT1R       //base address of PPS input select registers
-#define _PPS_OUT(P) (P)
+#define _PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #elif defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
@@ -167,7 +167,7 @@
 */
 #define	_RPOBASE	RPA0R		//base address of PPS output select registers
 #define	_RPIBASE	INT1R		//base address of PPS input select registers
-#define	_PPS_OUT(P) (P)
+#define	_PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
 #elif defined(__PIC32MZXX__)
@@ -181,10 +181,10 @@
         #define	_RPOBASE	RPA14R		//base address of PPS output select registers
 #endif
 #define	_RPIBASE	INT1R		//base address of PPS input select registers
-#define	_PPS_OUT(P) (P)
+#define	_PPS_OUT(P) (uint8_t)(P)
 #define _PPS_IN(P) (uint8_t)(((P) & 0x0F) | ((P) >> 4))
 
-#endif	// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#endif	// defined(__PIC32_PPS__)
 
 /* ------------------------------------------------------------ */
 /*					Pin Mapping Macros							*/
@@ -204,7 +204,7 @@
 #define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
 #define digitalPinToCN(P) (NOT_CN_PIN)
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 // This macro returns a pointer to a p32_ioport structure as defined in p32_defs.h
 // For MX1xx and MX2xx devices, the port register map starts with the ANSELx register.
 #define portRegisters(P) ((p32_ioport *)(port_to_tris_PGM[P] - 0x0010))
@@ -266,7 +266,7 @@
 /* Data tables for PPS pin mapping support defined in pins_arduino.h
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 #if !defined(OPT_BOARD_DATA)
 
 extern const uint8_t output_compare_to_pps_sel_PGM[];

@@ -17,8 +17,8 @@
  * along with the Arduino SdFat Library.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include <SdFat.h>
 #include <WProgram.h>
+#include <SdFat.h>
 
 //------------------------------------------------------------------------------
 // callback function for date/time
@@ -256,7 +256,7 @@ uint8_t SdFile::make83Name(const char* str, uint8_t* name) {
       i = 8;   // place for extension
     } else {
       // illegal FAT characters
-      char* p = "|<>^+=?/[];,*\"\\";
+      char const *  p = (char const * const) "|<>^+=?/[];,*\"\\";
       uint8_t b;
       while ((b = pgm_read_byte(p++))) if (b == c) return false;
       // check size and only allow ASCII printable characters
@@ -896,7 +896,7 @@ uint8_t SdFile::rmRfStar(void) {
       if (!f.remove()) return false;
     }
     // position to next entry if required
-    if (curPosition_ != (32*(index + 1))) {
+    if (curPosition_ != ((uint32_t) (32*(index + 1)))) {
       if (!seekSet(32*(index + 1))) return false;
     }
   }

@@ -159,7 +159,7 @@ GCMD::ACTION ProcessClient(CLIENTINFO * pClientInfo)
 
         case READINPUT:
                 // read in the HTTP URL, any additional data.
-                if(pClientInfo->pTCPClient->available() >= 0 && pClientInfo->cbRead < sizeof(pClientInfo->rgbIn))
+                if(pClientInfo->pTCPClient->available() > 0 && pClientInfo->cbRead < sizeof(pClientInfo->rgbIn))
                 {                        
                     pClientInfo->cbRead += pClientInfo->pTCPClient->readStream(&pClientInfo->rgbIn[pClientInfo->cbRead], sizeof(pClientInfo->rgbIn) - pClientInfo->cbRead);
                 }
@@ -344,7 +344,7 @@ GCMD::ACTION ProcessClient(CLIENTINFO * pClientInfo)
                         pClientInfo->cbRead             = 0;
                         pClientInfo->clientState        = READINPUT;
                         pClientInfo->nextClientState    = PARSENEXTLINE;
-                        if(pClientInfo->rgbOverflow[0] != '\0');
+                        if(pClientInfo->rgbOverflow[0] != '\0')
                         {
                             pClientInfo->rgbIn[0] = pClientInfo->rgbOverflow[0];
                             pClientInfo->rgbOverflow[0] = '\0';

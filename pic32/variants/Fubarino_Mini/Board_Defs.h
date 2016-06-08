@@ -69,7 +69,7 @@
 #define	NUM_SPI_PORTS		1
 #define	NUM_I2C_PORTS		1
 
-#define NUM_DSPI_PORTS		1
+#define NUM_DSPI_PORTS		2
 #define NUM_DTWI_PORTS		2
 
 /* Define I/O devices on the board.
@@ -153,10 +153,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 30;		// PIC32 SS2
-const static uint8_t MOSI = 29;		// PIC32 SDO2
-const static uint8_t MISO = 27;		// PIC32 SDI2
-const static uint8_t SCK  = 4;		// PIC32 SCK2
+static const uint8_t SS   = 30;		// PIC32 SS2
+static const uint8_t MOSI = 29;		// PIC32 SDO2
+static const uint8_t MISO = 27;		// PIC32 SDI2
+static const uint8_t SCK  = 4;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -189,8 +189,8 @@ const static uint8_t SCK  = 4;		// PIC32 SCK2
 /* ------------------------------------------------------------ */
 /* These define the pin numbers for the various change notice
 ** pins.
-/// TODO: MX250 parts have Change Notification on EVERY I/O pin.
-/// How should that get mapped? What calls actually use these values?
+*** TODO: MX250 parts have Change Notification on EVERY I/O pin.
+*** How should that get mapped? What calls actually use these values?
 */
 #define	PIN_CN0		6
 #define	PIN_CN1		5
@@ -281,6 +281,8 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -315,27 +317,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The default SPI port uses SPI2. The pins for SPI2 stay the
-** same on all PIC32 devices. The pins for SPI1 move around,
-** and the ports beyond SPI2 aren't defined on some parts.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI2
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO2
-#define	_SPI_MOSI_PIN	MOSI
-
-/* SPI1
+/* The Digilent DSPI and standard SPI libraries uses these ports.
  * Note SCK1 only comes out B14, which is Arduino pin 3
  */
 #define	_DSPI0_BASE			_SPI1_BASE_ADDRESS
@@ -415,7 +397,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	// OPT_BOARD_INTERNAL
+#define DefineSDSPI(var) DSPI0 var
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 19)     // Create an DSDVOL object
+
 
 /* ------------------------------------------------------------ */
 

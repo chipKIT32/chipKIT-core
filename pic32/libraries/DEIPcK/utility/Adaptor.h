@@ -133,6 +133,8 @@ typedef struct
     } key[4];
 } WEP104KEY;
 
+#pragma pack(pop)
+
 typedef struct
 {
     uint8_t      bssid[DEWF_BSSID_LENGTH];    // Network BSSID value
@@ -188,7 +190,6 @@ typedef struct
 
 
 
-#pragma pack(pop)
 
 typedef struct NWWF_T
 {

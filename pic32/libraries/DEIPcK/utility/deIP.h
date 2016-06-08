@@ -384,6 +384,21 @@ typedef struct IPSTACK_T
         struct ICMPT16_T *              pICMP16;
     };
 } IPSTACK;
+
+// structure for casting unaligned pointers.
+typedef struct UNALIGNPTR_T
+{
+    union
+    {
+        uint16_t    u16;
+        int16_t     i16;
+        uint32_t    u32;
+        int32_t     i32;
+    };
+} UNALIGNPTR;
+
+#define UNUSED(x) (void)(x)
+
 #pragma pack(pop)
 
 #include "HeapMgr.h"
@@ -404,7 +419,7 @@ void IPSPeriodicTasks(void);
 
 // LinkLayer
 #define LLIsLinked(_pLLAdp, _pStatus) ((_pLLAdp)->pNwAdp->IsLinked(_pStatus))
-const LLADP * LLAddAdaptor(const NWADP *pNwAdp, uint8_t * pARPCache, uint32_t cbARPCache, IPSTATUS * pStatus);
+const LLADP * LLAddAdaptor(const NWADP *pNwAdp, void * pAdpMem, uint32_t cbAdpMem, IPSTATUS * pStatus);
 const LLADP * LLGetDefaultAdaptor(void);
 bool LLRemoveAdaptor(const LLADP * pLLAdp);
 #define LLGetIPv4ARPMemSize(_cArpEntries) (sizeof(LLADP) + (_cArpEntries * sizeof(LLARP)))
@@ -460,9 +475,12 @@ bool ILSetIP(const LLADP * pLLAdp, const void * pIP, void * pIPModify);
 #define portHTTPPort            80
 #define portNTPPort             123
 
-#define IPv4BROADCAST       ((const IPv4) {0xFF, 0xFF, 0xFF, 0xFF})    // RFC xxx
-#define IPv4NONE            ((const IPv4) {0x00, 0x00, 0x00, 0x00})    // RFC xxx
-#define IPv6NONE            ((const IPv6) {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00})    // RFC xxx
+//#define IPv4BROADCAST       ((const IPv4) {0xFF, 0xFF, 0xFF, 0xFF})    // RFC xxx
+//#define IPv4NONE            ((const IPv4) {0x00, 0x00, 0x00, 0x00})    // RFC xxx
+//#define IPv6NONE            ((const IPv6) {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00})    // RFC xxx
+extern const IPv4 IPv4BROADCAST;
+extern const IPv4 IPv4NONE;     
+extern const IPv6 IPv6NONE;     
 #define IPListen            IPv6NONE
 #define IPv4Listen          IPv4NONE
 #define IPv6Listen          IPv6NONE
@@ -503,17 +521,17 @@ void TCPAbortAllSockets(void);
 
 // DHCP RFC1531, RFC 2131, RFC 1533
 #define DHCPMemSize (sizeof(DHCPMEM))
-bool DHCPInit(const LLADP * pLLAdp, uint8_t * rgbDHCPMem, uint32_t cbDHCPMem, HPMGR hPMGR, IPSTATUS * pStatus);
+bool DHCPInit(const LLADP * pLLAdp, void * rgbDHCPMem, uint32_t cbDHCPMem, HPMGR hPMGR, IPSTATUS * pStatus);
 bool DHCPTerminate(const LLADP * pLLAdp);
 bool DHCPIsDone(const LLADP * pLLAdp, IPSTATUS * pStatus);
 
 // DNS stuff
 #define DNSMemorySize(_cdnsNS)  (sizeof(DNSMEM) + _cdnsNS * sizeof(IPv4or6))
-bool DNSInit(const LLADP * pLLAdp, uint8_t * rgbDNSMem, uint32_t cbDNSMem, HPMGR hPMGR, IPSTATUS * pStatus);
+bool DNSInit(const LLADP * pLLAdp, void * rgbDNSMem, uint32_t cbDNSMem, HPMGR hPMGR, IPSTATUS * pStatus);
 bool DNSTerminate(const LLADP * pLLAdp);
 bool DNSResolve(const LLADP * pLLAdp, const uint8_t * szDomainName, uint32_t cchDomanName, void * pIPvX, IPSTATUS * pStatus);
 #define DNSIsBusy(_pLLAdp) ((_pLLAdp == NULL || _pLLAdp->pDNSMem == NULL) ? true : (_pLLAdp->pDNSMem->dnsState != dnsReady))
-const uint8_t * DNSParseURL(const uint8_t * szURL, uint32_t * pcbDomainName, uint16_t * pPort);
+const uint8_t * DNSParseURL(uint8_t const * const szURL, uint32_t * pcbDomainName, uint16_t * pPort);
 void DNSAbort(const LLADP * pLLAdp);
 bool DNSAddNS(const LLADP * pLLAdp, const void * pIPvX, uint32_t index);
 bool DNSGetNS(const LLADP * pLLAdp, uint32_t index, void * pIPvX);
@@ -521,7 +539,7 @@ bool DNSGetNS(const LLADP * pLLAdp, uint32_t index, void * pIPvX);
 #define DNScMaxNS(_pLLAdp) ((_pLLAdp == NULL || _pLLAdp->pDNSMem == NULL) ? 0 : _pLLAdp->pDNSMem->dnsNSMax)
 
 // SNTPv4 Stuff
-bool SNTPv4Init(const LLADP * pLLAdp, uint8_t * rgbSNTPvMem, uint32_t cbSNTPv4Mem, HPMGR hPMGR, const uint8_t ** rgpServers, uint32_t cServers, IPSTATUS * pStatus);
+bool SNTPv4Init(const LLADP * pLLAdp, void * rgbSNTPvMem, uint32_t cbSNTPv4Mem, HPMGR hPMGR, uint8_t const * const * const rgpServers, uint32_t cServers, IPSTATUS * pStatus);
 uint32_t SNTPv4GetNTPEpochTime(const LLADP * pLLAdp);
 uint32_t SNTPv4GetUNIXEpochTime(const LLADP * pLLAdp);
 bool SNTPv4Terminate(const LLADP * pLLAdp);

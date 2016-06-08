@@ -154,10 +154,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 53;		// PIC32 SS2A
-const static uint8_t MOSI = 51;		// PIC32 SDO2A
-const static uint8_t MISO = 50;		// PIC32 SDI2A
-const static uint8_t SCK  = 52;		// PIC32 SCK2A
+static const uint8_t SS   = 53;		// PIC32 SS2A
+static const uint8_t MOSI = 51;		// PIC32 SDO2A
+static const uint8_t MISO = 50;		// PIC32 SDI2A
+static const uint8_t SCK  = 52;		// PIC32 SCK2A
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -223,11 +223,14 @@ const static uint8_t SCK  = 52;		// PIC32 SCK2A
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( (P) < 16 ? (P) : ((P) >= 54) && ((P) < 70) ? (P)-54 : NOT_ANALOG_PIN )
+
+#undef digitalPinToCN
+#define digitalPinToCN(P) ( digital_pin_to_cn_PGM[P] )
 
 /* ------------------------------------------------------------ */
 /*					Data Definitions							*/
@@ -243,6 +246,7 @@ extern const uint32_t	port_to_tris_PGM[];
 extern const uint8_t	digital_pin_to_port_PGM[];
 extern const uint16_t	digital_pin_to_bit_mask_PGM[];
 extern const uint16_t	digital_pin_to_timer_PGM[];
+extern const uint32_t   digital_pin_to_cn_PGM[];
 
 #endif
 
@@ -281,6 +285,8 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define	OPT_BOARD_DIGITAL_IO	0	//board does not extend digital i/o functions
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
+
+#endif	//OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
@@ -326,18 +332,7 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	_SPI2_IPL_ISR
-#define	_SPI_IPL		_SPI2_IPL_IPC
-#define	_SPI_SPL		_SPI2_SPL_IPC
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
@@ -357,7 +352,7 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define	_DSPI1_IPL			_SPI1_IPL_IPC
 #define	_DSPI1_SPL			_SPI1_SPL_IPC
 
-#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
+// #define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
 										//Microchip header file
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
@@ -450,12 +445,73 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 /*					A/D Converter Declarations					*/
 /* ------------------------------------------------------------ */
 
+/* ------------------------------------------------------------ */
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield uSD				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+#define _ALT_SD_SPI_CHIP_SELECT_
+
+#define SD_CS_PIN 4
+
+//Pin 43
+#define prtSDO				IOPORT_G
+#define	bnSDO				BIT_8
+
+//Pin 29
+#define prtSDI				IOPORT_G
+#define bnSDI				BIT_7
+
+//Pin 52
+#define prtSCK				IOPORT_G
+#define bnSCK				BIT_6
+
+// we could use Hardware SPI, but then that would conflict with the MRF clock speeds
+// the MRF typically runs much faster than we can access the SD card at.
+// so by default, we will bit bang the SD card.
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 43, 29, 52)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 29)     // Create an DSDVOL object
+
+/* ------------------------------------------------------------ */
+/*					Defines for Network Shield                  */
+/* ------------------------------------------------------------ */
+
+#define _IM8720PHY_PIN_CONFIG_
+
+#define PHY_TRIS            (TRISEbits.TRISE9)        // = 0; output
+#define PHY_ENABLE          (LATEbits.LATE9)          // = 1; to enable
+#define PHY_ADDRESS         0x5                     // something other than 0 or 1 (although 1 is okay)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield MRF24	    	*/
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              1
+#define WF_SPI              2
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS			(TRISEbits.TRISE8)  // INT1
+#define WF_INT_IO			(PORTEbits.RE8)
+
+#define WF_HIBERNATE_TRIS	(TRISGbits.TRISG1)
+#define WF_HIBERNATE_IO		(PORTGbits.RG1)
+
+#define WF_RESET_TRIS		(TRISAbits.TRISA6)
+#define WF_RESET_IO			(LATAbits.LATA6)
+
+#define WF_CS_TRIS			(TRISGbits.TRISG9)
+#define WF_CS_IO			(LATGbits.LATG9)
+
 
 /* ------------------------------------------------------------ */
 
-#endif	//OPT_BOARD_INTERNAL
-
-/* ------------------------------------------------------------ */
 
 #endif	// BOARD_DEFS_H
 

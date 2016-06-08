@@ -121,7 +121,7 @@ static DSPI *	pdspi3 = 0;
 **		can be instantiated.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 DSPI::DSPI(int pinMI, int pinMO, ppsFunctionType ppsMI, ppsFunctionType ppsMO)
 #else
 DSPI::DSPI()
@@ -131,7 +131,7 @@ DSPI::DSPI()
 	pspi = 0;
 	cbCur = 0;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	pinMISO = (uint8_t)pinMI;
 	pinMOSI = (uint8_t)pinMO;
 	ppsMISO = ppsMI;
@@ -180,7 +180,7 @@ DSPI::init(uint8_t irqErr, uint8_t irqRx, uint8_t irqTx, isrFunc isrHandler) {
     isr = isrHandler;
 }
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
 /* ------------------------------------------------------------ */
 /***	DSPI::begin
@@ -199,10 +199,10 @@ DSPI::init(uint8_t irqErr, uint8_t irqRx, uint8_t irqTx, isrFunc isrHandler) {
 **		Initialize the SPI port with new PPS mappings.
 */
 
-void DSPI::begin(uint8_t miso, uint8_t mosi) {
+bool DSPI::begin(uint8_t miso, uint8_t mosi) {
     pinMISO = miso;
     pinMOSI = mosi;
-    begin(pinSS);
+    return(begin(pinSS));
 }
 
 /* ------------------------------------------------------------ */
@@ -222,11 +222,11 @@ void DSPI::begin(uint8_t miso, uint8_t mosi) {
 **	Description:
 **		Initialize the SPI port with new PPS mappings.
 */
-void DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
+bool DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
     pinMISO = miso;
     pinMOSI = mosi;
     pinSS = ss;
-    begin(pinSS);
+    return(begin(pinSS));
 }
 #endif
 
@@ -246,12 +246,11 @@ void DSPI::begin(uint8_t miso, uint8_t mosi, uint8_t ss) {
 **		Initialize the SPI port with all default values.
 */
 
-void
-DSPI::begin() {
+bool DSPI::begin() {
 
 	/* Use the default pin specified in the constructor.
 	*/
-	begin(pinSS);
+	return(begin(pinSS));
 
 }
 
@@ -273,15 +272,14 @@ DSPI::begin() {
 **		pin for SS to the specified pin.
 */
 
-void
-DSPI::begin(uint8_t pinT) {
+bool DSPI::begin(uint8_t pinT) {
 
-	p32_regset *	pregIpc;
-	int				bnVec;
-	uint8_t			bTmp;
-	uint16_t		brg;
+	p32_regset *	    pregIpc;
+	int				    bnVec;
+	volatile uint8_t    bTmp;   // volatile to make sure optimizer does not remove instruction
+	uint16_t		    brg;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	/* Map the SPI MISO to the appropriate pin.  Some chips need the
        pins to be set to the right mode, either for the IO functionality
        or to disable any analog on the pin.
@@ -316,6 +314,7 @@ DSPI::begin(uint8_t pinT) {
 	/* Clear the receive buffer.
 	*/
 	bTmp = pspi->sxBuf.reg;
+    (void) bTmp;    // suppress unused variable complier warning
 
 	/* Clear all SPI interrupt flags.
 	*/
@@ -359,6 +358,7 @@ DSPI::begin(uint8_t pinT) {
 	pspi->sxCon.reg = 0;
 	pspi->sxCon.set = (1 << _SPICON_ON) + (1 << _SPICON_MSTEN) + DSPI_MODE0;
 
+    return(true);
 }	
 
 /* ------------------------------------------------------------ */
@@ -833,11 +833,12 @@ DSPI::disableInterruptTransfer() {
 void
 DSPI::cancelIntTransfer() {
 
-	uint8_t		bTmp;
+	volatile uint8_t		bTmp;   // volatile to make sure optimizer does not remove instruction
 
 	/* Clear the receive buffer.
 	*/
 	bTmp = pspi->sxBuf.reg;
+    (void) bTmp;    // suppress unused variable complier warning
 
 	/* Clear the interrupt flags.
 	*/
@@ -1059,7 +1060,7 @@ DSPI::doDspiInterrupt() {
 **		Constructor.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 DSPI0::DSPI0() : DSPI(_DSPI0_MISO_PIN, _DSPI0_MOSI_PIN, _DSPI0_MISO_IN, _DSPI0_MOSI_OUT)
 #else
 DSPI0::DSPI0() 
@@ -1144,7 +1145,7 @@ DSPI0::disableInterruptTransfer() {
 **		Constructor.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 DSPI1::DSPI1() : DSPI(_DSPI1_MISO_PIN, _DSPI1_MOSI_PIN, _DSPI1_MISO_IN, _DSPI1_MOSI_OUT)
 #else
 DSPI1::DSPI1()
@@ -1230,7 +1231,7 @@ DSPI1::disableInterruptTransfer() {
 **		Constructor.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 DSPI2::DSPI2() : DSPI(_DSPI2_MISO_PIN, _DSPI2_MOSI_PIN, _DSPI2_MISO_IN, _DSPI2_MOSI_OUT)
 #else
 DSPI2::DSPI2()
@@ -1315,7 +1316,7 @@ DSPI2::disableInterruptTransfer() {
 **		Constructor.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 DSPI3::DSPI3() : DSPI(_DSPI3_MISO_PIN, _DSPI3_MOSI_PIN, _DSPI3_MISO_IN, _DSPI3_MOSI_OUT)
 #else
 DSPI3::DSPI3()

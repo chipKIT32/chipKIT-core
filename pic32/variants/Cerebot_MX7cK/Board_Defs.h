@@ -160,10 +160,10 @@
 ** SPI library and the original pins_arduino.h
 ** The default SPI port is on connector JF.
 */
-const static uint8_t SS   = 40;		// PIC32 SS4
-const static uint8_t MOSI = 41;		// PIC32 SDO4
-const static uint8_t MISO = 42;		// PIC32 SDI4
-const static uint8_t SCK  = 43;		// PIC32 SCK4
+static const uint8_t SS   = 40;		// PIC32 SS4
+static const uint8_t MOSI = 41;		// PIC32 SDO4
+static const uint8_t MISO = 42;		// PIC32 SDI4
+static const uint8_t SCK  = 43;		// PIC32 SCK4
 
 /* The Digilent DSPI library uses these ports.
 **		DSPI0	connector JD
@@ -225,7 +225,7 @@ const static uint8_t SCK  = 43;		// PIC32 SCK4
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog
@@ -285,6 +285,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	//OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -310,19 +312,9 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /* ------------------------------------------------------------ */
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
+#define _SPI_PORT 2
 
-/* The standard library SPI port uses SPI4. Connector JF
-*/
-#define	_SPI_BASE		_SPI4_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI4_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI4_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI4_TX_IRQ
-#define	_SPI_VECTOR		_SPI_4_VECTOR
-#define	_SPI_IPL_ISR	_SPI4_IPL_ISR
-#define	_SPI_IPL		_SPI4_IPL_IPC
-#define	_SPI_SPL		_SPI4_SPL_IPC
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 **		DSPI0	connector JD
 **		DSPI1	connector JE
 **		DSPI2	connector JF
@@ -336,8 +328,6 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_DSPI0_IPL			_SPI1_IPL_IPC
 #define	_DSPI0_SPL			_SPI1_SPL_IPC
 
-#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this definition is missing from
-										// the Microchip header file.
 #define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
 #define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
@@ -347,14 +337,14 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_DSPI1_IPL			_SPI3_IPL_IPC
 #define	_DSPI1_SPL			_SPI3_SPL_IPC
 
-#define	_DSPI2_BASE			_SPI4_BASE_ADDRESS
-#define	_DSPI2_ERR_IRQ		_SPI4_ERR_IRQ
-#define	_DSPI2_RX_IRQ		_SPI4_RX_IRQ
-#define	_DSPI2_TX_IRQ		_SPI4_TX_IRQ
-#define	_DSPI2_VECTOR		_SPI_4_VECTOR
-#define	_DSPI2_IPL_ISR		_SPI4_IPL_ISR
-#define	_DSPI2_IPL			_SPI4_IPL_IPC
-#define	_DSPI2_SPL			_SPI4_SPL_IPC
+#define	_DSPI2_BASE	        _SPI4_BASE_ADDRESS 		
+#define	_DSPI2_ERR_IRQ		_SPI4_ERR_IRQ      
+#define	_DSPI2_RX_IRQ		_SPI4_RX_IRQ       
+#define	_DSPI2_TX_IRQ		_SPI4_TX_IRQ       
+#define	_DSPI2_VECTOR		_SPI_4_VECTOR      
+#define	_DSPI2_IPL_ISR		_SPI4_IPL_ISR      
+#define	_DSPI2_IPL			_SPI4_IPL_IPC      
+#define	_DSPI2_SPL			_SPI4_SPL_IPC      
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
@@ -423,7 +413,60 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	//OPT_BOARD_INTERNAL
+/* ------------------------------------------------------------ */
+/*					Defines SD Card on connector JD             */
+/* ------------------------------------------------------------ */
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 24
+
+#define	prtSDO				IOPORT_D	//JD
+#define	bnSDO				BIT_0
+
+#define	prtSDI				IOPORT_C
+#define	bnSDI				BIT_4
+
+#define	prtSCK				IOPORT_D
+#define	bnSCK				BIT_10
+
+#define DefineSDSPI(var) DSPI0 var                      // JD
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 26)      // Create an DSDVOL object
+
+/* ------------------------------------------------------------ */
+/*					Defines for the On Board Mac/Phy            */
+/* ------------------------------------------------------------ */
+
+#define _IM8720PHY_PIN_CONFIG_
+
+#define PHY_TRIS            (TRISAbits.TRISA6)        // = 0; output
+#define PHY_ENABLE          (LATAbits.LATA6)          // = 1; to enable
+#define PHY_ADDRESS         0x5                     // something other than 0 or 1 (although 1 is okay)
+
+/* ------------------------------------------------------------ */
+/*					Defines for the MRF on JF                   */
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              2
+#define WF_SPI              4
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISEbits.TRISE9)
+#define WF_INT_IO           (PORTEbits.RE9)
+
+#define WF_HIBERNATE_TRIS   (TRISAbits.TRISA5)
+#define	WF_HIBERNATE_IO     (LATAbits.LATA5)
+
+#define WF_RESET_TRIS       (TRISAbits.TRISA1)
+#define WF_RESET_IO         (LATAbits.LATA1)
+
+#define WF_CS_TRIS          (TRISFbits.TRISF12) // Make sure JP-1 Jumper is correct
+#define WF_CS_IO            (LATFbits.LATF12)
+
 
 /* ------------------------------------------------------------ */
 

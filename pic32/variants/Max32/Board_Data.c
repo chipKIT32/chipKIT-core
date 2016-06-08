@@ -43,7 +43,7 @@
 #if !defined(BOARD_DATA_C)
 #define BOARD_DATA_C
 
-#include <inttypes.h>
+#include <Arduino.h>
 
 /* ------------------------------------------------------------ */
 /*					Data Tables									*/
@@ -402,98 +402,98 @@ const uint16_t digital_pin_to_timer_PGM[] = {
 
 const uint32_t digital_pin_to_cn_PGM[] =
 {
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(0),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(13),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(18),
-    _BV(17),
-    _BV(21),
-    _BV(20),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(9),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(14),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(10),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(15),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(8),
-    _BV(11),
-    _BV(2),
-    _BV(3),
-    _BV(4),
-    _BV(5),
-    _BV(6),
-    _BV(7),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(12),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(1),
-    _BV(19),
-    _BV(77),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-};
-
-/* ------------------------------------------------------------ */
-/*		Include Files for Board Customization Functions			*/
-/* ------------------------------------------------------------ */
+    NOT_CN_PIN,         //	0 RF2	SDA1A/SDI1A/U1ARX/RF2                                                                                                                                          
+    NOT_CN_PIN,         //	1 RF8	SCL1A/SDO1A/U1ATX/RF8                                                                                                                                    
+    NOT_CN_PIN,         //	2 RE8	AERXD0/INT1/RE8                                                                                                                                    
+    NOT_CN_PIN,         //	3 RD0	SDO1/OC1/INT0/RD0                                                                                                                                    
+    _BV(0),             //	4 RC14	SOSCO/T1CK/CN0/RC14                                                                                                                                    
+    NOT_CN_PIN,         //	5 RD1	OC2/RD1                                                                                                                                    
+    NOT_CN_PIN,         //	6 RD2	OC3/RD2                                                                                                                                    
+    NOT_CN_PIN,         //	7 RE9	AERXD1/INT2/RE9                                                                                                                                    
+    NOT_CN_PIN,         //	8 RD12	ETXD2/IC5/PMD12/RD12                                                                                                                                    
+    NOT_CN_PIN,         //	9 RD3	OC4/RD3                                                                                                                                    
+    _BV(13),            //	10 RD4	OC5/PMWR/CN13/RD4                                                                                                                                    
+    NOT_CN_PIN,         //	11 RC4	T5CK/SDI1/RC4                                                                                                                                    
+    NOT_CN_PIN,         //	12 RA2	SCL2/RA2                                                                                                                                    
+    NOT_CN_PIN,         //	13 RA3	SDA2/RA3                                                                                                                                    
+    NOT_CN_PIN,         //	14 RF13	AC1TX/SCK3A/U3BTX/U3ARTS/RF13                                                                                                                                    
+    NOT_CN_PIN,         //	15 RF12	AC1RX/SS3A/U3BRX/U3ACTS/RF12                                                                                                                                    
+    _BV(18),            //	16 RF5	SCL3A/SDO3A/U3ATX/PMA8/CN18/RF5                                                                                                                                    
+    _BV(17),            //	17 RF4	SDA3A/SDI3A/U3ARX/PMA9/CN17/RF4                                                                                                                                    
+    _BV(21),            //	18 RD15	AETXD1/SCK1A/U1BTX/U1ARTS/CN21/RD15                                                                                                                                    
+    _BV(20),            //	19 RD14	AETXD0/SS1A/U1BRX/U1ACTS/CN20/RD14                                                                                                                                    
+    NOT_CN_PIN,         //	20 RA15	AETXEN/SDA1/INT4/RA15                                                                                                                                    
+    NOT_CN_PIN,         //	21 RA14	AETXCLK/SCL1/INT3/RA14                                                                                                                                    
+    NOT_CN_PIN,         //	22 RC2	T3CK/AC2TX/RC2                                                                                                                                    
+    NOT_CN_PIN,         //	23 RC3	T4CK/AC2RX/RC3                                                                                                                                    
+    NOT_CN_PIN,         //	24 VBUS                                                                                                                                    
+    NOT_CN_PIN,         //	25 RF3	USBID/RF3                                                                                                                                    
+    NOT_CN_PIN,         //	26 RG3	D-/RG3                                                                                                                                    
+    NOT_CN_PIN,         //	27 RG2	D+/RG2                                                                                                                                    
+    NOT_CN_PIN,         //	28 RG15                                                                                                                                    
+    _BV(9),             //	29 RG7	ECRS/SDA2A/SDI2A/U2ARX/PMA4/CN9/RG7                                                                                                                                    
+    NOT_CN_PIN,         //	30 RE7	PMD7/RE7                                                                                                                                    
+    NOT_CN_PIN,         //	31 RE6	PMD6/RE6                                                                                                                                    
+    NOT_CN_PIN,         //	32 RE5	PMD5/RE5                                                                                                                                    
+    NOT_CN_PIN,         //	33 RE4	PMD4/RE4                                                                                                                                    
+    NOT_CN_PIN,         //	34 RE3	PMD3/RE3                                                                                                                                    
+    NOT_CN_PIN,         //	35 RE2	PMD2/RE2                                                                                                                                    
+    NOT_CN_PIN,         //	36 RE1	PMD1/RE1                                                                                                                                    
+    NOT_CN_PIN,         //	37 RE0	PMD0/RE0                                                                                                                                    
+    NOT_CN_PIN,         //	38 RD10	SCK1/IC3/PMCS2/PMA15/RD10                                                                                                                                    
+    _BV(14),            //	39 RD5	PMRD/CN14/RD5                                                                                                                                    
+    NOT_CN_PIN,         //	40 RB11	AN11/EREXERR/AETXERR/PMA12/RB11                                                                                                                                    
+    NOT_CN_PIN,         //	41 RB13	AN13/ERXD1/AECOL/PMA10/RB13                                                                                                                                    
+    NOT_CN_PIN,         //	42 RB12	AN12/ERXD0/AECRS/PMA11/RB12                                                                                                                                    
+    _BV(10),            //	43 RG8	ERXDV/AERXDV/ECRSDV/AECRSDV/SCL2A/SDO2A/U2ATX/PMA3/CN10/RG8                                                                                                                                    
+    NOT_CN_PIN,         //	44 RA10	VREF+/CVREF+/AERXD3/PMA6/RA10                                                                                                                                    
+    NOT_CN_PIN,         //	45 RF0	C1RX/ETXD1/PMD11/RF0                                                                                                                                    
+    NOT_CN_PIN,         //	46 RF1	C1TX/ETXD0/RMD10/RF1                                                                                                                                    
+    _BV(15),            //	47 RD6	ETXEN/PMD14/CN15/RD6                                                                                                                                    
+    NOT_CN_PIN,         //	48 RD8	RTCC/EMDIO/AEMDIO/IC1/RD8                                                                                                                                    
+    NOT_CN_PIN,         //	49 RD11	EMDC/AEMDC/IC4/PMCS1/PMA14/RD11                                                                                                                                    
+    _BV(9),             //	50 RG7	ECRX/SDA2/SDI2A/U2ARX/PMA4/CN9/RG7                                                                                                                                    
+    NOT_CN_PIN,         //	51 RG8                                                                                                                                    
+    _BV(8),             //	52 RG6	ECOL/SCK2A/U2BTX/U2ARTS/PMA5/CN8/RG6                                                                                                                                    
+    _BV(11),            //	53 RG9	ERXCLK/AERXCLK/EREFCLK/AEREFCLK/SS2A/U2BRX/U2ACTS/PMA2/CN11/RG9                                                                                                                                    
+    _BV(2),             //	54	RB0	PGED1/AN0/CN2/RB0                                                                                                                                    
+    _BV(3),             //	55	RB1	PGEC1/AN1/CN3/RB1                                                                                                                                    
+    _BV(4),             //	56	RB2	AN2/C2IN-/CN4/RB2                                                                                                                                    
+    _BV(5),             //	57	RB3	AN3/C2IN+/CN5/RB3                                                                                                                                    
+    _BV(6),             //	58	RB4	AN4/C1IN-/CN6/RB4                                                                                                                                    
+    _BV(7),             //	59	RB5	AN5/C1IN+/VBUSON/CN7/RB5                                                                                                                                    
+    NOT_CN_PIN,         //	60	RB6	PGEC2/AN6/OCFA/RB6                                                                                                                                    
+    NOT_CN_PIN,         //	61	RB7	PGED2/AN7/RB7                                                                                                                                    
+    NOT_CN_PIN,         //	62	RB8	AN8/C1OUT/RB8                                                                                                                                    
+    NOT_CN_PIN,         //	63	RB9	AN9/C2OUT/RB9                                                                                                                                    
+    NOT_CN_PIN,         //	64	RB10	AN10/CVREFOUT/PMA13/RB10                                                                                                                                    
+    NOT_CN_PIN,         //	65	RB11	AN11/EREXERR/AETXERR/PMA12/RB11                                                                                                                                    
+    NOT_CN_PIN,         //	66	RB12	AN13/ERXD1/AECOL/PMA10/RB13                                                                                                                                    
+    NOT_CN_PIN,         //	67	RB13	AN12/ERXD0/AECRS/PMA11/RB12                                                                                                                                    
+    NOT_CN_PIN,         //	68	RB14	AN14/ERXD2/AETXD3/PMALH/PMA1/RB14                                                                                                                                    
+    _BV(12),            //	69	RB15	AN15/ERXD3/AETXD2/OCFB/PMALL/PMA0/CN12/RB15                                                                                                                                    
+    NOT_CN_PIN,         //	70 RA0	TMS/RA0                                                                                                                                    
+    NOT_CN_PIN,         //	71 RA1	TCK/RA1                                                                                                                                    
+    NOT_CN_PIN,         //	72 RA4	TDI/RA4                                                                                                                                     
+    NOT_CN_PIN,         //	73 RA5	TDO/RA5                                                                                                                                    
+    NOT_CN_PIN,         //	74 RD9	SS1/IC2/RD9                                                                                                                                     
+    _BV(1),             //	75 RC13	SOSCI/CN1/RC13                                                                                                                                    
+    _BV(19),            //	76 RD13	ETXD3/PMD13/CN19/RD13                                                                                                                                    
+    _BV(16),            //	77 RD7	ETXCLK/PMD15/CN16/RD7                                                                                                                                    
+    NOT_CN_PIN,         //	78 RG1	C2TX/ETXERR/PMD9/RG1                                                                                                                                    
+    NOT_CN_PIN,         //	79 RG0	C2RX/PMD8/RG0                                                                                                                                    
+    NOT_CN_PIN,         //	80 RA6	TRCLK/RA6                                                                                                                                    
+    NOT_CN_PIN,         //	81 RA7	TRD3/RA7                                                                                                                                    
+    NOT_CN_PIN,         //	82 RG14	TRD2/RG14                                                                                                                                    
+    NOT_CN_PIN,         //	83 RG12	TRD1/RG12                                                                                                                                    
+    NOT_CN_PIN,         //	84 RG13	TRD0/RG13                                                                                                                                    
+    NOT_CN_PIN,         //	85 RA9	VREF-/CVREF0/AERXD2/PMA7/RA9                                                                                                                                    
+    NOT_CN_PIN,         //	86 RC1	T2CK/RC1                                                                                                                                    
+};                                                                                                                                                          
+                                                                                                                                                            
+/* ------------------------------------------------------------ */                                                                                          
+/*		Include Files for Board Customization Functions			*/                                                                                          
+/* ------------------------------------------------------------ */                                                                                          
 
 
 /* ------------------------------------------------------------ */
@@ -753,6 +753,68 @@ int	_board_analogWrite(uint8_t pin, int val) {
 }
 
 #endif
+
+/************************************************************************/
+/*  The WiFiShield share SPI with the uSD, we need to turn OFF          */
+/*	Interrupts so the WiFi MRF24 interrupt does not enable the MRF CS   */
+/*	while the uSD card has CS enabled                                   */
+/*	This is a private implementation of uSD CS							*/
+/************************************************************************/
+
+
+/* ------------------------------------------------------------ */
+
+static uint32_t	spi_state;
+static uint8_t     fspi_state_saved = false;
+static uint32_t    interrupt_state = 0;
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectHigh(uint8_t csPin) {
+  digitalWrite(csPin, HIGH);
+
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+  if(fspi_state_saved)
+  {
+    SPI2CON = spi_state;
+    fspi_state_saved = false;
+    restoreIntEnable(_EXTERNAL_1_IRQ, interrupt_state);
+  }
+}
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectLow(uint8_t csPin) {
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+    if(!fspi_state_saved)
+    {
+        interrupt_state = clearIntEnable(_EXTERNAL_1_IRQ);
+        spi_state = SPI2CON;
+        SPI2CONbits.ON = 0; 
+        fspi_state_saved = true;
+    }
+  digitalWrite(csPin, LOW);
+}
+
+void altSDInitchipSelectPin(uint8_t csPin)
+{
+    pinMode(csPin, OUTPUT);
+}
+
 
 #endif // OPT_BOARD_DATA
 

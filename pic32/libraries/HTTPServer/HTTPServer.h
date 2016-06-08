@@ -1,6 +1,6 @@
 /************************************************************************/
 /*                                                                      */
-/*    WebServer.h                                                       */
+/*    HTTPServer.h                                                       */
 /*                                                                      */
 /*    A chipKIT WiFi Server implementation                              */
 /*    Designed to look for and parse /GET commands and automatically    */
@@ -51,7 +51,6 @@
 
 #include    <WProgram.h>
 #include    <inttypes.h>
-#include    <SD.h>
 
 #include    <DEIPcK.h>
 
@@ -152,13 +151,10 @@ GCMD::ACTION ComposeHTMLRebootPage(CLIENTINFO * pClientInfo);
 GCMD::ACTION ComposeHTMLSDPage(CLIENTINFO * pClientInfo);
 
 void SDSetup(void);
-uint32_t SDRead(File& fileSD, uint8_t * pbRead, uint32_t cbRead);
 
-// SD variables for external use
-extern File fileSD;
-extern bool fSDfs;
 extern uint32_t sdLockCur;
 extern uint32_t sdLock;
+extern bool fSDfs;
 
 // SD Helper functions
 #define SDUNLOCKED 0

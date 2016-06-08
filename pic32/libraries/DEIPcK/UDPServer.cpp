@@ -52,17 +52,6 @@
 
 FFPT UDPServer::_ffptPeriodTask = {NULL, NULL};
 
-/***	Prevent Copies
-**
-**  Notes:
-**
-**      These are private methods that prevent
-**      copying of the instance. They are
-**      dummy functions and are never used.
-**
-*/
-UDPServer::UDPServer(UDPServer& udpServer){};
-
 /***	UDPServer Constructors
 **
 **  Notes:

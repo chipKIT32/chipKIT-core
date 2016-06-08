@@ -1,0 +1,21 @@
+lenny.name=chipKIT Lenny
+lenny.group=chipKIT
+lenny.platform=pic32
+lenny.board=_BOARD_LENNY_
+lenny.board.define=-D_USE_USB_FOR_SERIAL_
+lenny.ldscript=chipKIT-application-32MX270F256.ld
+lenny.ccflags=-Map="map.map"
+lenny.upload.protocol=stk500v2
+lenny.upload.maximum_size=122880
+lenny.upload.speed=115200
+lenny.bootloader.low_fuses=0xff
+lenny.bootloader.high_fuses=0xdd
+lenny.bootloader.extended_fuses=0x00
+lenny.bootloader.path=not-supported
+lenny.bootloader.file=bootloader.hex
+lenny.bootloader.unlock_bits=0x3F
+lenny.bootloader.lock_bits=0x0F
+lenny.build.mcu=32MX270F256D
+lenny.build.f_cpu=40000000L
+lenny.build.core=pic32
+lenny.build.variant=Lenny

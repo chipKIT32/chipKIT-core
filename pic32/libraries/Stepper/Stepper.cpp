@@ -47,7 +47,7 @@ http://www.arduino.cc/en/Tutorial/Stepper
 
 #include "WProgram.h"
 #include "Stepper.h"
-
+#include "limits.h"
 /*
  * two-wire constructor.
  * Sets which wires should control the motor.
@@ -56,6 +56,7 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2)
 {
   this->step_number = 0;      // which step the motor is on
   this->speed = 0;        // the motor speed, in revolutions per minute
+  this->step_delay = ULONG_MAX;  // step delay defaulted to max (minium rpms)
   this->direction = 0;      // motor direction
   this->last_step_time = 0;    // time stamp in ms of the last step taken
   this->number_of_steps = number_of_steps;    // total number of steps for this motor
@@ -86,6 +87,7 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2, int moto
 {
   this->step_number = 0;      // which step the motor is on
   this->speed = 0;        // the motor speed, in revolutions per minute
+  this->step_delay = ULONG_MAX;  // step delay defaulted to max (minimum rpms)
   this->direction = 0;      // motor direction
   this->last_step_time = 0;    // time stamp in ms of the last step taken
   this->number_of_steps = number_of_steps;    // total number of steps for this motor
@@ -112,7 +114,13 @@ Stepper::Stepper(int number_of_steps, int motor_pin_1, int motor_pin_2, int moto
 */
 void Stepper::setSpeed(long whatSpeed)
 {
-  this->step_delay = 60L * 1000L / this->number_of_steps / whatSpeed;
+  // avoid divide by 0
+  if (whatSpeed > 0) {
+    this->step_delay = 60L * 1000L / this->number_of_steps / whatSpeed;
+  } else {
+    // divide by 0 attempted, set speed to minimum rpms
+    this->step_delay = ULONG_MAX; 
+  }
 }
 
 /*
@@ -127,32 +135,31 @@ void Stepper::step(int steps_to_move)
   if (steps_to_move > 0) {this->direction = 1;}
   if (steps_to_move < 0) {this->direction = 0;}
     
-    
   // decrement the number of steps, moving one step each time:
   while(steps_left > 0) {
   // move only if the appropriate delay has passed:
   if (millis() - this->last_step_time >= this->step_delay) {
-      // get the timeStamp of when you stepped:
-      this->last_step_time = millis();
-      // increment or decrement the step number,
-      // depending on direction:
-      if (this->direction == 1) {
-        this->step_number++;
-        if (this->step_number == this->number_of_steps) {
-          this->step_number = 0;
-        }
-      } 
-      else { 
-        if (this->step_number == 0) {
-          this->step_number = this->number_of_steps;
-        }
-        this->step_number--;
-      }
-      // decrement the steps left:
-      steps_left--;
-      // step the motor to step number 0, 1, 2, or 3:
-      stepMotor(this->step_number % 4);
-    }
+     // get the timeStamp of when you stepped:
+     this->last_step_time = millis();
+     // increment or decrement the step number,
+     // depending on direction:
+     if (this->direction == 1) {
+       this->step_number++;
+       if (this->step_number == this->number_of_steps) {
+         this->step_number = 0;
+       }
+     } 
+     else { 
+       if (this->step_number == 0) {
+         this->step_number = this->number_of_steps;
+       }
+       this->step_number--;
+     }
+     // decrement the steps left:
+     steps_left--;
+     // step the motor to step number 0, 1, 2, or 3:
+     stepMotor(this->step_number % 4);
+   }
   }
 }
 

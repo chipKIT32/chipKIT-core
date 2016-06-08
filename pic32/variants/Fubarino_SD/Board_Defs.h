@@ -69,7 +69,7 @@
 #define	NUM_SPI_PORTS		1
 #define	NUM_I2C_PORTS		1
 
-#define NUM_DSPI_PORTS		2
+#define NUM_DSPI_PORTS		1
 #define NUM_DTWI_PORTS		2
 
 /* Define I/O devices on the board.
@@ -153,10 +153,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 27;		// PIC32 SS2
-const static uint8_t MOSI = 26;		// PIC32 SDO2
-const static uint8_t MISO = 25;		// PIC32 SDI2
-const static uint8_t SCK  = 24;		// PIC32 SCK2
+static const uint8_t SS   = 27;		// PIC32 SS2
+static const uint8_t MOSI = 26;		// PIC32 SDO2
+static const uint8_t MISO = 25;		// PIC32 SDI2
+static const uint8_t SCK  = 24;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -220,27 +220,28 @@ const static uint8_t SCK  = 24;		// PIC32 SCK2
 ** These are mostly generic, but some of them may be board specific.
 ** These perform slightly better as macros compared to inline functions
 */
-#define digitalPinToPort(P) ( digital_pin_to_port_PGM[P]  )
-#define digitalPinToBitMask(P) ( digital_pin_to_bit_mask_PGM[P]  )
+#define digitalPinToPort(P)     ( digital_pin_to_port_PGM[P]  )
+#define digitalPinToBitMask(P)  ( digital_pin_to_bit_mask_PGM[P]  )
 #define digitalPinToTimerOC(P)  ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_OC)  )
 #define digitalPinToTimerIC(P)  ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_IC)  )
 #define digitalPinToTimerTCK(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_TCK) )
 #define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
-#define portRegisters(P) ( port_to_tris_PGM[P] )
-#define portModeRegister(P) ( (volatile uint32_t *)port_to_tris_PGM[P] )
-#define portInputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
-#define portOutputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
+#define portModeRegister(P)     ( (volatile uint32_t *)port_to_tris_PGM[P] )
+#define portInputRegister(P)    ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
+#define portOutputRegister(P)   ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
 
 // This definition can be used for the default mapping.
 //#define	digitalPinToAnalog(P) ( (((P) > 15) && ((P) < 32)) ? (P)-16 : NOT_ANALOG_PIN )
 // This definition can be used for the non-default case where there
 // is a mapping table to go from digital pin to analog pin
+#undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( ((P) > 14 ) ? digital_pin_to_analog_PGM[P] : digital_pin_to_analog_PGM[(14 - P) + 30] )
 
 // This definition can be used for the default one-to-one mapping
 //#define analogInPinToChannel(P) ( P )
 // This definition is used when there isn't a one-to-one mapping
 // This uses a table to do the mapping.
+#undef analogInPinToChannel
 #define analogInPinToChannel(P) ( analog_pin_to_channel_PGM[P]  )
 
 /* ------------------------------------------------------------ */
@@ -299,6 +300,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	OPT_BOARD_DIGITAL_IO	0	//board does not extend digital i/o functions
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
+
+#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
@@ -382,20 +385,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The default SPI port uses SPI2. The pins for SPI2 stay the
-** same on all PIC32 devices. The pins for SPI1 move around,
-** and the ports beyond SPI2 aren't defined on some parts.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* The Digilent DSPI library uses the same port.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
@@ -406,14 +396,15 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_DSPI0_IPL			3
 #define	_DSPI0_SPL			0
 
-#define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
-#define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
-#define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
-#define	_DSPI1_TX_IRQ		_SPI3_TX_IRQ
-#define	_DSPI1_VECTOR		_SPI_3_VECTOR
-#define	_DSPI1_IPL_ISR		IPL3SOFT
-#define	_DSPI1_IPL			3
-#define	_DSPI1_SPL			0
+// SD seed does not have SPI3
+//#define	_DSPI1_BASE			_SPI3_BASE_ADDRESS
+//#define	_DSPI1_ERR_IRQ		_SPI3_ERR_IRQ
+//#define	_DSPI1_RX_IRQ		_SPI3_RX_IRQ
+//#define	_DSPI1_TX_IRQ		_SPI3_TX_IRQ
+//#define	_DSPI1_VECTOR		_SPI_3_VECTOR
+//#define	_DSPI1_IPL_ISR		IPL3SOFT
+//#define	_DSPI1_IPL			3
+//#define	_DSPI1_SPL			0
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
@@ -474,7 +465,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	// OPT_BOARD_INTERNAL
+#define DefineSDSPI(spi) DSPI0 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 25)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

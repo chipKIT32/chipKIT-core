@@ -87,6 +87,49 @@
 //	#define	_DEBUG_USB_VIA_SERIAL0_
 #endif
 
+// Definitions for a built-in TX and RX LED for USB serial.
+// Relies on the board defining PIN_LED_TX and PIN_LED_RX
+// Only supports active-high LEDs at the moment.
+// The LED is turned on in the main code, and a timestamp
+// is set for turning it off.  A task is executed every 10ms
+// to turn the LED off between 10 and 20ms after it's been
+// requested with xXOff(); which means that you get to actually
+// see the LED in action.
+
+#ifdef PIN_LED_TX
+static volatile uint32_t gTXLedTimeout = 0;
+# define TXOn() digitalWrite(PIN_LED_TX, HIGH); gTXLedTimeout = 0;
+# define TXOff() gTXLedTimeout = millis();
+static void TXLedSwitchOff(int id, void *tptr) {
+    if (gTXLedTimeout > 0) {
+        if (millis() - gTXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_TX, LOW);
+            gTXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define TXOn()
+# define TXOff()
+#endif
+
+#ifdef PIN_LED_RX
+static volatile uint32_t gRXLedTimeout = 0;
+# define RXOn() digitalWrite(PIN_LED_RX, HIGH); gRXLedTimeout = 0;
+# define RXOff() gRXLedTimeout = millis();
+static void RXLedSwitchOff(int id, void *tptr) {
+    if (gRXLedTimeout > 0) {
+        if (millis() - gRXLedTimeout >= 10) {
+            digitalWrite(PIN_LED_RX, LOW);
+            gRXLedTimeout = 0;
+        }
+    }
+}
+#else
+# define RXOn()
+# define RXOff()
+#endif
+
 extern "C"
 {
 void __attribute__((interrupt(),nomips16)) IntSer0Handler(void);
@@ -128,7 +171,7 @@ void __attribute__((interrupt(),nomips16)) IntSer7Handler(void);
 **		any global variables used by the object.
 */
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, int splT, isrFunc isrHandler, int pinT, int pinR, ppsFunctionType ppsT, ppsFunctionType ppsR)
 #else
 HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, int splT, isrFunc isrHandler)
@@ -144,7 +187,7 @@ HardwareSerial::HardwareSerial(p32_uart * uartT, int irqT, int vecT, int iplT, i
     isr  = isrHandler;
     rxIntr = NULL;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	pinTx = (uint8_t)pinT;
 	pinRx = (uint8_t)pinR;
 	ppsTx = ppsT;
@@ -196,7 +239,7 @@ void HardwareSerial::begin(unsigned long baudRate)
 	*/
 	purge();
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
     // set the pins to digital, just in case they 
     // are analog pins. The serial controller will not
@@ -297,7 +340,7 @@ void HardwareSerial::begin(unsigned long baudRate, uint8_t address) {
 	*/
 	purge();
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 
     // set the pins to digital, just in case they 
     // are analog pins. The serial controller will not
@@ -725,7 +768,8 @@ void	USBresetRoutine(void)
 // Need to return FALSE if we need USB to hold off for awhile
 boolean	USBstoreDataRoutine(const byte *buffer, int length)
 {
-    unsigned int	i;
+    int	i;
+    RXOn();
 
     // If we have a receive callback defined then repeatedly
     // call it with each character.
@@ -733,6 +777,7 @@ boolean	USBstoreDataRoutine(const byte *buffer, int length)
         for (i = 0; i < length; i++) {
             Serial.rxIntr(buffer[i]);
         }
+        RXOff();
         return true;
     }
 
@@ -745,10 +790,12 @@ boolean	USBstoreDataRoutine(const byte *buffer, int length)
     // false so USB will NAK and we won't get any more data.
     if (USBSerialBufferFree() < USB_SERIAL_MIN_BUFFER_FREE)
     {
+        RXOff();
         return(false);
     }
     else
     {
+        RXOff();
         return(true);
     }
 }
@@ -777,6 +824,20 @@ USBSerial::operator int() {
 //*******************************************************************************************
 void USBSerial::begin(unsigned long baudRate)
 {
+    // Added to remove warning about unused parameter
+    (void)baudRate;
+#ifdef PIN_LED_TX
+    pinMode(PIN_LED_TX, OUTPUT);
+    digitalWrite(PIN_LED_TX, LOW);
+    createTask(TXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
+
+#ifdef PIN_LED_RX
+    pinMode(PIN_LED_RX, OUTPUT);
+    digitalWrite(PIN_LED_RX, LOW);
+    createTask(RXLedSwitchOff, 10, TASK_ENABLE, NULL);
+#endif
+
 	DebugViaSerial0("USBSerial::begin");
 
 	DebugViaSerial0("calling usb_initialize");
@@ -858,10 +919,6 @@ void USBSerial::flush()
 	// occurs after reading the value of rx_buffer_head but before writing
 	// the value to rx_buffer_tail; the previous value of rx_buffer_head
 	// may be written to rx_buffer_tail, making it appear as if the buffer
-	// don't reverse this or there may be problems if the RX interrupt
-	// occurs after reading the value of rx_buffer_head but before writing
-	// the value to rx_buffer_tail; the previous value of rx_buffer_head
-	// may be written to rx_buffer_tail, making it appear as if the buffer
 	// were full, not empty.
 	_rx_buffer->head	=	_rx_buffer->tail;
 }
@@ -873,7 +930,9 @@ unsigned char	usbBuf[4];
 
 	usbBuf[0]	=	theChar;
 	
+    TXOn();
 	cdcacm_print(usbBuf, 1);
+    TXOff();
     return 1;
 }
 
@@ -893,7 +952,7 @@ void USBSerial::detachInterrupt() {
 //*******************************************************************************************
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
-
+    TXOn();
 	if (size < kMaxUSBxmitPkt)
 	{
 		//*	it will fit in one transmit packet
@@ -901,7 +960,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 	}
 	else
 	{
-	//*	we can only transmit a maxium of 64 bytes at a time, break it up into 64 byte packets
+	//*	we can only transmit a maxium of 63 bytes at a time, break it up into 63 byte packets
 	unsigned char	usbBuffer[kMaxUSBxmitPkt + 2];
 	unsigned short	ii;
 	size_t 			packetSize;
@@ -921,6 +980,7 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
 			cdcacm_print(usbBuffer, packetSize);
 		}
 	}
+    TXOff();
     return size;
 }
 
@@ -1189,7 +1249,7 @@ void __attribute__((interrupt(), nomips16)) IntSer7Handler(void)
 */
 USBSerial		Serial(&rx_bufferUSB);
 #if defined(_SER0_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler);
@@ -1204,7 +1264,7 @@ HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IP
 ** however MZ have 6
 */
 #if defined(_SER0_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
 HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler);
@@ -1214,7 +1274,7 @@ HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL
 #endif	//defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
 #if defined(_SER1_BASE)
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IPL, _SER1_SPL, IntSer1Handler, _SER1_TX_PIN, _SER1_RX_PIN, _SER1_TX_OUT, _SER1_RX_IN);
 #else
 HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IPL, _SER1_SPL, IntSer1Handler);

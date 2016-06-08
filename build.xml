@@ -46,7 +46,7 @@
   <condition property="platform" value="linux64">
     <os arch="amd64" family="unix"/>
   </condition>
-  <condition property="platform" value="raspberrypi">
+  <condition property="platform" value="arm">
     <os arch="arm" family="unix"/>
   </condition>
 
@@ -61,7 +61,7 @@
 
   <target description="increment build version number" name="increment">
     <propertyfile file="version.properties">
-      <entry key="CHIPKITCOREVER" operation="+" default="16777998" pattern="00000000" type="int"/>
+      <entry default="16777998" key="CHIPKITCOREVER" operation="+" pattern="00000000" type="int"/>
     </propertyfile>
   </target>
 
@@ -82,12 +82,17 @@
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
       <fileset dir="modules/pic32prog/${localplatform}"/>
     </copy>
+
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
 
-    <get dest="tmp" src="https://s3.amazonaws.com/chipkit/compilers/pic32-tools-Darwin-image-20140530.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Darwin-image-20140530.zip"/>
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Darwin-image.zip"/>
 
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
@@ -98,9 +103,9 @@
   <target depends="setup" description="Build linux version" name="linux32-build">
     <property name="localplatform">linux32</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Linux32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -117,14 +122,18 @@
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+    <echo message="${localplatform}" />
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
 
   </target>
 
-  <target depends="setup" description="Build linux ARM version" name="raspberrypi-build">
-    <property name="localplatform">raspberrypi</property>
+  <target depends="setup" description="Build linux ARM version" name="arm-build">
+    <property name="localplatform">arm</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-arm-linux-image-20140530.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-arm-linux-image-20140530.zip"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -142,15 +151,19 @@
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
 
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="linuxarmhf"/>
+    </antcall>
+
   </target>
 
   <target depends="setup" description="Build linux (32-bit) version" name="linux64-build">
     <echo message="When 64bit version is released. A 64 bit compiler will be included."/>
     <property name="localplatform">linux64</property>
 
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-Linux32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-Linux32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -168,14 +181,18 @@
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
 
+    <antcall target="checksum-pic32prog">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
+
   </target>
 
   <target depends="setup" description="Build windows version" name="windows-build">
     <property name="localplatform">windows</property>
 <!-- pic32 compiler -->
-    <get dest="tmp" src="https://chipkit.s3.amazonaws.com/compilers/pic32-tools-win32-image-20140530.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-win32-image-20140530.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-win32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -193,10 +210,13 @@
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
+    <antcall target="checksum-pic32prog-win">
+      <param name="localplatform" value="${localplatform}"/>
+    </antcall>
   </target>
 
-  <target depends="raspberrypi-build" description="Make dist raspberrypi version" name="raspberrypi-dist">
-    <property name="localplatform">raspberrypi</property>
+  <target depends="arm-build" description="Make dist raspberrypi/arm version" name="arm-dist">
+    <property name="localplatform">arm</property>
     <antcall target="compress">
       <param name="localplatform" value="${localplatform}"/>
     </antcall>
@@ -233,25 +253,26 @@
   </target>
 
   <target depends="increment" description="Create all the distribution zip files." name="dist-all">
-    <antcall target="raspberrypi-dist" >
+    <antcall target="arm-dist">
       <param name="localplatform" value="arm"/>
     </antcall>
 
-    <antcall target="macosx-dist" >
+    <antcall target="macosx-dist">
       <param name="localplatform" value="macosx"/>
     </antcall>
 
-    <antcall target="linux32-dist" >
+    <antcall target="linux32-dist">
       <param name="localplatform" value="linux32"/>
     </antcall>
 
-    <antcall target="linux64-dist" >
+    <antcall target="linux64-dist">
       <param name="localplatform" value="linux64"/>
     </antcall>
 
-    <antcall target="windows-dist" >
+    <antcall target="windows-dist">
       <param name="localplatform" value="windows"/>
     </antcall>
+    <antcall target="checksum-pic32tools"/>
   </target>
 
   <target description="update the submodules pic32prog" name="updatepic32prog">
@@ -274,10 +295,31 @@
     </exec>
   </target>
 
-  <target depends="git.revision" description="Compress the distribution for deployment." name="compress">
+  <target name="checksum-pic32tools">
+    <checksum algorithm="SHA-256" fileext=".asc" forceOverwrite="yes">
+      <fileset dir="tmp">
+        <include name="pic32-tools*.zip"/>
+      </fileset>
+    </checksum>
+  </target>
+
+  <target name="checksum-pic32prog">
+    <zip basedir="modules/pic32prog/${localplatform}" destfile="tmp/pic32prog-${localplatform}.zip"/>
+    <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
+  </target>
+
+  <target name="checksum-pic32prog-win" >
+    <zip destfile="tmp/pic32prog-${localplatform}.zip" >
+      <zipfileset dir="modules/pic32prog" includes="pic32prog.exe" />
+    </zip>
+    <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
+  </target>
+
+  <target name="compress" depends="git.revision" description="Compress the distribution for deployment." >
     <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
+    <checksum algorithm="SHA-256" file="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 
   <target depends="" description="Clean build" name="clean">
@@ -291,25 +333,89 @@
     <delete dir="dist/"/>
   </target>
 
-  <target description="Store git revision in ${repository.version}" if="git.present" name="git.revision">
+  <target description="Store git branch in ${git.branch} (unless the variable GIT_BRANCH is set, then it uses that." if="git.present" name="git.branch">
+
+    <condition property="git.branch" value="${GIT_BRANCH}">
+        <isset property="GIT_BRANCH" />
+    </condition>
+
+
+    <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
+            <arg line="rev-parse --abbrev-ref HEAD"/>
+    </exec>
+
+    <condition property="git.branch" value="${git.revparsebranch}">
+        <not>
+            <isset property="GIT_BRANCH" />
+        </not>
+    </condition>
+  </target>
+
+
+  <target description="Store git revision in ${repository.version}" if="git.present" name="git.revision" depends="git.branch">
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revision">
       <arg value="describe"/>
       <arg value="--tags"/>
       <arg value="--always"/>
       <arg value="HEAD"/>
     </exec>
-    <condition else="unknown" property="repository.version" value="${git.revision}">
+    <condition else="unknown" property="repository.version" value="${git.branch}-${git.revision}">
       <and>
         <isset property="git.revision"/>
         <length length="0" string="${git.revision}" trim="yes" when="greater"/>
+        <isset property="git.branch"/>
+        <length length="0" string="${git.branch}" trim="yes" when="greater"/>
       </and>
     </condition>
   </target>
 
+  <target name="updatePlatform" >
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+            replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+            byline="true"
+        />
+        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+            match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+            replace="\{runtime.tools.pic32prog.path\}"
+            byline="true"
+        />
+  </target>
+
+  <target name="github-release" depends="setup,git.revision">
+    <replaceregexp file="pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+        replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+        byline="true"
+    />
+    <replaceregexp file="pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+        replace="\{runtime.tools.pic32prog.path\}"
+        byline="true"
+    />
+
+    <!-- get the chipKIT core release -->
+
+    <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip">
+      <zipfileset dir="pic32" includes="**/*" prefix="pic32" filemode="755"/>
+    </zip>
+
+<!--  <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip"
+       basedir="pic32" />
+     -->
+    <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+    <!-- revert the platform.txt to original version -->
+    <exec executable="git">
+      <arg value="checkout"/>
+      <arg value="pic32/platform.txt"/>
+    </exec>
+
+  </target>
+
 <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
-  <target name="help" description="Show project help">
+  <target description="Show project help" name="help">
     <java classname="org.apache.tools.ant.Main">
-      <arg value="-p" />
+      <arg value="-p"/>
     </java>
   </target>
 </project>

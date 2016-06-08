@@ -71,7 +71,7 @@ static const char szIPInUse[] = "IP in Use";
         true if the DHCP has finished and you have an IP, call LLARPGetMyIP to get the IP
         false if still in process or an error occured, check status for an error
   ***************************************************************************/
-bool DHCPInit(const LLADP * pLLAdp, uint8_t * rgbDHCPMem, uint32_t cbDHCPMem, HPMGR hPMGR, IPSTATUS * pStatus)
+bool DHCPInit(const LLADP * pLLAdp, void * rgbDHCPMem, uint32_t cbDHCPMem, HPMGR hPMGR, IPSTATUS * pStatus)
 {
     UDPSOCKET *     pSocket = NULL;
     IPSTATUS        status = ipsSuccess;
@@ -421,7 +421,9 @@ static void DHCPStateMachine(const LLADP * pLLAdp)
             // pLLAdp->pDHCPMem->dgDHCP.flags              = DHCPREQUIREBROADCAST;  // done in DHCPSend()
             pLLAdp->pDHCPMem->dgDHCP.htype              = hwtypeEthernet;
             pLLAdp->pDHCPMem->dgDHCP.hlen               = sizeof(MACADDR);
-            pLLAdp->pDHCPMem->dgDHCP.xid                = GetSysTick() + *((uint32_t *) &pLLAdp->pNwAdp->mac.u8[0]) + *((uint16_t *) &pLLAdp->pNwAdp->mac.u8[4]);        // quazi random number
+            pLLAdp->pDHCPMem->dgDHCP.xid                = GetSysTick() + (((uint32_t) pLLAdp->pNwAdp->mac.u16[0]) << 16) + pLLAdp->pNwAdp->mac.u16[1] + pLLAdp->pNwAdp->mac.u16[2];        // quazi random number
+ //           pLLAdp->pDHCPMem->dgDHCP.xid                = GetSysTick() + *((uint32_t *) &pLLAdp->pNwAdp->mac.u8[0]) + *((uint16_t *) &pLLAdp->pNwAdp->mac.u8[4]);        // quazi random number
+ //           pLLAdp->pDHCPMem->dgDHCP.xid                = GetSysTick() + ((UNALIGNPTR *) &pLLAdp->pNwAdp->mac.u8[0])->u32 + ((UNALIGNPTR *) &pLLAdp->pNwAdp->mac.u8[4])->u16;        // quazi random number
             memcpy(pLLAdp->pDHCPMem->dgDHCP.chaddr, &pLLAdp->pNwAdp->mac, sizeof(MACADDR));
             pLLAdp->pDHCPMem->dgDHCP.MagicCookie.u32    = MAGICCOOKIE;
 

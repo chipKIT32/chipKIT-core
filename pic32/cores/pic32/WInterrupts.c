@@ -56,8 +56,8 @@ void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void);
 void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void);
 
-volatile static voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
-
+static volatile voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
+static volatile int intmode[NUM_EXTERNAL_INTERRUPTS];
 //************************************************************************
 // PIC32 devices only support rising and falling edge triggered interrupts
 // on the external interrupt pins. Only the RISING and FALLING modes are
@@ -67,11 +67,12 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
 {
     int		edge;
 
-    if ((interruptNum < NUM_EXTERNAL_INTERRUPTS) && ((mode == FALLING)||(mode == RISING)))
+    if ((interruptNum < NUM_EXTERNAL_INTERRUPTS) && (mode != CHANGE))
     {
         intFunc[interruptNum]	=	userFunc;
+        intmode[interruptNum] 	=	mode;
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
         /* For devices with peripheral pin select (PPS), it is necessary to
         ** map the input function to the pin. This is done by loading the
         ** PPS input select register for the specific interrupt with the value
@@ -92,7 +93,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
 
         // The active edge is selected via the INTxEP bits in the INTCON register.
         // A '0' bit selects falling edge, and a '1' bit select rising edge.
-        if (mode == FALLING)
+        if (mode == FALLING || mode == LOW)
         {
             edge	=	0;
         }
@@ -255,6 +256,7 @@ void detachInterrupt(uint8_t interruptNum)
     }
 }
 
+#define VEC_ENT_CODE(I,B,P) int c = intmode[I]; IFS0bits.B=0; if (intFunc[I] != 0) (*intFunc[I])(); if(c < CHANGE && c == digitalRead(P)) { IFS0bits.B=1; }
 //************************************************************************
 // INT0 ISR
 #if defined(__PIC32MZXX__)
@@ -263,12 +265,22 @@ void __attribute__((nomips16,at_vector(_EXTERNAL_0_VECTOR),interrupt(IPL4SRS))) 
 void __attribute__((interrupt(),nomips16)) ExtInt0Handler(void)
 #endif
 {
-
+	VEC_ENT_CODE(EXT_INT0,INT0IF,PIN_INT0);
+/*
+	int c = intmode[EXT_INT0];
 	if (intFunc[EXT_INT0] != 0)
 	{
 		(*intFunc[EXT_INT0])();
 	}
-	IFS0bits.INT0IF	=	0;
+	
+	if(c < CHANGE) {
+		if(c == digitalRead(PIN_INT0)) {
+			IFS0bits.INT0IF = 1;
+		} else {
+			IFS0bits.INT0IF = 0;
+		}
+	} else IFS0bits.INT0IF = 0;
+*/
 }
 
 //************************************************************************
@@ -279,12 +291,22 @@ void __attribute__((nomips16,at_vector(_EXTERNAL_1_VECTOR),interrupt(IPL4SRS))) 
 void __attribute__((interrupt(),nomips16)) ExtInt1Handler(void)
 #endif
 {
-
+	VEC_ENT_CODE(EXT_INT1,INT1IF,PIN_INT1);
+/*
+	int c = intmode[EXT_INT1];
 	if (intFunc[EXT_INT1] != 0)
 	{
 		(*intFunc[EXT_INT1])();
 	}
-	IFS0bits.INT1IF	=	0;
+	
+	if(c < CHANGE) {
+		if(c == digitalRead(PIN_INT1)) {
+			IFS0bits.INT1IF = 1;
+		} else {
+			IFS0bits.INT1IF = 0;
+		}
+	} else IFS0bits.INT1IF = 0;
+*/
 }
 
 //************************************************************************
@@ -295,12 +317,22 @@ void __attribute__((nomips16,at_vector(_EXTERNAL_2_VECTOR),interrupt(IPL4SRS))) 
 void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void)
 #endif
 {
-
+	VEC_ENT_CODE(EXT_INT2,INT2IF,PIN_INT2);
+/*
+	int c = intmode[EXT_INT2];
 	if (intFunc[EXT_INT2] != 0)
 	{
 		(*intFunc[EXT_INT2])();
 	}
-	IFS0bits.INT2IF	=	0;
+	
+	if(c < CHANGE) {
+		if(c == digitalRead(PIN_INT2)) {
+			IFS0bits.INT2IF = 1;
+		} else {
+			IFS0bits.INT2IF = 0;
+		}
+	} else IFS0bits.INT2IF = 0;
+*/
 }
 
 //************************************************************************
@@ -311,12 +343,22 @@ void __attribute__((nomips16,at_vector(_EXTERNAL_3_VECTOR),interrupt(IPL4SRS))) 
 void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void)
 #endif
 {
-
+	VEC_ENT_CODE(EXT_INT3,INT3IF,PIN_INT3);
+/*
+	int c = intmode[EXT_INT3];
 	if (intFunc[EXT_INT3] != 0)
 	{
 		(*intFunc[EXT_INT3])();
 	}
-	IFS0bits.INT3IF	=	0;
+	
+	if(c < CHANGE) {
+		if(c == digitalRead(PIN_INT3)) {
+			IFS0bits.INT3IF = 1;
+		} else {
+			IFS0bits.INT3IF = 0;
+		}
+	} else IFS0bits.INT3IF = 0;
+*/
 }
 
 //************************************************************************
@@ -327,12 +369,22 @@ void __attribute__((nomips16,at_vector(_EXTERNAL_4_VECTOR),interrupt(IPL4SRS))) 
 void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void)
 #endif
 {
-
+	VEC_ENT_CODE(EXT_INT4,INT4IF,PIN_INT4);
+/*
+	int c = intmode[EXT_INT4];
 	if (intFunc[EXT_INT4] != 0)
 	{
 		(*intFunc[EXT_INT4])();
 	}
-	IFS0bits.INT4IF	=	0;
+	
+	if(c < CHANGE) {
+		if(c == digitalRead(PIN_INT4)) {
+			IFS0bits.INT4IF = 1;
+		} else {
+			IFS0bits.INT4IF = 0;
+		}
+	} else IFS0bits.INT4IF = 0;
+*/
 }
 
 //************************************************************************

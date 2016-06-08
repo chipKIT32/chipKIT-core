@@ -1,0 +1,171 @@
+_IOPORT_PA      // XX   RA0     TMS/EBIA16/AN24/RA0   
+_IOPORT_PA      // XX   RA1     TCK/EBIA19/AN29/RA1   
+_IOPORT_PA      // XX   RA2     EBICS0/SCL2/RA2
+_IOPORT_PA      // XX   RA3     EBIRDY1/SDA2/RA3
+_IOPORT_PA      // XX   RA4     EBIA14/PMCS1/PMA14/RA4
+_IOPORT_PA      // XX   RA5     EBIA5/AN34/PMA5/RA5    
+_IOPORT_PA      // XX   RA6     TRCLK/SQICLK/RA6
+_IOPORT_PA      // XX   RA7     TRD3/SQID3/RA7
+//_IOPORT_PA      // XX   RA8     
+_IOPORT_PA      // XX   RA9     VREF-/CVREF-/AN27/RA9   
+_IOPORT_PA      // XX   RA10    VREF+/CVREF+/AN28/RA10   
+//_IOPORT_PA      // XX   RA11
+//_IOPORT_PA      // XX   RA12
+//_IOPORT_PA      // XX   RA13
+_IOPORT_PA      // XX   RA14    RPA14/SCL1/RA14
+_IOPORT_PA      // XX   RA15    RPA15/SDA1/RA15
+
+_IOPORT_PB      // XX   RB0     PGED1/AN0/RPB0/RB0  
+_IOPORT_PB      // XX   RB1     PGEC1/AN1/RPB1/RB1  
+_IOPORT_PB      // XX   RB2     AN2/C2INB/RPB2/RB2   
+_IOPORT_PB      // XX   RB3     AN3/C2INA/RPB3/RB3     
+_IOPORT_PB      // XX   RB4     AN4/C1INB/RB4   
+_IOPORT_PB      // XX   RB5     AN45/C1INA/RPB5/RB5   
+_IOPORT_PB      // XX   RB6     PGEC2/AN46/RPB6/RB6   
+_IOPORT_PB      // XX   RB7     PGED2/AN47/RPB7/RB7    
+_IOPORT_PB      // XX   RB8     EBIA10/AN48/RPB8/PMA10/RB8     
+_IOPORT_PB      // XX   RB9     EBIA7/AN49/RPB9/PMA7/RB9    
+_IOPORT_PB      // XX   RB10    EBIA13/CVREFOUT/AN5/RPB10/PMA13/RB10   
+_IOPORT_PB      // XX   RB11    AN6/RB11  
+_IOPORT_PB      // XX   RB12    EBIA11/AN7/PMA11/RB12   
+_IOPORT_PB      // XX   RB13    AN8/RB13  
+_IOPORT_PB      // XX   RB14    EBIA1/AN9/RPB14/SCK3/PMA1/RB14   
+_IOPORT_PB      // XX   RB15    EBIA0/AN10/RPB15/OCFB/PMA0/RB15   
+
+//_IOPORT_PC      // XX   RC0
+_IOPORT_PC      // XX   RC1     EBIA6/AN22/RPC1/PMA6/RC1   
+_IOPORT_PC      // XX   RC2     EBIA12/AN21/RPC2/PMA12/RC2    
+_IOPORT_PC      // XX   RC3     EBIWE/AN20/RPC3/PMWR/RC3  
+_IOPORT_PC      // XX   RC4     EBIOE/AN19/RPC4/PMRD/RC4    
+//_IOPORT_PC      // XX   RC5
+//_IOPORT_PC      // XX   RC6
+//_IOPORT_PC      // XX   RC7
+//_IOPORT_PC      // XX   RC8
+//_IOPORT_PC      // XX   RC9
+//_IOPORT_PC      // XX   RC10
+//_IOPORT_PC      // XX   RC11
+_IOPORT_PC      // XX   RC12    OSC1/CLKI/RC12   
+_IOPORT_PC      // XX   RC13    SOSCI/RPC13/RC13
+_IOPORT_PC      // XX   RC14    SOSCO/RPC14/T1CK/RC14
+_IOPORT_PC      // XX   RC15    OSC2/CLKO/RC15 
+
+_IOPORT_PD      // XX   RD0     RPD0/RTCC/INT0/RD0
+_IOPORT_PD      // XX   RD1     RPD1/SCK1/RD1
+_IOPORT_PD      // XX   RD2     EBID14/RPD2/PMD14/RD2
+_IOPORT_PD      // XX   RD3     EBID15/RPD3/PMD15/RD3
+_IOPORT_PD      // XX   RD4     SQICS0/RPD4/RD4
+_IOPORT_PD      // XX   RD5     SQICS1/RPD5/RD5
+_IOPORT_PD      // XX   RD6     ETXEN/RPD6/RD6
+_IOPORT_PD      // XX   RD7     ETXCLK/RPD7/RD7
+//_IOPORT_PD      // XX   RD8
+_IOPORT_PD      // XX   RD9     EBIA15/RPD9/PMCS2/PMA15/RD9
+_IOPORT_PD      // XX   RD10    RPD10/SCK4/RD10
+_IOPORT_PD      // XX   RD11    EMDC/RPD11/RD11
+_IOPORT_PD      // XX   RD12    EBID12/RPD12/PMD12/RD12
+_IOPORT_PD      // XX   RD13    EBID13/PMD13/RD13
+_IOPORT_PD      // XX   RD14    AN32/AETXD0/RPD14/RD14    
+_IOPORT_PD      // XX   RD15    AN33/RPD15/SCK6/RD15   
+
+_IOPORT_PE      // XX   RE0     EBID0/PMD0/RE0
+_IOPORT_PE      // XX   RE1     EBID1/PMD1/RE1
+_IOPORT_PE      // XX   RE2     EBID2/SQID2/PMD2/RE2
+_IOPORT_PE      // XX   RE3     EBID3/RPE3/PMD3/RE3
+_IOPORT_PE      // XX   RE4     EBID4/AN18/PMD4/RE4
+_IOPORT_PE      // XX   RE5     EBID5/AN17/RPE5/PMD5/RE5    
+_IOPORT_PE      // XX   RE6     EBID6/AN16/PMD6/RE6   
+_IOPORT_PE      // XX   RE7     EBID7/AN15/PMD7/RE7    
+_IOPORT_PE      // XX   RE8     AN25/RPE8/RE8    
+_IOPORT_PE      // XX   RE9     AN26/RPE9/RE9     
+//_IOPORT_PE      // XX   RE10
+//_IOPORT_PE      // XX   RE11
+//_IOPORT_PE      // XX   RE12
+//_IOPORT_PE      // XX   RE13
+//_IOPORT_PE      // XX   RE14
+//_IOPORT_PE      // XX   RE15
+
+_IOPORT_PF      // XX   RF0     EBID11/RPF0/PMD11/RF0
+_IOPORT_PF      // XX   RF1     EBID10/RPF1/PMD10/RF1
+_IOPORT_PF      // XX   RF2     RPF2/SDA3/RF2    
+_IOPORT_PF      // XX   RF3     RPF3/USBID/RF3     
+_IOPORT_PF      // XX   RF4     EBIA9/RPF4/SDA5/PMA9/RF4
+_IOPORT_PF      // XX   RF5     EBIA8/RPF5/SCL5/PMA8/RF5     
+//_IOPORT_PF      // XX   RF6
+//_IOPORT_PF      // XX   RF7
+_IOPORT_PF      // XX   RF8     EBIRDY2/RPF8/SCL3/RF8    
+//_IOPORT_PF      // XX   RF9
+//_IOPORT_PF      // XX   RF10
+//_IOPORT_PF      // XX   RF11
+_IOPORT_PF      // XX   RF12    TDO/EBIA17/AN31/RPF12/RF12  
+_IOPORT_PF      // XX   RF13    TDI/EBIA18/AN30/RPF13/SCK5/RF13   
+//_IOPORT_PF      // XX   RF14
+//_IOPORT_PF      // XX   RF15
+
+_IOPORT_PG      // XX   RG0     EBID8/RPG0/PMD8/RG0
+_IOPORT_PG      // XX   RG1     EBID9/RPG1/PMD9/RG1
+//_IOPORT_PG      // XX   RG2
+//_IOPORT_PG      // XX   RG3
+//_IOPORT_PG      // XX   RG4     
+//_IOPORT_PG      // XX   RG5
+_IOPORT_PG      // XX   RG6     AN14/C1IND/RPG6/SCK2/RG6   
+_IOPORT_PG      // XX   RG7     EBIA4/AN13/C1INC/RPG7/SDA4/PMA4/RG7    
+_IOPORT_PG      // XX   RG8     EBIA3/AN12/C2IND/RPG8/SCL4/PMA3/RG8     
+_IOPORT_PG      // XX   RG9     EBIA2/AN11/C2INC/RPG9/PMA2/RG9    
+//_IOPORT_PG      // XX   RG10
+//_IOPORT_PG      // XX   RG11
+_IOPORT_PG      // XX   RG12    TRD1/SQID1/RG12
+_IOPORT_PG      // XX   RG13    TRD0/SQID0/RG13
+_IOPORT_PG      // XX   RG14    RD2/SQID2/RG14
+_IOPORT_PG      // XX   RG15    AN23/RG15   
+
+_IOPORT_PH      // XX   RH0     AN38/ETXD2/RH0    
+_IOPORT_PH      // XX   RH1     AN39/ETXD3/RH1    
+//_IOPORT_PH      // XX   RH2     
+//_IOPORT_PH      // XX   RH3     
+_IOPORT_PH      // XX   RH4     AN40/ERXERR/RH4    
+_IOPORT_PH      // XX   RH5     AN41/ERXD1/RH5    
+_IOPORT_PH      // XX   RH6     AN42/ERXD2/RH6    
+//_IOPORT_PH      // XX   RH7     
+_IOPORT_PH      // XX   RH8     ERXD0/RH8     
+_IOPORT_PH      // XX   RH9     ERXD3/RH9     
+_IOPORT_PH      // XX   RH10    ECOL/RH10   
+//_IOPORT_PH      // XX   RH11    
+_IOPORT_PH      // XX   RH12    ECRS/RH12
+_IOPORT_PH      // XX   RH13    ERXDV/ECRSDV/RH13
+//_IOPORT_PH      // XX   RH14
+//_IOPORT_PH      // XX   RH15
+
+_IOPORT_PJ      // XX   RJ0     ETXERR/RJ0
+_IOPORT_PJ      // XX   RJ1     EMDIO/RJ1
+_IOPORT_PJ      // XX   RJ2     EBIRDY3/RJ2
+//_IOPORT_PJ      // XX   RJ3
+_IOPORT_PJ      // XX   RJ4     RJ4
+//_IOPORT_PJ      // XX   RJ5
+//_IOPORT_PJ      // XX   RJ6
+//_IOPORT_PJ      // XX   RJ7
+_IOPORT_PJ      // XX   RJ8     AN35/ETXD0/RJ8    
+_IOPORT_PJ      // XX   RJ9     AN36/ETXD1/RJ9    
+//_IOPORT_PJ      // XX   RJ10    
+_IOPORT_PJ      // XX   RJ11    AN37/ERXCLK/EREFCLK/RJ11    
+//_IOPORT_PJ      // XX   RJ12    
+//_IOPORT_PJ      // XX   RJ13    
+//_IOPORT_PJ      // XX   RJ14    
+//_IOPORT_PJ      // XX   RJ15    
+
+//_IOPORT_PK      // XX   RK0     
+//_IOPORT_PK      // XX   RK1     
+//_IOPORT_PK      // XX   RK2     
+//_IOPORT_PK      // XX   RK3     
+//_IOPORT_PK      // XX   RK4
+//_IOPORT_PK      // XX   RK5
+//_IOPORT_PK      // XX   RK6
+//_IOPORT_PK      // XX   RK7
+//_IOPORT_PK      // XX   RK8     
+//_IOPORT_PK      // XX   RK9     
+//_IOPORT_PK      // XX   RK10    
+//_IOPORT_PK      // XX   RK11
+//_IOPORT_PK      // XX   RK12    
+//_IOPORT_PK      // XX   RK13
+//_IOPORT_PK      // XX   RK14
+//_IOPORT_PK      // XX   RK15
+
+

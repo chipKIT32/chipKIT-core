@@ -165,11 +165,11 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 10;		// for SPI master operation, this
+static const uint8_t SS   = 10;		// for SPI master operation, this
 									// is actually RD4 (JP4 in RD4 pos)
-const static uint8_t MOSI = 11;		// PIC32 SDO2
-const static uint8_t MISO = 12;		// PIC32 SDI2
-const static uint8_t SCK  = 13;		// PIC32 SCK2
+static const uint8_t MOSI = 11;		// PIC32 SDO2
+static const uint8_t MISO = 12;		// PIC32 SDI2
+static const uint8_t SCK  = 13;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -289,6 +289,8 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -315,18 +317,7 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define _SPI_IPL_ISR	IPL3SOFT
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
@@ -392,8 +383,6 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 
 
 /* ------------------------------------------------------------ */
-
-#endif	// OPT_BOARD_INTERNAL
 
 /* ------------------------------------------------------------ */
 

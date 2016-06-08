@@ -165,7 +165,7 @@ boolean	gCdcacm_attached;		// set when cdcacm host is attached
 uint32	gCdcacm_attached_count;
 
 //************************************************************************
-static void	parse_configuration(const byte *configuration, int size)
+static void	parse_configuration(const byte *configuration, unsigned int size)
 {
 unsigned int ii;
 
@@ -249,7 +249,7 @@ static void	usb_device_default()
 	MCF_USB_OTG_CTL |= MCF_USB_OTG_CTL_ODD_RST;
 	MCF_USB_OTG_CTL &= ~MCF_USB_OTG_CTL_ODD_RST;
 
-	memset(bdts, 0, BDT_RAM_SIZE);
+	memset((void *)bdts, 0, BDT_RAM_SIZE);
 	memset(endpoints, 0, sizeof(endpoints));
 
 	assert(configuration_descriptor);
@@ -272,7 +272,6 @@ void	usb_device_enqueue(int endpoint, boolean tx, byte *buffer, int length)
 {
 	int			ep;
 	boolean		odd;
-	int			flags;
 	struct bdt	*bdt;
 
 	assert(endpoint < LENGTHOF(endpoints));
@@ -287,10 +286,9 @@ void	usb_device_enqueue(int endpoint, boolean tx, byte *buffer, int length)
 		odd	=	endpoints[endpoint].bdtodd[tx];
 
 		// initialize the bdt entry
-		bdt	=	MYBDT(endpoint, tx, odd);
+		bdt	=	(struct bdt *)MYBDT(endpoint, tx, odd);
 		bdt->buffer	=	(byte *)TF_LITTLE(KVA_TO_PA((int)buffer));
-		flags	=	TF_LITTLE(bdt->flags);
-		assert(! (flags & BD_FLAGS_OWN));
+		assert(! (TF_LITTLE(bdt->flags) & BD_FLAGS_OWN));
 		assert(length <= endpoints[endpoint].packetsize);
 		bdt->flags	=	TF_LITTLE(BD_FLAGS_BC_ENC(length)|BD_FLAGS_OWN|endpoints[endpoint].toggle[tx]|BD_FLAGS_DTS);
 	}
@@ -685,6 +683,18 @@ XXX_SKIP2_XXX:;
 		MCF_USB_OTG_INT_ENB		&=	~MCF_USB_OTG_INT_ENB_SLEEP_EN;
 		MCF_USB_OTG_INT_STAT	=	MCF_USB_OTG_INT_STAT_SLEEP;
 	}
+	
+	// if the host resumes
+	if (MCF_USB_OTG_INT_STAT & MCF_USB_OTG_INT_STAT_RESUME)
+	{
+		gCdcacm_active		=	true;
+		gCdcacm_attached	=	1;
+
+		// enable usb sleep interrupts
+		MCF_USB_OTG_INT_ENB		|=	MCF_USB_OTG_INT_ENB_SLEEP_EN;
+		MCF_USB_OTG_INT_STAT	=	MCF_USB_OTG_INT_STAT_TOK_DNE; //0xff;
+	}
+	
 	
 //XXX_SKIP_XXX:
 	assert(usb_in_isr);

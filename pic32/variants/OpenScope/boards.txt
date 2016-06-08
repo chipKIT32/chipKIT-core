@@ -1,0 +1,33 @@
+############################################################
+OpenScope.name=OpenScope
+OpenScope.group=chipKIT
+
+
+# new items
+OpenScope.platform=pic32
+OpenScope.board=_BOARD_OPENSCOPE_
+OpenScope.board.define=
+OpenScope.ccflags=ffff
+OpenScope.ldscript=OpenScope.ld
+# end of new items
+
+OpenScope.upload.protocol=stk500v2
+OpenScope.upload.maximum_size=2031616
+OpenScope.upload.speed=115200
+
+OpenScope.bootloader.low_fuses=0xff
+OpenScope.bootloader.high_fuses=0xdd
+OpenScope.bootloader.extended_fuses=0x00
+OpenScope.bootloader.path=not-supported
+OpenScope.bootloader.file=not-supported
+OpenScope.bootloader.unlock_bits=0x3F
+OpenScope.bootloader.lock_bits=0x0F
+
+OpenScope.build.mcu=32MZ2048EFG124
+OpenScope.build.f_cpu=200000000UL
+OpenScope.build.core=pic32
+OpenScope.ldcommon=chipKIT-application-COMMON-MZ.ld
+OpenScope.build.variant=OpenScope
+#OpenScope.upload.using=avrdude1
+
+############################################################

@@ -182,5 +182,6 @@ void WF_ProcessRxPacket(void)
 
 static void OutputMrf24wgAssertInfo(uint32_t assertInfo)
 {
+    (void)(assertInfo); // prevent unused warning
     while(TRUE);
 }

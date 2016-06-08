@@ -404,7 +404,6 @@ const uint16_t digital_pin_to_timer_PGM[] = {
 /* ------------------------------------------------------------ */
 
 #if	(OPT_BOARD_INIT != 0)
-#include <plib.h>
 #endif
 
 /* ------------------------------------------------------------ */
@@ -442,23 +441,8 @@ const uint16_t digital_pin_to_timer_PGM[] = {
 #if	(OPT_BOARD_INIT != 0)
 
 void _board_init(void) {
-
-	//*	Turn Secondary oscillator off
-	//*	this is only needed on the mega board because the mega uses secondary
-	// ocsilator pins as general I/O
-	
-	unsigned int dma_status;
-	unsigned int int_status;
-	
-		mSYSTEMUnlock(int_status, dma_status);
-
-		OSCCONCLR	=	_OSCCON_SOSCEN_MASK;
-
-
-		mSYSTEMLock(int_status, dma_status);
-	
-}
-
+    _disableSeconaryOscillator();
+}   
 #endif
 
 /* ------------------------------------------------------------ */

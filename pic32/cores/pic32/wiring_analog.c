@@ -57,7 +57,7 @@
 
 uint32_t	analog_reference = 0;	//default to AVDD, AVSS
 
-uint8_t		pwm_active = 0;			//keeps track of active PWM outputs
+uint16_t    pwm_active = 0;			//keeps track of active PWM outputs
 
 
 //*********************************************************************
@@ -151,7 +151,7 @@ int	tmp;
 	/* Ensure that the pin associated with the analog channel is in analog
 	** input mode, and select the channel in the input mux.
 	*/
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
 	p32_ioport *	iop;
 	uint16_t		bit;
 
@@ -161,7 +161,7 @@ int	tmp;
     // we have to manually find the actual digital pin so we can set the PIC registers.
 
     // if this doesn't map, than the analog pin was passed in.
-    if( ain != digital_pin_to_analog_PGM[pin] )
+    if( ain != digital_pin_to_analog_PGM[pin])
     {
         int i = 0;
 
@@ -207,7 +207,7 @@ int	tmp;
 	**  bit in AD1PCFG.
 	*/
 	AD1PCFGCLR = (1 << channelNumber);
-#endif		// defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MX47X__)
+#endif		// defined(__PIC32_PPS__)
 
 #if defined(__PIC32MZXX__)
 
@@ -372,7 +372,7 @@ int	tmp;
 void analogWrite(uint8_t pin, int val)
 {
 	uint16_t	timer;
-	uint8_t		pwm_mask;
+	uint16_t	pwm_mask;
 	p32_oc *	ocp;
 
 	/* Check if pin number is in valid range.
@@ -458,7 +458,7 @@ int	_board_analogWrite(uint8_t pin, int val);
             if ((pwm_active & pwm_mask) == 0)
             {
 
-#if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__) || defined(__PIC32MZXX__) || defined(__PIC32MX47X__)
+#if defined(__PIC32_PPS__)
                 volatile uint32_t *	pps;
 
                 /* On devices with peripheral pin select, it is necessary to connect
@@ -485,18 +485,23 @@ int	_board_analogWrite(uint8_t pin, int val);
 void turnOffPWM(uint8_t timer)
 {
 	p32_oc *	ocp;
+    uint16_t	pwm_mask = (1 << (timer - (_TIMER_OC1 >> _BN_TIMER_OC)));
 
-	/* Disable the output compare.
-	*/
-	ocp = (p32_oc *)(_OCMP1_BASE_ADDRESS + (0x200 * (timer - (_TIMER_OC1 >> _BN_TIMER_OC))));
-	ocp->ocxCon.clr = OCCON_ON;
+    // only process this if the PWM was ON
+    if((pwm_active & pwm_mask) != 0)
+    {
+        /* Disable the output compare.
+        */
+        ocp = (p32_oc *)(_OCMP1_BASE_ADDRESS + (0x200 * (timer - (_TIMER_OC1 >> _BN_TIMER_OC))));
+        ocp->ocxCon.clr = OCCON_ON;
 
-	// Turn off the bit saying that this PWM is active.
-	pwm_active &= ~(1 << (timer - (_TIMER_OC1 >> _BN_TIMER_OC)));
+        // Turn off the bit saying that this PWM is active.
+        pwm_active &= ~pwm_mask;
 
-	// If no PWM are active, turn off the timer.
-	if (pwm_active == 0)
-	{
-    	T2CONCLR = TBCON_ON;
-	}
+        // If no PWM are active, turn off the timer.
+        if (pwm_active == 0)
+        {
+            T2CONCLR = TBCON_ON;
+        }
+    }
 }

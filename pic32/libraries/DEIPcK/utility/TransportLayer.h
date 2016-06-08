@@ -54,8 +54,8 @@
 
 #include "deIP.h"
 
-#define TCPMSL              120000                      // RFC 793 Section 3.3, 2 MIN
-#define TCPMAXHALFCLOSE     5000                        // If we are in a half closed state waiting for the other side to ACK, this is the max time before sending a reset
+#define TCPMSL              120000ul                    // RFC 793 Section 3.3, 2 MIN
+#define TCPMAXHALFCLOSE     5000ul                      // If we are in a half closed state waiting for the other side to ACK, this is the max time before sending a reset
 
 #define cbTCPOptionSpace    16      // must be a mult of 4; this is how much space is reserved for option in a TCP Header for the pool space
 
@@ -68,9 +68,9 @@
 // we are currently doing Karn & Jacobson
 
 // these are in millseconds
-#define MAXFLUSH    250     // How often will we force a flush, even if we don't get a flush request. This is also the MAX delayed ACK time RFC 1122 4.2.3.2
-#define RTTsaINIT   3000    // RFC 1122 4.2.3.1 says 3 seconds for SRTT; or our average RTT
-#define RTTsvINIT   2625    // RFC 1122 4.2.3.1 says 3 seconds for SRTT
+#define MAXFLUSH    250ul   // How often will we force a flush, even if we don't get a flush request. This is also the MAX delayed ACK time RFC 1122 4.2.3.2
+#define RTTsaINIT   3000ul  // RFC 1122 4.2.3.1 says 3 seconds for SRTT; or our average RTT
+#define RTTsvINIT   2625ul  // RFC 1122 4.2.3.1 says 3 seconds for SRTT
 
 // Where BETA 1.3 - 2; Karn & Jacobson say use 2
 #define RTO(s) ((s->RTTsa >> 3) + s->RTTsv)
@@ -93,7 +93,7 @@
 // Anything 30 min. earlier than the current time is considered before the current time.
 // this is a scaling factor so we can see if within a relative time is something happened before or after the
 // current time.
-#define TIMEWAITBEFORE  (30 * 60 * 250000)
+#define TIMEWAITBEFORE  (30ul * 60ul * 250000ul)
 
 typedef uint16_t TCPSTATE;
 
@@ -206,7 +206,7 @@ typedef struct TCPOPTION_T
 {
     TCPOPTIONKIND   optionKind;
     uint8_t         length;
-    uint8_t         rgu8[];
+    uint16_t        rgu16[];
 } TCPOPTION;
 
 #pragma pack(pop)
@@ -399,16 +399,18 @@ uint32_t ExUDPHeader(IPSTACK * pIpStack, bool fStartsInMachineOrder);
 void UDPProcess(IPSTACK *   pIpStack);
 HSOCKET UDPOpenWithSocket(const LLADP * pLLAdp, UDPSOCKET * pSocket, HPMGR hPMGR, const void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus);
 bool UDPRawSend(const LLADP * pLLAdp, IPSTACK * pIpStack, const void * pIPvXDest, uint16_t portDest, uint16_t portSrc, const uint8_t * pDatagram, uint32_t cbDatagram, bool fFreeDatagramImmediately, IPSTATUS * pStatus);
+void UDPInitSockets(void);
 
 // TCP internal functions
 uint32_t ExTCPHeader(IPSTACK * pIpStack, bool fStartsInMachineOrder);
+void TCPPeriodicTasks(void);
 
 // calls used by the state machine and other places
 void TCPStateMachine(IPSTACK *   pIpStack, TCPSOCKET *  pSocket, IPSTATUS * pStatus);
 bool TCPTransmit(IPSTACK *  pIpStack, TCPSOCKET * pSocket, int32_t cbSend, int32_t cbOptions, bool fAck, uint32_t tCur, IPSTATUS * pStatus);
 uint32_t TCPAddRxDataToSocket(TCPSOCKET * pSocket, uint32_t seqNbr, uint8_t * pb, uint32_t cb);
 IPSTACK * TCPCreateSyn(TCPSOCKET * pSocket, uint32_t * pcbOptions, IPSTATUS * pStatus);
-bool TCPIsInUse(const LLADP * pLLAdp, uint32_t portPair, void * pIPvXDest);
+bool TCPIsInUse(const LLADP * pLLAdp, uint32_t portPair, const void * pIPvXDest);
 uint32_t TCPGetSeqNumber(const LLADP * pLLAdp);
 void TCPResetSocket(TCPSOCKET *  pSocket);
 void TCPProcess(IPSTACK *  pIpStack);
@@ -420,7 +422,7 @@ bool TCPScaleSndIndexes(TCPSOCKET * pSocket, SMGR *  pSMGR);
 void TCPInitSockets(void);
 const SOCKETPOOL * TCPAddSocketPool(uint32_t cbRxBuff, uint32_t cbTxBuff, void * pSocketPool, uint32_t cbSocketPool, IPSTATUS * pStatus);
 HSOCKET TCPOpenWithSocket(const LLADP * pLLAdp, TCPSOCKET * pSocket, HPMGR hPMGR, const void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus);
-TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR hPMGR, void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus);
+TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR hPMGR, const void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus);
 uint16_t GetEphemeralPort(FFPT * pFFPT, uint16_t * pNextEphemeralPort);
 
 // the actively listening TCP sockets

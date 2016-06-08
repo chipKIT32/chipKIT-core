@@ -104,7 +104,7 @@ static bool ExTCPOptions(TCPHDR * pTCPHdr)
         switch(pOptions->optionKind)
         {
             case tcpOpKdMaxSegSize:
-                ExEndian(pOptions->rgu8, sizeof(uint16_t));
+                ExEndian(pOptions->rgu16, sizeof(uint16_t));
                 break;
 
             case tcpOpKdSAckMult:
@@ -112,11 +112,10 @@ static bool ExTCPOptions(TCPHDR * pTCPHdr)
                 {
                     uint32_t i = 0;
                     uint32_t j = (pOptions->length-2) / sizeof(uint32_t);
-                    uint32_t * pu32 = (uint32_t *) pOptions->rgu8;
 
                     for(i=0; i<j; i++)
                     {
-                        ExEndian((pu32+i), sizeof(uint32_t));
+                        ExEndian(&pOptions->rgu16[2*i], sizeof(uint32_t));
                     }
                 }
                 break;
@@ -270,7 +269,7 @@ uint16_t GetEphemeralPort(FFPT * pFFPT, uint16_t * pNextEphemeralPort)
     return(foundEphemeralPort);
 }
 
-bool TCPIsInUse(const LLADP * pLLAdp, uint32_t portPair, void * pIPvXDest)
+bool TCPIsInUse(const LLADP * pLLAdp, uint32_t portPair, const void * pIPvXDest)
 {
     TCPSOCKET *     pSocket         = NULL;
     bool            fListenIP       = (memcmp(pIPvXDest, &IPListen, ILIPSize(pLLAdp)) == 0);
@@ -355,7 +354,7 @@ static void TCPFixupSeqNumber(const LLADP * pLLAdp, uint32_t seqNbrMax)
 }
 
 // this will free the socket if it can't open it
-TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR hPMGR, void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus)
+TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR hPMGR, const void * pIPvXDest, uint16_t portRemote, uint16_t portLocal, IPSTATUS * pStatus)
 {
     IPSTATUS    status          = ipsSuccess;
     SMGR *      pSMGR           = NULL;
@@ -385,7 +384,9 @@ TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR h
     // when we now our remote port and IP as to not duplicate and to watch seq numbers.
     if(portRemote != portListen)
     {
-        SKTPORTPAIR portPair = {portRemote, portLocal};    // remote, local
+        SKTPORTPAIR portPair;    // remote, local
+        portPair.portRemote =   portRemote;
+        portPair.portLocal  =   portLocal;
 
         // worry about the 2MSL timewait issue, get an appropriate sequence number
         if(TCPIsInUse(pLLAdp, portPair.portPair, pIPvXDest))
@@ -446,7 +447,7 @@ TCPSOCKET * TCPInitSocket(const LLADP * pLLAdp, TCPSOCKET * pSocketOpen, HPMGR h
     pSocketOpen->sndISS = TCPGetSeqNumber(pLLAdp);
 
     // max I will allow to come in. RFC 1122 4.2.2.6
-    pSocketOpen->cbLocalMSS     = min((PMGRMaxAlloc(hPMGR) >> 2), LLGetMTUR(pLLAdp) - 20);
+    pSocketOpen->cbLocalMSS     = min((PMGRMaxAlloc(hPMGR) >> 2), (uint16_t) (LLGetMTUR(pLLAdp) - 20));
 
     // Jacobson rule
     pSocketOpen->RTTsa          = RTTsaINIT;

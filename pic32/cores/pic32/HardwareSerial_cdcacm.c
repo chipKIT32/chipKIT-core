@@ -192,7 +192,7 @@ static volatile byte			gRX_in;
 static volatile byte			gRX_out;
 
 void setStrings(char *man, char *prod, char *ser) {
-    int i;
+    unsigned int i;
     int pos = 0;
     if (cdcacm_string_descriptor) {
         free(cdcacm_string_descriptor);
@@ -274,7 +274,7 @@ static	int	SPLX(int level)
 // buffers and then prints the specified line to the CDCACM transport
 // console.
 //************************************************************************
-void	cdcacm_print(const byte *buffer, int length)
+void	cdcacm_print(const byte *buffer, unsigned int length)
 {
     int availableBuffers;
     int buffersNeeded;

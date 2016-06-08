@@ -41,7 +41,7 @@
 #if !defined(BOARD_DATA_C)
 #define BOARD_DATA_C
 
-#include <inttypes.h>
+#include <Arduino.h>
 
 /* ------------------------------------------------------------ */
 /*					Data Tables									*/
@@ -298,55 +298,55 @@ const uint8_t analog_pin_to_channel_PGM[] =
 	13,		//*	A10						AN13
 	15,		//*	A11						AN15
 
-};
+};                                                  
 
 const uint32_t digital_pin_to_cn_PGM[] = 
 {
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(13),
-    _BV(10),
-    _BV(9),
-    _BV(8),
-    _BV(4),
-    _BV(6),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(5),
-    _BV(7),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(12),
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    NOT_CN_PIN,
-    _BV(14),
-    NOT_CN_PIN,
-    _BV(15),
-    _BV(16),
-    NOT_CN_PIN,
-    _BV(17),
-    _BV(18),
-    _BV(3),
-    _BV(2),
-    NOT_CN_PIN
-};
+    NOT_CN_PIN,    //	0 RF2		U1RX/SDI1/RF2                                                                                                 
+    NOT_CN_PIN,    //	1 RF3		U1TX/SDO1/RF3                                                                                                 
+    NOT_CN_PIN,    //	2 RD8		IC1/RTCC/INT1/RD8                                                                                                 
+    NOT_CN_PIN,    //	3 RD0		OC1/RD0                                                                                                 
+    NOT_CN_PIN,    //	4 RF1		RF1                                                                                                 
+    NOT_CN_PIN,    //	5 RD1		OC2/RD1                                                                                                 
+    NOT_CN_PIN,    //	6 RD2		OC3/RD2                                                                                                 
+    NOT_CN_PIN,    //	7 RD9		IC2/U1CTS/INT2/RD9                                                                                                 
+    NOT_CN_PIN,    //	8 RD10		IC3/PMCS2/PMA15/INT3/RD10                                                                                                 
+    NOT_CN_PIN,    //	9 RD3		OC4/RD3                                                                                                 
+    _BV(13),       //	10 RD4		PMWR/OC5/IC5/CN13/RD4                                                                                                 
+    _BV(10),       //	11 RG8		(SDO2/PMA3/CN10/RG8) or (SDI2/PMA5/CN8/RG7)                                                                                                 
+    _BV(9),        //	12 RG7		(SDI2/PMA5/CN8/RG7) or (SDO2/PMA3/CN10/RG8)                                                                                                 
+    _BV(8),        //	13 RG6		SCK2/PMA5/CN8/RG6                                                                                                 
+    _BV(4),        //	14 RB2		C2IN-/AN2/SS1/CN4/RB2                                                                                                 
+    _BV(6),        //	15 RB4		C1IN-/AN4/CN6/RB4                                                                                                 
+    NOT_CN_PIN,    //	16 RB8		U2CTS/C1OUT/AN8/RB8                                                                                                 
+    NOT_CN_PIN,    //	17 RB10		TMS/CVREFOUT/PMA13/AN10/RB10                                                                                                 
+    NOT_CN_PIN,    //	18 RB12		TCK/PMA11/AN12/RB12                                                                                                 
+    NOT_CN_PIN,    //	19 RB14		PMALH/PMA1/U2RTS/AN14/RB14                                                                                                 
+    _BV(5),        //	20 RB3		C2IN+/AN3/CN5/RB3                                                                                                 
+    _BV(7),        //	21 RB5		C1IN+/AN5/CN7/RB5                                                                                                 
+    NOT_CN_PIN,    //	22 RB9		PMA7/C2OUT/AN9/RB9                                                                                                 
+    NOT_CN_PIN,    //	23 RB11		TDO/PMA12/AN11/RB11                                                                                                 
+    NOT_CN_PIN,    //	24 RB13		TDI/PMA10/AN13/RB13                                                                                                 
+    _BV(12),       //	25 RB15		PMALL/PMA0/AN15/OCFB/CN12/RB15                                                                                                 
+    NOT_CN_PIN,    //	26 RE0		PMD0/RE0                                                                                                 
+    NOT_CN_PIN,    //	27 RE1		PMD1/RE1                                                                                                 
+    NOT_CN_PIN,    //	28 RE2		PMD2/RE2                                                                                                 
+    NOT_CN_PIN,    //	29 RE3		PMD3/RE3                                                                                                 
+    NOT_CN_PIN,    //	30 RE4		PMD4/RE4                                                                                                 
+    NOT_CN_PIN,    //	31 RE5		PMD5/RE5                                                                                                 
+    NOT_CN_PIN,    //	32 RE6		PMD6/RE6                                                                                                 
+    NOT_CN_PIN,    //	33 RE7		PMD7/RE7                                                                                                 
+    _BV(14),       //	34 RD5		PMRD/CN14/RD5                                                                                                 
+    NOT_CN_PIN,    //	35 RD11		IC4/PMCS1/PMA14/INT4/RD11                                                                                                 
+    _BV(15),       //	36 RD6		CN15/RD6                                                                                                 
+    _BV(16),       //	37 RD7		CN16/RD7                                                                                                 
+    NOT_CN_PIN,    //	38 RF6		U1RTS/BCLK1/SCK1/INT0/RF6                                                                                                 
+    _BV(17),       //	39 RF4		PMA9/U2RX/SDA2/CN17/RF4                                                                                                 
+    _BV(18),       //	40 RF5		PMA8/U2TX/SCL2/CN18/RF5                                                                                                 
+    _BV(3),        //	41 RB1		PGC1/EMUC1/AN1/VREF-/CVREF-/CN3/RB1                                                                                                 
+    _BV(2),        //	42 RB0		PGD1/EMUD1/PMA6/AN0/VREF+/CVREF+/CN2/RB0                                                                                                 
+    NOT_CN_PIN                                                                                                      
+};                                                                                                                  
 
 /* ------------------------------------------------------------ */
 /*				Board Customization Functions					*/
@@ -602,6 +602,67 @@ int	_board_analogWrite(uint8_t pin, int val) {
 }
 
 #endif
+
+/************************************************************************/
+/*  The WiFiShield share SPI with the uSD, we need to turn OFF          */
+/*	Interrupts so the WiFi MRF24 interrupt does not enable the MRF CS   */
+/*	while the uSD card has CS enabled                                   */
+/*	This is a private implementation of uSD CS							*/
+/************************************************************************/
+
+
+/* ------------------------------------------------------------ */
+
+static uint32_t	spi_state;
+static uint8_t     fspi_state_saved = false;
+static uint32_t    interrupt_state = 0;
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectHigh(uint8_t csPin) {
+  digitalWrite(csPin, HIGH);
+
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+  if(fspi_state_saved)
+  {
+    SPI2CON = spi_state;
+    fspi_state_saved = false;
+    restoreIntEnable(_EXTERNAL_1_IRQ, interrupt_state);
+  }
+}
+
+
+//------------------------------------------------------------------------------
+void altSDchipSelectLow(uint8_t csPin) {
+// On the WiFiShield it is possible for the MRF24 to get an interrupt that
+// the PIC32 needs to service the MRF24 while the SD card is selected.
+// If this happens the PIC32 MRF Universal Driver code provided by MCHP
+// will make an SPI call in the interrupt routine, enabling the CS to the MRF which is on the same
+// SPI pins as the SD card, thus causing bot the SD card and MRF24 to be enabled and thus
+// causing a SDI/SDO data conflict and hosing both the SD and MRF
+// The not so great, but working solution is to disable the MRF interrupt while
+// the SD card is selected so the Univerdriver will not also select the MRF
+    if(!fspi_state_saved)
+    {
+        interrupt_state = clearIntEnable(_EXTERNAL_1_IRQ);
+        spi_state = SPI2CON;
+        SPI2CONbits.ON = 0; 
+        fspi_state_saved = true;
+    }
+  digitalWrite(csPin, LOW);
+}
+
+void altSDInitchipSelectPin(uint8_t csPin)
+{
+    pinMode(csPin, OUTPUT);
+}
 
 #endif // OPT_BOARD_DATA
 

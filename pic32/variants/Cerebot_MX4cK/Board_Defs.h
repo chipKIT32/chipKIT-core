@@ -166,10 +166,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 8;		// PIC32 SS2
-const static uint8_t MOSI = 9;		// PIC32 SDO2
-const static uint8_t MISO = 10;		// PIC32 SDI2
-const static uint8_t SCK  = 11;		// PIC32 SCK2
+static const uint8_t SS   = 8;		// PIC32 SS2
+static const uint8_t MOSI = 9;		// PIC32 SDO2
+static const uint8_t MISO = 10;		// PIC32 SDI2
+static const uint8_t SCK  = 11;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 **		DSPI0	connector JB
@@ -233,13 +233,13 @@ const static uint8_t SCK  = 11;		// PIC32 SCK2
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 #undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( ((P) < NUM_ANALOG_PINS) ? (P) : digital_pin_to_analog_PGM[P] )
 
-#undef analotInPinToChannel
+#undef analogInPinToChannel
 #define analogInPinToChannel(P) ( analog_pin_to_channel_PGM[P]  )
 
 /* ------------------------------------------------------------ */
@@ -293,6 +293,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	//OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -319,18 +321,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2. Connector JB
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	_SPI2_IPL_ISR
-#define	_SPI_IPL		_SPI2_IPL_IPC
-#define	_SPI_SPL		_SPI2_SPL_IPC
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 **		DSPI0	connector JB
 **		DSPI1	connector J1
 */
@@ -399,7 +390,57 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	//OPT_BOARD_INTERNAL
+/* ------------------------------------------------------------ */
+/*					Defines for the SD on JK     				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 64
+
+//Pin 65
+#define	prtSDO				IOPORT_B	//JK
+#define	bnSDO				BIT_11
+
+//Pin 66
+#define	prtSDI				IOPORT_B
+#define	bnSDI				BIT_12
+
+//Pin 67
+#define	prtSCK				IOPORT_B
+#define	bnSCK				BIT_13
+
+// Leave the real SPI on JB for the MRF24
+// we can bit bang the SPI on JK, plus this is
+// backwards compatible with the old SD library
+// SoftSPI(CS, SDO, SDI, SCK)
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 65, 66, 67)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 66)     // Create an DSDVOL object
+
+/* ------------------------------------------------------------ */
+/*					Defines for the MRF on JB                   */
+/* ------------------------------------------------------------ */
+
+#define _MRF24_SPI_CONFIG_
+
+#define WF_INT              3
+#define WF_SPI              2
+#define WF_SPI_FREQ         10000000
+#define WF_IPL_ISR          IPL3SOFT
+#define WF_IPL              3
+#define WF_SUB_IPL          0
+
+#define WF_INT_TRIS         (TRISAbits.TRISA14)  // INT3, SET JP3 TO INT3
+#define WF_INT_IO           (PORTAbits.RA14)
+
+#define WF_HIBERNATE_TRIS   (TRISBbits.TRISB14)
+#define	WF_HIBERNATE_IO     (LATBbits.LATB14)
+
+#define WF_RESET_TRIS       (TRISDbits.TRISD5)
+#define WF_RESET_IO         (LATDbits.LATD5)
+
+#define WF_CS_TRIS          (TRISGbits.TRISG9)
+#define WF_CS_IO            (LATGbits.LATG9)
 
 /* ------------------------------------------------------------ */
 

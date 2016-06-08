@@ -117,6 +117,7 @@
 /* ------------------------------------------------------------ */
 /*					Switch Declarations							*/
 /* ------------------------------------------------------------ */
+#define _TIMER_1_IRQ _TIMER_1_VECTOR
 
 /* No switches on this board.
 */
@@ -167,10 +168,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 10;		// for SPI master operation, shared with pin 10
-const static uint8_t MOSI = 11;		// PIC32 SDO2
-const static uint8_t MISO = 12;		// PIC32 SDI2
-const static uint8_t SCK  = 13;		// PIC32 SCK2
+static const uint8_t SS   = 10;		// for SPI master operation, shared with pin 10
+static const uint8_t MOSI = 11;		// PIC32 SDO2
+static const uint8_t MISO = 12;		// PIC32 SDI2
+static const uint8_t SCK  = 13;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -248,13 +249,13 @@ const static uint8_t SCK  = 13;		// PIC32 SCK2
 #define	PIN_CN38	38      
 #define	PIN_CN39	39
 #define	PIN_CN40	40
-#define	PIN_CN40	41
+#define	PIN_CN41	41
 
 /* ------------------------------------------------------------ */
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+** are being redefined for this board variant.
 */
 
 // NUM_ANALOG_PINS == 14, the first analog pin as represented as a digital pin is also 14
@@ -327,69 +328,54 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	// OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
 /* Serial port 0 uses UART1
+ * TX on pin 29 (RF5), RX on pin 28 (RF4)
 */
-#define	_SER0_BASE      _UART4_BASE_ADDRESS
-#define	_SER0_IRQ       _UART4_FAULT_VECTOR
-#define	_SER0_VECTOR    _UART4_FAULT_VECTOR
+#define	_SER0_BASE      _UART1_BASE_ADDRESS
+#define	_SER0_IRQ       _UART1_FAULT_VECTOR
+#define	_SER0_VECTOR    _UART1_FAULT_VECTOR
 #define	_SER0_IPL_ISR   IPL2SRS
 #define	_SER0_IPL       2
 #define	_SER0_SPL       0
-#define _SER0_TX_OUT    PPS_OUT_U4TX     // (RPF8R = 0b0010)   RF8 -> U4TX   
-#define _SER0_TX_PIN    1                // REBIRDY2/RPF8/SCL3/RF8   
-#define _SER0_RX_IN     PPS_IN_U4RX      // (U4RXR = 0b1011)    RPF2 -> U4RX
-#define _SER0_RX_PIN    0                // EBIRDY3/RPF2/SDA3/RF2 
+#define _SER0_TX_OUT    PPS_OUT_U1TX
+#define _SER0_TX_PIN    29          
+#define _SER0_RX_IN     PPS_IN_U1RX 
+#define _SER0_RX_PIN    28          
 
 /* Serial port 1 uses UART1; this goes to pins 39&40
+ /// TODO: Update to match Fubarino SD
 */
-#define	_SER1_BASE		_UART1_BASE_ADDRESS
-#define	_SER1_IRQ		_UART1_FAULT_VECTOR
-#define	_SER1_VECTOR	_UART1_FAULT_VECTOR
+#define	_SER1_BASE		_UART2_BASE_ADDRESS
+#define	_SER1_IRQ		_UART2_FAULT_VECTOR
+#define	_SER1_VECTOR	_UART2_FAULT_VECTOR
 #define	_SER1_IPL_ISR	IPL2SRS
 #define	_SER1_IPL		2
 #define	_SER1_SPL		0
-#define _SER1_TX_OUT    PPS_OUT_U1TX     // (RPF8R = 0b0010)   RF8 -> U4TX   
-#define _SER1_TX_PIN    40                // REBIRDY2/RPF8/SCL3/RF8   
-#define _SER1_RX_IN     PPS_IN_U1RX      // (U4RXR = 0b1011)    RPF2 -> U4RX
-#define _SER1_RX_PIN    39                // EBIRDY3/RPF2/SDA3/RF2 
+#define _SER1_TX_OUT    PPS_OUT_U2TX
+#define _SER1_TX_PIN    8          
+#define _SER1_RX_IN     PPS_IN_U2RX 
+#define _SER1_RX_PIN    9          
 
 
 /* ------------------------------------------------------------ */
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define _SPI_IPL_ISR	IPL3SRS
-#define	_SPI_IPL		3
-#define	_SPI_SPL		0
-
-/* SPI pin declarations
-*/
-#define _SPI_MISO_IN	PPS_IN_SDI2
-#define	_SPI_MISO_PIN	MISO
-#define _SPI_MOSI_OUT	PPS_OUT_SDO2
-#define	_SPI_MOSI_PIN	MOSI
-
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 */
 
 // same as the default SPI port
 #define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
-#define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
-#define	_DSPI0_RX_IRQ		_SPI2_RX_IRQ
-#define	_DSPI0_TX_IRQ		_SPI2_TX_IRQ
-#define	_DSPI0_VECTOR		_SPI_2_VECTOR
+#define	_DSPI0_ERR_IRQ		_SPI2_FAULT_VECTOR
+#define	_DSPI0_RX_IRQ		_SPI2_RX_VECTOR
+#define	_DSPI0_TX_IRQ		_SPI2_TX_VECTOR
+#define	_DSPI0_VECTOR		_SPI2_FAULT_VECTOR
 #define _DSPI0_IPL_ISR		IPL3SRS
 #define	_DSPI0_IPL			3
 #define	_DSPI0_SPL			0
@@ -402,10 +388,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // 2nd SPI
 #define	_DSPI1_BASE			_SPI1_BASE_ADDRESS
-#define	_DSPI1_ERR_IRQ		_SPI1_ERR_IRQ
-#define	_DSPI1_RX_IRQ		_SPI1_RX_IRQ
-#define	_DSPI1_TX_IRQ		_SPI1_TX_IRQ
-#define	_DSPI1_VECTOR		_SPI_1_VECTOR
+#define	_DSPI1_ERR_IRQ		_SPI1_FAULT_VECTOR
+#define	_DSPI1_RX_IRQ		_SPI1_RX_VECTOR
+#define	_DSPI1_TX_IRQ		_SPI1_TX_VECTOR
+#define	_DSPI1_VECTOR		_SPI1_FAULT_VECTOR
 #define _DSPI1_IPL_ISR		IPL3SRS
 #define	_DSPI1_IPL			3
 #define	_DSPI1_SPL			0
@@ -417,10 +403,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // SD Card
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
-#define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
-#define	_DSPI2_RX_IRQ		_SPI3_RX_IRQ
-#define	_DSPI2_TX_IRQ		_SPI3_TX_IRQ
-#define	_DSPI2_VECTOR		_SPI_3_VECTOR
+#define	_DSPI2_ERR_IRQ		_SPI3_FAULT_VECTOR
+#define	_DSPI2_RX_IRQ		_SPI3_RX_VECTOR
+#define	_DSPI2_TX_IRQ		_SPI3_TX_VECTOR
+#define	_DSPI2_VECTOR		_SPI3_FAULT_VECTOR
 #define _DSPI2_IPL_ISR		IPL3SRS
 #define	_DSPI2_IPL			3
 #define	_DSPI2_SPL			0
@@ -432,10 +418,10 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 // this is the MRF24
 #define	_DSPI3_BASE			_SPI4_BASE_ADDRESS
-#define	_DSPI3_ERR_IRQ		_SPI4_ERR_IRQ
-#define	_DSPI3_RX_IRQ		_SPI4_RX_IRQ
-#define	_DSPI3_TX_IRQ		_SPI4_TX_IRQ
-#define	_DSPI3_VECTOR		_SPI_4_VECTOR
+#define	_DSPI3_ERR_IRQ		_SPI4_FAULT_VECTOR
+#define	_DSPI3_RX_IRQ		_SPI4_RX_VECTOR
+#define	_DSPI3_TX_IRQ		_SPI4_TX_VECTOR
+#define	_DSPI3_VECTOR		_SPI4_FAULT_VECTOR
 #define _DSPI3_IPL_ISR		IPL3SRS
 #define	_DSPI3_IPL			3
 #define	_DSPI3_SPL			0
@@ -453,7 +439,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /* The standard I2C port uses I2C4 (SCL4/SDA4). These come to pins
 ** A4/A5 pins 18/19 on the analog connector.
 */
-#define	_TWI_BASE		((uint32_t) &I2C4CON)
+#define	_TWI_BASE		_I2C4_BASE_ADDRESS
 #define	_TWI_BUS_IRQ	_I2C4_BUS_VECTOR
 #define	_TWI_SLV_IRQ	_I2C4_SLAVE_VECTOR
 #define	_TWI_MST_IRQ	_I2C4_MASTER_VECTOR
@@ -466,7 +452,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 **		DTWI0 is SDA2/SCL2 on A4/A5 pins 18/19 (see above comment).
 */
 
-#define	_DTWI0_BASE		((uint32_t) &I2C4CON)
+#define	_DTWI0_BASE		_I2C4_BASE_ADDRESS
 #define	_DTWI0_BUS_IRQ	_I2C4_BUS_VECTOR
 #define	_DTWI0_VECTOR	_I2C4_BUS_VECTOR
 #define	_DTWI0_IPL_ISR	IPL3SRS 
@@ -483,7 +469,6 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 /*  On MZ parts, ports are defined                              */
 /* ------------------------------------------------------------ */
 
-#define _PORTA
 #define _PORTB
 #define _PORTC
 #define _PORTD
@@ -493,7 +478,8 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	// OPT_BOARD_INTERNAL
+#define DefineSDSPI(spi) DSPI0 spi
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 12)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

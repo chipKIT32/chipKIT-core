@@ -51,7 +51,7 @@ void hmac_sha1_vector(const uint8_t *key, size_t key_len, size_t num_elem,
 {
 	unsigned char k_pad[64]; /* padding - key XORd with ipad/opad */
 	unsigned char tk[20];
-	int i;
+	unsigned int i;
 	const uint8_t *_addr[6];
 	size_t _len[6];
 
@@ -329,7 +329,7 @@ void sha1_vector(size_t num_elem, const uint8_t *addr[], const size_t *len,
 		 uint8_t *mac)
 {
 	SHA1_CTX ctx;
-	int i;
+	unsigned int i;
 
 	SHA1Init(&ctx);
 	for (i = 0; i < num_elem; i++)
@@ -337,6 +337,7 @@ void sha1_vector(size_t num_elem, const uint8_t *addr[], const size_t *len,
 	SHA1Final(mac, &ctx);
 }
 
+#if DEAD
 /**
  * sha1_transform - Perform one SHA-1 transform step
  * @state: SHA-1 state
@@ -351,6 +352,7 @@ void sha1_transform(uint8_t *state, const uint8_t data[64])
 {
 	SHA1Transform((uint32_t *) state, data);
 }
+#endif
 
 /* ===== start - public domain SHA1 implementation ===== */
 

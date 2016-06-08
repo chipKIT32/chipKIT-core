@@ -154,10 +154,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h
 */
-const static uint8_t SS   = 32;		// PIC32 SS2
-const static uint8_t MOSI = 33;		// PIC32 SDO2
-const static uint8_t MISO = 34;		// PIC32 SDI2
-const static uint8_t SCK  = 35;		// PIC32 SCK2
+static const uint8_t SS   = 32;		// PIC32 SS2
+static const uint8_t MOSI = 33;		// PIC32 SDO2
+static const uint8_t MISO = 34;		// PIC32 SDI2
+static const uint8_t SCK  = 35;		// PIC32 SCK2
 
 /* The Digilent DSPI library uses these ports.
 **		DSPI0	connector JE
@@ -275,6 +275,8 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	OPT_BOARD_ANALOG_READ	0	//board does not extend analogRead
 #define	OPT_BOARD_ANALOG_WRITE	0	//board does not extend analogWrite
 
+#endif	//OPT_BOARD_INTERNAL
+
 /* ------------------------------------------------------------ */
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
@@ -301,18 +303,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The standard SPI port uses SPI2. Connector JE.
-*/
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	_SPI2_IPL_ISR
-#define	_SPI_IPL		_SPI2_IPL_IPC
-#define	_SPI_SPL		_SPI2_SPL_IPC
-
-/* The Digilent DSPI library uses these ports.
+/* The Digilent DSPI and standard SPI libraries uses these ports.
 **		DSPI0	connector JE
 **		DSPI1	connector JB
 */
@@ -378,7 +369,25 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 
 /* ------------------------------------------------------------ */
 
-#endif	//OPT_BOARD_INTERNAL
+/* ------------------------------------------------------------ */
+/*					Defines for the SD on JC    				*/
+/* ------------------------------------------------------------ */
+
+#define _uSD_SPI_CONFIG_
+
+#define SD_CS_PIN 16
+
+#define	prtSDO				IOPORT_F	//JC
+#define	bnSDO				BIT_5
+
+#define	prtSDI				IOPORT_F
+#define	bnSDI				BIT_4
+
+#define	prtSCK				IOPORT_B
+#define	bnSCK				BIT_14
+
+#define DefineSDSPI(var) SoftSPI var(SD_CS_PIN, 17, 18, 19)
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 18)     // Create an DSDVOL object
 
 /* ------------------------------------------------------------ */
 

@@ -50,6 +50,12 @@
 /************************************************************************/
 
 #include <Arduino.h>
+
+// this code only works for __32MZ2048ECG100_
+// but it will run on a __32MZ2048EFG100__
+// when compiled for an __32MZ2048ECG100__
+#if defined(__32MZ2048ECG100__)
+
 #include	"EFADC.h"
 
 /************************************************************************/
@@ -155,6 +161,125 @@ volatile unsigned int        ADCDATA34 __attribute__((section("sfrs"), address(0
 volatile unsigned int        ADCDATA43 __attribute__((section("sfrs"), address(0xBF84B2AC)));
 volatile unsigned int        ADCDATA44 __attribute__((section("sfrs"), address(0xBF84B2B0)));
 
+
+// no need for EF code on an EF processor, just use the compiler supplied headers
+#elif defined(__32MZ2048EFG100__)
+
+#define initWiFIREadcEF initADC
+#define convertWiFIREadcEF convertADC 
+
+#endif
+
+// the following is to catch the general exception fault for a
+// FPU coprocessor not present. We can assume no stack, and
+// can not call helper functions, this code must also be short as
+// it is placed at the general except location and can not exceed 0x9d001000 - 0x9d000180 = 0xE80 (3712 bytes)
+// this is specific to the WiFIRE and this code should remain 
+// in the variant subdirectory for the WiFIRE
+#define CORETIMER_TICKS_PER_MILLISECOND		(F_CPU / 2 / 1000UL)
+#define CORETIMER_TICKS_PER_DOT             (CORETIMER_TICKS_PER_MILLISECOND * 250)
+#define read_count(dest) __asm__ __volatile__("mfc0 %0,$9" : "=r" (dest))
+#define read_cause(dest) __asm__ __volatile__("mfc0 %0,$13" : "=r" (dest))
+static uint32_t t1;
+static uint32_t t2;
+static uint32_t t3;
+
+/* ------------------------------------------------------------ */
+/***	OverrideGenExcpt
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      none
+**
+**	Errors:
+**     none
+**
+**	Description:
+**      Replaces the General Exception handler so we can catch FPU instructions on an EC
+**
+**  we must place this code at the gen exception handler location 0x9d000180
+**  the WiFIRE specific linker script must move the default gen exception handler out of the way
+**  _GEN_EXCPT_ADDR = _ebase_address + _GEN_EXCPT_OFFSET - 0x30;
+**  that - 0x30 does that. the default handler is only 0x10 long, but allows some room for future bloat
+*/
+void __attribute__((keep, address(0x9d000180), section(".gen_handler"))) OverrideGenExcpt(void)
+{
+    
+    // get the cause for the exception
+    read_cause(t1); 
+    
+    // if the cause is the coprocessor is not ready or present 
+    // set the LED to indicate the failure
+    // this is specific code to the WiFIRE and 
+    // this code should NOT be moved out of the variants
+    // subdirectory for the WiFIRE
+    if(((t1 & 0x3C) == 0x2C) )
+    {
+        // ensure not analog 
+        // ANSELDCLR   = 0b0000000000010000;   // D4   LED2, not an analog pin
+        ANSELBCLR   = 0b0000100000000000;   // B11  LED3
+        ANSELGCLR   = 0b1000000000000000;   // G15  LED4
+
+        // make output
+        TRISDCLR    = 0b0000000000010000;   // D4   LED2
+        TRISBCLR    = 0b0000100000000000;   // B11  LED3
+        TRISGCLR     = 0b1000000000000000;  // G15  LED4
+        
+        read_count(t1);
+        t3 = 0;
+
+        // blink the EF code on an EC error on the LEDs
+        //  LED2 = D = dash, dot, dot
+        //  LED3 = O = dash, dash, dash
+        //  LED4 = A = dot dash
+        while(true)
+        {
+            read_count(t2);           
+            if((t2 - t1) >= CORETIMER_TICKS_PER_DOT)
+            {
+                switch(t3)
+                {
+                    case 1:
+                        LATGCLR = 0b1000000000000000;   // G15  LED4   
+                        break;
+                    case 4:
+                    case 7:
+                        LATDCLR = 0b0000000000010000;   // D4   LED2
+                        break;
+                    case 6:
+                        LATDSET = 0b0000000000010000;   // D4   LED2
+                        LATBSET = 0b0000100000000000;   // B11  LED3
+                        break;
+                        
+                    // all on, start of each code
+                    case 0:
+                    case 3:
+                        LATDSET = 0b0000000000010000;   // D4   LED2
+                        LATBSET = 0b0000100000000000;   // B11  LED3
+                        LATGSET = 0b1000000000000000;   // G15  LED4
+                        break; 
+                        
+                    // all off, end of each code    
+                    default:
+                        LATDCLR = 0b0000000000010000;   // D4   LED2
+                        LATBCLR = 0b0000100000000000;   // B11  LED3
+                        LATGCLR = 0b1000000000000000;   // G15  LED4
+                        break;
+                }
+                
+                t1 = t2;                // set the timer
+                t3++;                   // go to next state
+                if(t3 >= 10) t3 = 0;    // restart state after dead period
+            }
+        }
+    }
+    
+    // otherwise spin
+    while(true);
+}
+
 /* ------------------------------------------------------------ */
 /***	initWiFIREadcEF
 **
@@ -232,27 +357,27 @@ void initWiFIREadcEF(void)
     // ADC 0
     ADC0TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC0TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC0TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC0TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     // ADC 1
     ADC1TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC1TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC1TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC1TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     // ADC 2
     ADC2TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC2TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC2TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC2TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     // ADC 3
     ADC3TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC3TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC3TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC3TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     // ADC 4
     ADC4TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
     ADC4TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
-    ADC4TIMEbits.SELRES     = ADCCON3bits.VREFSEL;             // ADC0 resolution is 12 bits 
+    ADC4TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
 
     /* Configure ADCIRQENx */
     ADCCMPEN1 = 0; // No interrupts are used
