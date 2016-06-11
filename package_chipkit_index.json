@@ -258,22 +258,22 @@
           "systems": [
             {
               "host": "i386-apple-darwin11",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-macosx.tar.gz",
-              "archiveFileName": "pic32prog-macosx.tar.gz",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-macosx_2_0_220.tar.gz",
+              "archiveFileName": "pic32prog-macosx_2_0_220.tar.gz",
               "size": "184974",
               "checksum": "SHA-256:ed47999be31cc50cd083f7d16c909a3aeb59366f87fb17c3726287dc4bb49319"
             }, 
             {
               "host": "x86_64-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux64.tar.gz",
-              "archiveFileName": "pic32prog-linux64.tar.gz",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux64_2_0_220.tar.gz",
+              "archiveFileName": "pic32prog-linux64_2_0_220.tar.gz",
               "size": "106598",
               "checksum": "SHA-256:edf0c3d363506ee293fbba25104af183263cca5c8e422fec18d9522357685b50"
             }, 
             {
               "host": "i686-pc-linux-gnu", 
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux32.tar.gz",
-              "archiveFileName": "pic32prog-linux32.tar.gz",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-linux32_2_0_220.tar.gz",
+              "archiveFileName": "pic32prog-linux32_2_0_220.tar.gz",
               "size": "110579",
               "checksum": "SHA-256:7e715d33e87ebbcd114be8388ff96e10d6c01954e281137496fcef496a1e0957"
             }, 
@@ -286,8 +286,8 @@
             }, 
             {
               "host": "i686-arm-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-armlinux.tar.gz",
-              "archiveFileName": "pic32prog-armlinux.tar.gz",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-armlinux_2_0_220.tar.gz",
+              "archiveFileName": "pic32prog-armlinux_2_0_220.tar.gz",
               "size": "120325",
               "checksum": "SHA-256:fc7db1a43ebf06e7105ac2a112aad90731f9b54790960087161ae5b8767120e4"
             }
