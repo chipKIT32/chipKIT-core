@@ -630,9 +630,6 @@ const uint8_t analog_pin_to_channel_PGM[] = {
 
 void _board_init(void) {
 
-	/*	Turn off Secondary oscillator so pins can be used as GPIO
-	*/
-	OSCCONCLR	=	_OSCCON_SOSCEN_MASK;
 
 }
 
