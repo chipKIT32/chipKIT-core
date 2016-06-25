@@ -220,6 +220,16 @@ _no_nmi:
         nop
 
 
+#if defined(INIT_MMU_MZ_FIXED) || defined(__PIC32_HAS_MMU_MZ_FIXED)
+        ##################################################################
+        # Initialize TLB for fixed mapping to EBI and SQI
+        ##################################################################
+        .extern __pic32_tlb_init_ebi_sqi
+        la      t0,__pic32_tlb_init_ebi_sqi
+        jalr    t0
+        nop
+#endif
+
 #if defined(__PIC32_HAS_L1_CACHE)
         ##################################################################
         # Initialize L1 cache register
@@ -402,9 +412,14 @@ _ramfunc_done:
         mtc0    t2,_CP0_COMPARE
 
         ##################################################################
-        # Initialize EBase register
+        # Ensure BEV set and Initialize EBase register
         ##################################################################
+        li      t0, (1<<22)
+        mfc0    t2,_CP0_STATUS
+        or      t2,t0,t2               # Set BEV bit 22
+        mtc0    t2,_CP0_STATUS
         la      t1,_ebase_address
+        ehb
         mtc0    t1,_CP0_EBASE
 
         ##################################################################
@@ -416,6 +431,9 @@ _ramfunc_done:
         lw      t2, 0(t0)
         li      t2, 0
         ins     t2, t1, 16,7
+#if defined(__PIC32MM) && defined(_INTCON_MVEC_MASK)
+        ori     t2, t2, _INTCON_MVEC_MASK
+#endif
         sw      t2, 0(t0)
 #endif
         li      t2,0                    # Clear t2 and
@@ -439,7 +457,7 @@ _ramfunc_done:
         # - Preserve soft reset <SR> and non-maskable interrupt <NMI>
         # - CorExtend enabled based on whether CorExtend User Defined
         #   Instructions have been implemented <CEE = Config<UDI>>
-        # - Disable any pending interrups <IM7..IM2 = 0, IM1..IM0 = 0>
+        # - Disable any pending interrupts <IM7..IM2 = 0, IM1..IM0 = 0>
         # - Disable hardware interrupts <IPL7:IPL2 = 0>
         # - Base mode is Kernel mode <UM = 0>
         # - Error level is normal <ERL = 0>
@@ -552,6 +570,22 @@ _gen_exception:
 
         .end _gen_exception
 
+#if defined(INIT_MMU_MZ_FIXED) || defined(__PIC32_HAS_MMU_MZ_FIXED)
+        ##################################################################
+        # Simple TLB-Refill Exception Vector
+        # Jumps to _simple_tlb_refill_exception_context
+        ##################################################################
+        .section .simple_tlb_refill_vector,code,keep
+        .align 2
+        .set noreorder
+        .ent simple_tlb_refill_vector
+simple_tlb_refill_vector:
+        la      k0,_simple_tlb_refill_exception_context
+        jr      k0
+        nop
+
+        .end simple_tlb_refill_vector
+#endif
 
 
 #if defined(__PIC32_HAS_L1_CACHE)
