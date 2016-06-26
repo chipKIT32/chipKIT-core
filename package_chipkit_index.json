@@ -10,6 +10,76 @@
         {
           "name": "chipKIT",
           "architecture": "pic32",
+          "version": "1.2.1",
+          "category": "pic32",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/chipkit-core-16778042.master-v1.2.1-13-g7cf80de.zip",
+          "archiveFileName": "chipkit-core-16778042.master-v1.2.1-13-g7cf80de.zip",
+          "checksum": "SHA-256:312b0bd543d242318e4ee2f3f3f6c10fb83739eeb9c72c11b6afc8fd614dcb8a",
+          "size": "7638650",
+          "help": {
+            "online": "http://chipkit.net/started/learn-basics/"
+          },
+          "boards": [
+            {"name": "cerebot32mx4"},
+            {"name": "cerebot32mx7"},
+            {"name": "cerebot_mx3ck"},
+            {"name": "chipkit_mx3"},
+            {"name": "cerebot_mx3ck_512"},
+            {"name": "cerebot_mx4ck"},
+            {"name": "chipkit_pro_mx4"},
+            {"name": "cerebot_mx7ck"},
+            {"name": "chipkit_pro_mx7"},
+            {"name": "chipkit_Pi"},
+            {"name": "chipkit_Pi_USB_Serial"},
+            {"name": "cmod"},
+            {"name": "CUI32stem"},
+            {"name": "ubw32_mx460"},
+            {"name": "ubw32_mx795"},
+            {"name": "cui32"},
+            {"name": "usbono_pic32"},
+            {"name": "chipkit_DP32"},
+            {"name": "fubarino_mini_dev"},
+            {"name": "fubarino_mini"},
+            {"name": "fubarino_sd_seeed"},
+            {"name": "fubarino_sd"},
+            {"name": "Fubarino_SDZ"},
+            {"name": "mega_pic32"},
+            {"name": "mega_usb_pic32"},
+            {"name": "Olimex_Pinguino32"},
+            {"name": "picadillo_35t"},
+            {"name": "quick240_usb_pic32"},
+            {"name": "chipkit_uc32"},
+            {"name": "uc32_pmod"},
+            {"name": "uno_pic32"},
+            {"name": "uno_pmod"},
+            {"name": "chipkit_WF32"},
+            {"name": "chipkit_WiFire"},
+            {"name": "chipkit_WiFire_80MHz"},
+            {"name": "OpenScope"},
+            {"name": "openbci"},
+            {"name": "Clicker2"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "chipKIT",
+              "version": "4.8.3-pic32gcc",
+              "name": "pic32-tools"
+            }, 
+            {
+              "packager": "chipKIT",
+              "version": "v2.0.224-pic32gcc",
+              "name": "pic32prog"
+            },
+            {
+              "packager": "chipKIT",
+              "version": "v2",
+              "name": "drivers-windows"
+            }
+          ]
+        },
+        {
+          "name": "chipKIT",
+          "architecture": "pic32",
           "version": "1.2.0",
           "category": "pic32",
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/chipkit-core-16778040.master-v1.2.0-4-g3088e62.zip",
@@ -254,6 +324,47 @@
         },
         {
           "name": "pic32prog",
+          "version": "v2.0.224-pic32gcc",
+          "systems": [
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-macosx_2_0_220.tar.gz",
+              "archiveFileName": "pic32prog-macosx_2_0_220.tar.gz",
+              "size": "184974",
+              "checksum": "SHA-256:ed47999be31cc50cd083f7d16c909a3aeb59366f87fb17c3726287dc4bb49319"
+            }, 
+            {
+              "host": "x86_64-linux-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-linux64_2_0_224.tar.gz",
+              "archiveFileName": "pic32prog-linux64_2_0_224.tar.gz",
+              "size": "187187",
+              "checksum": "SHA-256:E5E89CBCA2F5EA9038D23400883C9990F31EC2EC0076FD54353A2AA447DE50E5"
+            }, 
+            {
+              "host": "i686-pc-linux-gnu", 
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-linux32_2_0_224.tar.gz",
+              "archiveFileName": "pic32prog-linux32_2_0_224.tar.gz",
+              "size": "175510",
+              "checksum": "SHA-256:037DA2461DC340EE20D0B5D2F4DD5DBAAD7FB57CDDC2852E3EEAFB78FB95BB62"
+            }, 
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-windows_2_0_224.zip",
+              "archiveFileName": "pic32prog-windows_2_0_224.zip",
+              "size": "114018",
+              "checksum": "SHA-256:ECC58A7C95720F4C47B98932F7297A2BF57E42E32D231AB9770472EC0C1F2530"
+            }, 
+            {
+              "host": "i686-arm-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-armlinux_2_0_224.tar.gz",
+              "archiveFileName": "pic32prog-armlinux_2_0_224.tar.gz",
+              "size": "174996",
+              "checksum": "SHA-256:6FAEDF08D76FA87C8ACC93C3B52E2BB6B63DAD518015AD0F65E03EBC0D1B8032"
+            }
+          ]
+        },
+        {
+          "name": "pic32prog",
           "version": "v2.0.220-pic32gcc",
           "systems": [
             {
@@ -336,6 +447,47 @@
         },
         {
           "name": "drivers-windows",
+          "version": "v2",
+          "systems": [
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_windows_v2.zip",
+              "archiveFileName": "chipKIT_USB_drivers_windows_v2.zip",
+              "size": "962019",
+              "checksum": "SHA-256:39F16651C21F451D106B8CDA5281D16129D755A73728E976A725341F3F671A5F"
+            },
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_otherOSes_v2.zip",
+              "archiveFileName": "chipKIT_USB_drivers_otherOSes_v2.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "x86_64-linux-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_otherOSes_v2.zip",
+              "archiveFileName": "chipKIT_USB_drivers_otherOSes_v2.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "i686-pc-linux-gnu", 
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_otherOSes_v2.zip",
+              "archiveFileName": "chipKIT_USB_drivers_otherOSes_v2.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }, 
+            {
+              "host": "i686-arm-gnu",
+              "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_otherOSes_v2.zip",
+              "archiveFileName": "chipKIT_USB_drivers_otherOSes_v2.zip",
+              "size": "162",
+              "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
+            }
+          ]
+        },
+        {
+          "name": "drivers-windows",
           "version": "v1",
           "systems": [
             {
@@ -374,8 +526,7 @@
               "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
             }
           ]
-
-          }
+        }
       ],
       "email": "packages@chipkit.net",
       "name": "chipKIT"
