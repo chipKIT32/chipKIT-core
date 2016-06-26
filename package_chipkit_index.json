@@ -126,7 +126,8 @@
             {"name": "chipkit_WiFire"},
             {"name": "chipkit_WiFire_80MHz"},
             {"name": "OpenScope"},
-            {"name": "openbci"}
+            {"name": "openbci"},
+            {"name": "Clicker2"}
           ],
           "toolsDependencies": [
             {
@@ -195,7 +196,8 @@
             {"name": "chipkit_WiFire"},
             {"name": "chipkit_WiFire_80MHz"},
             {"name": "OpenScope"},
-            {"name": "openbci"}
+            {"name": "openbci"},
+            {"name": "Clicker2"}
           ],
           "toolsDependencies": [
             {
@@ -263,7 +265,8 @@
             {"name": "chipkit_WiFire"},
             {"name": "chipkit_WiFire_80MHz"},
             {"name": "OpenScope"},
-            {"name": "openbci"}
+            {"name": "openbci"},
+            {"name": "Clicker2"}
           ],
           "toolsDependencies": [
             {
