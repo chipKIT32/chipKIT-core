@@ -210,6 +210,8 @@ class SoftwareSerialBase : public Stream
 class SoftwareSerialTx : virtual public SoftwareSerialBase
 {
   private:
+    // per object data
+//    uint8_t     _receivePin;        // Digital pin RX is assigned to
     uint8_t     _transmitPin;       // Digital pin RX is assigned to
     long        _baudRate;
   
@@ -255,28 +257,42 @@ class SoftwareSerialTx : virtual public SoftwareSerialBase
     //void printNumber(unsigned long, uint8_t);
 
     public:
+//    // Array to hold circular RX buffer
+//    /// TODO: Can this be made private?
+//    uint8_t _rxBufferArray[TS_BUFSZ];
+//    // Circular buffer object for RX buffer management
+//    /// TODO: Can this be made private?
+//    CircularBuffer *_rxBuffer;
+//
+//    // Records the Core Timer value at the start of the start bit
+//    /// TODO: Can this be made private?
+//    uint32_t _start_bit_time;
+//
+//    // static data
+//    /// TODO: Can this be made private?
+//    static SoftwareSerialRx *active_object;
     // public methods
     SoftwareSerialTx(uint8_t transmitPin);
     ~SoftwareSerialTx();
-    //static void handleChangeNotificationISR(uint32_t start_bit_time);
+//    static void handleChangeNotificationISR(uint32_t start_bit_time);
     void begin(long speed);
     void begin(long speed, uint32_t RX_buffer_size);
-    //bool listen();
-    //int32_t readByte(void);
+//    bool listen();
+//    int32_t readByte(void);
     void end();
-    //bool isListening() { return this == active_object; }
-    //bool stopListening();
-    //bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
-
+//    bool isListening() { return this == active_object; }
+//    bool stopListening();
+//    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
+    
     // Note: has, to to be int and not int32_t for some reason
-    virtual int available();
-    int available(uint32_t timeout_ms);
+//    virtual int available();
+//    int available(uint32_t timeout_ms);
     // Note: has, to to be int and not int32_t for some reason
-    virtual int peek();
+//    virtual int peek();
     
     virtual size_t write(uint8_t byte);
     // Note: has, to to be int and not int32_t for some reason
-    virtual int read();
+//    virtual int read();
     virtual void flush();
     explicit operator bool() { return true; }
     
@@ -288,6 +304,7 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
   private:
     // per object data
     uint8_t     _receivePin;        // Digital pin RX is assigned to
+//    uint8_t     _transmitPin;       // Digital pin RX is assigned to
     long        _baudRate;
     
     // Error bit indicating that RX buffer has overflowed and some bytes have been lost
@@ -366,10 +383,10 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
     // Note: has, to to be int and not int32_t for some reason
     virtual int peek();
     
-    virtual size_t write(uint8_t byte);
+//    virtual size_t write(uint8_t byte);
     // Note: has, to to be int and not int32_t for some reason
     virtual int read();
-    virtual void flush();
+//    virtual void flush();
     explicit operator bool() { return true; }
     
     using Print::write;
@@ -422,8 +439,8 @@ class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
 //    void printNumber(unsigned long, uint8_t);
 //    
   protected:
-    // Record if we've set up the CN ISR (only need to do it once)
-    static bool _CN_ISR_hooked;
+//    // Record if we've set up the CN ISR (only need to do it once)
+//    static bool _CN_ISR_hooked;
 
   public:
 //    // Array to hold circular RX buffer
@@ -449,7 +466,7 @@ class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
     void begin(long speed, uint32_t RX_buffer_size);
 //    bool listen();
 //    int32_t readByte(void);
-//    void end();
+    void end();
 //    bool isListening() { return this == active_object; }
 //    bool stopListening();
 //    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }

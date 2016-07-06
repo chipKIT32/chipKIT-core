@@ -643,38 +643,32 @@ bool SoftwareSerialRx::stopListening()
     return false;
 }
 
+/*
+ * Start things up on this serial object with the default RX buffer size 
+ * (only applies if this pin is a CN pin)
+ */ 
 void SoftwareSerial::begin(long speed)
 {
     SoftwareSerialRx::begin(speed);
     SoftwareSerialTx::begin(speed);
 }
-
-/*
- * Start things up on this serial object with the default RX buffer size 
- * (only applies if this pin is a CN pin)
- */ 
 void SoftwareSerialTx::begin(long speed)
 {
     begin(speed, TS_BUFSZ);
 }
-
-/*
- * Start things up on this serial object with the default RX buffer size 
- * (only applies if this pin is a CN pin)
- */ 
 void SoftwareSerialRx::begin(long speed)
 {
     begin(speed, TS_BUFSZ);
-}
-void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
-{
-    SoftwareSerialRx::begin(speed, RX_buffer_size);
-    SoftwareSerialTx::begin(speed, RX_buffer_size);
 }
 /*
  * The real begin function. Takes a baud rate (same for RX and TX) and a RX buffer size.
  * RX buffer size is only used if the RX pin is on a Change Notification pin.
  */ 
+void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
+{
+    SoftwareSerialRx::begin(speed, RX_buffer_size);
+    SoftwareSerialTx::begin(speed, RX_buffer_size);
+}
 void SoftwareSerialRx::begin(long speed, uint32_t RX_buffer_size)
 {
     uint8_t     port;
@@ -935,10 +929,6 @@ void SoftwareSerialRx::begin(long speed, uint32_t RX_buffer_size)
     listen();
 }
 
-/*
- * The real begin function. Takes a baud rate (same for RX and TX) and a RX buffer size.
- * RX buffer size is only used if the RX pin is on a Change Notification pin.
- */ 
 void SoftwareSerialTx::begin(long speed, uint32_t RX_buffer_size)
 {
     uint8_t     port;
@@ -970,6 +960,11 @@ void SoftwareSerialTx::begin(long speed, uint32_t RX_buffer_size)
  * We're done with this serial object, so cancel the Change Notification on it's RX
  * pin (if any) and then stop listening on this RX pin.
  */ 
+void SoftwareSerial::end()
+{
+  SoftwareSerialTx::end();
+  SoftwareSerialRx::end();
+}
 void SoftwareSerialTx::end() {}
 void SoftwareSerialRx::end()
 {
@@ -995,7 +990,7 @@ void SoftwareSerialRx::end()
  * GPIO pin) then block and read a byte from the RX pin.
  */ 
 int SoftwareSerial::read(void) { return SoftwareSerialRx::read(); }
-int SoftwareSerialTx::read(void) { return 0; }
+//int SoftwareSerialTx::read(void) { return 0; }
 int SoftwareSerialRx::read(void)
 {
     if (_on_CN_pin) 
@@ -1018,7 +1013,7 @@ int SoftwareSerialRx::read(void)
  * it will return 0.
  */
 int SoftwareSerial::available(uint32_t timeout_ms) { return SoftwareSerialRx::available(timeout_ms); }
-int SoftwareSerialTx::available(uint32_t timeout_ms) { return 0; }
+//int SoftwareSerialTx::available(uint32_t timeout_ms) { return 0; }
 int SoftwareSerialRx::available(uint32_t timeout_ms) 
 {
     uint32_t end_time_ms = millis() + timeout_ms;
@@ -1050,7 +1045,7 @@ int SoftwareSerialRx::available(uint32_t timeout_ms)
  * currently coming in.)
  */ 
 int SoftwareSerial::available() { return SoftwareSerialRx::available(); }
-int SoftwareSerialTx::available() { return 0; }
+//int SoftwareSerialTx::available() { return 0; }
 int SoftwareSerialRx::available()
 {
     if (_on_CN_pin) 
@@ -1070,7 +1065,7 @@ int SoftwareSerialRx::available()
  * Since we always send one byte, we always return a 1.
  */ 
 size_t SoftwareSerial::write(uint8_t b) { return SoftwareSerialTx::write(b); }
-size_t SoftwareSerialRx::write(uint8_t b) { return 0; }
+//size_t SoftwareSerialRx::write(uint8_t b) { return 0; }
 size_t SoftwareSerialTx::write(uint8_t b)
 {
     uint32_t    st;
@@ -1255,18 +1250,16 @@ DEBUG0_LOW
  * Since we do not use buffered transmit in this library, this function
  * doesn't have much to do.
  */
-void SoftwareSerial::flush() { return SoftwareSerialRx::flush(); }
+void SoftwareSerial::flush() { return SoftwareSerialTx::flush(); }
 void SoftwareSerialTx::flush() {}
-void SoftwareSerialRx::flush()
-{
-}
+//void SoftwareSerialRx::flush() {}
 
 /*
  * If this RX pin is a CN pin (and thus has an RX buffer), peek at the next byte in the buffer and
  * return it. If this is not a CN pin, then return an error value of -1.
  */ 
 int SoftwareSerial::peek() { return SoftwareSerialRx::peek(); }
-int SoftwareSerialTx::peek() { return -1; }
+//int SoftwareSerialTx::peek() { return -1; }
 int SoftwareSerialRx::peek()
 {
     if (_on_CN_pin)
