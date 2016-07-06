@@ -115,184 +115,33 @@ class CircularBuffer {
 
 class SoftwareSerialBase : public Stream
 {
-  private:
-//    // per object data
-//    uint8_t     _receivePin;        // Digital pin RX is assigned to
-//    uint8_t     _transmitPin;       // Digital pin RX is assigned to
-//    long        _baudRate;
-//    
-//    // Error bit indicating that RX buffer has overflowed and some bytes have been lost
-//    uint8_t _RX_buffer_overflow:1;
-//    // Error bit that indicates that a valid stop bit was not seen at some point
-//    uint8_t _invalid_stop_bit:1;
-//    // TRUE if this software serial object uses inverted logic (normally low, start bit is high, etc.)
-//    uint8_t _inverted_logic:1;
-//    // TRUE if the RX pin of this software serial object is on a Change Notice pin
-//    uint8_t _on_CN_pin:1;
-//    // TRUE when, for this RX byte, we have already captured and recorded the falling edge of the start bit
-//    uint8_t _have_start_bit_time:1;
-//    // If this RX pin is on a CN pin and this is a non-PPS CPU, then we store the bitmask of
-//    // the CN pin here (for access into CNEN register)
-//#if !defined(__PIC32_PPS__)
-//    uint32_t _CN_bitmask;
-//#endif
-//    // Records the last known state of this RX pin (when using CN)
-//    bool _last_RX_pin_state;
-//    // Port and bit mask for our RX pin
-//    p32_ioport *_rxPort;
-//    uint16_t _rxBit;
-//    // Port and bit mask for our TX pin
-//    p32_ioport *_txPort;
-//    uint16_t _txBit;
-//    // Linked list of all SoftwareSerial objects that use Change Notification pins
-//    static SoftwareSerial *CN_list_head;
-//    SoftwareSerial *next_CN;
-//    // Time, in CoreTimer ticks, of a single  bit
-//    uint32_t _OneBitTime;
-//    
-//    // private methods
-//    void IntRead(void);
-//    bool is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask);
-//    void addCN(void);
-//    void removeCN(void);
-//    static bool ReadBit(SoftwareSerial*);
-//    static bool RXBitHasChanged(SoftwareSerial*);
-//    void printNumber(unsigned long, uint8_t);
-//    
   protected:
     // Record if we've set up the CN ISR (only need to do it once)
     static bool _CN_ISR_hooked;
-
-  public:
-//    // Array to hold circular RX buffer
-//    /// TODO: Can this be made private?
-//    uint8_t _rxBufferArray[TS_BUFSZ];
-//    // Circular buffer object for RX buffer management
-//    /// TODO: Can this be made private?
-//    CircularBuffer *_rxBuffer;
-//
-//    // Records the Core Timer value at the start of the start bit
-//    /// TODO: Can this be made private?
-//    uint32_t _start_bit_time;
-//
-//    // static data
-//    /// TODO: Can this be made private?
-//    static SoftwareSerial *active_object;
-//
-//    // public methods
-//    SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverted_logic = false);
-//    ~SoftwareSerial();
-//    static void handleChangeNotificationISR(uint32_t start_bit_time);
-//    void begin(long speed);
-//    void begin(long speed, uint32_t RX_buffer_size);
-//    bool listen();
-//    int32_t readByte(void);
-//    void end();
-//    bool isListening() { return this == active_object; }
-//    bool stopListening();
-//    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
-//
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int available();
-//    int available(uint32_t timeout_ms);
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int peek();
-//    
-//    virtual size_t write(uint8_t byte);
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int read();
-//    virtual void flush();
-//    explicit operator bool() { return true; }
-//    
-//    using Print::write;
 };
 
 class SoftwareSerialTx : virtual public SoftwareSerialBase
 {
   private:
     // per object data
-//    uint8_t     _receivePin;        // Digital pin RX is assigned to
     uint8_t     _transmitPin;       // Digital pin RX is assigned to
     long        _baudRate;
   
-    // Error bit indicating that RX buffer has overflowed and some bytes have been lost
-    //uint8_t _RX_buffer_overflow:1;
-    // Error bit that indicates that a valid stop bit was not seen at some point
-    //uint8_t _invalid_stop_bit:1;
-    // TRUE if this software serial object uses inverted logic (normally low, start bit is high, etc.)
-    //uint8_t _inverted_logic:1;
-    // TRUE if the RX pin of this software serial object is on a Change Notice pin
-    //uint8_t _on_CN_pin:1;
-    // TRUE when, for this RX byte, we have already captured and recorded the falling edge of the start bit
-    //uint8_t _have_start_bit_time:1;
-    // If this RX pin is on a CN pin and this is a non-PPS CPU, then we store the bitmask of
-    // the CN pin here (for access into CNEN register)
-//#if !defined(__PIC32_PPS__)
-//    uint32_t _CN_bitmask;
-//#endif
-    // Record if we've set up the CN ISR (only need to do it once)
-    //
-    //static bool _CN_ISR_hooked;
-    // Records the last known state of this RX pin (when using CN)
-    //bool _last_RX_pin_state;
-    // Port and bit mask for our RX pin
-    //p32_ioport *_rxPort;
-    //uint16_t _rxBit;
     // Port and bit mask for our TX pin
     p32_ioport *_txPort;
     uint16_t _txBit;
-    // Linked list of all SoftwareSerial objects that use Change Notification pins
-    //static SoftwareSerialTx *CN_list_head;
-    //SoftwareSerialTx *next_CN;
     // Time, in CoreTimer ticks, of a single  bit
     uint32_t _OneBitTime;
-    
-    // private methods
-    //void IntRead(void);
-    //bool is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask);
-    //void addCN(void);
-    //void removeCN(void);
-    //static bool ReadBit(SoftwareSerialRx*);
-    //static bool RXBitHasChanged(SoftwareSerialRx*);
-    //void printNumber(unsigned long, uint8_t);
 
-    public:
-//    // Array to hold circular RX buffer
-//    /// TODO: Can this be made private?
-//    uint8_t _rxBufferArray[TS_BUFSZ];
-//    // Circular buffer object for RX buffer management
-//    /// TODO: Can this be made private?
-//    CircularBuffer *_rxBuffer;
-//
-//    // Records the Core Timer value at the start of the start bit
-//    /// TODO: Can this be made private?
-//    uint32_t _start_bit_time;
-//
-//    // static data
-//    /// TODO: Can this be made private?
-//    static SoftwareSerialRx *active_object;
+  public:
     // public methods
     SoftwareSerialTx(uint8_t transmitPin);
     ~SoftwareSerialTx();
-//    static void handleChangeNotificationISR(uint32_t start_bit_time);
     void begin(long speed);
     void begin(long speed, uint32_t RX_buffer_size);
-//    bool listen();
-//    int32_t readByte(void);
     void end();
-//    bool isListening() { return this == active_object; }
-//    bool stopListening();
-//    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
-    
-    // Note: has, to to be int and not int32_t for some reason
-//    virtual int available();
-//    int available(uint32_t timeout_ms);
-    // Note: has, to to be int and not int32_t for some reason
-//    virtual int peek();
     
     virtual size_t write(uint8_t byte);
-    // Note: has, to to be int and not int32_t for some reason
-//    virtual int read();
     virtual void flush();
     explicit operator bool() { return true; }
     
@@ -304,7 +153,6 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
   private:
     // per object data
     uint8_t     _receivePin;        // Digital pin RX is assigned to
-//    uint8_t     _transmitPin;       // Digital pin RX is assigned to
     long        _baudRate;
     
     // Error bit indicating that RX buffer has overflowed and some bytes have been lost
@@ -322,9 +170,6 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
 #if !defined(__PIC32_PPS__)
     uint32_t _CN_bitmask;
 #endif
-    // Record if we've set up the CN ISR (only need to do it once)
-    //
-    //static bool _CN_ISR_hooked;
     // Records the last known state of this RX pin (when using CN)
     bool _last_RX_pin_state;
     // Port and bit mask for our RX pin
@@ -381,12 +226,9 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
     virtual int available();
     int available(uint32_t timeout_ms);
     // Note: has, to to be int and not int32_t for some reason
-    virtual int peek();
-    
-//    virtual size_t write(uint8_t byte);
+    virtual int peek();    
     // Note: has, to to be int and not int32_t for some reason
     virtual int read();
-//    virtual void flush();
     explicit operator bool() { return true; }
     
     using Print::write;
@@ -394,93 +236,13 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
 
 class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
 {
-  private:
-//    // per object data
-//    uint8_t     _receivePin;        // Digital pin RX is assigned to
-//    uint8_t     _transmitPin;       // Digital pin RX is assigned to
-//    long        _baudRate;
-//    
-//    // Error bit indicating that RX buffer has overflowed and some bytes have been lost
-//    uint8_t _RX_buffer_overflow:1;
-//    // Error bit that indicates that a valid stop bit was not seen at some point
-//    uint8_t _invalid_stop_bit:1;
-//    // TRUE if this software serial object uses inverted logic (normally low, start bit is high, etc.)
-//    uint8_t _inverted_logic:1;
-//    // TRUE if the RX pin of this software serial object is on a Change Notice pin
-//    uint8_t _on_CN_pin:1;
-//    // TRUE when, for this RX byte, we have already captured and recorded the falling edge of the start bit
-//    uint8_t _have_start_bit_time:1;
-//    // If this RX pin is on a CN pin and this is a non-PPS CPU, then we store the bitmask of
-//    // the CN pin here (for access into CNEN register)
-//#if !defined(__PIC32_PPS__)
-//    uint32_t _CN_bitmask;
-//#endif
-//    // Records the last known state of this RX pin (when using CN)
-//    bool _last_RX_pin_state;
-//    // Port and bit mask for our RX pin
-//    p32_ioport *_rxPort;
-//    uint16_t _rxBit;
-//    // Port and bit mask for our TX pin
-//    p32_ioport *_txPort;
-//    uint16_t _txBit;
-//    // Linked list of all SoftwareSerial objects that use Change Notification pins
-//    static SoftwareSerial *CN_list_head;
-//    SoftwareSerial *next_CN;
-//    // Time, in CoreTimer ticks, of a single  bit
-//    uint32_t _OneBitTime;
-//    
-//    // private methods
-//    void IntRead(void);
-//    bool is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask);
-//    void addCN(void);
-//    void removeCN(void);
-//    static bool ReadBit(SoftwareSerial*);
-//    static bool RXBitHasChanged(SoftwareSerial*);
-//    void printNumber(unsigned long, uint8_t);
-//    
-  protected:
-//    // Record if we've set up the CN ISR (only need to do it once)
-//    static bool _CN_ISR_hooked;
-
   public:
-//    // Array to hold circular RX buffer
-//    /// TODO: Can this be made private?
-//    uint8_t _rxBufferArray[TS_BUFSZ];
-//    // Circular buffer object for RX buffer management
-//    /// TODO: Can this be made private?
-//    CircularBuffer *_rxBuffer;
-//
-//    // Records the Core Timer value at the start of the start bit
-//    /// TODO: Can this be made private?
-//    uint32_t _start_bit_time;
-//
-//    // static data
-//    /// TODO: Can this be made private?
-//    static SoftwareSerial *active_object;
-//
-//    // public methods
+    // public methods
     SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverted_logic = false);
-//    ~SoftwareSerial();
-//    static void handleChangeNotificationISR(uint32_t start_bit_time);
+    // Destructor is not needed, destructors of base classes automaticly called
     void begin(long speed);
     void begin(long speed, uint32_t RX_buffer_size);
-//    bool listen();
-//    int32_t readByte(void);
     void end();
-//    bool isListening() { return this == active_object; }
-//    bool stopListening();
-//    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
-//
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int available();
-//    int available(uint32_t timeout_ms);
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int peek();
-//    
-//    virtual size_t write(uint8_t byte);
-//    // Note: has, to to be int and not int32_t for some reason
-//    virtual int read();
-//    virtual void flush();
     explicit operator bool() { return true; }
     
     using Print::write;
