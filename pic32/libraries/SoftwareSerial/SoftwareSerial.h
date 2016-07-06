@@ -146,6 +146,13 @@ class SoftwareSerialTx : virtual public SoftwareSerialBase
     explicit operator bool() { return true; }
     
     using Print::write;
+
+  private:
+    virtual int available();
+    int available(uint32_t timeout_ms);
+    virtual int peek();
+    virtual int read();
+
 };
 
 class SoftwareSerialRx : virtual public SoftwareSerialBase
@@ -232,6 +239,11 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
     explicit operator bool() { return true; }
     
     using Print::write;
+
+  private:
+    virtual size_t write(uint8_t byte);
+    virtual void flush();
+
 };
 
 class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
@@ -246,6 +258,17 @@ class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
     explicit operator bool() { return true; }
     
     using Print::write;
+
+    // From Tx
+    virtual size_t write(uint8_t byte);
+    virtual void flush();
+
+    // From Rx
+    virtual int available();
+    int available(uint32_t timeout_ms);
+    virtual int peek();
+    virtual int read();
+
 };
 
 
