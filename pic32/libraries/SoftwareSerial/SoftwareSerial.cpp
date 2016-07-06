@@ -989,7 +989,7 @@ void SoftwareSerialRx::end()
  * If this RX pin is on a CN, then read from the RX buffer. If not (it's just a normal
  * GPIO pin) then block and read a byte from the RX pin.
  */ 
-int SoftwareSerial::read(void) { return SoftwareSerialRx::read(); }
+//int SoftwareSerial::read(void) { return SoftwareSerialRx::read(); }
 //int SoftwareSerialTx::read(void) { return 0; }
 int SoftwareSerialRx::read(void)
 {
@@ -1012,7 +1012,7 @@ int SoftwareSerialRx::read(void)
  * in on the RX pin. If it does, then it will return 1. If it does not (in that time) then
  * it will return 0.
  */
-int SoftwareSerial::available(uint32_t timeout_ms) { return SoftwareSerialRx::available(timeout_ms); }
+//int SoftwareSerial::available(uint32_t timeout_ms) { return SoftwareSerialRx::available(timeout_ms); }
 //int SoftwareSerialTx::available(uint32_t timeout_ms) { return 0; }
 int SoftwareSerialRx::available(uint32_t timeout_ms) 
 {
@@ -1044,7 +1044,7 @@ int SoftwareSerialRx::available(uint32_t timeout_ms)
  * read so that it goes and calls read() to read the byte (even if there is none
  * currently coming in.)
  */ 
-int SoftwareSerial::available() { return SoftwareSerialRx::available(); }
+//int SoftwareSerial::available() { return SoftwareSerialRx::available(); }
 //int SoftwareSerialTx::available() { return 0; }
 int SoftwareSerialRx::available()
 {
@@ -1064,7 +1064,7 @@ int SoftwareSerialRx::available()
  * Interrupts are disabled for the entire time the byte is being sent out.
  * Since we always send one byte, we always return a 1.
  */ 
-size_t SoftwareSerial::write(uint8_t b) { return SoftwareSerialTx::write(b); }
+//size_t SoftwareSerial::write(uint8_t b) { return SoftwareSerialTx::write(b); }
 //size_t SoftwareSerialRx::write(uint8_t b) { return 0; }
 size_t SoftwareSerialTx::write(uint8_t b)
 {
@@ -1250,7 +1250,7 @@ DEBUG0_LOW
  * Since we do not use buffered transmit in this library, this function
  * doesn't have much to do.
  */
-void SoftwareSerial::flush() { return SoftwareSerialTx::flush(); }
+//void SoftwareSerial::flush() { return SoftwareSerialTx::flush(); }
 void SoftwareSerialTx::flush() {}
 //void SoftwareSerialRx::flush() {}
 
@@ -1258,7 +1258,7 @@ void SoftwareSerialTx::flush() {}
  * If this RX pin is a CN pin (and thus has an RX buffer), peek at the next byte in the buffer and
  * return it. If this is not a CN pin, then return an error value of -1.
  */ 
-int SoftwareSerial::peek() { return SoftwareSerialRx::peek(); }
+//int SoftwareSerial::peek() { return SoftwareSerialRx::peek(); }
 //int SoftwareSerialTx::peek() { return -1; }
 int SoftwareSerialRx::peek()
 {

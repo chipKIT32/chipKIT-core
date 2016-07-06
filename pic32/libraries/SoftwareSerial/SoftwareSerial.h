@@ -471,16 +471,16 @@ class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
 //    bool stopListening();
 //    bool overflow() { bool ret = _RX_buffer_overflow; if (ret) _RX_buffer_overflow = false; return ret; }
 //
-    // Note: has, to to be int and not int32_t for some reason
-    virtual int available();
-    int available(uint32_t timeout_ms);
-    // Note: has, to to be int and not int32_t for some reason
-    virtual int peek();
-    
-    virtual size_t write(uint8_t byte);
-    // Note: has, to to be int and not int32_t for some reason
-    virtual int read();
-    virtual void flush();
+//    // Note: has, to to be int and not int32_t for some reason
+//    virtual int available();
+//    int available(uint32_t timeout_ms);
+//    // Note: has, to to be int and not int32_t for some reason
+//    virtual int peek();
+//    
+//    virtual size_t write(uint8_t byte);
+//    // Note: has, to to be int and not int32_t for some reason
+//    virtual int read();
+//    virtual void flush();
     explicit operator bool() { return true; }
     
     using Print::write;
