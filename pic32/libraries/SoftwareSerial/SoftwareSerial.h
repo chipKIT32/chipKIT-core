@@ -118,6 +118,19 @@ class SoftwareSerialBase : public Stream
   protected:
     // Record if we've set up the CN ISR (only need to do it once)
     static bool _CN_ISR_hooked;
+  private:
+    // The following private vitrual functions address the requirements for 
+    // implimenting a pure virtual funtion with non-functions. This is done 
+    // so that they don't have to be implimented in a Simplix class.
+    // Ideally the Stream class would derive from two Simplex classes but
+    // that would require upstream Arduino changes. -J. Christ 06-07Jun-2016
+    virtual size_t write(uint8_t byte) { return 0; }
+    virtual void flush() {}
+
+    virtual int available() { return 0; }
+    //int available(uint32_t timeout_ms);  // not a Stream pure vitrual function
+    virtual int peek() { return -1; }
+    virtual int read() { return 0; }
 };
 
 class SoftwareSerialTx : virtual public SoftwareSerialBase
@@ -146,13 +159,6 @@ class SoftwareSerialTx : virtual public SoftwareSerialBase
     explicit operator bool() { return true; }
     
     using Print::write;
-
-  private:
-    virtual int available();
-    int available(uint32_t timeout_ms);
-    virtual int peek();
-    virtual int read();
-
 };
 
 class SoftwareSerialRx : virtual public SoftwareSerialBase
@@ -239,11 +245,6 @@ class SoftwareSerialRx : virtual public SoftwareSerialBase
     explicit operator bool() { return true; }
     
     using Print::write;
-
-  private:
-    virtual size_t write(uint8_t byte);
-    virtual void flush();
-
 };
 
 class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
@@ -258,17 +259,6 @@ class SoftwareSerial : public SoftwareSerialRx, public SoftwareSerialTx
     explicit operator bool() { return true; }
     
     using Print::write;
-
-    // From Tx
-    virtual size_t write(uint8_t byte);
-    virtual void flush();
-
-    // From Rx
-    virtual int available();
-    int available(uint32_t timeout_ms);
-    virtual int peek();
-    virtual int read();
-
 };
 
 
