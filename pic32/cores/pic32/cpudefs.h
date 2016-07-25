@@ -1138,6 +1138,11 @@
     #endif
 #endif
 
+//Fix issue 213
+#ifndef __PIC32_PPS__
+  #define OPT_BOARD_INTERNAL
+#endif
+
 //************************************************************************
 #ifndef _CPU_NAME_
     #define _CPU_NAME_    "Unknown"
