@@ -143,27 +143,27 @@ private:
                 break;
 
             case SPI_CLOCK_DIV4:
-                 return(__PIC32_pbClk / 16000000) * 3;
+                return (__PIC32_pbClk / 16000000) * 3;
                 break;
 
             case SPI_CLOCK_DIV8:
-                 return(__PIC32_pbClk / 16000000) * 7;
+                return (__PIC32_pbClk / 16000000) * 7;
                 break;
 
             case SPI_CLOCK_DIV16:
-                 return(__PIC32_pbClk / 16000000) * 15;
+                return (__PIC32_pbClk / 16000000) * 15;
                 break;
 
             case SPI_CLOCK_DIV32:
-                 return(__PIC32_pbClk / 16000000) * 31;
+                return (__PIC32_pbClk / 16000000) * 31;
                 break;
 
             case SPI_CLOCK_DIV64:
-                 return(__PIC32_pbClk / 16000000) * 63;
+                return (__PIC32_pbClk / 16000000) * 63;
                 break;
 
             case SPI_CLOCK_DIV128:
-                 return(__PIC32_pbClk / 16000000) * 127;
+                return (__PIC32_pbClk / 16000000) * 127;
                 break;
         }
         return (__PIC32_pbClk / 16000000) * 4;
