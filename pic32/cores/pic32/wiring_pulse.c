@@ -62,7 +62,7 @@ unsigned long	maxloops;
 	width		=	0;	// keep initialization out of time critical area
 
 	// convert the timeout from microseconds to a number of times through
-	// the initial loop; it takes 16 clock cycles per iteration.
+	// the initial loop; it takes 7 clock cycles per iteration.
 	numloops	=	0;
 	maxloops	=	microsecondsToClockCycles(timeout/7) + 10;
 
