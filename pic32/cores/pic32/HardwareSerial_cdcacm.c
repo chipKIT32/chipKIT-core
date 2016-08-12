@@ -33,6 +33,7 @@
 
 #include	"HardwareSerial_cdcacm.h"
 #include	"HardwareSerial_usb.h"
+#include    "Board_Defs.h"
 
 #define PACKET_SIZE	64
 
@@ -590,7 +591,29 @@ void	cdcacm_register(cdcacm_reset_cbfn reset, cdcacm_storedata_cbfn storeData)
 	usb_configuration_descriptor(cdcacm_configuration_descriptor, sizeof(cdcacm_configuration_descriptor));
 
 	assert(check(cdcacm_string_descriptor, sizeof(cdcacm_string_descriptor)) == 3);
+#if defined(CDCACM_AUTOSERIAL)
+#define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
+
+    char temp[15];
+    temp[0] = 'C';
+    temp[1] = 'K';
+    temp[2] = D2H(DEVID >> 28);
+    temp[3] = D2H(DEVID >> 24);
+    temp[4] = D2H(DEVID >> 20);
+    temp[5] = D2H(DEVID >> 16);
+    temp[6] = D2H(DEVID >> 12);
+    temp[7] = D2H(DEVID >> 8);
+    temp[8] = D2H(DEVID >> 4);
+    temp[9] = D2H(DEVID);
+    temp[10] = D2H(DEVCFG3 >> 12);
+    temp[11] = D2H(DEVCFG3 >> 8);
+    temp[12] = D2H(DEVCFG3 >> 4);
+    temp[13] = D2H(DEVCFG3);
+    temp[14] = 0;
+    setStrings(CDCACM_MAN, CDCACM_PROD, temp);
+#else
     setStrings(CDCACM_MAN, CDCACM_PROD, CDCACM_SER);
+#endif
 //	usb_string_descriptor(cdcacm_string_descriptor, sizeof(cdcacm_string_descriptor));
 }
 
