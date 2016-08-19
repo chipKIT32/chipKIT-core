@@ -40,3 +40,4 @@
 dist
 tmp
 
+*.project
