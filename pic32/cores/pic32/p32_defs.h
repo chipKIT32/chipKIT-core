@@ -54,6 +54,66 @@
 
 #define FLASH_SPEED_HZ          30000000
 
+/* Some 3rd party chipKIT/Arduino libraries and sketches need a 
+ * definition for BYTE. This is thrown in here in case they
+ * need it. */
+#ifndef BYTE
+typedef uint8_t BYTE;
+#endif
+
+/* This next section is a minimial implementation of things that
+ * would normally be in plib.h, which was removed when we went
+ * from MPIDE to chipKIT-core. Some user sketches and 3d party
+ * libraries need these functions to compile properly. */
+#define BIT_0       0x0001
+#define BIT_1       0x0002
+#define BIT_2       0x0004
+#define BIT_3       0x0008
+#define BIT_4       0x0010
+#define BIT_5       0x0020
+#define BIT_6       0x0040
+#define BIT_7       0x0080
+#define BIT_8       0x0100
+#define BIT_9       0x0200
+#define BIT_10      0x0400
+#define BIT_11      0x0800
+#define BIT_12      0x1000
+#define BIT_13      0x2000
+#define BIT_14      0x4000
+#define BIT_15      0x8000
+
+#define IOPORT_A    A
+#define IOPORT_B    B
+#define IOPORT_C    C
+#define IOPORT_D    D
+#define IOPORT_E    E
+#define IOPORT_F    F
+#define IOPORT_G    G
+#define IOPORT_H    H
+#define IOPORT_J    J
+#define IOPORT_K    K
+
+#define PORTSetBitsX(PORTx, BITS) LAT##PORTx##SET = BITS
+#define PORTSetBits(PORTx, BITS) PORTSetBitsX(PORTx, BITS)
+
+#define PORTClearBitsX(PORTx, BITS) LAT##PORTx##CLR = BITS
+#define PORTClearBits(PORTx, BITS) PORTClearBitsX(PORTx, BITS)
+
+#define PORTReadBitsX(PORTx, BITS) (PORT##PORTx & BITS)
+#define PORTReadBits(PORTx, BITS) PORTReadBitsX(PORTx, BITS)
+
+#define PORTSetPinsDigitalOutX(PORTx, BITS) TRIS##PORTx##CLR = BITS
+#define PORTSetPinsDigitalOut(PORTx, BITS) PORTSetPinsDigitalOutX(PORTx, BITS)
+
+#define PORTSetPinsDigitalInX(PORTx, BITS) TRIS##PORTx##SET = BITS
+#define PORTSetPinsDigitalIn(PORTx, BITS) PORTSetPinsDigitalInX(PORTx, BITS)
+
+#if defined(__PIC32_PPS__)
+    #define PORTSetAsDigitalPinX(PORTx, BITS) ANSEL##PORTx##CLR = BITS
+    #define PORTSetAsDigitalPin(PORTx, BITS) PORTSetAsDigitalPinX(PORTx, BITS)
+#endif
+
+
 /* ------------------------------------------------------------ */
 /*              Register Declarations                           */
 /* ------------------------------------------------------------ */
