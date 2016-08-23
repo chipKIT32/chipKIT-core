@@ -137,24 +137,36 @@ private:
     uint16_t GenerateBRG(void) {
         /* Compute the baud rate divider for this frequency.
         */
-        brg = (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
+        switch (DesiredSPIClockFrequency) {
+            case SPI_CLOCK_DIV2:
+                return (__PIC32_pbClk / 16000000) * 1;
+                break;
 
-        /* Check that the baud rate value is in the correct range.
-        */
-        if (brg == 0xFFFFU) {
-            /* The user tried to set a frequency that is too high to support.
-            ** Set it to the highest supported frequency.
-            */
-            brg = 0U;
-        }
+            case SPI_CLOCK_DIV4:
+                return (__PIC32_pbClk / 16000000) * 3;
+                break;
 
-        if (brg > 0x1FFU) {
-            /* The user tried to set a frequency that is too low to support.
-            ** Set it to the lowest supported frequency.
-            */
-            brg = 0x1FFU;
+            case SPI_CLOCK_DIV8:
+                return (__PIC32_pbClk / 16000000) * 7;
+                break;
+
+            case SPI_CLOCK_DIV16:
+                return (__PIC32_pbClk / 16000000) * 15;
+                break;
+
+            case SPI_CLOCK_DIV32:
+                return (__PIC32_pbClk / 16000000) * 31;
+                break;
+
+            case SPI_CLOCK_DIV64:
+                return (__PIC32_pbClk / 16000000) * 63;
+                break;
+
+            case SPI_CLOCK_DIV128:
+                return (__PIC32_pbClk / 16000000) * 127;
+                break;
         }
-        return brg;
+        return (__PIC32_pbClk / 16000000) * 4;
     }
     uint32_t con;
     uint16_t brg;
