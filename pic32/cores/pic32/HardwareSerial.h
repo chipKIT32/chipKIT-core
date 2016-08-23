@@ -168,63 +168,155 @@ class USBSerial : public Stream
 #endif	//	defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
 //* ------------------------------------------------------------
-//* 		Declaare Serial Port Objects
+//* 		Declare Serial Port Objects
 //* ------------------------------------------------------------
 
-//*	NUM_SERIAL_PORTS is defined in Board_Defs.h
+//
+// These serial port names are intended to allow libraries and 
+// architecture-neutral sketches to automatically default to the correct port 
+// name for a particular type of use.  For example, a GPS module would normally
+// connect to SERIAL_PORT_HARDWARE_OPEN, the first hardware serial port whose 
+// RX/TX pins are not dedicated to another use.
+//
+// SERIAL_PORT_MONITOR        Port which normally prints to the 
+//                            Arduino Serial Monitor
+//
+// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+//
+// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system 
+//                            via Bridge library
+//
+// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+//
+// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.
+//                            The RX & TX pins are NOT connected to anything 
+//                            by default.
+//
+// In addition to this, a number may be postfixed to the macro names above
+// when there are multiple ports of the same type.
+//
+// E.g. SERIAL_PORT_HARDWARE, SERIAL_PORT_HARDWARE1, SERIAL_PORT_HARDWARE2 ...
+//
+// Note that no number is postfixed for the first instance.
+//
+
+//* NOTE: NUM_SERIAL_PORTS is defined in Board_Defs.h per-board type.
 
 #if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
-/* If we're using USB for serial, the USB serial port gets
-** instantiated as Serial and hardware serial port 0 gets
-** instantiated as Serial0.
-*/
-	extern USBSerial Serial;
-	#if (NUM_SERIAL_PORTS > 0)
-		extern HardwareSerial Serial0;
-	#endif
+        /* 
+        ** If we're using USB for serial, the USB serial port gets
+        ** instantiated as Serial and hardware serial port 0 gets
+        ** instantiated as Serial0.
+        */
+        extern USBSerial Serial;
+        #define SERIAL_PORT_USBVIRTUAL Serial
+        #define SERIAL_PORT_MONITOR    Serial
+        #if (NUM_SERIAL_PORTS > 0)
+                extern HardwareSerial Serial0;
+                #define SERIAL_PORT_HARDWARE       Serial0
+                #define SERIAL_PORT_HARDWARE_OPEN  Serial0
+        #endif
 
+        #if (NUM_SERIAL_PORTS > 1)
+                extern HardwareSerial Serial1;
+                #define SERIAL_PORT_HARDWARE1       Serial1
+                #define SERIAL_PORT_HARDWARE_OPEN1  Serial1
+                #endif
+
+        #if (NUM_SERIAL_PORTS > 2)
+                extern HardwareSerial Serial2;
+                #define SERIAL_PORT_HARDWARE2       Serial2
+                #define SERIAL_PORT_HARDWARE_OPEN2  Serial2
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 3)
+                extern HardwareSerial Serial3;
+                #define SERIAL_PORT_HARDWARE3       Serial3
+                #define SERIAL_PORT_HARDWARE_OPEN3  Serial3
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 4)
+                extern HardwareSerial Serial4;
+                #define SERIAL_PORT_HARDWARE4       Serial4
+                #define SERIAL_PORT_HARDWARE_OPEN4  Serial4
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 5)
+                extern HardwareSerial Serial5;
+                #define SERIAL_PORT_HARDWARE5       Serial5
+                #define SERIAL_PORT_HARDWARE_OPEN5  Serial5
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 6)
+                extern HardwareSerial Serial6;
+                #define SERIAL_PORT_HARDWARE6       Serial6
+                #define SERIAL_PORT_HARDWARE_OPEN6  Serial6
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 7)
+                extern HardwareSerial Serial7;
+                #define SERIAL_PORT_HARDWARE7       Serial7
+                #define SERIAL_PORT_HARDWARE_OPEN7  Serial7
+        #endif
 #else
-	/* If we're not using USB for serial, then hardware serial port 0
-	** gets instantiated as Serial.
-	*/
-	#if (NUM_SERIAL_PORTS > 0)
-		extern HardwareSerial Serial;
-	#endif
-#endif
-
+        /* 
+        ** If we're not using USB for serial, then hardware serial port 0
+        ** gets instantiated as Serial.
+        */
+        #if (NUM_SERIAL_PORTS > 0)
+                extern HardwareSerial Serial;
+                #define SERIAL_PORT_HARDWARE Serial
+                #define SERIAL_PORT_MONITOR  Serial
+        #endif
 #if (NUM_SERIAL_PORTS > 1)
-	extern HardwareSerial Serial1;
+        extern HardwareSerial Serial1;
+        #define SERIAL_PORT_HARDWARE1       Serial1
+        #define SERIAL_PORT_HARDWARE_OPEN   Serial1
 #endif
 
 #if (NUM_SERIAL_PORTS > 2)
-	extern HardwareSerial Serial2;
+        extern HardwareSerial Serial2;
+        #define SERIAL_PORT_HARDWARE2       Serial2
+        #define SERIAL_PORT_HARDWARE_OPEN1  Serial2
 #endif
 
 #if (NUM_SERIAL_PORTS > 3)
-	extern HardwareSerial Serial3;
+        extern HardwareSerial Serial3;
+        #define SERIAL_PORT_HARDWARE3       Serial3
+        #define SERIAL_PORT_HARDWARE_OPEN2  Serial3
 #endif
 
 #if (NUM_SERIAL_PORTS > 4)
-	extern HardwareSerial Serial4;
+        extern HardwareSerial Serial4;
+        #define SERIAL_PORT_HARDWARE4       Serial4
+        #define SERIAL_PORT_HARDWARE_OPEN3  Serial4
 #endif
 
 #if (NUM_SERIAL_PORTS > 5)
-	extern HardwareSerial Serial5;
+        extern HardwareSerial Serial5;
+        #define SERIAL_PORT_HARDWARE5       Serial5
+        #define SERIAL_PORT_HARDWARE_OPEN4  Serial5
 #endif
 
 #if (NUM_SERIAL_PORTS > 6)
-	extern HardwareSerial Serial6;
+        extern HardwareSerial Serial6;
+        #define SERIAL_PORT_HARDWARE6       Serial6
+        #define SERIAL_PORT_HARDWARE_OPEN5  Serial6
 #endif
 
 #if (NUM_SERIAL_PORTS > 7)
-	extern HardwareSerial Serial7;
+        extern HardwareSerial Serial7;
+        #define SERIAL_PORT_HARDWARE7       Serial7
+        #define SERIAL_PORT_HARDWARE_OPEN6  Serial7
 #endif
+#endif
+
 
 //* ------------------------------------------------------------
 
-#endif	//	__cplusplus
+#endif  //      __cplusplus
 
 
-#endif		//	HardwareSerial_h
+#endif  //      HardwareSerial_h
 
 /************************************************************************/
