@@ -14,6 +14,8 @@ Serial0	KEYWORD1	Serial	DATA_TYPE
 #######################################
 
 #SomeFunction	KEYWORD2
+analogWriteResolution	KEYWORD2
+analogWriteFrequency	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
