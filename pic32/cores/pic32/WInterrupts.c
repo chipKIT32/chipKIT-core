@@ -257,6 +257,8 @@ void detachInterrupt(uint8_t interruptNum)
 }
 
 #define VEC_ENT_CODE(I,B,P) int c = intmode[I]; IFS0bits.B=0; if (intFunc[I] != 0) (*intFunc[I])(); if(c < CHANGE && c == digitalRead(P)) { IFS0bits.B=1; }
+
+#ifdef PIN_INT0
 //************************************************************************
 // INT0 ISR
 #if defined(__PIC32MZXX__)
@@ -282,7 +284,9 @@ void __attribute__((interrupt(),nomips16)) ExtInt0Handler(void)
 	} else IFS0bits.INT0IF = 0;
 */
 }
+#endif
 
+#ifdef PIN_INT1
 //************************************************************************
 // INT1 ISR
 #if defined(__PIC32MZXX__)
@@ -308,7 +312,9 @@ void __attribute__((interrupt(),nomips16)) ExtInt1Handler(void)
 	} else IFS0bits.INT1IF = 0;
 */
 }
+#endif
 
+#ifdef PIN_INT2
 //************************************************************************
 // INT2 ISR
 #if defined(__PIC32MZXX__)
@@ -334,7 +340,9 @@ void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void)
 	} else IFS0bits.INT2IF = 0;
 */
 }
+#endif
 
+#ifdef PIN_INT3
 //************************************************************************
 // INT3 ISR
 #if defined(__PIC32MZXX__)
@@ -360,7 +368,9 @@ void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void)
 	} else IFS0bits.INT3IF = 0;
 */
 }
+#endif
 
+#ifdef PIN_INT4
 //************************************************************************
 // INT4 ISR
 #if defined(__PIC32MZXX__)
@@ -386,6 +396,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void)
 	} else IFS0bits.INT4IF = 0;
 */
 }
+#endif
 
 //************************************************************************
 
