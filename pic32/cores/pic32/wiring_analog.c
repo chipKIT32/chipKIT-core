@@ -53,12 +53,15 @@
 #include "pins_arduino.h"
 #include "Board_Defs.h"
 
-#define	PWM_TIMER_PERIOD	((__PIC32_pbClk / 256) / 490)
-
 uint32_t	analog_reference = 0;	//default to AVDD, AVSS
 
 uint16_t    pwm_active = 0;			//keeps track of active PWM outputs
 
+static uint32_t _pwmFrequency = 490; // 490Hz default
+static uint32_t _pwmResolution = 8;  // 8 bit resolution
+static uint32_t _pwmPeriod = 637;
+
+static void configurePWM();
 
 //*********************************************************************
 void analogReference(uint8_t mode)
@@ -401,7 +404,7 @@ int	_board_analogWrite(uint8_t pin, int val);
 	*/
 	timer = digitalPinToTimerOC(pin) >> _BN_TIMER_OC;
 
-	if ((timer == NOT_ON_TIMER) || (val == 0) || (val >= 255))
+	if ((timer == NOT_ON_TIMER) || (val == 0) || (val >= ((1 << _pwmResolution) - 1)))
 	{
             /* We're going to be setting the pin to a steady state.
             ** Make sure it is set as a digital output. And then set
@@ -412,7 +415,7 @@ int	_board_analogWrite(uint8_t pin, int val);
             */
             pinMode(pin, OUTPUT);
 
-	    if (val < 128)
+	    if (val < ((1 << _pwmResolution) / 2))
 	    {
 	        digitalWrite(pin, LOW);
 	    }
@@ -430,13 +433,7 @@ int	_board_analogWrite(uint8_t pin, int val);
             */
             if (pwm_active == 0)
             {
-#if defined(__PIC32MZXX__)
-                CFGCONbits.OCACLK = 0;
-#endif
-                T2CON = TBCON_PS_256;
-                TMR2 = 0;
-                PR2 = PWM_TIMER_PERIOD;
-                T2CONSET = TBCON_ON;
+                configurePWM();
             }
 
             /* Generate bit mask for this output compare.
@@ -467,7 +464,7 @@ int	_board_analogWrite(uint8_t pin, int val);
                 pps = ppsOutputRegister(pin);
                 *pps = ppsOutputSelect(timerOCtoOutputSelect(timer));
 #endif
-                ocp->ocxR.reg   = ((PWM_TIMER_PERIOD*val)/256);
+                ocp->ocxR.reg   = (_pwmPeriod * val) / (1 << _pwmResolution) ;
                 ocp->ocxCon.reg = OCCON_SRC_TIMER2 | OCCON_PWM_FAULT_DISABLE;
                 ocp->ocxCon.set = OCCON_ON;
 
@@ -476,7 +473,7 @@ int	_board_analogWrite(uint8_t pin, int val);
 
             /* Set the duty cycle register for the requested output compare
             */
-            ocp->ocxRs.reg = ((PWM_TIMER_PERIOD*val)/256);
+            ocp->ocxRs.reg = (_pwmPeriod * val) / (1 << _pwmResolution);
         }
 }
 
@@ -501,7 +498,142 @@ void turnOffPWM(uint8_t timer)
         // If no PWM are active, turn off the timer.
         if (pwm_active == 0)
         {
-            T2CONCLR = TBCON_ON;
+            T2CONbits.ON = 0;
         }
+    }
+}
+
+static const psval[8] = {1, 2, 4, 6, 16, 32, 64, 256};
+
+
+static void configurePWM() {
+    T2CONbits.ON = 0; // turn off while we make adjustments
+#if defined(__PIC32MZXX__)
+    CFGCONbits.OCACLK = 0;
+#endif
+
+    uint32_t res = (1 << _pwmResolution);
+
+    uint32_t baseClock = getPeripheralClock();
+
+    uint32_t ps = 0;
+
+    for (ps = 0; ps < 8; ps++) {
+        _pwmPeriod = (baseClock / psval[ps]) / (_pwmFrequency);
+        if (_pwmPeriod <= 0xFFFF) {
+            break;
+        }
+    }
+
+    if (_pwmPeriod > 0xFFFF) { // Impossible to make this work!
+        _pwmPeriod = 0xFFFF;
+        ps = 7;
+    }
+
+    T2CONbits.TCKPS = ps;
+    TMR2 = 0;
+    PR2 = _pwmPeriod;
+    T2CONbits.ON = 1;
+}
+
+// This macro will take the existing value from the OCRS register, back-calculate
+// what the supplied value to analogWrite() was, re-scale it to fit the new
+// period and resolution, and re-apply it to OCRS. This should keep the duty
+// cycle the same no matter what you do with the frequency and the resolution
+// on a live system.
+
+#define FIX_PWM(OC) OC = OC * (1 << oldResolution) / oldPeriod * (1 << _pwmResolution) / (1 << oldResolution) * _pwmPeriod / (1 << _pwmResolution);
+
+
+void analogWriteFrequency(uint32_t f) {
+    uint32_t oldPeriod = _pwmPeriod;
+    uint32_t oldResolution = _pwmResolution;
+    _pwmFrequency = f;
+
+    if (pwm_active) {
+
+        configurePWM();
+
+#ifdef _OCMP1_BASE_ADDRESS
+        FIX_PWM(OC1RS)
+#endif
+            
+#ifdef _OCMP2_BASE_ADDRESS
+        FIX_PWM(OC2RS)
+#endif
+            
+#ifdef _OCMP3_BASE_ADDRESS
+        FIX_PWM(OC3RS)
+#endif
+            
+#ifdef _OCMP4_BASE_ADDRESS
+        FIX_PWM(OC4RS)
+#endif
+            
+#ifdef _OCMP5_BASE_ADDRESS
+        FIX_PWM(OC5RS)
+#endif
+            
+#ifdef _OCMP6_BASE_ADDRESS
+        FIX_PWM(OC6RS)
+#endif
+            
+#ifdef _OCMP7_BASE_ADDRESS
+        FIX_PWM(OC7RS)
+#endif
+            
+#ifdef _OCMP8_BASE_ADDRESS
+        FIX_PWM(OC8RS)
+#endif
+            
+#ifdef _OCMP9_BASE_ADDRESS
+        FIX_PWM(OC9RS)
+#endif
+            
+    }
+}
+
+void analogWriteResolution(uint8_t r) {
+    uint32_t oldPeriod = _pwmPeriod;
+    uint32_t oldResolution = _pwmResolution;
+    _pwmResolution = min(r, 16);
+    if (pwm_active) {
+        configurePWM();
+
+#ifdef _OCMP1_BASE_ADDRESS
+        FIX_PWM(OC1RS)
+#endif
+            
+#ifdef _OCMP2_BASE_ADDRESS
+        FIX_PWM(OC2RS)
+#endif
+            
+#ifdef _OCMP3_BASE_ADDRESS
+        FIX_PWM(OC3RS)
+#endif
+            
+#ifdef _OCMP4_BASE_ADDRESS
+        FIX_PWM(OC4RS)
+#endif
+            
+#ifdef _OCMP5_BASE_ADDRESS
+        FIX_PWM(OC5RS)
+#endif
+            
+#ifdef _OCMP6_BASE_ADDRESS
+        FIX_PWM(OC6RS)
+#endif
+            
+#ifdef _OCMP7_BASE_ADDRESS
+        FIX_PWM(OC7RS)
+#endif
+            
+#ifdef _OCMP8_BASE_ADDRESS
+        FIX_PWM(OC8RS)
+#endif
+            
+#ifdef _OCMP9_BASE_ADDRESS
+        FIX_PWM(OC9RS)
+#endif
     }
 }
