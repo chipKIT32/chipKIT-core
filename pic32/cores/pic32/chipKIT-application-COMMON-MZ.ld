@@ -76,7 +76,7 @@ SECTIONS
   .eeprom_pic32 _EEPROM_ADDR (NOLOAD):
   {
     KEEP(*(.eeprom_pic32 .eeprom_pic32.*))
-  } > kseg0_eeprom_mem
+  } > kseg1_eeprom_mem
 
   .simple_tlb_refill_excpt _SIMPLE_TLB_REFILL_EXCPT_ADDR :
   {
@@ -747,8 +747,8 @@ SECTIONS
     LONG(_JUMP_ADDR)                           /* image execution address      */
     LONG(_ebase_address)                       /* image base address           */
     LONG(_IMAGE_FLASH_SIZE)                    /* size of image flash used     */
-    LONG(ORIGIN(kseg0_eeprom_mem))             /* eeprom location              */
-    LONG(LENGTH(kseg0_eeprom_mem))             /* eeprom size                  */
+    LONG(ORIGIN(kseg1_eeprom_mem))             /* eeprom location              */
+    LONG(LENGTH(kseg1_eeprom_mem))             /* eeprom size                  */
     LONG(ORIGIN(configsfrs))                   /* config bits location         */
     LONG(LENGTH(configsfrs))                   /* config bits size             */
     LONG(_ram_header_addr)                     /* ram header pointer           */
