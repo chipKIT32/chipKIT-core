@@ -8,8 +8,7 @@
     Need to git pull the pic32 sub modules.
     git submodule foreach git pull
     Adding submodules:
-    git submodule add https://github.com/sergev/pic32prog  modules/pic32prog
-
+    git submodule add https://github.com/majenkotech/pic32prog-autotools modules/pic32prog-autotools
   -->
 
   <available file=".git" property="git.present" type="dir"/>
@@ -80,7 +79,7 @@
     </copy>
 
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${localplatform}"/>
+      <fileset dir="modules/pic32prog-autotools/bin/pic32prog-osx-fat"/>
     </copy>
 
     <chmod perm="+x">
@@ -91,7 +90,7 @@
       <param name="localplatform" value="${localplatform}"/>
     </antcall>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-chipKIT-cxx-master-Darwin-image.zip" usetimestamp="true" verbose="false"/>
     <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Darwin-image.zip"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -103,7 +102,7 @@
   <target depends="setup" description="Build linux version" name="linux32-build">
     <property name="localplatform">linux32</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
     <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
@@ -117,7 +116,7 @@
     </copy>
 
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${localplatform}"/>
+      <fileset dir="modules/pic32prog-autotools/bin/pic32prog-debian-32"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
@@ -132,7 +131,7 @@
   <target depends="setup" description="Build linux ARM version" name="arm-build">
     <property name="localplatform">arm</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
     <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-arm-linux-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
@@ -145,7 +144,7 @@
     </copy>
 
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/linuxarmhf"/>
+      <fileset file="modules/pic32prog-autotools/bin/pic32prog-debian-armhf"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
@@ -161,7 +160,7 @@
     <echo message="When 64bit version is released. A 64 bit compiler will be included."/>
     <property name="localplatform">linux64</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-chipKIT-cxx-master-Linux32-image.zip" usetimestamp="true" verbose="false"/>
 
     <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
@@ -175,7 +174,7 @@
     </copy>
 
     <copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
-      <fileset dir="modules/pic32prog/${localplatform}"/>
+      <fileset file="modules/pic32prog-autotools/bin/pic32prog-debian-64"/>
     </copy>
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
@@ -190,9 +189,9 @@
   <target depends="setup" description="Build windows version" name="windows-build">
     <property name="localplatform">windows</property>
 <!-- pic32 compiler -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.40-rc.2/pic32-tools-chipKIT-cxx-master-win32-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-win32-image.zip" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-win32-image.zip"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-win32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -206,7 +205,14 @@
     <get dest="tmp" src="https://github.com/sergev/pic32prog/archive/master.zip" usetimestamp="true" verbose="false"/>
     <unzip dest="tmp" overwrite="false" src="tmp/master.zip"/>
 
-    <copy file="tmp/pic32prog-master/pic32prog.exe" todir="dist/${localplatform}/chipkit-core/pic32/tools/bin"/>
+	<copy todir="dist/${localplatform}/chipkit-core/pic32/tools/bin">
+      <fileset file="modules/pic32prog-autotools/bin/pic32prog-win32.exe"/>
+    </copy>
+
+<!--
+    <copy file="tmp/pic32prog-autotools/bin/pic32prog-win32.exe" todir="dist/${localplatform}/chipkit-core/pic32/tools/bin"/>
+-->
+
     <chmod perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/tools/bin" includes="**/*"/>
     </chmod>
@@ -304,13 +310,13 @@
   </target>
 
   <target name="checksum-pic32prog">
-    <zip basedir="modules/pic32prog/${localplatform}" destfile="tmp/pic32prog-${localplatform}.zip"/>
+    <zip basedir="modules/pic32prog-autotools/${localplatform}" destfile="tmp/pic32prog-${localplatform}.zip"/>
     <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
 
   <target name="checksum-pic32prog-win" >
     <zip destfile="tmp/pic32prog-${localplatform}.zip" >
-      <zipfileset dir="modules/pic32prog" includes="pic32prog.exe" />
+      <zipfileset dir="modules/pic32prog-autotools" includes="pic32prog.exe" />
     </zip>
     <checksum algorithm="SHA-256" file="tmp/pic32prog-${localplatform}.zip" fileext=".asc"/>
   </target>
