@@ -424,8 +424,8 @@
               "host": "i686-mingw32",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-windows-2.1.24.tar.gz",
               "archiveFileName": "pic32prog-windows-2.1.24.tar.gz",
-              "size": "xxx",
-              "checksum": "SHA-256:513CA1C87EB5C1EC54A597ED24957EB0BD321365E99A6D49175E527C24300031"
+              "size": "246361",
+              "checksum": "SHA-256:19e6c147ed96dc5585c38a2ebde88fbe9fe8ceeabc929aae7e3a0ed7e475a99d"
             }, 
             {
               "host": "i686-arm-gnu",
