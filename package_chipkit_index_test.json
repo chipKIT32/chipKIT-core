@@ -12,10 +12,10 @@
           "architecture": "pic32",
           "version": "1.3.0",
           "category": "pic32",
-          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.3.0/chipkit-core-16778042.master-v1.3.0-13-g7cf80de.zip",
-          "archiveFileName": "chipkit-core-16778042.master-v1.3.0-13-g7cf80de.zip",
-          "checksum": "SHA-256:312b0bd543d242318e4ee2f3f3f6c10fb83739eeb9c72c11b6afc8fd614dcb8a",
-          "size": "7638650",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.3.0/chipkit-core-16778043.master-1.3.0.zip",
+          "archiveFileName": "chipkit-core-16778043.master-1.3.0.zip",
+          "checksum": "SHA-256:2995b81f20c0622c3eedd6bcaaed9815c8a84cde4f8fa9585801e43d80bd1d2a",
+          "size": "7642266",
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
@@ -62,7 +62,7 @@
           "toolsDependencies": [
             {
               "packager": "chipKIT",
-              "version": "4.8.3-pic32gcc",
+              "version": "1.42-pic32gcc",
               "name": "pic32-tools"
             }, 
             {
@@ -355,6 +355,47 @@
       ],
       "tools": [
         {
+          "version": "1.42-pic32gcc",
+          "name": "pic32-tools",
+          "systems": [
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-win32-image.zip",
+              "checksum": "SHA-256:b119c0388f669b821a1b86356b230cbc64ad74f6c4e1b505f35ace3f9a6159a5",
+              "host": "i686-mingw32",
+              "archiveFileName": "pic32-tools-142rc2-win32-image.zip",
+              "size": "123718075"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Darwin-image.zip",
+              "checksum": "SHA-256:d2e14de4436da8b7f5b6de09d465aa0653808407592c3efc5341b2358a879ebb",
+              "host": "i386-apple-darwin",
+              "archiveFileName": "pic32-tools-142rc2-Darwin-image.zip",
+              "size": "124424905"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Linux32-image.zip",
+              "checksum": "SHA-256:fd8b8ee7b333327e38307f8b806c0a9566e8c90a8359ec10ac6b962aabba2481",
+              "host": "x86_64-linux-gnu",
+              "archiveFileName": "pic32-tools-142rc2-Linux32-image.zip",
+              "size": "125853942"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Linux32-image.zip",
+              "checksum": "SHA-256:fd8b8ee7b333327e38307f8b806c0a9566e8c90a8359ec10ac6b962aabba2481",
+              "host": "i686-pc-linux-gnu",
+              "archiveFileName": "pic32-tools-142rc2-Linux32-image.zip",
+              "size": "125853942"
+            }, 
+            {
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-arm-linux-image.zip",
+              "checksum": "SHA-256:cb9ea5b22f0a40f97242851dab038206e42b2afc4fa4cf1dc76d7bf7a62e0da6",
+              "host": "i686-arm-gnu",
+              "archiveFileName": "pic32-tools-142rc2-arm-linux-image.zip",
+              "size": "128085472"
+            }
+          ]
+        },
+        {
           "version": "4.8.3-pic32gcc",
           "name": "pic32-tools",
           "systems": [
@@ -401,24 +442,24 @@
           "systems": [
             {
               "host": "i386-apple-darwin11",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-macosx_2_0_220.tar.gz",
-              "archiveFileName": "pic32prog-macosx_2_0_220.tar.gz",
-              "size": "184974",
-              "checksum": "SHA-256:ed47999be31cc50cd083f7d16c909a3aeb59366f87fb17c3726287dc4bb49319"
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-macosx-2.1.24.tar.gz",
+              "archiveFileName": "pic32prog-macosx-2.1.24.tar.gz",
+              "size": "213586",
+              "checksum": "SHA-256:9ab16bb8704700495108bc468ff9dc74c9a0adc2eb8c4afcde19bf637974a39f"
             }, 
             {
               "host": "x86_64-linux-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-linux64_2_0_224.tar.gz",
-              "archiveFileName": "pic32prog-linux64_2_0_224.tar.gz",
-              "size": "187187",
-              "checksum": "SHA-256:E5E89CBCA2F5EA9038D23400883C9990F31EC2EC0076FD54353A2AA447DE50E5"
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-linux64-2.1.24.tar.gz",
+              "archiveFileName": "pic32prog-linux64-2.1.24.tar.gz",
+              "size": "201018",
+              "checksum": "SHA-256:f3db46b088b955dcaf53a82cd39f7a024b0047f454368abd219c2868eff97b33"
             }, 
             {
               "host": "i686-pc-linux-gnu", 
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-linux32_2_0_224.tar.gz",
-              "archiveFileName": "pic32prog-linux32_2_0_224.tar.gz",
-              "size": "175510",
-              "checksum": "SHA-256:037DA2461DC340EE20D0B5D2F4DD5DBAAD7FB57CDDC2852E3EEAFB78FB95BB62"
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-linux32-2.1.24.tar.gz",
+              "archiveFileName": "pic32prog-linux32-2.1.24.tar.gz",
+              "size": "182424",
+              "checksum": "SHA-256:d7d3113ec0dd369079b6f4817003d834dee5528339f358ceefc8336ed1fff4a8"
             }, 
             {
               "host": "i686-mingw32",
@@ -429,10 +470,10 @@
             }, 
             {
               "host": "i686-arm-gnu",
-              "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-armlinux_2_0_224.tar.gz",
-              "archiveFileName": "pic32prog-armlinux_2_0_224.tar.gz",
-              "size": "174996",
-              "checksum": "SHA-256:6FAEDF08D76FA87C8ACC93C3B52E2BB6B63DAD518015AD0F65E03EBC0D1B8032"
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-armlinux-2.1.24.tar.gz",
+              "archiveFileName": "pic32prog-armlinux-2.1.24.tar.gz",
+              "size": "189337",
+              "checksum": "SHA-256:5b153e6aeb2ce3063d4a3178826427f953caa2c1772f06d1a8099cab6fcfc42b"
             }
           ]
         },
