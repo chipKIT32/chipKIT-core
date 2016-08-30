@@ -735,6 +735,8 @@ typedef struct {
             #include "pps/pins_mz_64.h"
         #elif (__PIC32_PINS__ == 100)
             #include "pps/pins_mz_100.h"
+        #elif (__PIC32_PINS__ == 124)
+            #include "pps/pins_mz_124.h"
         #elif (__PIC32_PINS__ == 144)
             #include "pps/pins_mz_144.h"
         #else
