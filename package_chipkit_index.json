@@ -466,7 +466,7 @@
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-windows-2.1.24.tar.gz",
               "archiveFileName": "pic32prog-windows-2.1.24.tar.gz",
               "size": "246361",
-              "checksum": "SHA-256:7666A91C1E7E08922173D25759F5BD157219E0FF8B05EECB72884D6A0AD7B153"
+              "checksum": "SHA-256:19e6c147ed96dc5585c38a2ebde88fbe9fe8ceeabc929aae7e3a0ed7e475a99d"
             }, 
             {
               "host": "i686-arm-gnu",
@@ -596,7 +596,7 @@
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-armlinux.zip",
               "archiveFileName": "pic32prog-armlinux.zip",
               "size": "120326",
-              "checksum": "SHA-256:c78800da0aa08eed3ed3725e6ad3fc2b7f05ba68226e87f308cb30dcb8edd693"
+              "checksum": "SHA-256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             }
           ]
         },
