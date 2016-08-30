@@ -62,7 +62,7 @@
           "toolsDependencies": [
             {
               "packager": "chipKIT",
-              "version": "1.42-pic32gcc",
+              "version": "4.8.3-pic32gcc",
               "name": "pic32-tools"
             }, 
             {
