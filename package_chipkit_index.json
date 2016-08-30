@@ -360,7 +360,7 @@
           "systems": [
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.zip",
-              "checksum": "SHA-256:13b6a4b28edc280a516b50a8725eeb39fa042e20bf366fb085079b6d40233b4c",
+              "checksum": "SHA-256:19e6c147ed96dc5585c38a2ebde88fbe9fe8ceeabc929aae7e3a0ed7e475a99d",
               "host": "i686-mingw32",
               "archiveFileName": "pic32-tools-142-win32-image.zip",
               "size": "126973725"
