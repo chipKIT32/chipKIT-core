@@ -49,7 +49,7 @@
     <os arch="arm" family="unix"/>
   </condition>
 
-<!-- set time propert -->
+  <!-- set time property -->
   <tstamp>
     <format pattern="yyyyMMdd" property="TODAY"/>
   </tstamp>
@@ -90,23 +90,36 @@
       <param name="localplatform" value="${localplatform}"/>
     </antcall-->
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Darwin-image.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-Darwin-image.zip"/>
+    <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
+    <!-- tar.gz 1.42 version from compiler-builds -->
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Darwin-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Darwin-image.tar.gz" compression="gzip"/>
+
+    <!-- tar.gz 1.40 version from chipkit-core/releases
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Darwin-image.tar.gz" compression="gzip"/>
+    -->
+     
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
     </chmod>
-
   </target>
 
   <target depends="setup" description="Build linux version" name="linux32-build">
     <property name="localplatform">linux32</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Linux32-image.zip" usetimestamp="true" verbose="false"/>
-
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
+    <!-- tar.gz 1.42 version from compiler-builds --> 
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
+    
+    <!-- tar.gz 1.40 version from chipkit-core/releases 
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" compression="gzip"/>
+    -->
+    
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
     </chmod>
@@ -132,10 +145,17 @@
   <target depends="setup" description="Build linux ARM version" name="arm-build">
     <property name="localplatform">arm</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-arm-linux-image.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-arm-linux-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
+    <!-- tar.gz 1.42 version from compiler-builds -->
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-arm-linux-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-arm-linux-image.tar.gz" compression="gzip"/>
+    
+    <!-- tar.gz 1.40 version from chipkit-core/releases
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz" compression="gzip"/>
+    -->
+    
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
     </chmod>
@@ -155,18 +175,23 @@
     <!--antcall target="checksum-pic32prog">
       <param name="localplatform" value="linuxarmhf"/>
     </antcall-->
-
   </target>
 
   <target depends="setup" description="Build linux (32-bit) version" name="linux64-build">
     <echo message="When 64bit version is released. A 64 bit compiler will be included."/>
     <property name="localplatform">linux64</property>
 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-Linux32-image.zip" usetimestamp="true" verbose="false"/>
-
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-Linux32-image.zip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
-
+ 
+    <!-- tar.gz 1.42 version from compiler-builds -->
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
+    
+    <!-- tar.gz 1.40 version from chipkit-core/releases
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" compression="gzip"/>
+    -->
+    
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
     </chmod>
@@ -191,12 +216,18 @@
 
   <target depends="setup" description="Build windows version" name="windows-build">
     <property name="localplatform">windows</property>
-<!-- pic32 compiler -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.tar.gz" usetimestamp="true" verbose="false"/>
-
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-win32-image.tar.gz" compression="gzip"/>
+    
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
+    
+    <!-- tar.gz 1.42 version from compiler-builds -->
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-win32-image.tar.gz" compression="gzip"/>
 
+    <!-- zip 1.40 version from chipkit-core/releases
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-win32-image.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-chipKIT-cxx-master-win32-image.zip"/>  
+    -->
+     
     <chmod maxparallel="300" perm="+x">
       <fileset dir="dist/${localplatform}/chipkit-core/pic32/compiler/" includes="**/*"/>
     </chmod>
@@ -211,8 +242,6 @@
     <copy tofile="dist/${localplatform}/chipkit-core/pic32/tools/bin/pic32prog.exe"
             file="modules/pic32prog-autotools/bin/pic32prog-win32.exe"
     />
-
-
 <!--
     <copy file="tmp/pic32prog-autotools/bin/pic32prog-win32.exe" todir="dist/${localplatform}/chipkit-core/pic32/tools/bin"/>
 -->
@@ -344,11 +373,9 @@
   </target>
 
   <target description="Store git branch in ${git.branch} (unless the variable GIT_BRANCH is set, then it uses that." if="git.present" name="git.branch">
-
     <condition property="git.branch" value="${GIT_BRANCH}">
         <isset property="GIT_BRANCH" />
     </condition>
-
 
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revparsebranch">
             <arg line="rev-parse --abbrev-ref HEAD"/>
@@ -360,7 +387,6 @@
         </not>
     </condition>
   </target>
-
 
   <target description="Store git revision in ${repository.version}" if="git.present" name="git.revision" depends="git.branch">
     <exec errorproperty="" executable="git" failifexecutionfails="false" outputproperty="git.revision">
