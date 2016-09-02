@@ -192,9 +192,9 @@
   <target depends="setup" description="Build windows version" name="windows-build">
     <property name="localplatform">windows</property>
 <!-- pic32 compiler -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42.rc.2/pic32-tools-142rc2-win32-image.zip" usetimestamp="true" verbose="false"/>
+    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.tar.gz" usetimestamp="true" verbose="false"/>
 
-    <unzip dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142rc2-win32-image.zip"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-win32-image.tar.gz" compression="gzip"/>
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <chmod maxparallel="300" perm="+x">
@@ -237,7 +237,7 @@
       <param name="localplatform" value="${localplatform}"/>
     </antcall>
   </target>
-  <target depends="macosx-build" description="Make dist macosx version" name="macosx-dist">
+    <target depends="macosx-build" description="Make dist macosx version" name="macosx-dist">
     <property name="localplatform">macosx</property>
     <antcall target="compress">
       <param name="localplatform" value="${localplatform}"/>
@@ -379,17 +379,17 @@
     </condition>
   </target>
 
-  <target name="updatePlatform" >
-        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
-            match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
-            replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
-            byline="true"
-        />
-        <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
-            match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
-            replace="\{runtime.tools.pic32prog.path\}"
-            byline="true"
-        />
+  <target name="updatePlatform">
+    <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/compiler\/pic32-tools\/bin\/"
+        replace="\{runtime.tools.pic32-tools.path\}\/bin\/"
+        byline="true"
+    />
+    <replaceregexp file="dist/${localplatform}/chipkit-core/pic32/platform.txt"
+        match="\{runtime.hardware.path\}\/pic32\/tools\/bin"
+        replace="\{runtime.tools.pic32prog.path\}"
+        byline="true"
+    />
   </target>
 
   <target name="github-release" depends="setup,git.revision">
@@ -410,7 +410,7 @@
       <zipfileset dir="pic32" includes="**/*" prefix="pic32" filemode="755"/>
     </zip>
 
-<!--  <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip"
+    <!--  <zip destfile="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip"
        basedir="pic32" />
      -->
     <checksum algorithm="SHA-256" file="tmp/chipkit-core-${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
@@ -419,7 +419,6 @@
       <arg value="checkout"/>
       <arg value="pic32/platform.txt"/>
     </exec>
-
   </target>
 
 <!-- "§$§$&, ant doesn't have a built-in help target :(  -->
