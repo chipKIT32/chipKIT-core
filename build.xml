@@ -311,7 +311,8 @@
     <antcall target="windows-dist">
       <param name="localplatform" value="windows"/>
     </antcall>
-    <antcall target="checksum-pic32tools"/>
+    <!-- We no longer can properly checksum these tools, but aparently we don't really need to, so we'll just leave it commented out -->
+    <!-- <antcall target="checksum-pic32tools"/> -->
   </target>
 
   <target description="update the submodules pic32prog" name="updatepic32prog">

@@ -2,10 +2,10 @@
 # ------------------------------
 #
 # For more info:
-# https://github.com/someday_we_will_fill_in_this_file_hopefully!
+# https://github.com/chipKIT32/chipKIT-core
 
 name=chipKIT
-version=1.6.6
+version=1.3.1
 
 # BPS - Not sure if this ever gets used, and if so, how/where
 #rewriting=disabled
@@ -20,6 +20,8 @@ compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
+# This line must be set right ({runtime.hardware.path}/pic32/compiler/pic32-tools/bin/) for the ZIP file builds. It gets reaplced
+# by build.xml regex to {runtime.tools.pic32-tools.path}/bin/ for the URL (github-release) build
 compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
 compiler.c.cmd=pic32-gcc
 # Use a high -Gnum for devices that have less than 64K of data memory
@@ -118,7 +120,9 @@ recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {
 upload.tool=pic32prog
 tools.pic32prog.cmd=pic32prog
 tools.pic32prog.cmd.windows=pic32prog.exe
-tools.pic32prog.path={runtime.tools.pic32prog.path}
+# This line must be set right ({runtime.hardware.path}/pic32/tools/bin) for the ZIP file builds. It gets reaplced
+# by build.xml regex to {runtime.tools.pic32prog.path} for the URL (github-release) build
+tools.pic32prog.path={runtime.hardware.path}/pic32/tools/bin
 
 tools.pic32prog.upload.params.verbose=
 tools.pic32prog.upload.params.quiet=
@@ -126,7 +130,9 @@ tools.pic32prog.upload.pattern="{path}/{cmd}" {upload.verbose}  -d "{serial.port
 
 tools.pic32prog-hid.cmd=pic32prog
 tools.pic32prog-hid.cmd.windows=pic32prog.exe
-tools.pic32prog-hid.path={runtime.tools.pic32prog.path}
+# This line must be set right ({runtime.hardware.path}/pic32/tools/bin) for the ZIP file builds. It gets reaplced
+# by build.xml regex to {runtime.tools.pic32prog.path} for the URL (github-release) build
+tools.pic32prog-hid.path={runtime.hardware.path}/pic32/tools/bin
 
 tools.pic32prog-hid.upload.params.verbose=
 tools.pic32prog-hid.upload.params.quiet=
