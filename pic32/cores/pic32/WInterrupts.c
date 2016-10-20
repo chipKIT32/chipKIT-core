@@ -108,6 +108,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
         // and enable the interrupt.
         switch (interruptNum)
         {
+#ifdef PIN_INT0
             case EXT_INT0:
                 setIntVector(_EXTERNAL_0_VECTOR, (isrFunc) ExtInt0Handler);
                 IEC0bits.INT0IE     =	0;
@@ -117,7 +118,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC0bits.INT0IS     =	_INT0_SPL_IPC;
                 IEC0bits.INT0IE     =	1;
                 break;
-
+#endif
+#ifdef PIN_INT1
             case EXT_INT1:
                 setIntVector(_EXTERNAL_1_VECTOR, (isrFunc) ExtInt1Handler);
                 IEC0bits.INT1IE		=	0;
@@ -127,7 +129,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC2bits.INT1IS		=	_INT1_SPL_IPC;
                 IEC0bits.INT1IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT2
             case EXT_INT2:
                 setIntVector(_EXTERNAL_2_VECTOR, (isrFunc) ExtInt2Handler);
                 IEC0bits.INT2IE		=	0;
@@ -137,7 +140,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC3bits.INT2IS		=	_INT2_SPL_IPC;
                 IEC0bits.INT2IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT3
             case EXT_INT3:
                 setIntVector(_EXTERNAL_3_VECTOR, (isrFunc) ExtInt3Handler);
                 IEC0bits.INT3IE		=	0;
@@ -147,7 +151,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC4bits.INT3IS		=	_INT3_SPL_IPC;
                 IEC0bits.INT3IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT4
             case EXT_INT4:
                 setIntVector(_EXTERNAL_4_VECTOR, (isrFunc) ExtInt4Handler);
                 IEC0bits.INT4IE		=	0;
@@ -157,6 +162,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC5bits.INT4IS		=	_INT4_SPL_IPC;
                 IEC0bits.INT4IE		=	1;
                 break;
+#endif
         }
 
 #else
@@ -165,6 +171,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
         // and enable the interrupt.
         switch (interruptNum)
         {
+#ifdef PIN_INT0
             case EXT_INT0:
                 setIntVector(_EXTERNAL_0_VECTOR, (isrFunc) ExtInt0Handler);
                 IEC0bits.INT0IE     =	0;
@@ -174,7 +181,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC0bits.INT0IS     =	_INT0_SPL_IPC;
                 IEC0bits.INT0IE     =	1;
                 break;
-
+#endif
+#ifdef PIN_INT1
             case EXT_INT1:
                 setIntVector(_EXTERNAL_1_VECTOR, (isrFunc) ExtInt1Handler);
                 IEC0bits.INT1IE		=	0;
@@ -184,7 +192,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC1bits.INT1IS		=	_INT1_SPL_IPC;
                 IEC0bits.INT1IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT2
             case EXT_INT2:
                 setIntVector(_EXTERNAL_2_VECTOR, (isrFunc) ExtInt2Handler);
                 IEC0bits.INT2IE		=	0;
@@ -194,7 +203,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC2bits.INT2IS		=	_INT2_SPL_IPC;
                 IEC0bits.INT2IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT3
             case EXT_INT3:
                 setIntVector(_EXTERNAL_3_VECTOR, (isrFunc) ExtInt3Handler);
                 IEC0bits.INT3IE		=	0;
@@ -204,7 +214,8 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC3bits.INT3IS		=	_INT3_SPL_IPC;
                 IEC0bits.INT3IE		=	1;
                 break;
-
+#endif
+#ifdef PIN_INT4
             case EXT_INT4:
                 setIntVector(_EXTERNAL_4_VECTOR, (isrFunc) ExtInt4Handler);
                 IEC0bits.INT4IE		=	0;
@@ -214,6 +225,7 @@ void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode)
                 IPC4bits.INT4IS		=	_INT4_SPL_IPC;
                 IEC0bits.INT4IE		=	1;
                 break;
+#endif
         }
 #endif
     }
@@ -226,30 +238,36 @@ void detachInterrupt(uint8_t interruptNum)
     {
         switch (interruptNum)
         {
+#ifdef PIN_INT0
             case EXT_INT0:
                 IEC0bits.INT0IE	=	0;
                 clearIntVector(_EXTERNAL_0_VECTOR);
                 break;
-
+#endif
+#ifdef PIN_INT1
             case EXT_INT1:
                 IEC0bits.INT1IE	=	0;
                 clearIntVector(_EXTERNAL_1_VECTOR);
                 break;
-
+#endif
+#ifdef PIN_INT2
             case EXT_INT2:
                 IEC0bits.INT2IE	=	0;
                 clearIntVector(_EXTERNAL_2_VECTOR);
                 break;
-
+#endif
+#ifdef PIN_INT3
             case EXT_INT3:
                 IEC0bits.INT3IE	=	0;
                 clearIntVector(_EXTERNAL_3_VECTOR);
                 break;
-
+#endif
+#ifdef PIN_INT4
             case EXT_INT4:
                 IEC0bits.INT4IE	=	0;
                 clearIntVector(_EXTERNAL_4_VECTOR);
                break;
+#endif
         }
 
         intFunc[interruptNum]	=	0;
