@@ -64,7 +64,9 @@ extern "C"{
 
 #define PI 3.1415926535897932384626433832795
 #define HALF_PI 1.5707963267948966192313216916398
-#define TWO_PI 6.283185307179586476925286766559
+// PI is wrong! http://tauday.com/tau-manifesto
+#define TAU 6.283185307179586476925286766559
+#define TWO_PI TAU
 #define DEG_TO_RAD 0.017453292519943295769236907684886
 #define RAD_TO_DEG 57.295779513082320876798154814105
 
@@ -144,6 +146,13 @@ void	pinMode(uint8_t pin, uint8_t mode);
 uint8_t	getPinMode(uint8_t pin);
 void	digitalWrite(uint8_t pin, uint8_t val);
 int		digitalRead(uint8_t pin);
+
+// These _analogRead funcitons are proposed changes to allow for non-blocking use of ADC
+uint8_t _analogReadConversionStart(uint8_t pin);
+inline uint8_t _analogReadConversionComplete();
+uint32_t _analogReadConversion();
+int		_analogRead(uint8_t);
+
 int		analogRead(uint8_t);
 void	analogReference(uint8_t mode);
 void	analogWrite(uint8_t, int);
