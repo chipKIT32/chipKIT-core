@@ -88,6 +88,7 @@
 /* Define the pin numbers for the LEDs
 NOTE: The ChipKIT Pi has two user LEDs
 */
+#define LED_BUILTIN 14
 #define	PIN_LED1	14      // 11  RA0
 #define	PIN_LED2	15      // 14  RB15
 
@@ -280,7 +281,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
-/* Serial port 0 uses UART1 – for the serial monitor
+/* Serial port 0 uses UART1 Â– for the serial monitor
 */
 #define       _SER0_BASE           _UART1_BASE_ADDRESS
 #define       _SER0_IRQ            _UART1_ERR_IRQ

@@ -92,6 +92,7 @@
 
 /* Define the pin numbers for the LEDs
 */
+#define LED_BUILTIN 51
 #define	PIN_LED1	51
 #define	PIN_LED2	52
 #define	PIN_LED3	53

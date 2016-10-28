@@ -88,6 +88,7 @@
 
 /* Define the pin numbers for the LEDs
 */
+#define LED_BUILTIN 80
 #define	PIN_LED1	80
 
 /* ------------------------------------------------------------ */

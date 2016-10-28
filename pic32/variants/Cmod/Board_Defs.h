@@ -85,6 +85,7 @@
 
 /* Define the pin numbers for the LEDs
 */
+#define LED_BUILTIN 14
 #define	PIN_LED1	14      // 14  RA10 PGED(4)/TMS/PMA10/RA10
 #define	PIN_LED2	12      // 12  RB12 AN12/PMD0/RB12
 
@@ -305,7 +306,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
-/* Serial port 0 uses UART1 – for the serial monitor
+/* Serial port 0 uses UART1 Â– for the serial monitor
 */
 #define       _SER0_BASE           _UART1_BASE_ADDRESS
 #define       _SER0_IRQ            _UART1_ERR_IRQ

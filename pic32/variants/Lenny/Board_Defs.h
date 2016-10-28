@@ -105,6 +105,7 @@
 
 /* Define the pin numbers for the LEDs
 */
+#define LED_BUILTIN 22
 #define	PIN_LED1	22
 #define	PIN_LED2	23
 #define	PIN_LED3	24
@@ -299,7 +300,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
-/* Serial port 0 uses UART1 – for the serial monitor
+/* Serial port 0 uses UART1 Â– for the serial monitor
 */
 #define       _SER0_BASE           _UART2_BASE_ADDRESS
 #define       _SER0_IRQ            _UART2_ERR_IRQ
