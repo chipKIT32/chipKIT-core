@@ -31,6 +31,7 @@
 #define	NUM_ANALOG_PINS_EXTENDED	NUM_ANALOG_PINS
 
 // LED is the LCD backlight RD2, "pin" 32.
+#define LED_BUILTIN 32
 #define PIN_LED1    32
 #define PIN_BACKLIGHT   32
 
