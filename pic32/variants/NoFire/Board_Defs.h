@@ -510,9 +510,6 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define ADCRANGE        4096ul              // analog read will return a max number of ADCRANGE-1
 #define ADCTADFREQ      25000000ul          // How fast to run the TAD ADC clock
 #define ADCTADSH        68ul                // How many TADs the Sample and Hold will charge
-#define __ALT_ADC_IMPL__
-extern void initADC(void);
-extern int convertADC(uint8_t channelNumber);
 
 /* ------------------------------------------------------------ */
 

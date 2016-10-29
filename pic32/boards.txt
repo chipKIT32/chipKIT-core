@@ -548,43 +548,6 @@ cui32.build.core=pic32
 cui32.build.variant=Default_64
 
 ############################################################
-usbono_pic32.name=PONTECH UAV100
-usbono_pic32.group=PONTECH
-
-# new items
-usbono_pic32.platform=pic32
-usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
-usbono_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_ -Danything=1
-usbono_pic32.ccflags=ffff
-usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-usbono_pic32.compiler.c.extra_flags=-G1024
-usbono_pic32.compiler.cpp.extra_flags=-G1024
-#chipKIT-UNO32-application-32MX320F128L.ld
-# end of new items
-
-usbono_pic32.upload.protocol=stk500v2
-usbono_pic32.upload.maximum_size=520192
-usbono_pic32.upload.maximum_data_size=32768
-usbono_pic32.upload.speed=115200
-usbono_pic32.upload.tool=pic32prog
-
-
-usbono_pic32.bootloader.low_fuses=0xff
-usbono_pic32.bootloader.high_fuses=0xdd
-usbono_pic32.bootloader.extended_fuses=0x00
-#usbono_pic32.bootloader.path=not-supported
-#usbono_pic32.bootloader.file=not-supported
-usbono_pic32.bootloader.unlock_bits=0x3F
-usbono_pic32.bootloader.lock_bits=0x0F
-
-usbono_pic32.build.mcu=32MX440F512H
-usbono_pic32.build.f_cpu=80000000L
-usbono_pic32.build.core=pic32
-usbono_pic32.build.variant=PONTECH_UAV100
-#usbono_pic32.build.variant=Uno32
-
-############################################################
 ############################################################
 chipkit_DP32.name=chipKIT DP32
 chipkit_DP32.group=chipKIT
@@ -942,6 +905,39 @@ picadillo_35t.build.core=pic32
 picadillo_35t.build.variant=picadillo_35t
 
 ############################################################
+############################################################
+pontech_NoFire.name=PONTECH NoFire
+pontech_NoFire.group=PONTECH
+
+# new items
+pontech_NoFire.platform=pic32
+pontech_NoFire.build.board=_BOARD_PONTECH_NOFIRE_
+pontech_NoFire.board.define=
+pontech_NoFire.ccflags=ffff
+pontech_NoFire.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+pontech_NoFire.upload.protocol=stk500v2
+pontech_NoFire.upload.maximum_size=2080768
+pontech_NoFire.upload.speed=115200
+
+pontech_NoFire.bootloader.low_fuses=0xff
+pontech_NoFire.bootloader.high_fuses=0xdd
+pontech_NoFire.bootloader.extended_fuses=0x00
+pontech_NoFire.bootloader.path=not-supported
+pontech_NoFire.bootloader.file=not-supported
+pontech_NoFire.bootloader.unlock_bits=0x3F
+pontech_NoFire.bootloader.lock_bits=0x0F
+
+pontech_NoFire.build.mcu=32MZ2048EFG100
+pontech_NoFire.build.f_cpu=200000000UL
+pontech_NoFire.build.core=pic32
+pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
+pontech_NoFire.build.variant=NoFire
+#pontech_NoFire.upload.using=avrdude1
+
+############################################################
+############################################################
 quick240_usb_pic32.name=PONTECH quicK240
 quick240_usb_pic32.group=PONTECH
 
@@ -971,6 +967,44 @@ quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
 quick240_usb_pic32.build.core=pic32
 quick240_usb_pic32.build.variant=quicK240
+
+############################################################
+############################################################
+usbono_pic32.name=PONTECH UAV100
+usbono_pic32.group=PONTECH
+
+# new items
+usbono_pic32.platform=pic32
+usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
+usbono_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_ -Danything=1
+usbono_pic32.ccflags=ffff
+usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+usbono_pic32.compiler.c.extra_flags=-G1024
+usbono_pic32.compiler.cpp.extra_flags=-G1024
+#chipKIT-UNO32-application-32MX320F128L.ld
+# end of new items
+
+usbono_pic32.upload.protocol=stk500v2
+usbono_pic32.upload.maximum_size=520192
+usbono_pic32.upload.maximum_data_size=32768
+usbono_pic32.upload.speed=115200
+usbono_pic32.upload.tool=pic32prog
+
+
+usbono_pic32.bootloader.low_fuses=0xff
+usbono_pic32.bootloader.high_fuses=0xdd
+usbono_pic32.bootloader.extended_fuses=0x00
+#usbono_pic32.bootloader.path=not-supported
+#usbono_pic32.bootloader.file=not-supported
+usbono_pic32.bootloader.unlock_bits=0x3F
+usbono_pic32.bootloader.lock_bits=0x0F
+
+usbono_pic32.build.mcu=32MX440F512H
+usbono_pic32.build.f_cpu=80000000L
+usbono_pic32.build.core=pic32
+usbono_pic32.build.variant=PONTECH_UAV100
+#usbono_pic32.build.variant=Uno32
 
 ############################################################
 ############################################################
