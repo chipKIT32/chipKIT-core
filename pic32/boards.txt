@@ -1,4 +1,8 @@
 ############################################################
+# REMINDER:
+# This boards.txt file is for the Arduino IDE 1.6.7+
+# MPIDE uses boards.txt in the individual variant folders
+############################################################
 cerebot32mx4.name=Cerebot 32MX4
 cerebot32mx4.group=Cerebot
 
@@ -912,20 +916,21 @@ pontech_NoFire.group=PONTECH
 # new items
 pontech_NoFire.platform=pic32
 pontech_NoFire.build.board=_BOARD_PONTECH_NOFIRE_
-pontech_NoFire.board.define=
 pontech_NoFire.ccflags=ffff
 pontech_NoFire.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
 pontech_NoFire.upload.protocol=stk500v2
 pontech_NoFire.upload.maximum_size=2080768
+pontech_NoFire.upload.maximum_data_size=524288
 pontech_NoFire.upload.speed=115200
+pontech_NoFire.upload.tool=pic32prog
 
 pontech_NoFire.bootloader.low_fuses=0xff
 pontech_NoFire.bootloader.high_fuses=0xdd
 pontech_NoFire.bootloader.extended_fuses=0x00
-pontech_NoFire.bootloader.path=not-supported
-pontech_NoFire.bootloader.file=not-supported
+#pontech_NoFire.bootloader.path=not-supported
+#pontech_NoFire.bootloader.file=not-supported
 pontech_NoFire.bootloader.unlock_bits=0x3F
 pontech_NoFire.bootloader.lock_bits=0x0F
 
@@ -934,7 +939,7 @@ pontech_NoFire.build.f_cpu=200000000UL
 pontech_NoFire.build.core=pic32
 pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
 pontech_NoFire.build.variant=NoFire
-#pontech_NoFire.upload.using=avrdude1
+pontech_NoFire.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################

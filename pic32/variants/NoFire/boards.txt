@@ -2,6 +2,7 @@
 pontech_NoFire.name=PONTECH NoFire
 pontech_NoFire.group=PONTECH
 
+
 # new items
 pontech_NoFire.platform=pic32
 pontech_NoFire.board=_BOARD_PONTECH_NOFIRE_

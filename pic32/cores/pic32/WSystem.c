@@ -716,6 +716,181 @@ void __attribute__((nomips16)) writeCoreTimer(uint32_t tmr)
 }
 
 /* ------------------------------------------------------------ */
+/***	initWiFIREadcEF
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      none
+**
+**	Errors:
+**     none
+**
+**	Description:
+**      Initialize the MZ EF ADCs for the WiFIRE
+**
+*/
+void initWiFIREadcEF(void)
+{
+    uint32_t    cTADWarmUp = 0;
+    uint32_t    i = 0;
+
+    // initialize configuration registers
+    ADCCON1     = 0; 
+    ADCCON2     = 0; 
+    ADCCON3     = 0; 
+    ADCANCON    = 0;
+
+    // resolution 0 - 6bits, 1 - 8bits, 2 - 10bits, 3 - 12bits
+    ADCCON1bits.SELRES  =   3;  // shared ADC, 12 bits resolution (bits+2 TADs, 12bit resolution = 14 TAD).
+
+    // 0 - no trigger, 1 - clearing software trigger, 2 - not clearing software trigger, the rest see datasheet
+    ADCCON1bits.STRGSRC     = 1;    //Global software trigger / self clearing.
+
+    // 0 - internal 3.3, 1 - use external VRef+, 2 - use external VRef-
+    ADCCON3bits.VREFSEL     = 0;    // use internal 3.3 reference
+
+    // this should be set if VRef+ - VRef - < 0.65 VCC; this may not need to be on
+    // ADCCON1bits.AICPMPEN    = 1;    // turn on the analog charge pump
+
+    // set up the TQ and TAD and S&H times
+
+    // TCLK: 00- pbClk3, 01 - SysClk, 10 - External Clk3, 11 - interal 8 MHz clk
+    ADCCON3bits.ADCSEL      = 0b01;             // TCLK clk == Sys Clock == F_CPU  
+
+    // Global ADC TQ Clock: Global ADC prescaler 0 - 63; Divide by (CONCLKDIV*2) However, the value 0 means divide by 1
+    ADCCON3bits.CONCLKDIV   = 0;                // Divide by 1 == TCLK == SYSCLK == F_CPU
+
+    // must be divisible by 2 (25 - 50MHz should be good; we are not in a hurry, so 25MHz).
+    ADCCON2bits.ADCDIV      = ((F_CPU / ADCTADFREQ) + 1) / 2;   // run TAD at 25MHz
+
+    ADCCON2bits.SAMC        = ADCTADSH;   // for the shared S&H this will allow source impedances < 10Kohm
+
+    // with 25MHz TAD and 68 TAD S&H and 14 TAD for 12 bit resolution, that is 25000000 / (68+14) = 304,878 Sps or 3.28 us/sample
+
+    // initialize the warm up timer
+    // 20us or 500 TAD which ever is higher 1/20us == 50KHz
+    cTADWarmUp = ((F_CPU / (ADCCON3bits.CONCLKDIV == 0 ? 1 : (ADCCON3bits.CONCLKDIV * 2))) / (F_CPU / ADCTADFREQ) / 50000ul);
+    if(cTADWarmUp < 500) 
+    {
+        cTADWarmUp = 500;
+    }
+
+    // get the next higher power of the count
+    for(i=0; i<16; i++)
+    {
+        if((cTADWarmUp >> i) == 0)
+        {
+            break;
+        }
+    }
+
+    // the warm up count is 2^^X where X = 0 -15
+    ADCANCONbits.WKUPCLKCNT = i; // Wakeup exponent = 2^^15 * TADx   
+  
+    // ADC 0
+    ADC0TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
+    ADC0TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
+    ADC0TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
+
+    // ADC 1
+    ADC1TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
+    ADC1TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
+    ADC1TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
+
+    // ADC 2
+    ADC2TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
+    ADC2TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
+    ADC2TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
+
+    // ADC 3
+    ADC3TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
+    ADC3TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
+    ADC3TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
+
+    // ADC 4
+    ADC4TIMEbits.ADCDIV     = ADCCON2bits.ADCDIV;       // ADC0 clock frequency is half of control clock = TAD0 200 / 2 (pb) / 2 (clkdiv) / 2 (adcdiv) == TAD == 25 MHz
+    ADC4TIMEbits.SAMC       = ADCCON2bits.SAMC;    // ADC0 sampling time = (SAMC+2) * TAD0
+    ADC4TIMEbits.SELRES     = ADCCON1bits.SELRES;             // ADC0 resolution is 12 bits 
+
+    /* Configure ADCIRQENx */
+    ADCCMPEN1 = 0; // No interrupts are used
+    ADCCMPEN2 = 0;
+    
+    /* Configure ADCCSSx */
+    ADCCSS1 = 0; // No scanning is used
+    ADCCSS2 = 0;
+    
+    /* Configure ADCCMPxCON */
+    ADCCMP1 = 0; // No digital comparators are used. Setting the ADCCMPxCON
+    ADCCMP2 = 0; // register to '0' ensures that the comparator is disabled.
+    ADCCMP3 = 0; // Other registers are ?don't care?.
+    ADCCMP4 = 0;
+    ADCCMP5 = 0;
+    ADCCMP6 = 0;    
+
+    /* Configure ADCFLTRx */
+    ADCFLTR1 = 0; // Clear all bits
+    ADCFLTR2 = 0;
+    ADCFLTR3 = 0;
+    ADCFLTR4 = 0;
+    ADCFLTR5 = 0;
+    ADCFLTR6 = 0;
+    
+    // disable all global interrupts
+    ADCGIRQEN1 = 0;
+    ADCGIRQEN2 = 0;
+    
+    /* Early interrupt */
+    ADCEIEN1 = 0; // No early interrupt
+    ADCEIEN2 = 0;
+
+    // no dedicated trigger sources
+    ADCTRGMODE  =   0;
+
+    // put everything in single ended unsigned mode
+    ADCIMCON1   = 0;
+    ADCIMCON2   = 0;
+    ADCIMCON3   = 0;
+//        ADCIMCON4   = 0;
+
+    // triggers are all edge trigger
+    ADCTRGSNS = 0;
+
+    // turn on the ADCs
+    ADCCON1bits.ON = 1;
+
+    /* Wait for voltage reference to be stable */
+    while(!ADCCON2bits.BGVRRDY); // Wait until the reference voltage is ready
+    while(ADCCON2bits.REFFLT); // Wait if there is a fault with the reference voltage
+    
+    /* Enable clock to analog circuit */
+    ADCANCONbits.ANEN0 = 1; // Enable the clock to analog bias and digital control
+    ADCANCONbits.ANEN1 = 1; // Enable the clock to analog bias and digital control
+    ADCANCONbits.ANEN2 = 1; // Enable the clock to analog bias and digital control
+    ADCANCONbits.ANEN3 = 1; // Enable the clock to analog bias and digital control
+    ADCANCONbits.ANEN4 = 1; // Enable the clock to analog bias and digital control
+    ADCANCONbits.ANEN7 = 1; // Enable the clock to analog bias and digital control
+   
+    /* Wait for ADC to be ready */
+    while(!ADCANCONbits.WKRDY0); // Wait until ADC0 is ready
+    while(!ADCANCONbits.WKRDY1); // Wait until ADC1 is ready
+    while(!ADCANCONbits.WKRDY2); // Wait until ADC2 is ready
+    while(!ADCANCONbits.WKRDY3); // Wait until ADC3 is ready
+    while(!ADCANCONbits.WKRDY4); // Wait until ADC3 is ready
+    while(!ADCANCONbits.WKRDY7); // Wait until ADC0 is ready
+        
+    /* Enable the ADC module */
+    ADCCON3bits.DIGEN0 = 1; // Enable ADC0
+    ADCCON3bits.DIGEN1 = 1; // Enable ADC1
+    ADCCON3bits.DIGEN2 = 1; // Enable ADC2
+    ADCCON3bits.DIGEN3 = 1; // Enable ADC3
+    ADCCON3bits.DIGEN4 = 1; // Enable ADC3
+    ADCCON3bits.DIGEN7 = 1; // Enable shared ADC
+}
+
+/* ------------------------------------------------------------ */
 /*			Private System Configuration Functions				*/
 /* ------------------------------------------------------------ */
 /***	configSystem
@@ -835,8 +1010,7 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
     AD1IMODbits.SH5MOD =  0;            // put in unipolar encoding
 
 #elif defined(__PIC32MZEFADC__)
-    #error EF ADC code not implemented yet
-
+    initWiFIREadcEF();
 // unknown ADC code
 #else
     #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
