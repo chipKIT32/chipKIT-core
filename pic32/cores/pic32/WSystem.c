@@ -715,6 +715,8 @@ void __attribute__((nomips16)) writeCoreTimer(uint32_t tmr)
 
 }
 
+#if defined(__PIC32MZEFADC__)
+
 /* ------------------------------------------------------------ */
 /***	initWiFIREadcEF
 **
@@ -889,6 +891,8 @@ void initWiFIREadcEF(void)
     ADCCON3bits.DIGEN4 = 1; // Enable ADC3
     ADCCON3bits.DIGEN7 = 1; // Enable shared ADC
 }
+
+#endif
 
 /* ------------------------------------------------------------ */
 /*			Private System Configuration Functions				*/
