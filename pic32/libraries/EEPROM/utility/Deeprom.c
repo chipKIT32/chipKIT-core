@@ -268,18 +268,25 @@ BOOL putEeprom(eeSeg * eeprom, uint32_t address, uint8_t data)
 				   tempSeg.temp.valid = 0;
 				   writeFlashWord((void*)&eeprom[i],tempSeg.data);
 
-				   // If data is 0xFF return
-				//if(data == 0xFF) {
-				//	printf(" and data is 0xFF so done.\n\r");
-				//	return fTrue;
-				//}
-			   }
+				// If data is 0xFF return (case were address had different value)
+				// This could be left out and caught below, but leaving it in speeds
+				// up write since we don't have to find the end of the table to
+				// do the write.
+				if(data == 0xFF) {
+					return fTrue;
+				}
+			}
 		}
 		//If empty eeSeg found save location and break
 		else if(getValid(eeprom[i]) && getTaken(eeprom[i])) {
 			nextAvalible = i;
 			break;
 		}
+	}
+
+	// If data is 0xFF return (case where address has never been written)
+	if(data == 0xFF) {
+		return fTrue;
 	}
 
 	//If I == max size no valid segments exist

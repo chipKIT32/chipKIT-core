@@ -295,6 +295,10 @@ extern const uint8_t ext_int_to_pps_sel_PGM[];
 #define	NUM_ANALOG_PINS_EXTENDED	NUM_ANALOG_PINS
 #endif
 
+#if !defined(LED_BUILTIN)
+#define LED_BUILTIN PIN_LED1
+#endif
+
 /* ------------------------------------------------------------ */
 
 #endif		// PINS_ARDUINO_H
