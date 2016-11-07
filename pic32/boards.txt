@@ -943,7 +943,7 @@ pontech_NoFire.build.ldscript.path={build.variant.path}
 
 ############################################################
 ############################################################
-quick240_usb_pic32.name=PONTECH quicK240
+quick240_usb_pic32.name=PONTECH Quick240
 quick240_usb_pic32.group=PONTECH
 
 # new items
