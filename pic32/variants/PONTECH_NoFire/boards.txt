@@ -27,7 +27,7 @@ pontech_NoFire.build.mcu=32MZ2048EFG100
 pontech_NoFire.build.f_cpu=200000000UL
 pontech_NoFire.build.core=pic32
 pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
-pontech_NoFire.build.variant=WiFire
+pontech_NoFire.build.variant=PONTECH_NoFire
 #pontech_NoFire.upload.using=avrdude1
 
 ############################################################
