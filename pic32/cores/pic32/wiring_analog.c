@@ -104,6 +104,132 @@ int _board_analogReference(uint8_t mode);
 
 }
 
+#if defined(__PIC32MZEFADC__)
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversionStart
+**
+**	Parameters:
+**		channelNumber - The PIC32 analog channel number as in the PIC32 datasheet
+**
+**	Return Value:
+**      true if successfull
+**
+**	Errors:
+**     return false if error may have occured
+**
+**	Description:
+**      Starts the conversion process for an PIC32MZxxxxEFG chip
+*/
+// These two globals were created to allow breaking up the convertWiFIREadcEF() into pieces that need to share informaiton. 
+// Only needed for MZ EFG chips, I'm not sure if the compier will optimize out for non MZ EFG chips
+uint8_t _analogRead_vcn;
+uint32_t	_analogRead_adcTRGmode; // breaking up analogRead required making a shared global 
+
+uint8_t convertWiFIREadcEFConversionStart(uint8_t channelNumber)
+{ 
+    _analogRead_vcn = channelNumber;        // assume our vitual channel number is the real one
+    _analogRead_adcTRGmode = ADCTRGMODE;   // save trigger mode
+
+    // see if we are using alternate inputs
+    switch(_analogRead_vcn)
+    {
+        case 43:
+        case 44:
+        case 50:
+            return(0);
+            break;
+
+        case 45:
+            ADCTRGMODEbits.SH0ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 46:
+            ADCTRGMODEbits.SH1ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 47:
+            ADCTRGMODEbits.SH2ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 48:
+            ADCTRGMODEbits.SH3ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 49:
+            ADCTRGMODEbits.SH4ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        default:
+            break;
+    }
+
+    ADCCON3bits.ADINSEL   = _analogRead_vcn;            // say which channel to manually trigger
+    ADCCON3bits.RQCNVRT  = 1;               // manually trigger it.
+    
+    return 1; // true
+}
+
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversionComplete
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      zero if complete, non-zero if complete
+**
+**	Errors:
+**     No error checking
+**
+**	Description:
+**      Coverts the analog signal to a digital value
+*/
+inline uint32_t convertWiFIREadcEFConversionComplete()
+{ 
+    // wait for completion of the conversion
+    if(_analogRead_vcn < 32)
+    {
+        uint32_t mask = 0x1 << _analogRead_vcn;
+        return (ADCDSTAT1 & mask);
+    }
+    else
+    {
+        uint32_t mask = 0x1 << (_analogRead_vcn - 32);
+        return (ADCDSTAT2 & mask);
+    }    
+}
+
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversion
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      result from last conversion
+**
+**	Errors:
+**     No error checking
+**
+**	Description:
+**      Checks PIC32 ADC status bits for a PIC32MZxxxx EFG for conversion complete
+*/
+int convertWiFIREadcEFConversion()
+{ 
+    // return the trigger mode to what it was
+    ADCTRGMODE = _analogRead_adcTRGmode;
+
+    // return the converted data
+    return((int) ((uint32_t *) &ADCDATA0)[_analogRead_vcn]);
+}
+
+#endif
+
 //*********************************************************************
 //*	Marc McComb Aug 2011
 //*	Found bug with analogRead(). When using more than one ADC input in a program, 
@@ -111,11 +237,18 @@ int _board_analogReference(uint8_t mode);
 //*	I commented out the code using the Microchip PIC32 Peripheral Libraries and substituted 
 //*	direct writes to the registers as shown below. This fixed all problems and works great:
 //*********************************************************************
-int analogRead(uint8_t pin)
-{
-	int analogValue = 0;
-	uint8_t	channelNumber;
-	uint8_t ain;
+//* These _analogRead functions are an attempt to speed up the
+//* analogRead funtions of the chipKIT-core by allowing for non-
+//* blocking calls to _analogReadConversionComplete() from our loop()
+//* while at the same time not breaking existing analogRead functionality.
+//* When all rung out the _analogRead() should be renamed to analogRead()
+//* and the currently existing function should be removed.
+//* -J. Christ Oct 2016
+//*********************************************************************
+uint8_t	_analogRead_channelNumber; // breaking up analogRead required making a shared global 
+
+uint8_t analogReadConversionStart(uint8_t pin){
+  uint8_t ain;
 
 	/* Check if pin number is in valid range.
 	*/
@@ -149,7 +282,7 @@ int	tmp;
 	** A/D converter. In some cases this is a direct mapping. In that case,
 	** the conversion macro just returns it parameter.
 	*/
-	channelNumber = analogInPinToChannel(ain);
+	_analogRead_channelNumber = analogInPinToChannel(ain);
 
 	/* Ensure that the pin associated with the analog channel is in analog
 	** input mode, and select the channel in the input mux.
@@ -209,32 +342,113 @@ int	tmp;
 	**  with PORTB to analog input or digital input mode. Clear the appropriate
 	**  bit in AD1PCFG.
 	*/
-	AD1PCFGCLR = (1 << channelNumber);
+	AD1PCFGCLR = (1 << _analogRead_channelNumber);
 #endif		// defined(__PIC32_PPS__)
 
 #if defined(__PIC32MZXX__)
 
 // If alternate ADC implementation
 #if defined(__ALT_ADC_IMPL__)
-    analogValue = convertADC(channelNumber);
+    // As of this writing only WiFire and OpenScope use this feature.
+    // for now, return true and let _analogReadConversion be blocking for these chips
+    return true;
+
+// EC MZ ADC code
+#elif defined(__PIC32MZECADC__)
+    #warning return true and let _analogReadConversion be blocking for these chips
+    return true;
+
+#elif defined(__PIC32MZEFADC__)
+    return convertWiFIREadcEFConversionStart(_analogRead_channelNumber);
+#else
+    #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
+#endif
+
+#else
+	AD1CHS = (_analogRead_channelNumber & 0xFFFF) << 16;
+	AD1CON1	=	0; //Ends sampling, and starts converting
+
+	/* Set up for manual sampling
+	*/
+	AD1CSSL	=	0;
+	AD1CON3	=	0x000B;	//Tad = internal 22 Tpb
+	AD1CON2	=	analog_reference;
+
+	/* Turn on ADC
+	*/
+	AD1CON1SET	=	0x8000;
+	
+	/* Start sampling
+	*/
+	AD1CON1SET	=	0x0002;
+	
+	/* Delay for a bit
+	*/
+	delayMicroseconds(2);
+
+	/* Start conversion
+	*/
+	AD1CON1CLR	=	0x0002;
+	
+#endif
+
+  return true; // assume everthing worked until we have time to write better code.
+}
+
+inline uint32_t analogReadConversionComplete(){
+
+#if defined(__PIC32MZXX__)
+
+// If alternate ADC implementation
+#if defined(__ALT_ADC_IMPL__)
+    // As of this writing only WiFire and OpenScope use this feature.
+    // for now, return true and let _analogReadConversion be blocking for these chips
+    return true;
+
+// EC MZ ADC code
+#elif defined(__PIC32MZECADC__)
+    #warning return true and let _analogReadConversion be blocking for these chips
+    return true;
+#elif defined(__PIC32MZEFADC__)
+    return convertWiFIREadcEFConversionComplete();
+#else
+    #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
+#endif
+
+#else
+	// Wait for conversion to finish
+	return (AD1CON1 & 0x0001);
+#endif
+  
+}
+
+uint32_t analogReadConversion(){
+
+	int analogValue = 0;
+
+#if defined(__PIC32MZXX__)
+
+// If alternate ADC implementation
+#if defined(__ALT_ADC_IMPL__)
+    analogValue = convertADC(_analogRead_channelNumber);
 
 // EC MZ ADC code
 #elif defined(__PIC32MZECADC__)
 { 
     int i,k         = 0;
-    uint8_t vcn     = channelNumber;
+    uint8_t vcn     = _analogRead_channelNumber;
 
     #define KVA_2_PA(v)             (((uint32_t) (v)) & 0x1fffffff)
     static uint16_t __attribute__((coherent)) ovsampValue;
 
     // set the channel trigger for GSWTRG source triggering
-    if(channelNumber == 43 || channelNumber == 44 || channelNumber >= 50)
+    if(_analogRead_channelNumber == 43 || _analogRead_channelNumber == 44 || _analogRead_channelNumber >= 50)
     {
         return(0);
     }
-    else if(channelNumber >= 45 )
+    else if(_analogRead_channelNumber >= 45 )
     {
-        vcn = channelNumber - 45;
+        vcn = _analogRead_channelNumber - 45;
         AD1IMOD |= 1 << ((vcn * 2) + 16);               // say use the alt; set SHxALT
     }
 
@@ -310,56 +524,31 @@ int	tmp;
     AD1CON3bits.ADINSEL = 0;
     AD1FLTR6            = 0;
 
-    if(channelNumber >= 45 )
+    if(_analogRead_channelNumber >= 45 )
     {
         AD1IMOD &= ~(0b11 << ((vcn * 2) + 16));               // don't use alt
     }
 }
 
 #elif defined(__PIC32MZEFADC__)
-    #error EF ADC code not implemented yet
-
+    analogValue	=	convertWiFIREadcEFConversion();
 #else
     #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
 #endif
 
 #else
-	AD1CHS = (channelNumber & 0xFFFF) << 16;
-	AD1CON1	=	0; //Ends sampling, and starts converting
-
-	/* Set up for manual sampling
-	*/
-	AD1CSSL	=	0;
-	AD1CON3	=	0x000B;	//Tad = internal 22 Tpb
-	AD1CON2	=	analog_reference;
-
-	/* Turn on ADC
-	*/
-	AD1CON1SET	=	0x8000;
-	
-	/* Start sampling
-	*/
-	AD1CON1SET	=	0x0002;
-	
-	/* Delay for a bit
-	*/
-	delayMicroseconds(2);
-
-	/* Start conversion
-	*/
-	AD1CON1CLR	=	0x0002;
-	
-	/* Wait for conversion to finish
-	*/
-	while (!(AD1CON1 & 0x0001));
-	
-
-	/* Read the ADC Value
-	*/
+	// Read the ADC Value
 	analogValue	=	ADC1BUF0;
 #endif
-	
+
 	return (analogValue);
+}
+
+int analogRead(uint8_t pin)
+{
+  analogReadConversionStart(pin);
+  while( ! analogReadConversionComplete() );
+  return analogReadConversion();
 }
 
 //*********************************************************************
