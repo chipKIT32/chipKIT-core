@@ -104,6 +104,132 @@ int _board_analogReference(uint8_t mode);
 
 }
 
+#if defined(__PIC32MZEFADC__)
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversionStart
+**
+**	Parameters:
+**		channelNumber - The PIC32 analog channel number as in the PIC32 datasheet
+**
+**	Return Value:
+**      true if successfull
+**
+**	Errors:
+**     return false if error may have occured
+**
+**	Description:
+**      Starts the conversion process for an PIC32MZxxxxEFG chip
+*/
+// These two globals were created to allow breaking up the convertWiFIREadcEF() into pieces that need to share informaiton. 
+// Only needed for MZ EFG chips, I'm not sure if the compier will optimize out for non MZ EFG chips
+uint8_t _analogRead_vcn;
+uint32_t	_analogRead_adcTRGmode; // breaking up analogRead required making a shared global 
+
+uint8_t convertWiFIREadcEFConversionStart(uint8_t channelNumber)
+{ 
+    _analogRead_vcn = channelNumber;        // assume our vitual channel number is the real one
+    _analogRead_adcTRGmode = ADCTRGMODE;   // save trigger mode
+
+    // see if we are using alternate inputs
+    switch(_analogRead_vcn)
+    {
+        case 43:
+        case 44:
+        case 50:
+            return(0);
+            break;
+
+        case 45:
+            ADCTRGMODEbits.SH0ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 46:
+            ADCTRGMODEbits.SH1ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 47:
+            ADCTRGMODEbits.SH2ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 48:
+            ADCTRGMODEbits.SH3ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        case 49:
+            ADCTRGMODEbits.SH4ALT = 1;
+            _analogRead_vcn -= 45;
+            break;
+
+        default:
+            break;
+    }
+
+    ADCCON3bits.ADINSEL   = _analogRead_vcn;            // say which channel to manually trigger
+    ADCCON3bits.RQCNVRT  = 1;               // manually trigger it.
+    
+    return 1; // true
+}
+
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversionComplete
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      zero if complete, non-zero if complete
+**
+**	Errors:
+**     No error checking
+**
+**	Description:
+**      Coverts the analog signal to a digital value
+*/
+inline uint32_t convertWiFIREadcEFConversionComplete()
+{ 
+    // wait for completion of the conversion
+    if(_analogRead_vcn < 32)
+    {
+        uint32_t mask = 0x1 << _analogRead_vcn;
+        return (ADCDSTAT1 & mask);
+    }
+    else
+    {
+        uint32_t mask = 0x1 << (_analogRead_vcn - 32);
+        return (ADCDSTAT2 & mask);
+    }    
+}
+
+/* ------------------------------------------------------------ */
+/***	convertWiFIREadcEFConversion
+**
+**	Parameters:
+**		none
+**
+**	Return Value:
+**      result from last conversion
+**
+**	Errors:
+**     No error checking
+**
+**	Description:
+**      Checks PIC32 ADC status bits for a PIC32MZxxxx EFG for conversion complete
+*/
+int convertWiFIREadcEFConversion()
+{ 
+    // return the trigger mode to what it was
+    ADCTRGMODE = _analogRead_adcTRGmode;
+
+    // return the converted data
+    return((int) ((uint32_t *) &ADCDATA0)[_analogRead_vcn]);
+}
+
+#endif
+
 //*********************************************************************
 //*	Marc McComb Aug 2011
 //*	Found bug with analogRead(). When using more than one ADC input in a program, 
@@ -231,8 +357,7 @@ int	tmp;
     return true;
 
 #elif defined(__PIC32MZEFADC__)
-    #error EF ADC code not implemented yet
-
+    return convertWiFIREadcEFConversionStart(_analogRead_channelNumber);
 #else
     #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
 #endif
@@ -283,8 +408,7 @@ inline uint32_t analogReadConversionComplete(){
     #warning return true and let _analogReadConversion be blocking for these chips
     return true;
 #elif defined(__PIC32MZEFADC__)
-    #error EF ADC code not implemented yet
-
+    return convertWiFIREadcEFConversionComplete();
 #else
     #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
 #endif
@@ -405,8 +529,7 @@ uint32_t analogReadConversion(){
 }
 
 #elif defined(__PIC32MZEFADC__)
-    #error EF ADC code not implemented yet
-
+    analogValue	=	convertWiFIREadcEFConversion();
 #else
     #error ADC code for this MZ must be added in WSystems.c and wiring_analog.c
 #endif
