@@ -411,6 +411,7 @@
         #define FLASHEND        (((512 - 4) * 1024L) - 1)
         #define RAMEND          ((128 * 1024L) - 1)
         #define __PIC32_PINS__  64
+        #define __PIC32_PPS__
         #define __PIC32MX47X__
         #define __PIC32MX47XH__
     
@@ -419,6 +420,7 @@
         #define FLASHEND        (((512 - 4) * 1024L) - 1)
         #define RAMEND          ((128 * 1024L) - 1)
         #define __PIC32_PINS__  100
+        #define __PIC32_PPS__
         #define __PIC32MX47X__
         #define __PIC32MX47XL__
 
