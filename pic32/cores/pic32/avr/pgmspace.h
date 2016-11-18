@@ -13,6 +13,11 @@
 #define PGM_P const char *
 #endif
 
+#ifdef PGM_VOID_P
+#undef PGM_VOID_P
+#endif
+#define PGM_VOID_P void *
+
 #ifdef PSTR
 #undef PSTR
 #endif
@@ -149,5 +154,29 @@ typedef uint32_t prog_uint32_t;
 #endif
 #define strcpy_P(dest, src) strcpy((dest), (src))
 
+#ifdef strlen_P
+#undef strlen_P
+#endif
+#define strlen_P(src) strlen((src))
+
+#ifdef strnlen_P
+#undef strnlen_P
+#endif
+#define strnlen_P(src, maxlen) strnlen((src), (maxlen))
+
+#ifdef strncmp_P
+#undef strncmp_P
+#endif
+#define strncmp_P(stra, strb, num) strncmp((stra), (strb), (num))
+
+#ifdef strncat_P
+#undef strncat_P
+#endif
+#define strncat_P(dest, src, num) strncat((dest), (src), (num))
+
+#ifdef strncpy_P
+#undef strncpy_P
+#endif
+#define strncpy_P(dest, src, num) strncpy((dest), (src), (num))
 
 #endif /* __PGMSPACE_H_ */
