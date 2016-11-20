@@ -300,6 +300,10 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define _SER0_IPL_ISR	IPL2SOFT
 #define	_SER0_IPL		2
 #define	_SER0_SPL		0
+#define _SER0_TX_PIN    1
+#define _SER0_RX_PIN    0
+#define _SER0_RTS_PIN   18
+#define _SER0_CTS_PIN   19
 
 /* Serial port 1 uses UART4 (aka UART1B)
 */
@@ -309,6 +313,8 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define _SER1_IPL_ISR	IPL2SOFT
 #define	_SER1_IPL		2
 #define	_SER1_SPL		0
+#define _SER1_TX_PIN    18
+#define _SER1_RX_PIN    19
 
 /* Serial port 2 uses UART2 (aka UART3A)
 */
@@ -318,6 +324,10 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define _SER2_IPL_ISR	IPL2SOFT
 #define	_SER2_IPL		2
 #define	_SER2_SPL		0
+#define _SER2_TX_PIN    16
+#define _SER2_RX_PIN    17
+#define _SER2_RTS_PIN   14
+#define _SER2_CTS_PIN   15
 
 /* Serial port 3 uses UART5 (aka UART3B)
 */
@@ -327,6 +337,8 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define _SER3_IPL_ISR	IPL2SOFT
 #define	_SER3_IPL		2
 #define	_SER3_SPL		0
+#define _SER3_TX_PIN   14
+#define _SER3_RX_PIN   15
 
 /* ------------------------------------------------------------ */
 /*					SPI Port Declarations						*/
