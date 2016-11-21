@@ -164,10 +164,25 @@ typedef uint32_t prog_uint32_t;
 #endif
 #define strnlen_P(src, maxlen) strnlen((src), (maxlen))
 
+#ifdef strcasecmp_P
+#undef strcasecmp_P
+#endif
+#define strcasecmp_P(stra, strb) strcasecmp((stra), (strb))
+
+#ifdef strcmp_P
+#undef strcmp_P
+#endif
+#define strcmp_P(stra, strb) strcmp((stra), (strb))
+
 #ifdef strncmp_P
 #undef strncmp_P
 #endif
 #define strncmp_P(stra, strb, num) strncmp((stra), (strb), (num))
+
+#ifdef strncasecmp_P
+#undef strncasecmp_P
+#endif
+#define strncasecmp_P(stra, strb, num) strncasecmp((stra), (strb), (num))
 
 #ifdef strncat_P
 #undef strncat_P
@@ -178,5 +193,16 @@ typedef uint32_t prog_uint32_t;
 #undef strncpy_P
 #endif
 #define strncpy_P(dest, src, num) strncpy((dest), (src), (num))
+
+#ifdef strtok_P
+#undef strtok_P
+#endif
+#define strtok_P(src, tok) strtok((src), (tok))
+
+#ifdef sprintf_P
+#undef sprintf_P
+#endif
+#define sprintf_P(...) sprintf(__VA_ARGS__)
+
 
 #endif /* __PGMSPACE_H_ */
