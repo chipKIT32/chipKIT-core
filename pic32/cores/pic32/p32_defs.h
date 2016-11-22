@@ -538,7 +538,7 @@ typedef struct {
     volatile p32_regbuf icxBuf;
 } p32_ic;
 
-/* Define bits in the incput capture control register
+/* Define bits in the input capture control register
 */
 #define _BN_ICCON_ON        15
 #define _BN_ICCON_FRZ       14
@@ -652,6 +652,15 @@ typedef struct {
     volatile p32_regset cnEn;
     volatile p32_regset cnPue;
 } p32_cn;
+/* Define bits in the change notice control register
+*/
+#define _BN_CNCON_ON        15
+#define _BN_CNCON_SIDL      13
+
+#define CNCON_ON            (1 << _BN_CNCON_ON)
+#define CNCON_OFF           (0)
+#define CNCON_IDLE_STOP     (1 << _BN_CNCON_SIDL)
+#define CNCON_IDLE_RUN      (0)
 
 /* This structure defines the registers for the PIC32 parallel master port.
 */
