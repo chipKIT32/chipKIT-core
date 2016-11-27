@@ -50,11 +50,11 @@
 #include "wiring_private.h"
 
 // forward reference to the ISRs
-void __attribute__((interrupt(),nomips16)) ExtInt0Handler(void);
-void __attribute__((interrupt(),nomips16)) ExtInt1Handler(void);
-void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void);
-void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void);
-void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void);
+void __USER_ISR ExtInt0Handler(void);
+void __USER_ISR ExtInt1Handler(void);
+void __USER_ISR ExtInt2Handler(void);
+void __USER_ISR ExtInt3Handler(void);
+void __USER_ISR ExtInt4Handler(void);
 
 static volatile voidFuncPtr intFunc[NUM_EXTERNAL_INTERRUPTS];
 static volatile int intmode[NUM_EXTERNAL_INTERRUPTS];
@@ -279,11 +279,7 @@ void detachInterrupt(uint8_t interruptNum)
 #ifdef PIN_INT0
 //************************************************************************
 // INT0 ISR
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_EXTERNAL_0_VECTOR),interrupt(IPL4SRS))) ExtInt0Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) ExtInt0Handler(void)
-#endif
+void __USER_ISR ExtInt0Handler(void)
 {
 	VEC_ENT_CODE(EXT_INT0,INT0IF,PIN_INT0);
 /*
@@ -307,11 +303,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt0Handler(void)
 #ifdef PIN_INT1
 //************************************************************************
 // INT1 ISR
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_EXTERNAL_1_VECTOR),interrupt(IPL4SRS))) ExtInt1Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) ExtInt1Handler(void)
-#endif
+void __USER_ISR ExtInt1Handler(void)
 {
 	VEC_ENT_CODE(EXT_INT1,INT1IF,PIN_INT1);
 /*
@@ -335,11 +327,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt1Handler(void)
 #ifdef PIN_INT2
 //************************************************************************
 // INT2 ISR
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_EXTERNAL_2_VECTOR),interrupt(IPL4SRS))) ExtInt2Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void)
-#endif
+void __USER_ISR ExtInt2Handler(void)
 {
 	VEC_ENT_CODE(EXT_INT2,INT2IF,PIN_INT2);
 /*
@@ -363,11 +351,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt2Handler(void)
 #ifdef PIN_INT3
 //************************************************************************
 // INT3 ISR
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_EXTERNAL_3_VECTOR),interrupt(IPL4SRS))) ExtInt3Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void)
-#endif
+void __USER_ISR ExtInt3Handler(void)
 {
 	VEC_ENT_CODE(EXT_INT3,INT3IF,PIN_INT3);
 /*
@@ -391,11 +375,7 @@ void __attribute__((interrupt(),nomips16)) ExtInt3Handler(void)
 #ifdef PIN_INT4
 //************************************************************************
 // INT4 ISR
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_EXTERNAL_4_VECTOR),interrupt(IPL4SRS))) ExtInt4Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) ExtInt4Handler(void)
-#endif
+void __USER_ISR ExtInt4Handler(void)
 {
 	VEC_ENT_CODE(EXT_INT4,INT4IF,PIN_INT4);
 /*
