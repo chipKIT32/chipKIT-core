@@ -280,7 +280,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
-/* Serial port 0 uses UART1 – for the serial monitor
+/* Serial port 0 uses UART1 Â– for the serial monitor
 */
 #define       _SER0_BASE           _UART1_BASE_ADDRESS
 #define       _SER0_IRQ            _UART1_ERR_IRQ
@@ -339,10 +339,10 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	_DSPI1_IPL			_SPI2_IPL_IPC
 #define	_DSPI1_SPL			_SPI2_SPL_IPC
 
-#define _DSPI0_MISO_IN		PPS_IN_SDI1
-#define _DSPI0_MISO_PIN		MISO			// These are wrong - need to figure them out
-#define _DSPI0_MOSI_OUT		PPS_OUT_SDO1
-#define _DSPI0_MOSI_PIN		MOSI			// These are wrong - need to figure them out
+#define _DSPI1_MISO_IN		PPS_IN_SDI2
+#define _DSPI1_MISO_PIN		3			        // B13 INT2R = RPB13 = 3
+#define _DSPI1_MOSI_OUT		PPS_OUT_SDO2
+#define _DSPI1_MOSI_PIN		2             // B5  INT3R = RPB5 = 1
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
