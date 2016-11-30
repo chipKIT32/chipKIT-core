@@ -594,6 +594,24 @@ void	cdcacm_register(cdcacm_reset_cbfn reset, cdcacm_storedata_cbfn storeData)
 #if defined(CDCACM_AUTOSERIAL)
 #define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
 
+#ifdef CDCACM_SER_TEMPLATE
+    char temp[15] = { CDCACM_SER_TEMPLATE };;
+    if (temp[0] == '*') temp[0] = 'C';
+    if (temp[1] == '*') temp[1] = 'K';
+    if (temp[2] == '*') temp[2] = D2H(DEVID >> 28);
+    if (temp[3] == '*') temp[3] = D2H(DEVID >> 24);
+    if (temp[4] == '*') temp[4] = D2H(DEVID >> 20);
+    if (temp[5] == '*') temp[5] = D2H(DEVID >> 16);
+    if (temp[6] == '*') temp[6] = D2H(DEVID >> 12);
+    if (temp[7] == '*') temp[7] = D2H(DEVID >> 8);
+    if (temp[8] == '*') temp[8] = D2H(DEVID >> 4);
+    if (temp[9] == '*') temp[9] = D2H(DEVID);
+    if (temp[10] == '*') temp[10] = D2H(DEVCFG3 >> 12);
+    if (temp[11] == '*') temp[11] = D2H(DEVCFG3 >> 8);
+    if (temp[12] == '*') temp[12] = D2H(DEVCFG3 >> 4);
+    if (temp[13] == '*') temp[13] = D2H(DEVCFG3);
+    temp[14] = 0;
+#else
     char temp[15];
     temp[0] = 'C';
     temp[1] = 'K';
@@ -610,6 +628,7 @@ void	cdcacm_register(cdcacm_reset_cbfn reset, cdcacm_storedata_cbfn storeData)
     temp[12] = D2H(DEVCFG3 >> 4);
     temp[13] = D2H(DEVCFG3);
     temp[14] = 0;
+#endif
     setStrings(CDCACM_MAN, CDCACM_PROD, temp);
 #else
     setStrings(CDCACM_MAN, CDCACM_PROD, CDCACM_SER);
