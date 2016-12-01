@@ -101,7 +101,7 @@
 #define NUM_SERVO			0
 
 // Set the default SPI port to the 6 pin header
-#define _SPI_PORT 0
+#define _SPI_PORT 1
 
 /* ------------------------------------------------------------ */
 /*						LED Declarations						*/
