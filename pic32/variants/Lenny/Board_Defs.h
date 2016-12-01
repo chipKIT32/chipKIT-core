@@ -66,10 +66,10 @@
 #define _USB_MANUFACTURER_      'M','a','j','e','n','k','o',' ','T','e','c','h','n','o','l','o','g','i','e','s'
 #define _USB_MANUFACTURER_LENGTH_ 20
 #ifndef _USB_VID_
-#define _USB_VID_ 0x1209
+#define _USB_VID_ 0x0403
 #endif
 #ifndef _USB_PID_
-#define _USB_PID_ 0x2600
+#define _USB_PID_ 0xa662
 #endif
 
 // Definitions for old chipKIT core
