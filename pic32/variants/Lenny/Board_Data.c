@@ -196,34 +196,34 @@ const uint16_t	digital_pin_to_bit_mask_PGM[] = {
 ** input associated with that pin.
 */
 const uint16_t	digital_pin_to_timer_PGM[] = {
-    NOT_ON_TIMER, // 0 = RC8 (RX)
-    NOT_ON_TIMER, // 1 = RC9 (TX)
-    NOT_ON_TIMER, // 2 = RB7 (INT0)
-    _TIMER_OC3,   // 3 = RC4 (INT1)
-    NOT_ON_TIMER, // 4 = RC6 (INT2)
-    _TIMER_OC2,   // 5 = RB5 (INT3)
-    _TIMER_OC1,   // 6 = RC7 (INT4)
-    NOT_ON_TIMER, // 7 = RA3
+    NOT_ON_TIMER,               // 0 = RC8 (RX)
+    NOT_ON_TIMER,               // 1 = RC9 (TX)
+    _TIMER_IC4,                 // 2 = RB7 (INT0)
+    _TIMER_OC3,                 // 3 = RC4 (INT1)
+    _TIMER_IC1,                 // 4 = RC6 (INT2)
+    _TIMER_OC2,                 // 5 = RB5 (INT3)
+    _TIMER_OC1,                 // 6 = RC7 (INT4)
+    _TIMER_IC2,                 // 7 = RA3
 
-    NOT_ON_TIMER, // 8 = RC5
-    _TIMER_OC4,   // 9 = RC3
-    _TIMER_OC5,   // 10 = RC1
-    NOT_ON_TIMER, // 11 = RB13
-    NOT_ON_TIMER, // 12 = RB1
-    NOT_ON_TIMER, // 13 = RB14
+    NOT_ON_TIMER,               // 8 = RC5
+    _TIMER_OC4,                 // 9 = RC3
+    _TIMER_OC5,                 // 10 = RC1
+    _TIMER_IC5,                 // 11 = RB13
+    _TIMER_IC3,                 // 12 = RB1
+    NOT_ON_TIMER,               // 13 = RB14
 
-    NOT_ON_TIMER, // A0 = RA1
-    NOT_ON_TIMER, // A1 = RB0
-    NOT_ON_TIMER, // A2 = RC0
-    NOT_ON_TIMER, // A3 = RC2
-    NOT_ON_TIMER, // A4 = RB2
-    NOT_ON_TIMER, // A5 = RB3
+    NOT_ON_TIMER,               // A0 = RA1
+    NOT_ON_TIMER,               // A1 = RB0
+    NOT_ON_TIMER,               // A2 = RC0
+    NOT_ON_TIMER,               // A3 = RC2
+    NOT_ON_TIMER,               // A4 = RB2
+    NOT_ON_TIMER,               // A5 = RB3
 
-    NOT_ON_TIMER, // AREF = RA0
-    NOT_ON_TIMER, // PROG = RB4
-    NOT_ON_TIMER, // L = RA10
-    NOT_ON_TIMER, // TX = RA7
-    NOT_ON_TIMER, // RX = RA8
+    NOT_ON_TIMER,               // AREF = RA0
+    NOT_ON_TIMER,               // PROG = RB4
+    NOT_ON_TIMER,               // L = RA10
+    NOT_ON_TIMER,               // TX = RA7
+    NOT_ON_TIMER,               // RX = RA8
 
     NOT_ON_TIMER,
     NOT_ON_TIMER,
