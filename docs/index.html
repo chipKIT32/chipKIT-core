@@ -4,74 +4,28 @@
     <meta charset="UTF-8">
     <title>chipKIT-core Documentation</title>
 
-    <!-- Bootstrap CDN Includes -->
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <!-- Put the next two lines in every file -->
+    <script src="js/w3data.js"></script>
+    <div w3-include-html="bootstrap_head.html"></div>
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">chipKIT-core</a>
-        </div>
+    <!-- This next line creates the menu for the site -->
+    <div w3-include-html="menu.html"></div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API (core users)<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">non-blocking analogRead()</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">core (core developers)<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Hacking the chipKIT-core</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Variants File</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Links<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="http://chipkit.net">chipKIT.net</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+    <p>
+        This site represents documentation that is version (or even commit) specific for the chipKIT-core plug for Microchip PIC32 microcontrollers.
+    <p>
+    </p>
+        If you have arrived at this documentation from a search through the internet it may or may not be what you are looking for.  If you have chipKIT-core installed on your computer the commit specific version of this document can be found in the .../docs folder of the chipKIT-core.
+    </p>
+    </p>
+        This site includes articles on using the chipKIT-core as well as modifying the chipKIT-core.
+    </p>
 
-<p>
-    This site represents documentation that is version (or even commit) specific for the chipKIT-core plug for Microchip PIC32 microcontrollers.
-<p>
-</p>
-    If you have arrived at this documentation from a search through the internet it may or may not be what you are looking for.  If you have chipKIT-core installed on your computer the commit specific version of this document can be found in the .../docs folder of the chipKIT-core.
-</p>
-</p>
-    This site includes articls on using the chipKIT-core as well as modifying the chipKIT-core.
-</p>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Put the next three lines in every html file -->
+    <script>w3IncludeHTML();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> <!-- Include all compiled plugins (below), or include individual files as needed -->
 </body>
 </html>
