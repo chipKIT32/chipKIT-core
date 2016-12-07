@@ -65,8 +65,12 @@
 #define _USB_PRODUCT_LENGTH_ 13
 #define _USB_MANUFACTURER_      'M','a','j','e','n','k','o',' ','T','e','c','h','n','o','l','o','g','i','e','s'
 #define _USB_MANUFACTURER_LENGTH_ 20
+#ifndef _USB_VID_
 #define _USB_VID_ 0x0403
+#endif
+#ifndef _USB_PID_
 #define _USB_PID_ 0xa662
+#endif
 
 // Definitions for old chipKIT core
 #define CDCACM_MAN "Majenko Technologies"
@@ -149,17 +153,17 @@
 #define	PIN_OC4		 9
 #define	PIN_OC5	    10
 
-#define PIN_IC1		 6      // RB13 IC1R = RPB13 = 3
-#define PIN_IC2		11      // B0   IC2R = RPB0  = 2
-#define PIN_IC3		 2      // B8   IC3R = RPB8  = 4
-#define PIN_IC4		14      // B3   IC4R = RPB3  = 1
-#define	PIN_IC5		13      // RB2  IC5R = RPB2  = 4
+#define PIN_IC1		 4
+#define PIN_IC2		 7
+#define PIN_IC3		12
+#define PIN_IC4		 2
+#define	PIN_IC5		11
 
-#define	PIN_TCK1	18      // A4, non PPS
-#define	PIN_TCK2	14      // B3   T2CKR = RPB3  = 1
-#define	PIN_TCK3	12      // B1   T3CKR = RPB1  = 2
-#define	PIN_TCK4	 6      // B13  T4CKR = RPB13 = 3
-#define	PIN_TCK5	 3      // B9   T5CKR = RPB9  = 4
+#define	PIN_TCK1	18
+#define	PIN_TCK2	14
+#define	PIN_TCK3	12
+#define	PIN_TCK4	 6
+#define	PIN_TCK5	 3
 
 /* ------------------------------------------------------------ */
 /*					Interrupt Pin Declarations					*/
