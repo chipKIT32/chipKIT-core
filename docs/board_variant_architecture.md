@@ -78,14 +78,15 @@ The following folder locations listed below are located within the AppData direc
 
 ```
 C:\Users\YOUR_NAME\AppData\Local\Arduino15\
-└───packages
-   └───chipKIT
-      └───Hardware
-            └───pic32
-                └───1.3.1
-                    ├───cores
-                    ├───libraries
-                    └───variants
++---packages
+   +---chipKIT
+      +---Hardware
+            +---pic32
+                +---1.3.1
+                    +---cores
+                    +---libraries
+                    +---variants
+
 ```
 
 ### ./chipKIT/hardware/pic32/x.x.x
