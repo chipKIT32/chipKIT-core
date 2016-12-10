@@ -1,5 +1,4 @@
 -   [Introduction](#introduction)
--   [Basic Operation](#basic-operation)
 -   [Folder Organization](#folder-organization)
     -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
     -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32xxxcorespic32)
@@ -76,18 +75,6 @@ The Arduino IDE is designed to allow you to extend its functionality without mod
 
 The following folder locations listed below are located within the AppData directory. The symbol x.x.x has been substituted in place of the chipKIT core version number. For example at the time of this writing the current version is 1.3.0 which would make the root path of the chipKIT core ./hardware/pic32/1.3.0/. The location of these files may vary based on your operating system. For Windows you might try looking in C:\\Users\\\[YOUR_NAME\]\\AppData\\Local\\Arduino15\\packages\\. 
 
-```
-C:\Users\YOUR_NAME\AppData\Local\Arduino15\
-+---packages
-   +---chipKIT
-      +---Hardware
-            +---pic32
-                +---1.3.1
-                    +---cores
-                    +---libraries
-                    +---variants
-
-```
 
 ### ./chipKIT/hardware/pic32/x.x.x
   
