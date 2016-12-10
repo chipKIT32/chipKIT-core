@@ -1,3 +1,7 @@
+---
+version: 1.3.1
+---
+
 -   [Introduction](#introduction)
 -   [Basic Operation](#basic-operation)
 -   [Folder Organization](#folder-organization)
@@ -62,7 +66,7 @@ Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [| Board Varia
 
 Introduction
 ------------
-
+{{ page.version }}
 The chipKIT MPIDE system has been designed to make it relatively easy to adapt the operation of the system to new hardware as boards are designed. This document describes the mechanisms used in the system to allow a board developer to describe the features of a new board to the system and allow the system to use the new board without the need to modify any of the core hardware abstraction layer code or standard libraries. The board variant mechanism makes use of a standardized folder structure and set of definition files that can be installed into the MPIDE system that adapt the system to work with new boards. In some cases, these files are distributed with the MPIDE, but board variant files can be easily added into an installation of MPIDE after it has been installed on the client computer. In addition to the board variant mechanism described here, a developer designing a new board will also need to produce a boot loader for the board. This document does not describe the process required to create a new custom boot loader from the boot loader project. This process is described in a separate document
 
 Basic Operation
