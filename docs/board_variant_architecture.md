@@ -2,7 +2,7 @@
 -   [Basic Operation](#basic-operation)
 -   [Folder Organization](#folder-organization)
     -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
-    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32x.x.xcorespic32)
+    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32xxxcorespic32)
     -   [./chipKIT/hardware/pic32/x.x.x/libraries](#user-content-chipkithardwarepic32xxxlibraries)
     -   [./chipKIT/hardware/pic32/x.x.x/variants](#user-content-chipkithardwarepic32xxxvariants)
 -   [Key Files](#key-files)
