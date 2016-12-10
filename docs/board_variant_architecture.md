@@ -1,10 +1,10 @@
 -   [Introduction](#introduction)
 -   [Basic Operation](#basic-operation)
 -   [Folder Organization](#folder-organization)
-    -   [./chipKIT/hardware/pic32/x.x.x](#chipkithardwarepic32x.x.x)
-    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#.chipkithardwarepic32x.x.xcorespic32)
-    -   [./chipKIT/hardware/pic32/x.x.x/libraries](#.chipkithardwarepic32x.x.xlibraries)
-    -   [./chipKIT/hardware/pic32/x.x.x/variants](#.chipkithardwarepic32x.x.xvariants)
+    -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
+    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32xxxcorespic32)
+    -   [./chipKIT/hardware/pic32/x.x.x/libraries](#user-content-chipkithardwarepic32xxxlibraries)
+    -   [./chipKIT/hardware/pic32/x.x.x/variants](#user-content-chipkithardwarepic32xxxvariants)
 -   [Key Files](#key-files)
     -   [boards.txt](#boards.txt)
     -   [linker scripts](#linker-scripts)
@@ -251,12 +251,12 @@ chipkit_uc32.build.variant=uC32
 ### linker scripts
 
   
-Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn’t already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
+Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isnÂ’t already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
 ### avrdude.conf
 
   
-AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn’t already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
+AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isnÂ’t already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
 
 ### p32_defs.h
 
@@ -266,7 +266,7 @@ This file contains a number of definitions for symbols describing the PIC32 hard
 ### pins_arduino.h
 
   
-This file is the primary “entry point” into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
+This file is the primary Â“entry pointÂ” into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
 
@@ -283,7 +283,7 @@ This is a board-specific header file that contains declarations for common symbo
 <span class="mw-headline" id="General_Symbol_Definitions">General Symbol Definitions</span>
 
 </h4>
-There are a number of symbols defined by the Board_Defs.h file for the board variant. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a user’s sketch to provide a portable mechanism to access resources across different boards.
+There are a number of symbols defined by the Board_Defs.h file for the board variant. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a userÂ’s sketch to provide a portable mechanism to access resources across different boards.
 
 <div style="margin-left:1.6em;">
 <h5>
@@ -299,7 +299,7 @@ The following symbols are generally used internally by the system, but they are 
 </h6>
 <dl>
 <dd>
-Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn’t strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
+Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isnÂ’t strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
 
 </dd>
 </dl>
@@ -309,13 +309,13 @@ Nominally, this symbol gives the number of digital I/O pins defined by the board
 </h6>
 <dl>
 <dd>
-This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn’t define it otherwise.
+This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesnÂ’t define it otherwise.
 
 </dd>
 </dl>
 <dl>
 <dd>
-There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don’t go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn’t go out to a connector.
+There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that donÂ’t go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesnÂ’t go out to a connector.
 
 </dd>
 </dl>
@@ -341,13 +341,13 @@ This symbol gives the number of analog inputs defined by the board variant that 
 </h6>
 <dl>
 <dd>
-Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn’t define it.
+Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesnÂ’t define it.
 
 </dd>
 </dl>
 <dl>
 <dd>
-As with digital pins, this doesn’t imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that don’t go out to a connector. There is also no implication that these “analog inputs” are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the “analog values” associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
+As with digital pins, this doesnÂ’t imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that donÂ’t go out to a connector. There is also no implication that these Â“analog inputsÂ” are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the Â“analog valuesÂ” associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
 
 </dd>
 </dl>
@@ -457,7 +457,7 @@ This gives the number of momentary contact push buttons on the board that are ac
 </h6>
 <dl>
 <dd>
-This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be “press to make, press to break” type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
+This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be Â“press to make, press to breakÂ” type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
 
 </dd>
 </dl>
@@ -549,13 +549,13 @@ These symbols give the pin numbers where the usable change notice input pins are
 </h5>
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
-The Arduino system allows two different types of values to be used to specify the analog input number as the parameter to analogRead(). Either the analog input number can be specified, or the digital pin number corresponding to the analog input can be specified. Unfortunately, this has the potential to create an ambiguity that can’t be resolved. The general presumption is that a number in the range 0 to NUM_ANALOG_PINS-1 is the analog input number and a number outside of this range is the digital pin number of the pin that shares that analog input. However, there are three actual cases that could occur: For the following discussion, assume that Ax refers to analog input x, N refers to the number of analog inputs, and D refers to the digital pin number of the first digital pin sharing an analog input. Analog inputs are always in the range Ax &gt;= 0 and Ax &lt;= N-1.
+The Arduino system allows two different types of values to be used to specify the analog input number as the parameter to analogRead(). Either the analog input number can be specified, or the digital pin number corresponding to the analog input can be specified. Unfortunately, this has the potential to create an ambiguity that canÂ’t be resolved. The general presumption is that a number in the range 0 to NUM_ANALOG_PINS-1 is the analog input number and a number outside of this range is the digital pin number of the pin that shares that analog input. However, there are three actual cases that could occur: For the following discussion, assume that Ax refers to analog input x, N refers to the number of analog inputs, and D refers to the digital pin number of the first digital pin sharing an analog input. Analog inputs are always in the range Ax &gt;= 0 and Ax &lt;= N-1.
 
 Case 1: D &gt; N: This is the usual case and the condition which the original Arduino design was intended to accommodate. There is no overlap between the range of analog input numbers, Ax, and the digital pin numbers, and there is no ambiguity.
 
-Case 2: D &lt; N, but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn’t matter because they both have the same value.
+Case 2: D &lt; N, but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesnÂ’t matter because they both have the same value.
 
-Case 3: D &lt; N, but Ax != Dx: In this case, there is an ambiguity that can’t be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
+Case 3: D &lt; N, but AxÂ != Dx: In this case, there is an ambiguity that canÂ’t be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
 
 <h5>
 <span class="mw-headline" id="SPI_Port_Pin_Declarations">SPI Port Pin Declarations</span>
@@ -610,7 +610,7 @@ Pin mapping is the process of translating from the logical digital pin numbers a
 
 All of the code in the core files is written to perform the translation from logical digital pin number or logical analog input number to the corresponding physical values (e.g., port address and bit position) using macros defined in pins_arduino.h. The default definition of these macros is provided in pins_arduino.h, but a given board variant can, and often will, override these default definitions by providing board specific definitions of some of the macros. In many cases, these macros will make use of look-up tables stored in program flash to perform the translation.
 
-The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by \#undef’ing the macro and then using
+The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by \#undefÂ’ing the macro and then using
 
 1.  define to give a new definition for the macro.
 
@@ -618,7 +618,7 @@ There are some generic pin mapping tables defined in pins_arduino.c, but the maj
 
 ### Digital Pin Mapping
 
-Digital pin mapping is the mechanism used to convert from a logical pin number as used by the digital I/O functions (e.g., pinMode(), digitalRead(), digitalWrite()) to the physical port and bit used by that logical pin as defined by the design of the board. In general, the mapping from digital pin number to port and bit is accomplished via three tables. The pin number is used as an index into the “pin to port” table. This is used to find the logical port number. There is then a “logical port number to physical port address” table that is used to convert the logical port number to the physical address of the port. The pin number is also used as an index into a “pin number to bit mask” table that provides a bit mask giving the bit within the port.
+Digital pin mapping is the mechanism used to convert from a logical pin number as used by the digital I/O functions (e.g., pinMode(), digitalRead(), digitalWrite()) to the physical port and bit used by that logical pin as defined by the design of the board. In general, the mapping from digital pin number to port and bit is accomplished via three tables. The pin number is used as an index into the Â“pin to portÂ” table. This is used to find the logical port number. There is then a Â“logical port number to physical port addressÂ” table that is used to convert the logical port number to the physical address of the port. The pin number is also used as an index into a Â“pin number to bit maskÂ” table that provides a bit mask giving the bit within the port.
 
 Once the physical base address of the port is known, a pointer variable is initialized with this address, and then a port data structure defined in p32_defs.h is used to access the appropriate physical register within the set of registers that make up the I/O port. The bit mask value is used to manipulate the appropriate bit within the register.
 
@@ -723,7 +723,7 @@ The digitalPinToBitMask() macro is used to map from the logical pin number to th
 #endif
 ```
 
-The portRegisters() macro has two definitions: one for the PIC32MX1xx/2xx series devices, and another for all other PIC32 devices. This macro maps from a logical port number to the physical base address of the port. For historical reasons, the mapping is done via a “port_to_tris” table which contains the physical address of the TRIS register for the port. On non-MX1xx/2xx devices the TRIS register is the first register in the port, and so the address of the TRIS register corresponds to the base address of the port. On the PIC32MX1xx/2xx devices, the IOPORT was redefined and the TRIS register is not the first register in the port. The PIC32MX1xx/2xx definition of the macro translates from the address of the TRIS register to the physical base address of the port.
+The portRegisters() macro has two definitions: one for the PIC32MX1xx/2xx series devices, and another for all other PIC32 devices. This macro maps from a logical port number to the physical base address of the port. For historical reasons, the mapping is done via a Â“port_to_trisÂ” table which contains the physical address of the TRIS register for the port. On non-MX1xx/2xx devices the TRIS register is the first register in the port, and so the address of the TRIS register corresponds to the base address of the port. On the PIC32MX1xx/2xx devices, the IOPORT was redefined and the TRIS register is not the first register in the port. The PIC32MX1xx/2xx definition of the macro translates from the address of the TRIS register to the physical base address of the port.
 
 ### Timer Resource Mapping Macros
 
@@ -877,7 +877,7 @@ The Uno32 board fits into this case. The analog inputs on the Uno32 are on digit
 NOT_ANALOG_PIN )
 ```
 
-This removes the default definition and provides a new definition. This definition first checks for the input value being less than 12. If the input value is less than 12, it is already the analog input number and is returned unchanged. If the input value is not less than 12, it is tested to see if it is in the range 14 to 25. If so, it is a digital pin number corresponding to an analog input and the analog input number is computed by subtracting 14. That value is then returned. If the input value isn’t in this range, then it is not a valid analog input and the value NOT_ANALOG_PIN is returned. For many boards, this form of the definition can be used and only the specific pin numbers need to be changed. The chipKIT Max32 uses a similar definition:
+This removes the default definition and provides a new definition. This definition first checks for the input value being less than 12. If the input value is less than 12, it is already the analog input number and is returned unchanged. If the input value is not less than 12, it is tested to see if it is in the range 14 to 25. If so, it is a digital pin number corresponding to an analog input and the analog input number is computed by subtracting 14. That value is then returned. If the input value isnÂ’t in this range, then it is not a valid analog input and the value NOT_ANALOG_PIN is returned. For many boards, this form of the definition can be used and only the specific pin numbers need to be changed. The chipKIT Max32 uses a similar definition:
 
 ```cpp
 #undef digitalPinToAnalog
@@ -887,7 +887,7 @@ NOT_ANALOG_PIN )
 
 The Max32 has sixteen analog input pins on digital pin 54 to 69.
 
-The second case to consider for digitalPinToAnalog() is for any board that doesn’t have the property that all analog inputs are on adjacent digital pins. In this case, a mapping table is used to make the translation. If a mapping table is used, it is called digital_pin_to_analog_PGM\[\] and the definition is placed in the Board_Data.c file for the board variant. The Digilent Cerebot MX3cK is a board that falls into this category. The following lines taken from the MX3cK Board_Defs.h and show the macro definition for this board.
+The second case to consider for digitalPinToAnalog() is for any board that doesnÂ’t have the property that all analog inputs are on adjacent digital pins. In this case, a mapping table is used to make the translation. If a mapping table is used, it is called digital_pin_to_analog_PGM\[\] and the definition is placed in the Board_Data.c file for the board variant. The Digilent Cerebot MX3cK is a board that falls into this category. The following lines taken from the MX3cK Board_Defs.h and show the macro definition for this board.
 
 ```cpp
 #undef digitalPinToAnalog
@@ -992,15 +992,15 @@ This shows that the first analog input, _BOARD_AN0 (input 0), is mapped to physi
 
 ### Mapping Logical Peripherals to Physical Peripherals
 
-There are various standard libraries that are part of the MPIDE system that are used to access various hardware peripherals in the microcontroller. These libraries provide access to “logical” I/O ports. It is necessary to configure the system to associate physical peripheral devices to be used for the logical I/O ports provided by the libraries.
+There are various standard libraries that are part of the MPIDE system that are used to access various hardware peripherals in the microcontroller. These libraries provide access to Â“logicalÂ” I/O ports. It is necessary to configure the system to associate physical peripheral devices to be used for the logical I/O ports provided by the libraries.
 
-The HardwareSerial library isn’t a library, per se, because it actually comes from the cores files, but its behavior is the same as a library that is automatically included. The HardwareSerial library creates an object instance to work with each usable UART on the board, as well as, optionally, an object instance to configure the internal USB controller as a USB serial device. The association of HardwareSerial objects with the physical UART is accomplished via the mechanism described below. There are two libraries for accessing SPI ports. The original Arduino SPI library was written in such a way that it wasn’t really feasible to extend it to work with multiple SPI ports, and so a second library, DSPI, was created for chipKIT to allow access to more than one SPI port. The SPI library accesses the “primary” SPI port. The board variant designer decides which SPI port is the primary one. If the board supports the shield interface footprint, this would be the SPI port connected to digital pins 10 to 13 and the 2x3 SPI connector on the right side of the shield connectors. If the board isn’t shield compatible, then the board designer decides which SPI port should be considered the primary one.
+The HardwareSerial library isnÂ’t a library, per se, because it actually comes from the cores files, but its behavior is the same as a library that is automatically included. The HardwareSerial library creates an object instance to work with each usable UART on the board, as well as, optionally, an object instance to configure the internal USB controller as a USB serial device. The association of HardwareSerial objects with the physical UART is accomplished via the mechanism described below. There are two libraries for accessing SPI ports. The original Arduino SPI library was written in such a way that it wasnÂ’t really feasible to extend it to work with multiple SPI ports, and so a second library, DSPI, was created for chipKIT to allow access to more than one SPI port. The SPI library accesses the Â“primaryÂ” SPI port. The board variant designer decides which SPI port is the primary one. If the board supports the shield interface footprint, this would be the SPI port connected to digital pins 10 to 13 and the 2x3 SPI connector on the right side of the shield connectors. If the board isnÂ’t shield compatible, then the board designer decides which SPI port should be considered the primary one.
 
-The DSPI library provides access to all usable SPI ports on the board. The library creates a subclass of the DSPI class and an instance of each of these subclasses for each SPI port. The DSPI0 subclass and object typically should work with the “primary” SPI port, i.e., the one that the SPI library works with. The assignment of which physical SPI ports the SPI library object and each DSPI library object uses is accomplished through the mechanism described below.
+The DSPI library provides access to all usable SPI ports on the board. The library creates a subclass of the DSPI class and an instance of each of these subclasses for each SPI port. The DSPI0 subclass and object typically should work with the Â“primaryÂ” SPI port, i.e., the one that the SPI library works with. The assignment of which physical SPI ports the SPI library object and each DSPI library object uses is accomplished through the mechanism described below.
 
 #### HardwareSerial Library
 
-The HardwareSerial object class is written to work with any PIC32 UART, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are six symbols that need to be defined for each usable UART. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the “Core Configuration Declarations” section. The following symbols need to be defined:
+The HardwareSerial object class is written to work with any PIC32 UART, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are six symbols that need to be defined for each usable UART. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the Â“Core Configuration DeclarationsÂ” section. The following symbols need to be defined:
 
 _SERx_BASE : The physical base address of the set of special function registers for the UART.  
 
@@ -1112,7 +1112,7 @@ HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IP
 
 ### SPI Library
 
-The SPIClass object class is written to work with any PIC32 SPI interface, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are eight symbols that need to be defined to configure the library to work with the SPI port. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the “Core Configuration Declarations” section. The following symbols need to be defined:
+The SPIClass object class is written to work with any PIC32 SPI interface, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are eight symbols that need to be defined to configure the library to work with the SPI port. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the Â“Core Configuration DeclarationsÂ” section. The following symbols need to be defined:
 
 _SPI_BASE : The physical base address of the set of special function registers for the SPI port.  
 
@@ -1193,7 +1193,7 @@ The following example, taken from the Board_Defs.h file for the Uno32, illustrat
 
 ### DSPI Library
 
-The DSPI library works very closely to the way that the SPI library works. The DSPI library defines a subclass of the DSPI base class for each SPI port accessible on the board. These are named DSPI0, DSPI1, etc. The DSPI0 object should refer to the “primary” hardware SPI port and refer to the same SPI hardware port that is used by the SPI standard library.
+The DSPI library works very closely to the way that the SPI library works. The DSPI library defines a subclass of the DSPI base class for each SPI port accessible on the board. These are named DSPI0, DSPI1, etc. The DSPI0 object should refer to the Â“primaryÂ” hardware SPI port and refer to the same SPI hardware port that is used by the SPI standard library.
 
 The base object class for the DSPI library is written to operate with any available SPI port using configuration parameters passed into the object constructor. These configuration values are supplied using configuration symbols defined in the Board_Defs.h file for the board variant. The following symbols are defined:
 
@@ -1244,7 +1244,7 @@ The following example, taken from the Board_Defs.h file for the Uno32, board ill
 
 ### Wire Library
 
-The wire library is used to access I2C. As with the SPI library, the Arduino wire library wasn’t written is such a way as to easily allow it to be extended to work with multiple I2C ports. The wire library works with the “primary” I2C port. The TwoWire object class in the wire library is written to work with any hardware I2C controller on the microcontroller. The wire object is configured by configuration values passed in as parameters to the constructor. There are eight symbols that are defined to be passed to the wire constructor:
+The wire library is used to access I2C. As with the SPI library, the Arduino wire library wasnÂ’t written is such a way as to easily allow it to be extended to work with multiple I2C ports. The wire library works with the Â“primaryÂ” I2C port. The TwoWire object class in the wire library is written to work with any hardware I2C controller on the microcontroller. The wire object is configured by configuration values passed in as parameters to the constructor. There are eight symbols that are defined to be passed to the wire constructor:
 
 _TWI_BASE : The physical base address of the set of special function registers for the I2C controller.  
 
@@ -1323,7 +1323,7 @@ The following example, taken from the Board_Defs.h file for the Uno32, board ill
 
 ### DTWI Library
 
-The DTWI library is intended to be analogous to the DSPI library and provide access to additional I2C controllers available on the microcontroller. At the time that this document was written, the DTWI library hasn’t been written. To allow the library to function properly when it is written, the board variant files should define the correct interface values for use by the interface objects. The configuration of the DTWI library objects will be exactly analogous to the way that DSPI objects are configured, using configuration symbols named similarly to the TWI symbols in the same way that the DSPI symbols are similar to the SPI library symbols.
+The DTWI library is intended to be analogous to the DSPI library and provide access to additional I2C controllers available on the microcontroller. At the time that this document was written, the DTWI library hasnÂ’t been written. To allow the library to function properly when it is written, the board variant files should define the correct interface values for use by the interface objects. The configuration of the DTWI library objects will be exactly analogous to the way that DSPI objects are configured, using configuration symbols named similarly to the TWI symbols in the same way that the DSPI symbols are similar to the SPI library symbols.
 
 The following example, taken from the Board_Defs.h file for the chipKIT Uno32, illustrates assigning hardware I2C controller I2C1 to be used by the DTWI0 object.
 
@@ -1341,7 +1341,7 @@ The following example, taken from the Board_Defs.h file for the chipKIT Uno32, i
 Board Extension Functions
 -------------------------
 
-The board extension functions are available for use when a board requires special processing that doesn’t fit into the normal model of how the core code for a given function behaves. This allows extending the behavior of core functions beyond the basic behavior for a given board. As an example of this kind of extension, consider a board that uses an I/O expander chip to provide additional digital I/O pins beyond the ones available on the microcontroller. The pinMode(), digitalRead(), and digitalWrite() functions in the core files have no idea how to do digital I/O through an arbitrary external I/O expander chip. The code to handle reading or writing to these additional I/O pins can be placed in the board extension functions.
+The board extension functions are available for use when a board requires special processing that doesnÂ’t fit into the normal model of how the core code for a given function behaves. This allows extending the behavior of core functions beyond the basic behavior for a given board. As an example of this kind of extension, consider a board that uses an I/O expander chip to provide additional digital I/O pins beyond the ones available on the microcontroller. The pinMode(), digitalRead(), and digitalWrite() functions in the core files have no idea how to do digital I/O through an arbitrary external I/O expander chip. The code to handle reading or writing to these additional I/O pins can be placed in the board extension functions.
 
 Another example of the board extension facility: The Arduino system uses pulse width modulation to support a pseudo-analog output facility accessed using the analogWrite() function. A board that was intended to have true analog output capability could be designed to have D/A converters for analog output. A board extension function would be used to allow analogWrite() to be used to produce true analog output via these converters.
 
@@ -1354,7 +1354,7 @@ The board extension functions are divided into logical function groups. Compilat
 -   OPT_BOARD_ANALOG_READ
 -   OPT_BOARD_ANALOG_WRITE
 
-The definition for these symbols is made in Board_Defs.h in the section following the “Internal Declarations” comment. When one of these symbols is defined to have a non-zero value, it causes the implementation of the functions in Board_Data.c to be compiled. The following code is taken from the digitalWrite() function in wiring_digital.c in the cores files. It illustrates how these board extension functions are used:
+The definition for these symbols is made in Board_Defs.h in the section following the Â“Internal DeclarationsÂ” comment. When one of these symbols is defined to have a non-zero value, it causes the implementation of the functions in Board_Data.c to be compiled. The following code is taken from the digitalWrite() function in wiring_digital.c in the cores files. It illustrates how these board extension functions are used:
 
 ```cpp
 #if (OPT_BOARD_DIGITAL_IO != 0)
@@ -1394,19 +1394,19 @@ This function is called at the beginning of the pinMode() function. It is respon
 int _board_getPinMode(uint_t pin, uint8_t * mode)
 ```
 
-This function is called at the beginning of the getPinMode() function. It is responsible for performing any board-specific setup required for the getPinMode() function, or alternatively, to perform the entire getPinMode() operation if the standard code isn’t appropriate. The returned “mode” value is returned through the pointer to mode (\*mode). The function return value is 0 if execution is to continue with the normal getPinMode() code and non-zero if the normal getPinMode() code is to be skipped.
+This function is called at the beginning of the getPinMode() function. It is responsible for performing any board-specific setup required for the getPinMode() function, or alternatively, to perform the entire getPinMode() operation if the standard code isnÂ’t appropriate. The returned Â“modeÂ” value is returned through the pointer to mode (\*mode). The function return value is 0 if execution is to continue with the normal getPinMode() code and non-zero if the normal getPinMode() code is to be skipped.
 
 ```cpp
 int _board_digitalWrite(uint8_t pin, uint8_t val)
 ```
 
-This function is called at the beginning of the digitalWrite() function. It is responsible for performing any board specific setup required for the digitalWrite() function, or alternatively, to perform the entire digitalWrite operation if the standard code isn’t appropriate. This function returns 0 if execution is to continue with the normal digitalWrite() code and non-zero if the normal digitalWrite() code is to be skipped.
+This function is called at the beginning of the digitalWrite() function. It is responsible for performing any board specific setup required for the digitalWrite() function, or alternatively, to perform the entire digitalWrite operation if the standard code isnÂ’t appropriate. This function returns 0 if execution is to continue with the normal digitalWrite() code and non-zero if the normal digitalWrite() code is to be skipped.
 
 ```cpp
 int _board_digitalRead(uint8_t pin, uint8_t * val)
 ```
 
-This function is called at the beginning of the digitalRead() function. It is responsible for performing any board specific setup required for the digitalRead() function, or alternatively, to perform the entire digitalRead() operation if the standard code isn’t appropriate. This function returns 0 if execution is to continue with the normal digitalRead() code and non-zero if the normal digitalRead() code is to be skipped.
+This function is called at the beginning of the digitalRead() function. It is responsible for performing any board specific setup required for the digitalRead() function, or alternatively, to perform the entire digitalRead() operation if the standard code isnÂ’t appropriate. This function returns 0 if execution is to continue with the normal digitalRead() code and non-zero if the normal digitalRead() code is to be skipped.
 
 ### OPT_BOARD_ANALOG_READ
 
@@ -1414,7 +1414,7 @@ This function is called at the beginning of the digitalRead() function. It is re
 int _board_analogRead(uint8_t pin, int * val)
 ```
 
-This function is called at the beginning of the analogRead() function. It is responsible for performing any board specific setup required for the analogRead() function, or alternatively, to perform the entire analogRead operation if the standard code isn’t appropriate. This returned analog value read is returned via the pointer to value provided (\*val). The function return value is 0 if execution is to continue with the normal analogRead() code or non-zero if the normal analogRead() code is to be skipped.
+This function is called at the beginning of the analogRead() function. It is responsible for performing any board specific setup required for the analogRead() function, or alternatively, to perform the entire analogRead operation if the standard code isnÂ’t appropriate. This returned analog value read is returned via the pointer to value provided (\*val). The function return value is 0 if execution is to continue with the normal analogRead() code or non-zero if the normal analogRead() code is to be skipped.
 
 ```cpp
 int _board_analogReference(uint8_t mode)
@@ -1433,17 +1433,17 @@ This function is called at the beginning of the analogWrite() function. It is re
 Peripheral Pin Select
 ---------------------
 
-Peripheral Pin Select, PPS, is a technology featured in certain chip families within the PIC32 line. PPS is currently implemented in the PIC32MX1xx and PIC32MX2xx families. The PPS technology allows peripheral input and output functions to be mapped to one of several pins rather than the fixed connection from peripheral function to pin that exists in the other PIC32 microcontroller families. This allows the board designer more flexibility in coming up with a usable set of peripherals as it is easier to avoid conflicting uses of the pins, but adds a great deal of complexity to the design of the board variant mechanism. Because of the way PPS is implemented, it is not possible to avoid using it on the chips that support it. Therefore, any board designed using a PIC32 microcontroller that supports PPS will have to deal with the peripheral pin select support in the MPIDE runtime. Refer to section 11.3, Peripheral Pin Select, in the Microchip PIC32MX1XX/2XX Family Data Sheet for more detail about the PPS mechanism while reading the following discussion about PPS. An important point to note about the PPS implementation in the board variant mechanism is that it provides a facility for the board designer to assign a default mapping of peripheral functions to pins. There are, additionally, functions available in the runtime to allow the sketch programmer to dynamically change the pin mapping, but the PPS mechanism described here allows the board designer to define the “standard” or default mapping of pins for the board.
+Peripheral Pin Select, PPS, is a technology featured in certain chip families within the PIC32 line. PPS is currently implemented in the PIC32MX1xx and PIC32MX2xx families. The PPS technology allows peripheral input and output functions to be mapped to one of several pins rather than the fixed connection from peripheral function to pin that exists in the other PIC32 microcontroller families. This allows the board designer more flexibility in coming up with a usable set of peripherals as it is easier to avoid conflicting uses of the pins, but adds a great deal of complexity to the design of the board variant mechanism. Because of the way PPS is implemented, it is not possible to avoid using it on the chips that support it. Therefore, any board designed using a PIC32 microcontroller that supports PPS will have to deal with the peripheral pin select support in the MPIDE runtime. Refer to section 11.3, Peripheral Pin Select, in the Microchip PIC32MX1XX/2XX Family Data Sheet for more detail about the PPS mechanism while reading the following discussion about PPS. An important point to note about the PPS implementation in the board variant mechanism is that it provides a facility for the board designer to assign a default mapping of peripheral functions to pins. There are, additionally, functions available in the runtime to allow the sketch programmer to dynamically change the pin mapping, but the PPS mechanism described here allows the board designer to define the Â“standardÂ” or default mapping of pins for the board.
 
 On the microcontrollers where PPS is implemented, only some of the pins support PPS. Some peripheral functions are not able to be remapped at all, and within peripherals that are able to be remapped, not all of the signals associated with the peripheral can be remapped. For example, analog functions are not remappable using the PPS mechanism. All analog inputs, both A/D converter inputs, and analog comparator inputs have fixed pin assignments. The I2C bus has special drive requirements so that the I2C pins are not able to be remapped. On the PIC32MX1xx and 2xx devices, the SPI clock inputs are not reassignable. There are also limits on the total number of pins that can support PPS, and so on larger pin-count packages, some digital pins are not part of the PPS mechanism.
 
-The implementation of PPS involves the use of multiplexers. For output functions, e.g., a UART TX signal, there are mux’es at the pins, allowing a selection to be made for one of several output signals to be assigned to that pin. For input functions, e.g., a UART RX signal, there are mux’es at the peripheral inputs allowing a selection of one of several pins to be the source of that signal into the peripheral. For each of these mux’es, there is a register into which a selection value is loaded to specify the output function to be assigned to the pin or the pin to be assigned to the input function. There is a selection register for each mux. For outputs, there is a selection register associated with each pin that has PPS output capability. For inputs, there is a selection register for each peripheral input function that has PPS input capability. On all PIC32 microcontrollers, there are pins and peripheral functions that are not PPS capable, and therefore not able to be reassigned.
+The implementation of PPS involves the use of multiplexers. For output functions, e.g., a UART TX signal, there are muxÂ’es at the pins, allowing a selection to be made for one of several output signals to be assigned to that pin. For input functions, e.g., a UART RX signal, there are muxÂ’es at the peripheral inputs allowing a selection of one of several pins to be the source of that signal into the peripheral. For each of these muxÂ’es, there is a register into which a selection value is loaded to specify the output function to be assigned to the pin or the pin to be assigned to the input function. There is a selection register for each mux. For outputs, there is a selection register associated with each pin that has PPS output capability. For inputs, there is a selection register for each peripheral input function that has PPS input capability. On all PIC32 microcontrollers, there are pins and peripheral functions that are not PPS capable, and therefore not able to be reassigned.
 
 The PPS capable pins are divided up into four disjoint sets. For input, peripheral input functions are partitioned between these four pin sets. So, for example, external interrupt input INT4 can be assigned to take its input from one of eight pins. Similarly, external interrupt input INT3 can be assigned to take its input from one of eight pins, but they are a different set of pins than the ones for INT4. The PIC32MX1XX/2XX data sheets shows that there are an additional eight selection values that are reserved for future use in each pin set, so presumably, some future PIC32 device will divide the PPS capable pins into four sets of sixteen rather than four sets of eight.
 
 For peripheral output, the output functions are divided into four sets for association with the pin sets, but the peripheral output sets are not disjoint. In some cases, a given peripheral output function appears in more than one set, allowing some outputs to be routed to one of sixteen pins rather than just one of eight pins. As with the inputs, the data sheet shows eight additional reserved values for each set, so some future PIC32 device will, presumably, allow mapping up to sixteen different peripheral outputs to each PPS output pin.
 
-As an example of PPS input mapping, consider external interrupt INT4. There is an input selection register associated with this peripheral input called INT4R. To map INT4 to take its input from the pin associated with PORT B, bit 3, the value 0b0001 is loaded into INT4R. Similarly, for mapping an output, again consider PORT B, bit 3. There is an output selection register associated with this pin called RPB3R. To map the output signal OC1 (output compare 1) to this pin, the value 0b0101 is loaded into RPB3R. Obviously, one wouldn’t do both of these at the same time as this would produce a pin conflict. To configure a pin for general purpose output, the value 0b0000 is loaded into the output selection register for the pin. This value is described as “No Connect” in Table 11-2, Output Pin Selection, in the Microchip data sheet.
+As an example of PPS input mapping, consider external interrupt INT4. There is an input selection register associated with this peripheral input called INT4R. To map INT4 to take its input from the pin associated with PORT B, bit 3, the value 0b0001 is loaded into INT4R. Similarly, for mapping an output, again consider PORT B, bit 3. There is an output selection register associated with this pin called RPB3R. To map the output signal OC1 (output compare 1) to this pin, the value 0b0101 is loaded into RPB3R. Obviously, one wouldnÂ’t do both of these at the same time as this would produce a pin conflict. To configure a pin for general purpose output, the value 0b0000 is loaded into the output selection register for the pin. This value is described as Â“No ConnectÂ” in Table 11-2, Output Pin Selection, in the Microchip data sheet.
 
 It is important to keep in mind that for peripheral output functions, the mux is at the pin and the selection register is associated with the pin; for peripheral input functions, the mux is at the peripheral input and the selection register is associated with the peripheral input function. The PIC32 special function registers associated with PPS input selection are a set of 32-bit registers that appear in memory starting at the address of INT1R (virtual address 0xBF80FA04). This value is defined in the processor-specific header file for each particular processor, although all current processors have all of these registers at the same addresses. It is important to note that this set of SFRs is not continuous.
 
@@ -1457,7 +1457,7 @@ The PPS portion of the board variant mechanism makes use of a large number of sy
 
 #### Function: boolean mapPps(uint8_t pin, ppsFunctionType func)
 
-The primary run-time interface between the sketch or libraries and the PPS mechanism is the function mapPps(). This function takes the pin number and the function to be mapped. If the mapping is valid, it performs the mapping and returns true. If the mapping is invalid and can’t be performed, it returns false.
+The primary run-time interface between the sketch or libraries and the PPS mechanism is the function mapPps(). This function takes the pin number and the function to be mapped. If the mapping is valid, it performs the mapping and returns true. If the mapping is invalid and canÂ’t be performed, it returns false.
 
 The mapPps() function is defined in wiring.c in the cores folder. Most of the code is involved in error checking and makes use of the PPS macros for its operation.
 
@@ -1582,7 +1582,7 @@ The PPS_OUT_xxx values are made up of a selection value for the function itself 
 
 The PPS_IN_xxx values are made up of an index value for the function and the set membership. The input functions additionally have the _PPS_INPUT_BIT set to indicate that they are input functions. As with the PPS_OUT_xxx symbols, the set membership bits are used by the mapPps() function for error checking. The _PPS_INPUT_BIT is used by the mapPps() function to determine whether the function being mapped is an input or an output. The process of mapping an input is different than that of mapping an output.
 
-The index field contained within the PPS_IN_xxx values gives the index within the “array” of special function registers. The PIC32 special function registers are all memory mapped, and the range of memory addresses making up the PPS input registers can be viewed as an array in memory (see Table 4-22 in the PIC32MX1XX/2XX Family Data Sheet). The index value is used to compute the memory address of the corresponding PPS input mapping register. Note that there are holes in the range of addresses.
+The index field contained within the PPS_IN_xxx values gives the index within the Â“arrayÂ” of special function registers. The PIC32 special function registers are all memory mapped, and the range of memory addresses making up the PPS input registers can be viewed as an array in memory (see Table 4-22 in the PIC32MX1XX/2XX Family Data Sheet). The index value is used to compute the memory address of the corresponding PPS input mapping register. Note that there are holes in the range of addresses.
 
 The PPS input mapping registers are not a contiguous sequence of registers.
 
@@ -1774,7 +1774,7 @@ _PPS_OUT(_PPS_RPB5R), // 0 J4-1 RB5 TMS/RPB5/USBID/RB5
 
 This is the first entry in the table for the chipKIT DP32 board, and is the mapping associated with digital pin 0. On this board, digital pin 0 is connected to the pin associated with Port B, bit 5. Note that the _PPS_OUT macro is used to define the table entry, and the value being defined is the value that specifies the index of the output mapping register (i.e., _PPS_RPB5R).
 
-Some pins are not PPS capable, and in the case where the pin isn’t capable of PPS operation, or the pin is undefined for some other reason, the following table entry is used:
+Some pins are not PPS capable, and in the case where the pin isnÂ’t capable of PPS operation, or the pin is undefined for some other reason, the following table entry is used:
 
 ```cpp
 NOT_PPS_PIN,
