@@ -224,15 +224,6 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 <h4>
-	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		
-	</dd>
-</dl>
-
-<h4>
 	<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
 </h4>
 <dl>
