@@ -118,7 +118,6 @@ chipkit_uc32.group=chipKIT
 # new items
 chipkit_uc32.platform=pic32
 chipkit_uc32.build.board=_BOARD_UC32_
-chipkit_uc32.ccflags=ffff
 chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 chipkit_uc32.compiler.c.extra_flags=-G1024
@@ -131,14 +130,6 @@ chipkit_uc32.upload.maximum_data_size=16384
 chipkit_uc32.upload.speed=115200
 chipkit_uc32.upload.tool=pic32prog
 
-chipkit_uc32.bootloader.low_fuses=0xff
-chipkit_uc32.bootloader.high_fuses=0xdd
-chipkit_uc32.bootloader.extended_fuses=0x00
-#chipkit_uc32.bootloader.path=not-supported
-#chipkit_uc32.bootloader.file=not-supported
-chipkit_uc32.bootloader.unlock_bits=0x3F
-chipkit_uc32.bootloader.lock_bits=0x0F
-
 chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
 chipkit_uc32.build.core=pic32
@@ -147,7 +138,7 @@ chipkit_uc32.build.variant=uC32
 ############################################################
 </pre>
 
-Below list each key used in the boards.txt file and what its corresponding function is. Note that the lines beginning with # are commented out. 
+The list below shows each key used in the boards.txt file and what its corresponding function is.. Note that the lines beginning with # are commented out. 
 
 <h4>
     <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
@@ -166,15 +157,6 @@ Below list each key used in the boards.txt file and what its corresponding funct
 <dl>
 	<dd style="margin-left:3.2em;">
 		This provides the name for the submenu under which the board should appear on the Tools-&gt;Boards menu.
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.ccflags</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
 	</dd>
 </dl>
 
@@ -206,129 +188,11 @@ Below list each key used in the boards.txt file and what its corresponding funct
 </dl>
 
 <h4>
-	<span class="mw-headline" id="xxx.compiler.c.extra_flags" style="margin-left:1.6em;">xxx.compiler.c.extra_flags</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.compiler.cpp.extra_flags" style="margin-left:1.6em;">xxx.compiler.cpp.extra_flags</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.upload.protocol" style="margin-left:1.6em;">xxx.upload.protocol</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
 	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
 		This specifies the amount of useable program memory on the microcontroller.
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.upload.speed" style="margin-left:1.6em;">xxx.upload.speed</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.upload.tool" style="margin-left:1.6em;">xxx.upload.tool</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.low_fuses" style="margin-left:1.6em;">xxx.bootloader.low_fuses</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.high_fuses" style="margin-left:1.6em;">xxx.bootloader.high_fuses</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.extended_fuses" style="margin-left:1.6em;">xxx.bootloader.extended_fuses</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.path" style="margin-left:1.6em;">xxx.bootloader.path</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.file" style="margin-left:1.6em;">xxx.bootloader.file</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.unlock_bits" style="margin-left:1.6em;">xxx.bootloader.unlock_bits</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.bootloader.lock_bits" style="margin-left:1.6em;">xxx.bootloader.lock_bits</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
 	</dd>
 </dl>
 
@@ -347,15 +211,6 @@ Below list each key used in the boards.txt file and what its corresponding funct
 <dl>
 	<dd style="margin-left:3.2em;">
 		This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
-	</dd>
-</dl>
-
-<h4>
-	<span class="mw-headline" id="xxx.build.core" style="margin-left:1.6em;">xxx.build.core</span>
-</h4>
-<dl>
-	<dd style="margin-left:3.2em;">
-		Definition Coming Soon...
 	</dd>
 </dl>
 
