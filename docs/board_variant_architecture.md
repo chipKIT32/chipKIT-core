@@ -105,14 +105,14 @@ The following data files are significant to the board variant mechanism:
 The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. You may also notice that there are also boards.txt files in the board variant folders. These are for use with the legacy MPIDE and are not needed with the Arduino IDE. 
   
 Each board entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
-  
-The best procedure is for a board variant developer to copy an existing boards.txt entry and then edit it to modify the entries that need to be given unique values for the board variant. Each parameter contains the board name as part of the parameter name. This part will have to be edited on each line of the new entry. In the description below the value xxx is a place holder for the board name. The following boards.txt configuration values may need to be changed:
 
 <h4>
 <span class="mw-headline" id="Example" style="margin-left:1.6em;">Example</span>
 </h4>
 <span style="margin-left:3.2em;">
-The following example is taken from the default boards.txt file and is the entry for the chipKIT uC32 board:
+The best procedure is for a board variant developer to copy an existing boards.txt entry and modify it. In the example below the prefix 'chipkit_uc32' is unique to a particular board variant. When you create a new board, you will write a similar section and add it to 'boards.txt', with 'yourboard' in place of 'chipkit_uc32' at the beginning of each string, then modify the description accordingly. Common practice is to make your unique identifier similar to the name of your board.
+
+The following example is taken from the boards.txt file and is the entry for the chipKIT uC32 board:
 </span>
 
 <pre style="margin-left:3.2em;" >
