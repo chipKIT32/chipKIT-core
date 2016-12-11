@@ -71,14 +71,14 @@ To follow along with this document you will need to have the chipKIT Core instal
 Folder Organization
 -------------------
 
-The Arduino IDE is designed to allow you to extend its functionality without modifiying its installation directory. In addition to the installation directory you also have a Sketchbook directory and an Applications Data(AppData) directory. The sketchbook directory is where the end user might store their sketches whereas the chipKIT Core gets installed in the AppData directory.
+The Arduino IDE is designed to allow you to extend its functionality without modifiying its installation directory. In addition to the installation directory you also have a Sketchbook directory and an Applications Data(AppData) directory. The sketchbook directory is where the end user might store their sketches, whereas the chipKIT Core gets installed in the AppData directory.
 
-The following folder locations listed below are located within the AppData directory. The symbol x.x.x has been substituted in place of the chipKIT core version number. For example at the time of this writing the current version is 1.3.0 which would make the root path of the chipKIT core ./hardware/pic32/1.3.0/. The location of these files may vary based on your operating system. For Windows you might try looking in C:\\Users\\\[YOUR_NAME\]\\AppData\\Local\\Arduino15\\packages\\. 
+The following folders listed below are located within the AppData directory. The symbol x.x.x has been substituted in place of the chipKIT core version number. For example at the time of this writing the version is 1.3.1. This would make the root path of the chipKIT core ./hardware/pic32/1.3.1/. The location of these files may vary based on your operating system. For Windows try looking in C:\\Users\\\[YOUR_NAME\]\\AppData\\Local\\Arduino15\\packages\\. 
 
 
 ### ./chipKIT/hardware/pic32/x.x.x
   
-This is the root folder of the PIC32/chipKIT platform within the MPIDE system. The default boards.txt file, platforms.txt, file and bootloaders.txt file is located here.
+This is the root folder of the PIC32/chipKIT platform. The default boards.txt, platforms.txt, and bootloaders.txt files are located here.
 
 ### ./chipKIT/hardware/pic32/x.x.x/cores/pic32
 
