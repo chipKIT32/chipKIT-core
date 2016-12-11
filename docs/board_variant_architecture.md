@@ -170,6 +170,15 @@ Below list each key used in the boards.txt file and what its corresponding funct
 </dl>
 
 <h4>
+	<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.ccflags</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
 	<span class="mw-headline" id="xxx.platform" style="margin-left:1.6em;">xxx.platform</span>
 </h4>
 <dl>
@@ -197,11 +206,129 @@ Below list each key used in the boards.txt file and what its corresponding funct
 </dl>
 
 <h4>
+	<span class="mw-headline" id="xxx.compiler.c.extra_flags" style="margin-left:1.6em;">xxx.compiler.c.extra_flags</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.compiler.cpp.extra_flags" style="margin-left:1.6em;">xxx.compiler.cpp.extra_flags</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.protocol" style="margin-left:1.6em;">xxx.upload.protocol</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
 	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
 		This specifies the amount of useable program memory on the microcontroller.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.speed" style="margin-left:1.6em;">xxx.upload.speed</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.tool" style="margin-left:1.6em;">xxx.upload.tool</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.low_fuses" style="margin-left:1.6em;">xxx.bootloader.low_fuses</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.high_fuses" style="margin-left:1.6em;">xxx.bootloader.high_fuses</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.extended_fuses" style="margin-left:1.6em;">xxx.bootloader.extended_fuses</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.path" style="margin-left:1.6em;">xxx.bootloader.path</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.file" style="margin-left:1.6em;">xxx.bootloader.file</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.unlock_bits" style="margin-left:1.6em;">xxx.bootloader.unlock_bits</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.bootloader.lock_bits" style="margin-left:1.6em;">xxx.bootloader.lock_bits</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
 	</dd>
 </dl>
 
@@ -220,6 +347,15 @@ Below list each key used in the boards.txt file and what its corresponding funct
 <dl>
 	<dd style="margin-left:3.2em;">
 		This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.build.core" style="margin-left:1.6em;">xxx.build.core</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Definition Coming Soon...
 	</dd>
 </dl>
 
