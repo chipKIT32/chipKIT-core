@@ -197,6 +197,42 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 <h4>
+	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		This specifies the max amount of space useable for dynamic memory (variables). The Arduino IDE will tell you at compile time how much of memory is being used by the current sketch.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.speed" style="margin-left:1.6em;">xxx.upload.speed</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Required for programming. Don't change this as it must agree with the bootloader.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.tool" style="margin-left:1.6em;">xxx.upload.tool</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Required for programming. Don't change this.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		
+	</dd>
+</dl>
+
+<h4>
 	<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
 </h4>
 <dl>
