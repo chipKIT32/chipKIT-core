@@ -103,14 +103,8 @@ The following data files are significant to the board variant mechanism:
 
   
 The boards.txt file contains information used by the MPIDE system to determine basic things about the board, such as which compiler tool chain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. The boards.txt entries are used to populate the list of known boards. There is a boards.txt file in the folder: /hardware/pic32/x.x.x/. There can also be a boards.txt file in the board variant folder. MPIDE will scan all folders contained within the ./hardware/pic32/variants folder looking for files named boards.txt. These entries are used to populate the list of boards available on the Tools-&gt;Boards menu. Each one found is read and its contents added to the list of known boards.
-
-<!-- -->
-
   
 Each board entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
-
-<!-- -->
-
   
 The best procedure is for a board variant developer to copy an existing boards.txt entry and then edit it to modify the entries that need to be given unique values for the board variant. Each parameter contains the board name as part of the parameter name. This part will have to be edited on each line of the new entry. In the description below the value xxx is a place holder for the board name. The following boards.txt configuration values may need to be changed:
 
