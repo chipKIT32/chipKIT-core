@@ -90,7 +90,7 @@ This folder is the root for where the standard libraries are stored. Within this
 
 ### ./chipKIT/hardware/pic32/x.x.x/variants
   
-This folder is the root for where the board variant files are stored. Within this folder is a separate folder for each board variant. The subfolders at this location are named for each board variant.
+This folder is the root for where the board variant files are stored. Within this folder is a separate folder for each board variant. The subfolders at this location are named for each board variant. 
 
 Key Files
 ---------
