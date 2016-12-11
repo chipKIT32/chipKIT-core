@@ -255,7 +255,7 @@ This file contains a number of definitions for symbols describing the PIC32 hard
 ### pins_arduino.h
 
   
-This file is the primary “entry point” into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
+This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
 
