@@ -102,51 +102,52 @@ The following data files are significant to the board variant mechanism:
 ### boards.txt
 
   
-The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. You may also notice that there are also boards.txt files in the board variant folders. These are for use with the legacy MPIDE and are not needed with the Arduino IDE. 
+The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
   
-Each board entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
+Each board variant entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
 
-<h4>
-<span class="mw-headline" id="Example" style="margin-left:1.6em;">Example</span>
-</h4>
-<span style="margin-left:3.2em;">
-The best procedure is for a board variant developer to copy an existing boards.txt entry and modify it. In the example below the prefix 'chipkit_uc32' is unique to a particular board variant. When you create a new board, you will write a similar section and add it to 'boards.txt', with 'yourboard' in place of 'chipkit_uc32' at the beginning of each string, then modify the description accordingly. Common practice is to make your unique identifier similar to the name of your board.
+The best procedure is for a board variant developer to copy an existing boards.txt entry and paste it as a new entry in the boards.txt file. You'll then need to modify it to meet your needs. In the example below the prefix 'chipkit_uc32' is unique to a particular board variant. This prefix is known as the board ID. When you create a new board variant entry, you will replace 'chipkit_uc32' at the beginning of each string with 'your_board' Then modify the entries as necessary. Common practice is to make your unique identifier the name of your board. 
 
 The following example is taken from the boards.txt file and is the entry for the chipKIT uC32 board:
-</span>
 
 <pre style="margin-left:3.2em;" >
 ############################################################
 chipkit_uc32.name=chipKIT uC32
 chipkit_uc32.group=chipKIT
+
 # new items
 chipkit_uc32.platform=pic32
-chipkit_uc32.board=_BOARD_UC32_
-chipkit_uc32.board.define=
+chipkit_uc32.build.board=_BOARD_UC32_
 chipkit_uc32.ccflags=ffff
 chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_uc32.compiler.c.extra_flags=-G1024
+chipkit_uc32.compiler.cpp.extra_flags=-G1024
 # end of new items
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_uc32.compiler.c.flags=-O2::-c::-mno-smart-io::-w::-ffunction-sections::-fdatasections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
-chipkit_uc32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunctionsections::-fdata-sections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
+
 chipkit_uc32.upload.protocol=stk500v2
 chipkit_uc32.upload.maximum_size=520192
+chipkit_uc32.upload.maximum_data_size=16384
 chipkit_uc32.upload.speed=115200
+chipkit_uc32.upload.tool=pic32prog
+
 chipkit_uc32.bootloader.low_fuses=0xff
 chipkit_uc32.bootloader.high_fuses=0xdd
 chipkit_uc32.bootloader.extended_fuses=0x00
-chipkit_uc32.bootloader.path=not-supported
-chipkit_uc32.bootloader.file=not-supported
+#chipkit_uc32.bootloader.path=not-supported
+#chipkit_uc32.bootloader.file=not-supported
 chipkit_uc32.bootloader.unlock_bits=0x3F
 chipkit_uc32.bootloader.lock_bits=0x0F
+
 chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
 chipkit_uc32.build.core=pic32
 chipkit_uc32.build.variant=uC32
-#chipkit_uc32.upload.using=
+
+############################################################
 </pre>
+
+Below list each key used in the boards.txt file and what its corresponding function is. Note that the lines beginning with # are commented out. 
 
 <h4>
     <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
@@ -160,82 +161,76 @@ chipkit_uc32.build.variant=uC32
 </dl>
 
 <h4>
-<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.group</span>
+	<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.group</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This provides the name for the submenu under which the board should appear on the Tools-&gt;Boards menu.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This provides the name for the submenu under which the board should appear on the Tools-&gt;Boards menu.
+	</dd>
 </dl>
+
 <h4>
-<span class="mw-headline" id="xxx.platform" style="margin-left:1.6em;">xxx.platform</span>
+	<span class="mw-headline" id="xxx.platform" style="margin-left:1.6em;">xxx.platform</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This tells the MPIDE which platform is used by this board. This sets which compiler tool chain and run-time implementation is used by the board. All chipKIT boards should use pic32.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This tells the Arduino IDE which platform is used by this board. This sets which compiler toolchain and run-time implementation is used by the board. All chipKIT boards should use pic32.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.board" style="margin-left:1.6em;">xxx.board</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.build.board" style="margin-left:1.6em;">xxx.build.board</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This defines a symbol for the compilation that board-specific sketch code can use to identify when the sketch is being compiled for a particular target board.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This defines a symbol for the compilation that board-specific sketch code can use to identify when the sketch is being compiled for a particular target board.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.ldscript" style="margin-left:1.6em;">xxx.ldscript</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.ldscript" style="margin-left:1.6em;">xxx.ldscript</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This identifies the linker script to be used when building a sketch for the board.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This identifies the linker script to be used when building a sketch for the board.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This specifies the amount of useable program memory on the microcontroller.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This specifies the amount of useable program memory on the microcontroller.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This identifies the particular microcontroller used on the board.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This identifies the particular microcontroller used on the board.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.build.f_cpu" style="margin-left:1.6em;">xxx.build.f_cpu</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.build.f_cpu" style="margin-left:1.6em;">xxx.build.f_cpu</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
-
-</dd>
+	<dd style="margin-left:3.2em;">
+		This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
+	</dd>
 </dl>
-<h4>
-<span class="mw-headline" id="xxx.build.variant" style="margin-left:1.6em;">xxx.build.variant</span>
 
+<h4>
+	<span class="mw-headline" id="xxx.build.variant" style="margin-left:1.6em;">xxx.build.variant</span>
 </h4>
 <dl>
-<dd style="margin-left:3.2em;">
-This identifies the board variant to be used when building for this board. This causes the specified variant folder for the board to be on the include list so that the correct board variant files will be available when building a sketch for the board.
+	<dd style="margin-left:3.2em;">
+		This identifies the board variant to be used when building for this board. This causes the specified variant folder for the board to be on the include list so that the correct board variant files will be available when building a sketch for the board.
 
-</dd>
+	</dd>
 </dl>
 
 ### linker scripts
