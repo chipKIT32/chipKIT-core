@@ -95,18 +95,58 @@ This folder is the root for where the board variant files are stored. Within thi
 Key Files
 ---------
 
-There are a number of files that make up the board variant mechanism or that define symbols, macros, and data tables used by the board variant mechanism. The files: p32_defs.h, pins_arduino.h, and pins_arduino.c are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
+There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: p32_defs.h, pins_arduino.h, and pins_arduino.c are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
 ### boards.txt
 
   
-The boards.txt file contains information used by the MPIDE system to determine basic things about the board, such as which compiler tool chain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. The boards.txt entries are used to populate the list of known boards. There is a boards.txt file in the folder: /hardware/pic32/x.x.x/. There can also be a boards.txt file in the board variant folder. MPIDE will scan all folders contained within the ./hardware/pic32/variants folder looking for files named boards.txt. These entries are used to populate the list of boards available on the Tools-&gt;Boards menu. Each one found is read and its contents added to the list of known boards.
+The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. You may also notice that there are also boards.txt files in the board variant folders. These are for use with the legacy MPIDE and are not needed with the Arduino IDE. 
   
 Each board entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
   
 The best procedure is for a board variant developer to copy an existing boards.txt entry and then edit it to modify the entries that need to be given unique values for the board variant. Each parameter contains the board name as part of the parameter name. This part will have to be edited on each line of the new entry. In the description below the value xxx is a place holder for the board name. The following boards.txt configuration values may need to be changed:
+
+<h4>
+<span class="mw-headline" id="Example" style="margin-left:1.6em;">Example</span>
+</h4>
+<span style="margin-left:3.2em;">
+The following example is taken from the default boards.txt file and is the entry for the chipKIT uC32 board:
+</span>
+
+<pre style="margin-left:3.2em;" >
+############################################################
+chipkit_uc32.name=chipKIT uC32
+chipkit_uc32.group=chipKIT
+# new items
+chipkit_uc32.platform=pic32
+chipkit_uc32.board=_BOARD_UC32_
+chipkit_uc32.board.define=
+chipkit_uc32.ccflags=ffff
+chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
+# end of new items
+# Use a high -Gnum for devices that have less than 64K of data memory
+# For -G1024, objects 1024 bytes or smaller will be accessed by
+# gp-relative addressing
+chipkit_uc32.compiler.c.flags=-O2::-c::-mno-smart-io::-w::-ffunction-sections::-fdatasections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
+chipkit_uc32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunctionsections::-fdata-sections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
+chipkit_uc32.upload.protocol=stk500v2
+chipkit_uc32.upload.maximum_size=520192
+chipkit_uc32.upload.speed=115200
+chipkit_uc32.bootloader.low_fuses=0xff
+chipkit_uc32.bootloader.high_fuses=0xdd
+chipkit_uc32.bootloader.extended_fuses=0x00
+chipkit_uc32.bootloader.path=not-supported
+chipkit_uc32.bootloader.file=not-supported
+chipkit_uc32.bootloader.unlock_bits=0x3F
+chipkit_uc32.bootloader.lock_bits=0x0F
+chipkit_uc32.build.mcu=32MX340F512H
+chipkit_uc32.build.f_cpu=80000000L
+chipkit_uc32.build.core=pic32
+chipkit_uc32.build.variant=uC32
+#chipkit_uc32.upload.using=
+</pre>
 
 <h4>
     <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
@@ -197,45 +237,6 @@ This identifies the board variant to be used when building for this board. This 
 
 </dd>
 </dl>
-<h4>
-<span class="mw-headline" id="Example" style="margin-left:1.6em;">Example</span>
-</h4>
-<span style="margin-left:3.2em;">
-The following example is taken from the default boards.txt file and is the entry for the chipKIT uC32 board:
-</span>
-
-<pre style="margin-left:3.2em;" >
-############################################################
-chipkit_uc32.name=chipKIT uC32
-chipkit_uc32.group=chipKIT
-# new items
-chipkit_uc32.platform=pic32
-chipkit_uc32.board=_BOARD_UC32_
-chipkit_uc32.board.define=
-chipkit_uc32.ccflags=ffff
-chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
-# end of new items
-# Use a high -Gnum for devices that have less than 64K of data memory
-# For -G1024, objects 1024 bytes or smaller will be accessed by
-# gp-relative addressing
-chipkit_uc32.compiler.c.flags=-O2::-c::-mno-smart-io::-w::-ffunction-sections::-fdatasections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
-chipkit_uc32.compiler.cpp.flags=-O2::-c::-mno-smart-io::-w::-fno-exceptions::-ffunctionsections::-fdata-sections::-G1024::-g::-mdebugger::-Wcast-align::-fno-short-double
-chipkit_uc32.upload.protocol=stk500v2
-chipkit_uc32.upload.maximum_size=520192
-chipkit_uc32.upload.speed=115200
-chipkit_uc32.bootloader.low_fuses=0xff
-chipkit_uc32.bootloader.high_fuses=0xdd
-chipkit_uc32.bootloader.extended_fuses=0x00
-chipkit_uc32.bootloader.path=not-supported
-chipkit_uc32.bootloader.file=not-supported
-chipkit_uc32.bootloader.unlock_bits=0x3F
-chipkit_uc32.bootloader.lock_bits=0x0F
-chipkit_uc32.build.mcu=32MX340F512H
-chipkit_uc32.build.f_cpu=80000000L
-chipkit_uc32.build.core=pic32
-chipkit_uc32.build.variant=uC32
-#chipkit_uc32.upload.using=
-</pre>
 
 ### linker scripts
 
