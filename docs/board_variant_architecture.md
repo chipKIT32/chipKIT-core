@@ -240,12 +240,12 @@ chipkit_uc32.build.variant=uC32
 ### linker scripts
 
   
-Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn’t already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
+Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
 ### avrdude.conf
 
   
-AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn’t already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
+AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn't already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
 
 ### p32_defs.h
 
@@ -288,7 +288,7 @@ The following symbols are generally used internally by the system, but they are 
 </h6>
 <dl>
 <dd>
-Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn’t strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
+Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
 
 </dd>
 </dl>
@@ -866,7 +866,7 @@ The Uno32 board fits into this case. The analog inputs on the Uno32 are on digit
 NOT_ANALOG_PIN )
 ```
 
-This removes the default definition and provides a new definition. This definition first checks for the input value being less than 12. If the input value is less than 12, it is already the analog input number and is returned unchanged. If the input value is not less than 12, it is tested to see if it is in the range 14 to 25. If so, it is a digital pin number corresponding to an analog input and the analog input number is computed by subtracting 14. That value is then returned. If the input value isn’t in this range, then it is not a valid analog input and the value NOT_ANALOG_PIN is returned. For many boards, this form of the definition can be used and only the specific pin numbers need to be changed. The chipKIT Max32 uses a similar definition:
+This removes the default definition and provides a new definition. This definition first checks for the input value being less than 12. If the input value is less than 12, it is already the analog input number and is returned unchanged. If the input value is not less than 12, it is tested to see if it is in the range 14 to 25. If so, it is a digital pin number corresponding to an analog input and the analog input number is computed by subtracting 14. That value is then returned. If the input value isn't in this range, then it is not a valid analog input and the value NOT_ANALOG_PIN is returned. For many boards, this form of the definition can be used and only the specific pin numbers need to be changed. The chipKIT Max32 uses a similar definition:
 
 ```cpp
 #undef digitalPinToAnalog
@@ -983,7 +983,7 @@ This shows that the first analog input, _BOARD_AN0 (input 0), is mapped to physi
 
 There are various standard libraries that are part of the MPIDE system that are used to access various hardware peripherals in the microcontroller. These libraries provide access to “logical” I/O ports. It is necessary to configure the system to associate physical peripheral devices to be used for the logical I/O ports provided by the libraries.
 
-The HardwareSerial library isn’t a library, per se, because it actually comes from the cores files, but its behavior is the same as a library that is automatically included. The HardwareSerial library creates an object instance to work with each usable UART on the board, as well as, optionally, an object instance to configure the internal USB controller as a USB serial device. The association of HardwareSerial objects with the physical UART is accomplished via the mechanism described below. There are two libraries for accessing SPI ports. The original Arduino SPI library was written in such a way that it wasn’t really feasible to extend it to work with multiple SPI ports, and so a second library, DSPI, was created for chipKIT to allow access to more than one SPI port. The SPI library accesses the “primary” SPI port. The board variant designer decides which SPI port is the primary one. If the board supports the shield interface footprint, this would be the SPI port connected to digital pins 10 to 13 and the 2x3 SPI connector on the right side of the shield connectors. If the board isn’t shield compatible, then the board designer decides which SPI port should be considered the primary one.
+The HardwareSerial library isn't a library, per se, because it actually comes from the cores files, but its behavior is the same as a library that is automatically included. The HardwareSerial library creates an object instance to work with each usable UART on the board, as well as, optionally, an object instance to configure the internal USB controller as a USB serial device. The association of HardwareSerial objects with the physical UART is accomplished via the mechanism described below. There are two libraries for accessing SPI ports. The original Arduino SPI library was written in such a way that it wasn’t really feasible to extend it to work with multiple SPI ports, and so a second library, DSPI, was created for chipKIT to allow access to more than one SPI port. The SPI library accesses the “primary” SPI port. The board variant designer decides which SPI port is the primary one. If the board supports the shield interface footprint, this would be the SPI port connected to digital pins 10 to 13 and the 2x3 SPI connector on the right side of the shield connectors. If the board isn't shield compatible, then the board designer decides which SPI port should be considered the primary one.
 
 The DSPI library provides access to all usable SPI ports on the board. The library creates a subclass of the DSPI class and an instance of each of these subclasses for each SPI port. The DSPI0 subclass and object typically should work with the “primary” SPI port, i.e., the one that the SPI library works with. The assignment of which physical SPI ports the SPI library object and each DSPI library object uses is accomplished through the mechanism described below.
 
@@ -1383,19 +1383,19 @@ This function is called at the beginning of the pinMode() function. It is respon
 int _board_getPinMode(uint_t pin, uint8_t * mode)
 ```
 
-This function is called at the beginning of the getPinMode() function. It is responsible for performing any board-specific setup required for the getPinMode() function, or alternatively, to perform the entire getPinMode() operation if the standard code isn’t appropriate. The returned “mode” value is returned through the pointer to mode (\*mode). The function return value is 0 if execution is to continue with the normal getPinMode() code and non-zero if the normal getPinMode() code is to be skipped.
+This function is called at the beginning of the getPinMode() function. It is responsible for performing any board-specific setup required for the getPinMode() function, or alternatively, to perform the entire getPinMode() operation if the standard code isn't appropriate. The returned “mode” value is returned through the pointer to mode (\*mode). The function return value is 0 if execution is to continue with the normal getPinMode() code and non-zero if the normal getPinMode() code is to be skipped.
 
 ```cpp
 int _board_digitalWrite(uint8_t pin, uint8_t val)
 ```
 
-This function is called at the beginning of the digitalWrite() function. It is responsible for performing any board specific setup required for the digitalWrite() function, or alternatively, to perform the entire digitalWrite operation if the standard code isn’t appropriate. This function returns 0 if execution is to continue with the normal digitalWrite() code and non-zero if the normal digitalWrite() code is to be skipped.
+This function is called at the beginning of the digitalWrite() function. It is responsible for performing any board specific setup required for the digitalWrite() function, or alternatively, to perform the entire digitalWrite operation if the standard code isn't appropriate. This function returns 0 if execution is to continue with the normal digitalWrite() code and non-zero if the normal digitalWrite() code is to be skipped.
 
 ```cpp
 int _board_digitalRead(uint8_t pin, uint8_t * val)
 ```
 
-This function is called at the beginning of the digitalRead() function. It is responsible for performing any board specific setup required for the digitalRead() function, or alternatively, to perform the entire digitalRead() operation if the standard code isn’t appropriate. This function returns 0 if execution is to continue with the normal digitalRead() code and non-zero if the normal digitalRead() code is to be skipped.
+This function is called at the beginning of the digitalRead() function. It is responsible for performing any board specific setup required for the digitalRead() function, or alternatively, to perform the entire digitalRead() operation if the standard code isn't appropriate. This function returns 0 if execution is to continue with the normal digitalRead() code and non-zero if the normal digitalRead() code is to be skipped.
 
 ### OPT_BOARD_ANALOG_READ
 
@@ -1403,7 +1403,7 @@ This function is called at the beginning of the digitalRead() function. It is re
 int _board_analogRead(uint8_t pin, int * val)
 ```
 
-This function is called at the beginning of the analogRead() function. It is responsible for performing any board specific setup required for the analogRead() function, or alternatively, to perform the entire analogRead operation if the standard code isn’t appropriate. This returned analog value read is returned via the pointer to value provided (\*val). The function return value is 0 if execution is to continue with the normal analogRead() code or non-zero if the normal analogRead() code is to be skipped.
+This function is called at the beginning of the analogRead() function. It is responsible for performing any board specific setup required for the analogRead() function, or alternatively, to perform the entire analogRead operation if the standard code isn't appropriate. This returned analog value read is returned via the pointer to value provided (\*val). The function return value is 0 if execution is to continue with the normal analogRead() code or non-zero if the normal analogRead() code is to be skipped.
 
 ```cpp
 int _board_analogReference(uint8_t mode)
@@ -1763,7 +1763,7 @@ _PPS_OUT(_PPS_RPB5R), // 0 J4-1 RB5 TMS/RPB5/USBID/RB5
 
 This is the first entry in the table for the chipKIT DP32 board, and is the mapping associated with digital pin 0. On this board, digital pin 0 is connected to the pin associated with Port B, bit 5. Note that the _PPS_OUT macro is used to define the table entry, and the value being defined is the value that specifies the index of the output mapping register (i.e., _PPS_RPB5R).
 
-Some pins are not PPS capable, and in the case where the pin isn’t capable of PPS operation, or the pin is undefined for some other reason, the following table entry is used:
+Some pins are not PPS capable, and in the case where the pin isn't capable of PPS operation, or the pin is undefined for some other reason, the following table entry is used:
 
 ```cpp
 NOT_PPS_PIN,
