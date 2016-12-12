@@ -10,7 +10,6 @@ cerebot32mx4.group=Cerebot
 cerebot32mx4.platform=pic32
 cerebot32mx4.build.board=_BOARD_CEREBOT_32MX4_
 
-cerebot32mx4.ccflags=ffff
 cerebot32mx4.ldscript=chipKIT-application-32MX460F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cerebot32mx4.compiler.c.extra_flags=-G1024
@@ -22,15 +21,6 @@ cerebot32mx4.upload.maximum_size=520192
 cerebot32mx4.upload.maximum_data_size=32768
 cerebot32mx4.upload.speed=115200
 cerebot32mx4.upload.tool=pic32prog
-
-
-cerebot32mx4.bootloader.low_fuses=0xff
-cerebot32mx4.bootloader.high_fuses=0xdd
-cerebot32mx4.bootloader.extended_fuses=0x00
-#cerebot32mx4.bootloader.path=not-supported
-#cerebot32mx4.bootloader.file=not-supported
-cerebot32mx4.bootloader.unlock_bits=0x3F
-cerebot32mx4.bootloader.lock_bits=0x0F
 
 cerebot32mx4.build.mcu=32MX460F512L
 cerebot32mx4.build.f_cpu=80000000L
@@ -46,7 +36,6 @@ cerebot32mx7.group=Cerebot
 cerebot32mx7.platform=pic32
 cerebot32mx7.build.board=_BOARD_CEREBOT_32MX7_
 
-cerebot32mx7.ccflags=ffff
 cerebot32mx7.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -55,14 +44,6 @@ cerebot32mx7.upload.maximum_size=520192
 cerebot32mx7.upload.maximum_data_size=131072
 cerebot32mx7.upload.speed=115200
 cerebot32mx7.upload.tool=pic32prog
-
-cerebot32mx7.bootloader.low_fuses=0xff
-cerebot32mx7.bootloader.high_fuses=0xdd
-cerebot32mx7.bootloader.extended_fuses=0x00
-#cerebot32mx7.bootloader.path=not-supported
-#cerebot32mx7.bootloader.file=not-supported
-cerebot32mx7.bootloader.unlock_bits=0x3F
-cerebot32mx7.bootloader.lock_bits=0x0F
 
 cerebot32mx7.build.mcu=32MX795F512L
 cerebot32mx7.build.f_cpu=80000000L
@@ -78,7 +59,6 @@ cerebot_mx3ck.group=Cerebot
 cerebot_mx3ck.platform=pic32
 cerebot_mx3ck.build.board=_BOARD_CEREBOT_MX3CK_
 
-cerebot_mx3ck.ccflags=ffff
 cerebot_mx3ck.ldscript=chipKIT-application-32MX320F128.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cerebot_mx3ck.compiler.c.extra_flags=-G1024
@@ -90,14 +70,6 @@ cerebot_mx3ck.upload.maximum_size=126976
 cerebot_mx3ck.upload.maximum_data_size=16384
 cerebot_mx3ck.upload.speed=115200
 cerebot_mx3ck.upload.tool=pic32prog
-
-cerebot_mx3ck.bootloader.low_fuses=0xff
-cerebot_mx3ck.bootloader.high_fuses=0xdd
-cerebot_mx3ck.bootloader.extended_fuses=0x00
-#cerebot_mx3ck.bootloader.path=not-supported
-#cerebot_mx3ck.bootloader.file=not-supported
-cerebot_mx3ck.bootloader.unlock_bits=0x3F
-cerebot_mx3ck.bootloader.lock_bits=0x0F
 
 cerebot_mx3ck.build.mcu=32MX320F128H
 cerebot_mx3ck.build.f_cpu=80000000L
@@ -112,7 +84,6 @@ chipkit_mx3.group=chipKIT
 chipkit_mx3.platform=pic32
 chipkit_mx3.build.board=_BOARD_CEREBOT_MX3CK_
 
-chipkit_mx3.ccflags=ffff
 chipkit_mx3.ldscript=chipKIT-application-32MX320F128.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 chipkit_mx3.compiler.c.extra_flags=-G1024
@@ -124,14 +95,6 @@ chipkit_mx3.upload.maximum_size=126976
 chipkit_mx3.upload.maximum_data_size=16384
 chipkit_mx3.upload.speed=115200
 chipkit_mx3.upload.tool=pic32prog
-
-chipkit_mx3.bootloader.low_fuses=0xff
-chipkit_mx3.bootloader.high_fuses=0xdd
-chipkit_mx3.bootloader.extended_fuses=0x00
-#chipkit_mx3.bootloader.path=not-supported
-#chipkit_mx3.bootloader.file=not-supported
-chipkit_mx3.bootloader.unlock_bits=0x3F
-chipkit_mx3.bootloader.lock_bits=0x0F
 
 chipkit_mx3.build.mcu=32MX320F128H
 chipkit_mx3.build.f_cpu=80000000L
@@ -147,7 +110,6 @@ cerebot_mx3ck_512.group=Cerebot
 # new items
 cerebot_mx3ck_512.platform=pic32
 cerebot_mx3ck_512.build.board=_BOARD_CEREBOT_MX3CK_512_
-cerebot_mx3ck_512.ccflags=ffff
 cerebot_mx3ck_512.ldscript=chipKIT-application-32MX340F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cerebot_mx3ck_512.compiler.c.extra_flags=-G1024
@@ -159,14 +121,6 @@ cerebot_mx3ck_512.upload.maximum_size=520192
 cerebot_mx3ck_512.upload.maximum_data_size=32768
 cerebot_mx3ck_512.upload.speed=115200
 cerebot_mx3ck_512.upload.tool=pic32prog
-
-cerebot_mx3ck_512.bootloader.low_fuses=0xff
-cerebot_mx3ck_512.bootloader.high_fuses=0xdd
-cerebot_mx3ck_512.bootloader.extended_fuses=0x00
-#cerebot_mx3ck_512.bootloader.path=not-supported
-#cerebot_mx3ck_512.bootloader.file=not-supported
-cerebot_mx3ck_512.bootloader.unlock_bits=0x3F
-cerebot_mx3ck_512.bootloader.lock_bits=0x0F
 
 cerebot_mx3ck_512.build.mcu=32MX340F512H
 cerebot_mx3ck_512.build.f_cpu=80000000L
@@ -181,7 +135,6 @@ cerebot_mx4ck.group=Cerebot
 # new items
 cerebot_mx4ck.platform=pic32
 cerebot_mx4ck.build.board=_BOARD_CEREBOT_MX4CK_
-cerebot_mx4ck.ccflags=ffff
 cerebot_mx4ck.ldscript=chipKIT-application-32MX460F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cerebot_mx4ck.compiler.c.extra_flags=-G1024
@@ -193,14 +146,6 @@ cerebot_mx4ck.upload.maximum_size=520192
 cerebot_mx4ck.upload.maximum_data_size=32768
 cerebot_mx4ck.upload.speed=115200
 cerebot_mx4ck.upload.tool=pic32prog
-
-cerebot_mx4ck.bootloader.low_fuses=0xff
-cerebot_mx4ck.bootloader.high_fuses=0xdd
-cerebot_mx4ck.bootloader.extended_fuses=0x00
-#cerebot_mx4ck.bootloader.path=not-supported
-#cerebot_mx4ck.bootloader.file=not-supported
-cerebot_mx4ck.bootloader.unlock_bits=0x3F
-cerebot_mx4ck.bootloader.lock_bits=0x0F
 
 cerebot_mx4ck.build.mcu=32MX460F512L
 cerebot_mx4ck.build.f_cpu=80000000L
@@ -214,7 +159,7 @@ chipkit_pro_mx4.group=chipKIT
 # new items
 chipkit_pro_mx4.platform=pic32
 chipkit_pro_mx4.build.board=_BOARD_CEREBOT_MX4CK_
-chipkit_pro_mx4.ccflags=ffff
+
 chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 chipkit_pro_mx4.compiler.c.extra_flags=-G1024
@@ -226,15 +171,6 @@ chipkit_pro_mx4.upload.maximum_size=520192
 chipkit_pro_mx4.upload.maximum_data_size=32768
 chipkit_pro_mx4.upload.speed=115200
 chipkit_pro_mx4.upload.tool=pic32prog
-
-
-chipkit_pro_mx4.bootloader.low_fuses=0xff
-chipkit_pro_mx4.bootloader.high_fuses=0xdd
-chipkit_pro_mx4.bootloader.extended_fuses=0x00
-#chipkit_pro_mx4.bootloader.path=not-supported
-#chipkit_pro_mx4.bootloader.file=not-supported
-chipkit_pro_mx4.bootloader.unlock_bits=0x3F
-chipkit_pro_mx4.bootloader.lock_bits=0x0F
 
 chipkit_pro_mx4.build.mcu=32MX460F512L
 chipkit_pro_mx4.build.f_cpu=80000000L
@@ -249,7 +185,6 @@ cerebot_mx7ck.group=Cerebot
 # new items
 cerebot_mx7ck.platform=pic32
 cerebot_mx7ck.build.board=_BOARD_CEREBOT_MX7CK_
-cerebot_mx7ck.ccflags=ffff
 cerebot_mx7ck.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -258,15 +193,6 @@ cerebot_mx7ck.upload.maximum_size=520192
 cerebot_mx7ck.upload.maximum_data_size=131072
 cerebot_mx7ck.upload.speed=115200
 cerebot_mx7ck.upload.tool=pic32prog
-
-
-cerebot_mx7ck.bootloader.low_fuses=0xff
-cerebot_mx7ck.bootloader.high_fuses=0xdd
-cerebot_mx7ck.bootloader.extended_fuses=0x00
-#cerebot_mx7ck.bootloader.path=not-supported
-#cerebot_mx7ck.bootloader.file=not-supported
-cerebot_mx7ck.bootloader.unlock_bits=0x3F
-cerebot_mx7ck.bootloader.lock_bits=0x0F
 
 cerebot_mx7ck.build.mcu=32MX795F512L
 cerebot_mx7ck.build.f_cpu=80000000L
@@ -280,7 +206,6 @@ chipkit_pro_mx7.group=chipKIT
 # new items
 chipkit_pro_mx7.platform=pic32
 chipkit_pro_mx7.build.board=_BOARD_CEREBOT_MX7CK_
-chipkit_pro_mx7.ccflags=ffff
 chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -289,15 +214,6 @@ chipkit_pro_mx7.upload.maximum_size=520192
 chipkit_pro_mx7.upload.maximum_data_size=131072
 chipkit_pro_mx7.upload.speed=115200
 chipkit_pro_mx7.upload.tool=pic32prog
-
-
-chipkit_pro_mx7.bootloader.low_fuses=0xff
-chipkit_pro_mx7.bootloader.high_fuses=0xdd
-chipkit_pro_mx7.bootloader.extended_fuses=0x00
-#chipkit_pro_mx7.bootloader.path=not-supported
-#chipkit_pro_mx7.bootloader.file=not-supported
-chipkit_pro_mx7.bootloader.unlock_bits=0x3F
-chipkit_pro_mx7.bootloader.lock_bits=0x0F
 
 chipkit_pro_mx7.build.mcu=32MX795F512L
 chipkit_pro_mx7.build.f_cpu=80000000L
@@ -325,14 +241,6 @@ chipkit_Pi.upload.maximum_size=122880
 chipkit_Pi.upload.maximum_data_size=32768
 chipkit_Pi.upload.speed=115200
 chipkit_Pi.upload.tool=pic32prog
-
-chipkit_Pi.bootloader.low_fuses=0xff
-chipkit_Pi.bootloader.high_fuses=0xdd
-chipkit_Pi.bootloader.extended_fuses=0x00
-#chipkit_Pi.bootloader.path=not-supported
-#chipkit_Pi.bootloader.file=not-supported
-chipkit_Pi.bootloader.unlock_bits=0x3F
-chipkit_Pi.bootloader.lock_bits=0x0F
 
 chipkit_Pi.build.mcu=32MX250F128B
 chipkit_Pi.build.f_cpu=40000000L
@@ -364,14 +272,6 @@ chipkit_Pi_USB_Serial.upload.speed=115200
 chipkit_Pi_USB_Serial.upload.tool=pic32prog
 
 
-chipkit_Pi_USB_Serial.bootloader.low_fuses=0xff
-chipkit_Pi_USB_Serial.bootloader.high_fuses=0xdd
-chipkit_Pi_USB_Serial.bootloader.extended_fuses=0x00
-#chipkit_Pi_USB_Serial.bootloader.path=not-supported
-#chipkit_Pi_USB_Serial.bootloader.file=not-supported
-chipkit_Pi_USB_Serial.bootloader.unlock_bits=0x3F
-chipkit_Pi_USB_Serial.bootloader.lock_bits=0x0F
-
 chipkit_Pi_USB_Serial.build.mcu=32MX250F128B
 chipkit_Pi_USB_Serial.build.f_cpu=40000000L
 chipkit_Pi_USB_Serial.build.core=pic32
@@ -385,7 +285,6 @@ cmod.group=chipKIT
 # new items
 cmod.platform=pic32
 cmod.build.board=_BOARD_CMOD_
-cmod.ccflags=ffff
 cmod.ldscript=chipKIT-application-32MX150F128.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cmod.compiler.c.extra_flags=-G1024
@@ -398,14 +297,6 @@ cmod.upload.maximum_size=126976
 cmod.upload.maximum_data_size=32768
 cmod.upload.speed=115200
 cmod.upload.tool=pic32prog
-
-cmod.bootloader.low_fuses=0xff
-cmod.bootloader.high_fuses=0xdd
-cmod.bootloader.extended_fuses=0x00
-#cmod.bootloader.path=not-supported
-#cmod.bootloader.file=not-supported
-cmod.bootloader.unlock_bits=0x3F
-cmod.bootloader.lock_bits=0x0F
 
 cmod.build.mcu=32MX150F128D
 cmod.build.f_cpu=40000000L
@@ -423,7 +314,6 @@ CUI32stem.platform=pic32
 CUI32stem.build.board=_BOARD_CUI32_
 CUI32stem.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 
-CUI32stem.ccflags=ffff
 CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -432,15 +322,6 @@ CUI32stem.upload.maximum_size=520192
 CUI32stem.upload.maximum_data_size=131072
 CUI32stem.upload.speed=115200
 CUI32stem.upload.tool=pic32prog
-
-
-CUI32stem.bootloader.low_fuses=0xff
-CUI32stem.bootloader.high_fuses=0xdd
-CUI32stem.bootloader.extended_fuses=0x00
-#CUI32stem.bootloader.path=not-supported
-#CUI32stem.bootloader.file=not-supported
-CUI32stem.bootloader.unlock_bits=0x3F
-CUI32stem.bootloader.lock_bits=0x0F
 
 CUI32stem.build.mcu=32MX795F512H
 CUI32stem.build.f_cpu=80000000L
@@ -456,8 +337,6 @@ ubw32_mx460.group=UBW32
 ubw32_mx460.platform=pic32
 ubw32_mx460.build.board=_BOARD_UBW32_MX460_
 ubw32_mx460.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-
-ubw32_mx460.ccflags=ffff
 ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 ubw32_mx460.compiler.c.extra_flags=-G1024
@@ -469,14 +348,6 @@ ubw32_mx460.upload.maximum_size=520192
 ubw32_mx460.upload.maximum_data_size=32768
 ubw32_mx460.upload.speed=115200
 ubw32_mx460.upload.tool=pic32prog
-
-ubw32_mx460.bootloader.low_fuses=0xff
-ubw32_mx460.bootloader.high_fuses=0xdd
-ubw32_mx460.bootloader.extended_fuses=0x00
-#ubw32_mx460.bootloader.path=not-supported
-#ubw32_mx460.bootloader.file=not-supported
-ubw32_mx460.bootloader.unlock_bits=0x3F
-ubw32_mx460.bootloader.lock_bits=0x0F
 
 ubw32_mx460.build.mcu=32MX460F512L
 ubw32_mx460.build.f_cpu=80000000L
@@ -491,8 +362,6 @@ ubw32_mx795.group=UBW32
 ubw32_mx795.platform=pic32
 ubw32_mx795.build.board=_BOARD_UBW32_MX795_
 ubw32_mx795.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-
-ubw32_mx795.ccflags=ffff
 ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -501,15 +370,6 @@ ubw32_mx795.upload.maximum_size=520192
 ubw32_mx795.upload.maximum_data_size=131072
 ubw32_mx795.upload.speed=115200
 ubw32_mx795.upload.tool=pic32prog
-
-
-ubw32_mx795.bootloader.low_fuses=0xff
-ubw32_mx795.bootloader.high_fuses=0xdd
-ubw32_mx795.bootloader.extended_fuses=0x00
-#ubw32_mx795.bootloader.path=not-supported
-#ubw32_mx795.bootloader.file=not-supported
-ubw32_mx795.bootloader.unlock_bits=0x3F
-ubw32_mx795.bootloader.lock_bits=0x0F
 
 ubw32_mx795.build.mcu=32MX795F512L
 ubw32_mx795.build.f_cpu=80000000L
@@ -525,7 +385,6 @@ cui32.group=CUI32
 cui32.platform=pic32
 cui32.build.board=_BOARD_CUI32_
 cui32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-cui32.ccflags=ffff
 cui32.ldscript=chipKIT-application-32MX440F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 cui32.compiler.c.extra_flags=-G1024
@@ -537,14 +396,6 @@ cui32.upload.maximum_size=520192
 cui32.upload.maximum_data_size=32768
 cui32.upload.speed=115200
 cui32.upload.tool=pic32prog
-
-cui32.bootloader.low_fuses=0xff
-cui32.bootloader.high_fuses=0xdd
-cui32.bootloader.extended_fuses=0x00
-#cui32.bootloader.path=not-supported
-#cui32.bootloader.file=not-supported
-cui32.bootloader.unlock_bits=0x3F
-cui32.bootloader.lock_bits=0x0F
 
 cui32.build.mcu=32MX440F512H
 cui32.build.f_cpu=80000000L
@@ -575,15 +426,6 @@ chipkit_DP32.upload.maximum_data_size=32768
 chipkit_DP32.upload.speed=115200
 chipkit_DP32.upload.tool=pic32prog
 
-
-chipkit_DP32.bootloader.low_fuses=0xff
-chipkit_DP32.bootloader.high_fuses=0xdd
-chipkit_DP32.bootloader.extended_fuses=0x00
-#chipkit_DP32.bootloader.path=not-supported
-#chipkit_DP32.bootloader.file=not-supported
-chipkit_DP32.bootloader.unlock_bits=0x3F
-chipkit_DP32.bootloader.lock_bits=0x0F
-
 chipkit_DP32.build.mcu=32MX250F128B
 chipkit_DP32.build.f_cpu=40000000L
 chipkit_DP32.build.core=pic32
@@ -611,14 +453,6 @@ fubarino_mini_dev.upload.maximum_data_size=32768
 fubarino_mini_dev.upload.speed=115200
 fubarino_mini_dev.upload.tool=pic32prog
 
-fubarino_mini_dev.bootloader.low_fuses=0xff
-fubarino_mini_dev.bootloader.high_fuses=0xdd
-fubarino_mini_dev.bootloader.extended_fuses=0x00
-#fubarino_mini_dev.bootloader.path=not-supported
-#fubarino_mini_dev.bootloader.file=not-supported
-fubarino_mini_dev.bootloader.unlock_bits=0x3F
-fubarino_mini_dev.bootloader.lock_bits=0x0F
-
 fubarino_mini_dev.build.mcu=32MX250F128D
 fubarino_mini_dev.build.f_cpu=40000000L
 fubarino_mini_dev.build.core=pic32
@@ -645,14 +479,6 @@ fubarino_mini.upload.maximum_data_size=32768
 fubarino_mini.upload.speed=115200
 fubarino_mini.upload.tool=pic32prog
 
-fubarino_mini.bootloader.low_fuses=0xff
-fubarino_mini.bootloader.high_fuses=0xdd
-fubarino_mini.bootloader.extended_fuses=0x00
-#fubarino_mini.bootloader.path=not-supported
-#fubarino_mini.bootloader.file=not-supported
-fubarino_mini.bootloader.unlock_bits=0x3F
-fubarino_mini.bootloader.lock_bits=0x0F
-
 fubarino_mini.build.mcu=32MX250F128D
 fubarino_mini.build.f_cpu=48000000L
 fubarino_mini.build.core=pic32
@@ -678,13 +504,6 @@ fubarino_mini.build.variant=Fubarino_Mini
 #fubarino_mini_dbg.compiler.c.extra_flags=-G1024
 #fubarino_mini_dbg.compiler.cpp.extra_flags=-G1024
 #
-#fubarino_mini_dbg.bootloader.low_fuses=0xff
-#fubarino_mini_dbg.bootloader.high_fuses=0xdd
-#fubarino_mini_dbg.bootloader.extended_fuses=0x00
-#fubarino_mini_dbg.bootloader.path=not-supported
-#fubarino_mini_dbg.bootloader.file=not-supported
-#fubarino_mini_dbg.bootloader.unlock_bits=0x3F
-#fubarino_mini_dbg.bootloader.lock_bits=0x0F
 #
 #fubarino_mini_dbg.build.mcu=32MX250F128D
 #fubarino_mini_dbg.build.f_cpu=40000000L
@@ -704,7 +523,6 @@ fubarino_sd_seeed.build.extra_flags=-D_USE_USB_FOR_SERIAL_
 fubarino_sd_seeed.compiler.c.extra_flags=-G1024
 fubarino_sd_seeed.compiler.cpp.extra_flags=-G1024
 
-fubarino_sd_seeed.ccflags=ffff
 fubarino_sd_seeed.ldscript=chipKIT-application-32MX440F256.ld
 
 fubarino_sd_seeed.upload.protocol=stk500v2
@@ -712,14 +530,6 @@ fubarino_sd_seeed.upload.maximum_size=258048
 fubarino_sd_seeed.upload.maximum_data_size=32768
 fubarino_sd_seeed.upload.speed=115200
 fubarino_sd_seeed.upload.tool=pic32prog
-
-fubarino_sd_seeed.bootloader.low_fuses=0xff
-fubarino_sd_seeed.bootloader.high_fuses=0xdd
-fubarino_sd_seeed.bootloader.extended_fuses=0x00
-#fubarino_sd_seeed.bootloader.path=not-supported
-#fubarino_sd_seeed.bootloader.file=not-supported
-fubarino_sd_seeed.bootloader.unlock_bits=0x3F
-fubarino_sd_seeed.bootloader.lock_bits=0x0F
 
 fubarino_sd_seeed.build.mcu=32MX440F256H
 fubarino_sd_seeed.build.f_cpu=80000000L
@@ -733,7 +543,6 @@ fubarino_sd.group=Fubarino
 fubarino_sd.platform=pic32
 fubarino_sd.build.board=_BOARD_FUBARINO_SD_
 fubarino_sd.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-fubarino_sd.ccflags=ffff
 fubarino_sd.ldscript=chipKIT-application-32MX795F512.ld
 
 fubarino_sd.upload.protocol=stk500v2
@@ -741,15 +550,6 @@ fubarino_sd.upload.maximum_size=520192
 fubarino_sd.upload.maximum_data_size=131072
 fubarino_sd.upload.speed=115200
 fubarino_sd.upload.tool=pic32prog
-
-
-fubarino_sd.bootloader.low_fuses=0xff
-fubarino_sd.bootloader.high_fuses=0xdd
-fubarino_sd.bootloader.extended_fuses=0x00
-#fubarino_sd.bootloader.path=not-supported
-#fubarino_sd.bootloader.file=not-supported
-fubarino_sd.bootloader.unlock_bits=0x3F
-fubarino_sd.bootloader.lock_bits=0x0F
 
 fubarino_sd.build.mcu=32MX795F512H
 fubarino_sd.build.f_cpu=80000000L
@@ -765,7 +565,6 @@ Fubarino_SDZ.group=Fubarino
 # new items
 Fubarino_SDZ.platform=pic32
 Fubarino_SDZ.build.board=_BOARD_FUBARINO_SDZ_
-Fubarino_SDZ.ccflags=ffff
 Fubarino_SDZ.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
@@ -774,14 +573,6 @@ Fubarino_SDZ.upload.maximum_size=2093056
 Fubarino_SDZ.upload.maximum_data_size=524288
 Fubarino_SDZ.upload.speed=115200
 Fubarino_SDZ.upload.tool=pic32prog
-
-Fubarino_SDZ.bootloader.low_fuses=0xff
-Fubarino_SDZ.bootloader.high_fuses=0xdd
-Fubarino_SDZ.bootloader.extended_fuses=0x00
-#Fubarino_SDZ.bootloader.path=not-supported
-#Fubarino_SDZ.bootloader.file=not-supported
-Fubarino_SDZ.bootloader.unlock_bits=0x3F
-Fubarino_SDZ.bootloader.lock_bits=0x0F
 
 Fubarino_SDZ.build.mcu=32MZ2048ECH064
 Fubarino_SDZ.build.f_cpu=200000000UL
@@ -798,7 +589,6 @@ mega_pic32.group=chipKIT
 # new items
 mega_pic32.platform=pic32
 mega_pic32.build.board=_BOARD_MEGA_
-mega_pic32.ccflags=ffff
 mega_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -807,14 +597,6 @@ mega_pic32.upload.maximum_size=520192
 mega_pic32.upload.maximum_data_size=131072
 mega_pic32.upload.speed=115200
 mega_pic32.upload.tool=pic32prog
-
-mega_pic32.bootloader.low_fuses=0xff
-mega_pic32.bootloader.high_fuses=0xdd
-mega_pic32.bootloader.extended_fuses=0x00
-#mega_pic32.bootloader.path=not-supported
-#mega_pic32.bootloader.file=not-supported
-mega_pic32.bootloader.unlock_bits=0x3F
-mega_pic32.bootloader.lock_bits=0x0F
 
 mega_pic32.build.mcu=32MX795F512L
 mega_pic32.build.f_cpu=80000000L
@@ -829,7 +611,6 @@ mega_usb_pic32.group=chipKIT
 mega_usb_pic32.platform=pic32
 mega_usb_pic32.build.board=_BOARD_MEGA_
 mega_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-mega_usb_pic32.ccflags=ffff
 mega_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -838,14 +619,6 @@ mega_usb_pic32.upload.maximum_size=520192
 mega_usb_pic32.upload.maximum_data_size=131072
 mega_usb_pic32.upload.speed=115200
 mega_usb_pic32.upload.tool=pic32prog
-
-mega_usb_pic32.bootloader.low_fuses=0xff
-mega_usb_pic32.bootloader.high_fuses=0xdd
-mega_usb_pic32.bootloader.extended_fuses=0x00
-#mega_usb_pic32.bootloader.path=not-supported
-#mega_usb_pic32.bootloader.file=not-supported
-mega_usb_pic32.bootloader.unlock_bits=0x3F
-mega_usb_pic32.bootloader.lock_bits=0x0F
 
 mega_usb_pic32.build.mcu=32MX795F512L
 mega_usb_pic32.build.f_cpu=80000000L
@@ -860,7 +633,6 @@ Olimex_Pinguino32.group=Olimex
 Olimex_Pinguino32.platform=pic32
 Olimex_Pinguino32.build.board=_BOARD_OLIMEX_PIC32_PINGUINO_
 Olimex_Pinguino32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-Olimex_Pinguino32.ccflags=ffff
 Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
 
 Olimex_Pinguino32.upload.protocol=stk500v2
@@ -872,14 +644,6 @@ Olimex_Pinguino32.upload.tool=pic32prog
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 Olimex_Pinguino32.compiler.c.extra_flags=-G1024
 Olimex_Pinguino32.compiler.cpp.extra_flags=-G1024
-
-Olimex_Pinguino32.bootloader.low_fuses=0xff
-Olimex_Pinguino32.bootloader.high_fuses=0xdd
-Olimex_Pinguino32.bootloader.extended_fuses=0x00
-#Olimex_Pinguino32.bootloader.path=not-supported
-#Olimex_Pinguino32.bootloader.file=not-supported
-Olimex_Pinguino32.bootloader.unlock_bits=0x3F
-Olimex_Pinguino32.bootloader.lock_bits=0x0F
 
 Olimex_Pinguino32.build.mcu=32MX440F256H
 Olimex_Pinguino32.build.f_cpu=80000000L
@@ -896,7 +660,6 @@ picadillo_35t.ldscript=chipKIT-application-32MX795F512.ld
 picadillo_35t.variant=picadillo_35t
 picadillo_35t.description=PICadillo-35T
 picadillo_35t.bootloader=bootloader.hex
-picadillo_35t.ccflags=ffff
 picadillo_35t.upload.protocol=stk500v2
 picadillo_35t.upload.maximum_size=520192
 picadillo_35t.upload.maximum_data_size=131072
@@ -916,7 +679,6 @@ pontech_NoFire.group=PONTECH
 # new items
 pontech_NoFire.platform=pic32
 pontech_NoFire.build.board=_BOARD_PONTECH_NOFIRE_
-pontech_NoFire.ccflags=ffff
 pontech_NoFire.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
@@ -925,14 +687,6 @@ pontech_NoFire.upload.maximum_size=2080768
 pontech_NoFire.upload.maximum_data_size=524288
 pontech_NoFire.upload.speed=115200
 pontech_NoFire.upload.tool=pic32prog
-
-pontech_NoFire.bootloader.low_fuses=0xff
-pontech_NoFire.bootloader.high_fuses=0xdd
-pontech_NoFire.bootloader.extended_fuses=0x00
-#pontech_NoFire.bootloader.path=not-supported
-#pontech_NoFire.bootloader.file=not-supported
-pontech_NoFire.bootloader.unlock_bits=0x3F
-pontech_NoFire.bootloader.lock_bits=0x0F
 
 pontech_NoFire.build.mcu=32MZ2048EFG100
 pontech_NoFire.build.f_cpu=200000000UL
@@ -950,7 +704,6 @@ quick240_usb_pic32.group=PONTECH
 quick240_usb_pic32.platform=pic32
 quick240_usb_pic32.build.board=_BOARD_PONTECH_QUICK240_USB_
 quick240_usb_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_
-quick240_usb_pic32.ccflags=ffff
 quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
 # end of new items
 
@@ -959,14 +712,6 @@ quick240_usb_pic32.upload.maximum_size=520192
 quick240_usb_pic32.upload.maximum_data_size=131072
 quick240_usb_pic32.upload.speed=115200
 quick240_usb_pic32.upload.tool=pic32prog
-
-quick240_usb_pic32.bootloader.low_fuses=0xff
-quick240_usb_pic32.bootloader.high_fuses=0xdd
-quick240_usb_pic32.bootloader.extended_fuses=0x00
-#quick240_usb_pic32.bootloader.path=not-supported
-#quick240_usb_pic32.bootloader.file=not-supported
-quick240_usb_pic32.bootloader.unlock_bits=0x3F
-quick240_usb_pic32.bootloader.lock_bits=0x0F
 
 quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
@@ -982,7 +727,6 @@ usbono_pic32.group=PONTECH
 usbono_pic32.platform=pic32
 usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
 usbono_pic32.build.extra_flags=-D_USE_USB_FOR_SERIAL_ -Danything=1
-usbono_pic32.ccflags=ffff
 usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 usbono_pic32.compiler.c.extra_flags=-G1024
@@ -995,15 +739,6 @@ usbono_pic32.upload.maximum_size=520192
 usbono_pic32.upload.maximum_data_size=32768
 usbono_pic32.upload.speed=115200
 usbono_pic32.upload.tool=pic32prog
-
-
-usbono_pic32.bootloader.low_fuses=0xff
-usbono_pic32.bootloader.high_fuses=0xdd
-usbono_pic32.bootloader.extended_fuses=0x00
-#usbono_pic32.bootloader.path=not-supported
-#usbono_pic32.bootloader.file=not-supported
-usbono_pic32.bootloader.unlock_bits=0x3F
-usbono_pic32.bootloader.lock_bits=0x0F
 
 usbono_pic32.build.mcu=32MX440F512H
 usbono_pic32.build.f_cpu=80000000L
@@ -1019,7 +754,6 @@ chipkit_uc32.group=chipKIT
 # new items
 chipkit_uc32.platform=pic32
 chipkit_uc32.build.board=_BOARD_UC32_
-chipkit_uc32.ccflags=ffff
 chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 chipkit_uc32.compiler.c.extra_flags=-G1024
@@ -1031,14 +765,6 @@ chipkit_uc32.upload.maximum_size=520192
 chipkit_uc32.upload.maximum_data_size=16384
 chipkit_uc32.upload.speed=115200
 chipkit_uc32.upload.tool=pic32prog
-
-chipkit_uc32.bootloader.low_fuses=0xff
-chipkit_uc32.bootloader.high_fuses=0xdd
-chipkit_uc32.bootloader.extended_fuses=0x00
-#chipkit_uc32.bootloader.path=not-supported
-#chipkit_uc32.bootloader.file=not-supported
-chipkit_uc32.bootloader.unlock_bits=0x3F
-chipkit_uc32.bootloader.lock_bits=0x0F
 
 chipkit_uc32.build.mcu=32MX340F512H
 chipkit_uc32.build.f_cpu=80000000L
@@ -1053,7 +779,6 @@ uc32_pmod.group=chipKIT
 # new items
 uc32_pmod.platform=pic32
 uc32_pmod.build.board=_BOARD_UC32_
-uc32_pmod.ccflags=ffff
 uc32_pmod.ldscript=chipKIT-application-32MX340F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 uc32_pmod.compiler.c.extra_flags=-G1024
@@ -1065,14 +790,6 @@ uc32_pmod.upload.maximum_size=520192
 uc32_pmod.upload.maximum_data_size=16384
 uc32_pmod.upload.speed=115200
 uc32_pmod.upload.tool=pic32prog
-
-uc32_pmod.bootloader.low_fuses=0xff
-uc32_pmod.bootloader.high_fuses=0xdd
-uc32_pmod.bootloader.extended_fuses=0x00
-#uc32_pmod.bootloader.path=not-supported
-#uc32_pmod.bootloader.file=not-supported
-uc32_pmod.bootloader.unlock_bits=0x3F
-uc32_pmod.bootloader.lock_bits=0x0F
 
 uc32_pmod.build.mcu=32MX340F512H
 uc32_pmod.build.f_cpu=80000000L
@@ -1087,7 +804,6 @@ uno_pic32.name=chipKIT UNO32
 uno_pic32.group=chipKIT
 uno_pic32.platform=pic32
 uno_pic32.build.board=_BOARD_UNO_
-uno_pic32.ccflags=ffff
 uno_pic32.ldscript=chipKIT-application-32MX320F128.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 uno_pic32.compiler.c.extra_flags=-G1024
@@ -1100,15 +816,6 @@ uno_pic32.upload.maximum_size=126976
 uno_pic32.upload.maximum_data_size=16384
 uno_pic32.upload.speed=115200
 uno_pic32.upload.tool=pic32prog
-
-
-uno_pic32.bootloader.low_fuses=0xff
-uno_pic32.bootloader.high_fuses=0xdd
-uno_pic32.bootloader.extended_fuses=0x00
-#uno_pic32.bootloader.path=not-supported
-#uno_pic32.bootloader.file=not-supported
-uno_pic32.bootloader.unlock_bits=0x3F
-uno_pic32.bootloader.lock_bits=0x0F
 
 uno_pic32.build.mcu=32MX320F128H
 uno_pic32.build.f_cpu=80000000L
@@ -1123,7 +830,6 @@ uno_pmod.group=chipKIT
 # new items
 uno_pmod.platform=pic32
 uno_pmod.build.board=_BOARD_UNO_
-uno_pmod.ccflags=ffff
 uno_pmod.ldscript=chipKIT-application-32MX320F128.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
 uno_pmod.compiler.c.extra_flags=-G1024
@@ -1136,14 +842,6 @@ uno_pmod.upload.maximum_size=126976
 uno_pmod.upload.maximum_data_size=16384
 uno_pmod.upload.speed=115200
 uno_pmod.upload.tool=pic32prog
-
-uno_pmod.bootloader.low_fuses=0xff
-uno_pmod.bootloader.high_fuses=0xdd
-uno_pmod.bootloader.extended_fuses=0x00
-#uno_pmod.bootloader.path=not-supported
-#uno_pmod.bootloader.file=not-supported
-uno_pmod.bootloader.unlock_bits=0x3F
-uno_pmod.bootloader.lock_bits=0x0F
 
 uno_pmod.build.mcu=32MX320F128H
 uno_pmod.build.f_cpu=80000000L
@@ -1158,7 +856,6 @@ chipkit_WF32.group=chipKIT
 # new items
 chipkit_WF32.platform=pic32
 chipkit_WF32.build.board=_BOARD_WF32_
-chipkit_WF32.ccflags=ffff
 chipkit_WF32.ldscript=chipKIT-application-32MX695F512.ld
 # end of new items
 
@@ -1167,14 +864,6 @@ chipkit_WF32.upload.maximum_size=520192
 chipkit_WF32.upload.maximum_data_size=131072
 chipkit_WF32.upload.speed=115200
 chipkit_WF32.upload.tool=pic32prog
-
-chipkit_WF32.bootloader.low_fuses=0xff
-chipkit_WF32.bootloader.high_fuses=0xdd
-chipkit_WF32.bootloader.extended_fuses=0x00
-#chipkit_WF32.bootloader.path=not-supported
-#chipkit_WF32.bootloader.file=not-supported
-chipkit_WF32.bootloader.unlock_bits=0x3F
-chipkit_WF32.bootloader.lock_bits=0x0F
 
 chipkit_WF32.build.mcu=32MX695F512L
 chipkit_WF32.build.f_cpu=80000000L
@@ -1190,7 +879,6 @@ chipkit_WiFire.group=chipKIT
 # new items
 chipkit_WiFire.platform=pic32
 chipkit_WiFire.build.board=_BOARD_WIFIRE_
-chipkit_WiFire.ccflags=ffff
 chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
@@ -1199,14 +887,6 @@ chipkit_WiFire.upload.maximum_size=2080768
 chipkit_WiFire.upload.maximum_data_size=524288
 chipkit_WiFire.upload.speed=115200
 chipkit_WiFire.upload.tool=pic32prog
-
-chipkit_WiFire.bootloader.low_fuses=0xff
-chipkit_WiFire.bootloader.high_fuses=0xdd
-chipkit_WiFire.bootloader.extended_fuses=0x00
-#chipkit_WiFire.bootloader.path=not-supported
-#chipkit_WiFire.bootloader.file=not-supported
-chipkit_WiFire.bootloader.unlock_bits=0x3F
-chipkit_WiFire.bootloader.lock_bits=0x0F
 
 chipkit_WiFire.build.mcu=32MZ2048EFG100
 chipkit_WiFire.build.f_cpu=200000000UL
@@ -1223,7 +903,6 @@ chipkit_WiFire_AB.group=chipKIT
 # new items
 chipkit_WiFire_AB.platform=pic32
 chipkit_WiFire_AB.build.board=_BOARD_WIFIRE_
-chipkit_WiFire_AB.ccflags=ffff
 chipkit_WiFire_AB.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
@@ -1232,14 +911,6 @@ chipkit_WiFire_AB.upload.maximum_size=2080768
 chipkit_WiFire_AB.upload.maximum_data_size=524288
 chipkit_WiFire_AB.upload.speed=115200
 chipkit_WiFire_AB.upload.tool=pic32prog
-
-chipkit_WiFire_AB.bootloader.low_fuses=0xff
-chipkit_WiFire_AB.bootloader.high_fuses=0xdd
-chipkit_WiFire_AB.bootloader.extended_fuses=0x00
-#chipkit_WiFire_AB.bootloader.path=not-supported
-#chipkit_WiFire_AB.bootloader.file=not-supported
-chipkit_WiFire_AB.bootloader.unlock_bits=0x3F
-chipkit_WiFire_AB.bootloader.lock_bits=0x0F
 
 chipkit_WiFire_AB.build.mcu=32MZ2048ECG100
 chipkit_WiFire_AB.build.f_cpu=200000000UL
@@ -1256,7 +927,6 @@ chipkit_WiFire_80MHz.group=chipKIT
 # new items
 chipkit_WiFire_80MHz.platform=pic32
 chipkit_WiFire_80MHz.build.board=_BOARD_WIFIRE_80MHZ_
-chipkit_WiFire_80MHz.ccflags=ffff
 chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
 # end of new items
 
@@ -1265,14 +935,6 @@ chipkit_WiFire_80MHz.upload.maximum_size=520192
 chipkit_WiFire_80MHz.upload.maximum_data_size=524288
 chipkit_WiFire_80MHz.upload.speed=115200
 chipkit_WiFire_80MHz.upload.tool=pic32prog
-
-chipkit_WiFire_80MHz.bootloader.low_fuses=0xff
-chipkit_WiFire_80MHz.bootloader.high_fuses=0xdd
-chipkit_WiFire_80MHz.bootloader.extended_fuses=0x00
-#chipkit_WiFire_80MHz.bootloader.path=not-supported
-#chipkit_WiFire_80MHz.bootloader.file=not-supported
-chipkit_WiFire_80MHz.bootloader.unlock_bits=0x3F
-chipkit_WiFire_80MHz.bootloader.lock_bits=0x0F
 
 chipkit_WiFire_80MHz.build.mcu=32MZ2048ECG100
 chipkit_WiFire_80MHz.build.f_cpu=80000000UL
@@ -1289,7 +951,6 @@ OpenScope.group=chipKIT
 # new items
 OpenScope.platform=pic32
 OpenScope.build.board=_BOARD_OPENSCOPE_
-OpenScope.ccflags=ffff
 OpenScope.ldscript=OpenScope.ld
 # end of new items
 
@@ -1297,14 +958,6 @@ OpenScope.upload.protocol=stk500v2
 OpenScope.upload.maximum_size=2031616
 OpenScope.upload.maximum_data_size=524288
 OpenScope.upload.speed=115200
-
-OpenScope.bootloader.low_fuses=0xff
-OpenScope.bootloader.high_fuses=0xdd
-OpenScope.bootloader.extended_fuses=0x00
-#OpenScope.bootloader.path=not-supported
-#OpenScope.bootloader.file=not-supported
-OpenScope.bootloader.unlock_bits=0x3F
-OpenScope.bootloader.lock_bits=0x0F
 
 OpenScope.build.mcu=32MZ2048EFG124
 OpenScope.build.f_cpu=200000000UL
@@ -1339,14 +992,6 @@ openbci.upload.maximum_data_size=32768
 openbci.upload.speed=115200
 openbci.upload.tool=pic32prog
 
-openbci.bootloader.low_fuses=0xff
-openbci.bootloader.high_fuses=0xdd
-openbci.bootloader.extended_fuses=0x00
-#openbci.bootloader.path=not-supported
-#openbci.bootloader.file=not-supported
-openbci.bootloader.unlock_bits=0x3F
-openbci.bootloader.lock_bits=0x0F
-
 openbci.build.mcu=32MX250F128B
 openbci.build.f_cpu=40000000L
 openbci.build.core=pic32
@@ -1371,14 +1016,6 @@ lenny.upload.protocol=stk500v2
 lenny.upload.maximum_size=122880
 lenny.upload.speed=115200
 lenny.upload.tool=pic32prog
-
-lenny.bootloader.low_fuses=0xff
-lenny.bootloader.high_fuses=0xdd
-lenny.bootloader.extended_fuses=0x00
-#lenny.bootloader.path=not-supported
-#lenny.bootloader.file=not-supported
-lenny.bootloader.unlock_bits=0x3F
-lenny.bootloader.lock_bits=0x0F
 
 lenny.build.mcu=32MX270F256D
 lenny.build.f_cpu=40000000L
@@ -1405,12 +1042,6 @@ clicker2.upload.protocol=stk500v2
 clicker2.upload.maximum_size=500000
 clicker2.upload.speed=115200
 clicker2.upload.tool=pic32prog-hid
-
-clicker2.bootloader.low_fuses=0xff
-clicker2.bootloader.high_fuses=0xdd
-clicker2.bootloader.extended_fuses=0x00
-clicker2.bootloader.unlock_bits=0x3F
-clicker2.bootloader.lock_bits=0x0F
 
 clicker2.build.mcu=32MX460F512L
 clicker2.build.f_cpu=80000000L
