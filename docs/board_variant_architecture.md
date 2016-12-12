@@ -188,6 +188,33 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 <h4>
+	<span class="mw-headline" id="xxx.compiler.c.extra_flags" style="margin-left:1.6em;">xxx.compiler.c.extra_flags</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Compiler flag for c code. Don't change this.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.compiler.cpp.extra_flags" style="margin-left:1.6em;">xxx.compiler.cpp.extra_flags</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		Compiler flag for cpp code. Don't change this.
+	</dd>
+</dl>
+
+<h4>
+	<span class="mw-headline" id="xxx.upload.protocol" style="margin-left:1.6em;">xxx.upload.protocol</span>
+</h4>
+<dl>
+	<dd style="margin-left:3.2em;">
+		This is the communication protocol used to program the chipKIT. Don't change this.
+	</dd>
+</dl>
+
+<h4>
 	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
 </h4>
 <dl>
