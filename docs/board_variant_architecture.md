@@ -100,6 +100,7 @@ There are a number of files that make up the board variant mechanism and that de
 The following data files are significant to the board variant mechanism:
 
 ### boards.txt
+---
 
   
 The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
@@ -279,32 +280,32 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 ### linker scripts
-
+---
   
 Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
 ### avrdude.conf
-
+---
   
 AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn't already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
 
 ### p32_defs.h
-
+---
   
 This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select mechanism defined as part of the board variant facility.
 
 ### pins_arduino.h
-
+---
   
 This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
-
+---
   
 The primary purpose of this file is to cause the Board_Data.c file for the selected board variant to be included into the set of files being compiled. It defines some generic tables that are part of the board variant mechanism and then includes Board_Data.c.
 
 ### Board_Defs.h
-
+---
   
 This is a board-specific header file that contains declarations for common symbols and macros that describe the specific details of a given board to the system. There is one of these files for each defined board variant. Board_Data.c This is a board-specific file that contains the definitions for a number of boardspecific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
 
