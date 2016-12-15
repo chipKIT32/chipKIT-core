@@ -1350,7 +1350,7 @@ openbci.bootloader.lock_bits=0x0F
 openbci.build.mcu=32MX250F128B
 openbci.build.f_cpu=40000000L
 openbci.build.core=pic32
-openbci.build.variant=OpenBCI
+openbci.build.variant=openbci
 
 ############################################################
 
