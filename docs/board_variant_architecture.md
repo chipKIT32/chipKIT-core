@@ -308,7 +308,6 @@ This is a board-specific file that contains the definitions for a number of boar
 
 There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. A number of symbols are defined in Board_Defs.h. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-<div style="margin-left:1.6em;">
 <h5>
 <span class="mw-headline" id="Resource_Availability_Symbols">Resource Availability Symbols</span>
 
