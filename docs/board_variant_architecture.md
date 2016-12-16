@@ -306,19 +306,14 @@ This is a board-specific file that contains the definitions for a number of boar
 ### Board_Defs.h
 ---
 
-There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. A number of symbols are defined in Board_Defs.h. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
+Each board variant folder contains a Board_Def.h header file which contains declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-<h4>
-<span class="mw-headline" id="Resource_Availability_Symbols">Resource Availability Symbols</span>
+#### Resource Availability Symbols
 
-</h4>
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
-<div style="margin-left:1.6em;">
-<h5>
-<span class="mw-headline" id="NUM_DIGITAL_PINS">NUM_DIGITAL_PINS</span>
+##### NUM_DIGITAL_PINS
 
-</h5>
 <dl>
 <dd>
 Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
@@ -453,7 +448,7 @@ This gives the number of hardware SPI ports that are accessible using the DSPI s
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_DTWI_PORTS">NUM_DTWI_PORTS</span>
 
 </h5>
