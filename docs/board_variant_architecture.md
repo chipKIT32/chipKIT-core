@@ -297,15 +297,15 @@ This file is the primary "entry point" into the board variant mechanism. This fi
   
 The primary purpose of this file is to cause the Board_Data.c file for the selected board variant to be included into the set of files being compiled. It defines some generic tables that are part of the board variant mechanism and then includes Board_Data.c.
 
-### Board_Defs.h
----
-
-There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. 
-
 ### Board_Data.c 
 ---
 
 This is a board-specific file that contains the definitions for a number of board specific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
+
+### Board_Defs.h
+---
+
+There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. 
 
 <div style="margin-left:1.6em;">
 <h4>
