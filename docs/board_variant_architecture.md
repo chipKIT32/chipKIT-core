@@ -530,10 +530,9 @@ The Arduino system allows two different types of values to be used to specify th
 		but Ax != Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
 	</dd>
 	
-<h4>
-<span class="mw-headline" id="SPI_Port_Pin_Declarations">SPI Port Pin Declarations</span>
+#### SPI Port Pin Declarations
+---
 
-</h4>
 The following symbols are defined for compatibility with the original Arduino SPI library: SS, MOSI, MISO, and SCK. Typically, this looks like the following, taken from the Board_Defs.h file for the Uno32:
 
 ```cpp
