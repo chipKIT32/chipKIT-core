@@ -299,8 +299,13 @@ The primary purpose of this file is to cause the Board_Data.c file for the selec
 
 ### Board_Defs.h
 ---
-  
-This is a board-specific header file that contains declarations for common symbols and macros that describe the specific details of a given board to the system. There is one of these files for each defined board variant. Board_Data.c This is a board-specific file that contains the definitions for a number of boardspecific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
+
+There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. 
+
+### Board_Data.c 
+---
+
+This is a board-specific file that contains the definitions for a number of board specific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
 
 <div style="margin-left:1.6em;">
 <h4>
