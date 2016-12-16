@@ -103,9 +103,7 @@ The following data files are significant to the board variant mechanism:
 ---
 
   
-The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
-  
-Each board variant entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
+The [boards.txt](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/boards.txt) file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
 
 The best procedure is for a board variant developer to copy an existing boards.txt entry and paste it as a new entry in the boards.txt file. You'll then need to modify it to meet your needs. In the example below the prefix 'chipkit_uc32' is unique to a particular board variant. This prefix is known as the board ID. When you create a new board variant entry, you will replace 'chipkit_uc32' at the beginning of each string with 'your_board' Then modify the entries as necessary. Common practice is to make your unique identifier the name of your board. 
 
@@ -157,7 +155,7 @@ The list below shows each key used in the boards.txt file and what its correspon
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
-		This provides the name for the submenu under which the board should appear on the Tools-&gt;Boards menu.
+		This provides the name for the subsection under which the board should appear on the Tools-&gt;Boards menu.
 	</dd>
 </dl>
 
@@ -166,7 +164,7 @@ The list below shows each key used in the boards.txt file and what its correspon
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
-		This tells the Arduino IDE which platform is used by this board. This sets which compiler toolchain and run-time implementation is used by the board. All chipKIT boards should use pic32.
+		This tells the Arduino IDE which platform is used by this board which sets the compiler toolchain and run-time implementation used. This should be set to pic32 for all chipKIT boards.
 	</dd>
 </dl>
 
@@ -175,7 +173,7 @@ The list below shows each key used in the boards.txt file and what its correspon
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
-		This defines a symbol for the compilation that board-specific sketch code can use to identify when the sketch is being compiled for a particular target board.
+		This defines a symbol which can be used by developers to generate code specific to this board. This is commonly used in conjunction with preprocessor #IFDEF conditional statements in libraries. 
 	</dd>
 </dl>
 
@@ -256,7 +254,7 @@ The list below shows each key used in the boards.txt file and what its correspon
 </h4>
 <dl>
 	<dd style="margin-left:3.2em;">
-		This identifies the particular microcontroller used on the board.
+		This identifies the particular microcontroller used on the board. 
 	</dd>
 </dl>
 
@@ -283,11 +281,6 @@ The list below shows each key used in the boards.txt file and what its correspon
 ---
   
 Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
-
-### avrdude.conf
----
-  
-AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn't already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
 
 ### p32_defs.h
 ---
