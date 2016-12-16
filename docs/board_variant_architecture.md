@@ -435,75 +435,73 @@ The following symbols are generally used internally by the system, but they are 
 	</dd>
 </dl>
 
-#### Digital Resource Access Symbols</span>
+#### Digital Resource Access Symbols
 
 The following sets of symbols are defined to provide a mechanism for user sketches to have portable access to digital-pin-based resources on different boards (x represents an integer value). They give the pin numbers to use to access various system resources available on the board.
 
-<div style="margin-left:1.6em;">
-<h6>
-<span class="mw-headline" id="PIN_LEDx">PIN_LEDx</span>
+<dl>
+	<dt>PIN_LEDx</dt>
+	<dd>
+		These symbols give the pin numbers used to access the user accessible LEDs available on the board.
+	</dd>
+</dl>
 
-</h5>
-  
-These symbols give the pin numbers used to access the user accessible LEDs available on the board.
+<dl>
+	<dt>PIN_BTNx</dt>
+	<dd>  
+		These symbols give the pin numbers used to access the push-button inputs available on the board.
+	</dd>
+</dl>
 
-<h5>
-<span class="mw-headline" id="PIN_BTNx">PIN_BTNx</span>
+<dl>
+	<dt>PIN_SWTx</dt>
+	<dd> 
+		These symbols give the pin numbers used to access the switch inputs available on the board.
+	</dd>
+</dl>
 
-</h5>
-  
-These symbols give the pin numbers used to access the push-button inputs available on the board.
+<dl>
+	<dt>PIN_SERVOx</dt>
+	<dd>  
+		These symbols give the pin numbers used to access the servo connectors available on the board.
+	</dd>
+</dl>
 
-<h5>
-<span class="mw-headline" id="PIN_SWTx">PIN_SWTx</span>
+<dl>
+	<dt>PIN_OCx</dt>
+	<dd>  
+		These symbols give the pin numbers where the useable timer output compare channels are located.
+	</dd>
+</dl>
 
-</h5>
-  
-These symbols give the pin numbers used to access the switch inputs available on the board.
+<dl>
+	<dt>PIN_ICx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable timer input capture channels are located.
+	</dd>
+</dl>
 
-<h5>
-<span class="mw-headline" id="PIN_SERVOx">PIN_SERVOx</span>
+<dl>
+	<dt>PIN_TCKx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable timer external clock inputs are located.
+	</dd>
+</dl>
 
-</h5>
-  
-These symbols give the pin numbers used to access the servo connectors available on the board.
+<dl>
+	<dt>PIN_INTx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable external interrupt inputs are located.
+	</dd>
+</dl>
 
-<h5>
-<span class="mw-headline" id="PIN_OCx">PIN_OCx</span>
+<dl>
+	<dt>PIN_CNx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable change notice input pins are located.
+	</dd>
+</dl>
 
-</h5>
-  
-These symbols give the pin numbers where the useable timer output compare channels are located.
-
-<h5>
-<span class="mw-headline" id="PIN_ICx">PIN_ICx</span>
-
-</h5>
-  
-These symbols give the pin numbers where the usable timer input capture channels are located.
-
-<h5>
-<span class="mw-headline" id="PIN_TCKx">PIN_TCKx</span>
-
-</h5>
-  
-These symbols give the pin numbers where the usable timer external clock inputs are located.
-
-<h5>
-<span class="mw-headline" id="PIN_INTx">PIN_INTx</span>
-
-</h5>
-  
-These symbols give the pin numbers where the usable external interrupt inputs are located.
-
-<h5>
-<span class="mw-headline" id="PIN_CNx">PIN_CNx</span>
-
-</h5>
-  
-These symbols give the pin numbers where the usable change notice input pins are located.
-
-</div>
 <h4>
 <span class="mw-headline" id="Analog_Resource_Access_Symbols">Analog Resource Access Symbols</span>
 
