@@ -86,7 +86,7 @@ This folder contains the core hardware abstraction layer source files, header fi
 
 ### ./chipKIT/hardware/pic32/x.x.x/libraries
 
-This folder is the root for where the standard libraries are stored. Within this folder is a separate folder for each standard library.
+This folder is the root where the standard libraries are stored. Within this folder is a separate folder for each standard library.
 
 ### ./chipKIT/hardware/pic32/x.x.x/variants
   
@@ -95,7 +95,7 @@ This folder is the root for where the board variant files are stored. Within thi
 Key Files
 ---------
 
-There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: p32_defs.h, pins_arduino.h, and pins_arduino.c are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
+There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c) are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
@@ -139,7 +139,7 @@ chipkit_uc32.build.variant=uC32
 ############################################################
 </pre>
 
-The list below shows each key used in the boards.txt file and what its corresponding function is.. Note that the lines beginning with # are commented out. 
+The list below shows each key used in the boards.txt file and what its corresponding function is. Note that the lines beginning with # are commented out. 
 
 <h4>
     <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
