@@ -372,101 +372,71 @@ The following symbols are generally used internally by the system, but they are 
 	</dd>
 </dl>
 
-<h5>
-<span class="mw-headline" id="NUM_INT_PINS">NUM_INT_PINS</span>
-
-</h5>
 <dl>
-<dd>
-This gives the number of external interrupt inputs that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_INT_PINS</dt>
+	<dd>
+		This gives the number of external interrupt inputs that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_SERIAL_PORTS">NUM_SERIAL_PORTS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of UARTs that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_SERIAL_PORTS</dt>
+	<dd>
+		This gives the number of UARTs that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_SPI_PORTS">NUM_SPI_PORTS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of SPI ports that are usable via the SPI standard library. The SPI standard library only supports a single SPI port, so this symbol is normally only ever defined to be 1. A board that had no hardware SPI ports available would define it to be 0.
-
-</dd>
+	<dt>NUM_SPI_PORTS</dt>
+	<dd>
+		This gives the number of SPI ports that are usable via the SPI standard library. The SPI standard library only supports a single SPI port, so this symbol is normally only ever defined to be 1. A board that had no hardware SPI ports available would define it to be 0.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_I2C_PORTS">NUM_I2C_PORTS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of I2C ports that are usable via the wire standard library. The wire library only supports a single I2C port, so this symbol is normally only ever defined to be 1. A board that has no hardware I2C ports available would define it to be 0.
-
-</dd>
+	<dt>NUM_I2C_PORTS</dt>
+	<dd>
+		This gives the number of I2C ports that are usable via the wire standard library. The wire library only supports a single I2C port, so this symbol is normally only ever defined to be 1. A board that has no hardware I2C ports available would define it to be 0.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_DSPI_PORTS">NUM_DSPI_PORTS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of hardware SPI ports that are accessible using the DSPI standard library.
-
-</dd>
+	<dt>NUM_DSPI_PORTS</dt>
+	<dd>
+		This gives the number of hardware SPI ports that are accessible using the DSPI standard library.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_DTWI_PORTS">NUM_DTWI_PORTS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of hardware I2C ports that are accessible using the DTWI standard library. (NOTE: The DTWI library is not currently implemented and is planned for future expansion). NUM_LED This gives the number of LEDs on the board that are accessible using digitalWrite().
-
-</dd>
+	<dt>NUM_DTWI_PORTS</dt>
+	<dd>
+		This gives the number of hardware I2C ports that are accessible using the DTWI standard library. (NOTE: The DTWI library is not currently implemented and is planned for future expansion). NUM_LED This gives the number of LEDs on the board that are accessible using digitalWrite().
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_BTN">NUM_BTN</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of momentary contact push buttons on the board that are accessible using digitalRead().
-
-</dd>
+	<dt>NUM_BTN</dt>
+	<dd>
+		This gives the number of momentary contact push buttons on the board that are accessible using digitalRead().
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_SWT">NUM_SWT</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be "press to make, press to break" type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
-
-</dd>
+	<dt>NUM_SWT</dt>
+	<dd>
+		This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be "press to make, press to break" type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_SERVO">NUM_SERVO</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of connectors on the board suitable for direct connection of an RC hobby-type servo.
-
-</dd>
+	<dt>NUM_SERVO</dt>
+	<dd>
+		This gives the number of connectors on the board suitable for direct connection of an RC hobby-type servo.
+	</dd>
 </dl>
-</div>
-<h4>
-<span class="mw-headline" id="Digital_Resource_Access_Symbols">Digital Resource Access Symbols</span>
 
-</h4>
+#### Digital Resource Access Symbols</span>
+
 The following sets of symbols are defined to provide a mechanism for user sketches to have portable access to digital-pin-based resources on different boards (x represents an integer value). They give the pin numbers to use to access various system resources available on the board.
 
 <div style="margin-left:1.6em;">
