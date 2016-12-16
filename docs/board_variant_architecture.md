@@ -95,7 +95,7 @@ This folder is the root for where the board variant files are stored. Within thi
 Key Files
 ---------
 
-There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c) are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
+There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c){:target="_blank"} are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
