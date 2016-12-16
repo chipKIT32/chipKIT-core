@@ -306,7 +306,7 @@ This is a board-specific file that contains the definitions for a number of boar
 ### Board_Defs.h
 ---
 
-Each board variant folder contains a Board_Def.h header file which contains declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
+Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
 #### Resource Availability Symbols
 
@@ -315,24 +315,24 @@ The following symbols are generally used internally by the system, but they are 
 ##### NUM_DIGITAL_PINS
 
 <dl>
-<dd>
-Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
-
-</dd>
+	<dd>
+		Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_DIGITAL_PINS_EXTENDED">NUM_DIGITAL_PINS_EXTENDED</span>
 
-</h5>
+##### NUM_DIGITAL_PINS_EXTENDED
+
+<dl>
+	<dd>
+		This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
+		
+		There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don't go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn't go out to a connector.
+	</dd>
+</dl>
+
 <dl>
 <dd>
-This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
 
-</dd>
-</dl>
-<dl>
-<dd>
-There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don't go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn't go out to a connector.
 
 </dd>
 </dl>
