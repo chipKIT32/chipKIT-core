@@ -332,62 +332,46 @@ The following symbols are generally used internally by the system, but they are 
 	</dd>
 </dl>
 
-<h5>
-<span class="mw-headline" id="NUM_ANALOG_PINS">NUM_ANALOG_PINS</span>
-
-</h5>
 <dl>
-<dd>
-This symbol gives the number of analog inputs defined by the board variant that are implemented using internal A/D converters in the microcontroller. Numbers in the range 0 through NUM_ANALOG_PINS-1 are valid analog inputs number that can be passed to analogRead().
+	<dt>NUM_ANALOG_PINS</dt>
+	<dd>
+		This symbol gives the number of analog inputs defined by the board variant that are implemented using internal A/D converters in the microcontroller. Numbers in the range 0 through NUM_ANALOG_PINS-1 are valid analog inputs number that can be passed to analogRead().
 
-</dd>
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_ANALOG_PINS_EXTENDED">NUM_ANALOG_PINS_EXTENDED</span>
 
-</h5>
 <dl>
-<dd>
-Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn't define it.
+	<dt>NUM_ANALOG_PINS_EXTENDED</dt>
+	<dd>
+		Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn't define it.
+	</dd>
 
-</dd>
+	<dd>
+		As with digital pins, this doesn't imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that don't go out to a connector. There is also no implication that these "analog inputs" are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the "analog values" associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
+	</dd>
 </dl>
+
 <dl>
-<dd>
-As with digital pins, this doesn't imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that don't go out to a connector. There is also no implication that these "analog inputs" are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the "analog values" associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
-
-</dd>
+	<dt>NUM_OC_PINS</dt>
+	<dd>
+		This gives the number of timer output compare channels that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_OC_PINS">NUM_OC_PINS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of timer output compare channels that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_IC_PINS</dt>
+	<dd>
+		This gives the number of timer input capture channels that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_IC_PINS">NUM_IC_PINS</span>
 
-</h5>
 <dl>
-<dd>
-This gives the number of timer input capture channels that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_TCK_PINS</dt>
+	<dd>
+		This gives the number of timer external clock input channels that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h5>
-<span class="mw-headline" id="NUM_TCK_PINS">NUM_TCK_PINS</span>
 
-</h5>
-<dl>
-<dd>
-This gives the number of timer external clock input channels that are meaningfully usable on the board.
-
-</dd>
-</dl>
 <h5>
 <span class="mw-headline" id="NUM_INT_PINS">NUM_INT_PINS</span>
 
