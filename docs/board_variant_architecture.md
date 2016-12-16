@@ -1,18 +1,17 @@
 -   [Introduction](#introduction)
 -   [Folder Organization](#folder-organization)
-    -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
-    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32xxxcorespic32)
-    -   [./chipKIT/hardware/pic32/x.x.x/libraries](#user-content-chipkithardwarepic32xxxlibraries)
-    -   [./chipKIT/hardware/pic32/x.x.x/variants](#user-content-chipkithardwarepic32xxxvariants)
+    -   [./chipKIT/hardware/pic32/x.x.x](#chipkithardwarepic32x.x.x)
+    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#chipkithardwarepic32x.x.xcorespic32)
+    -   [./chipKIT/hardware/pic32/x.x.x/libraries](#chipkithardwarepic32x.x.xlibraries)
+    -   [./chipKIT/hardware/pic32/x.x.x/variants](#chipkithardwarepic32x.x.xvariants)
 -   [Key Files](#key-files)
-    -   [boards.txt](#user-content-boardstxt)
-    -   [linker scripts](#user-content-linker-scripts)
-    -   [avrdude.conf](#user-content-avrdudeconf)
-    -   [p32_defs.h](#user-content-p32_defsh)
-    -   [pins_arduino.h](#user-content-pins_arduinoh)
-    -   [pins_arduino.c](#user-content-pins_arduinoc)
-	-   [Board_Data.c](#user-content-board_datac)
-    -   [Board_Defs.h](#user-content-board_defsh)
+-   [### boards.txt](#boards.txt)
+-   [### linker scripts](#linker-scripts)
+-   [### p32_defs.h](#p32_defs.h)
+-   [### pins_arduino.h](#pins_arduino.h)
+-   [### pins_arduino.c](#pins_arduino.c)
+-   [### Board_Data.c](#board_data.c)
+-   [### Board_Defs.h](#board_defs.h)
 -   [Pin Mapping](#pin-mapping)
     -   [Pin Mapping Mechanism](#pin-mapping-mechanism)
     -   [Digital Pin Mapping](#digital-pin-mapping)
@@ -20,20 +19,29 @@
     -   [Digital Pin Mapping Macros](#digital-pin-mapping-macros)
     -   [Digital Input/Output Macros](#digital-inputoutput-macros)
         -   [Macro 1: digitalPinToPort(P)](#macro-1-digitalpintoportp)
-        -   [Macro 2: digitalPinToBitMask(P)](#macro-2-digitalpintobitmaskp)
+        -   [Macro
+            2: digitalPinToBitMask(P)](#macro-2-digitalpintobitmaskp)
         -   [Macro 3: portRegisters(P)](#macro-3-portregistersp)
     -   [Timer Resource Mapping Macros](#timer-resource-mapping-macros)
-    -   [Digital Pin and Timer Resource Mapping Tables](#digital-pin-and-timer-resource-mapping-tables)
-        -   [Table 1: const uint32_t port_to_tris_PGM\[\]](#table-1-const-uint32_t-port_to_tris_pgm)
-        -   [Table 2: const uint8_t digital_pin_to_port_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_port_pgm)
-        -   [Table 3: const uint16_t digital_pin_to_bit_mask_PGM\[\]](#table-3-const-uint16_t-digital_pin_to_bit_mask_pgm)
-        -   [Table 4: const uint16_t digital_pin_to_timer_PGM\[\]](#table-4-const-uint16_t-digital_pin_to_timer_pgm)
+    -   [Digital Pin and Timer Resource Mapping
+        Tables](#digital-pin-and-timer-resource-mapping-tables)
+        -   [Table 1: const uint32_t
+            port_to_tris_PGM\[\]](#table-1-const-uint32_t-port_to_tris_pgm)
+        -   [Table 2: const uint8_t
+            digital_pin_to_port_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_port_pgm)
+        -   [Table 3: const uint16_t
+            digital_pin_to_bit_mask_PGM\[\]](#table-3-const-uint16_t-digital_pin_to_bit_mask_pgm)
+        -   [Table 4: const uint16_t
+            digital_pin_to_timer_PGM\[\]](#table-4-const-uint16_t-digital_pin_to_timer_pgm)
     -   [Analog Pin Mapping](#analog-pin-mapping)
         -   [Analog Pin Mapping Macros](#analog-pin-mapping-macros)
         -   [Analog Pin Mapping Tables](#analog-pin-mapping-tables)
-            -   [Table 1: const uint8_t digital_pin_to_analog_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_analog_pgm)
-            -   [Table 2: const uint8_t analog_pin_to_channel_PGM\[\]](#table-2-const-uint8_t-analog_pin_to_channel_pgm)
-    -   [Mapping Logical Peripherals to Physical Peripherals](#mapping-logical-peripherals-to-physical-peripherals)
+            -   [Table 1: const uint8_t
+                digital_pin_to_analog_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_analog_pgm)
+            -   [Table 2: const uint8_t
+                analog_pin_to_channel_PGM\[\]](#table-2-const-uint8_t-analog_pin_to_channel_pgm)
+    -   [Mapping Logical Peripherals to Physical
+        Peripherals](#mapping-logical-peripherals-to-physical-peripherals)
         -   [HardwareSerial Library](#hardwareserial-library)
     -   [USB Serial Port](#usb-serial-port)
     -   [SPI Library](#spi-library)
@@ -47,16 +55,23 @@
     -   [OPT_BOARD_ANALOG_WRITE](#opt_board_analog_write)
 -   [Peripheral Pin Select](#peripheral-pin-select)
     -   [PPS Support Implementation](#pps-support-implementation)
-        -   [Function: boolean mapPps(uint8_t pin, ppsFunctionType func)](#function-boolean-mapppsuint8_t-pin-ppsfunctiontype-func)
+        -   [Function: boolean mapPps(uint8_t pin,
+            ppsFunctionType func)](#function-boolean-mapppsuint8_t-pin-ppsfunctiontype-func)
         -   [PPS Symbol Definitions](#pps-symbol-definitions)
-            -   [PPS Functions Definition Symbols](#pps-functions-definition-symbols)
-            -   [PPS Pin Definition Symbols](#pps-pin-definition-symbols)
+            -   [PPS Functions Definition
+                Symbols](#pps-functions-definition-symbols)
+            -   [PPS Pin Definition
+                Symbols](#pps-pin-definition-symbols)
         -   [PPS Macro Definitions](#pps-macro-definitions)
     -   [PPS Mapping Table Definitions](#pps-mapping-table-definitions)
-        -   [Table 1: const uint8_t digital_pin_to_pps_out_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_pps_out_pgm)
-        -   [Table 2: const uint8_t digital_pin_to_pps_in_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_pps_in_pgm)
-        -   [Table 3: const uint8_t output_compare_to_digital_pin_PGM\[\]](#table-3-const-uint8_t-output_compare_to_digital_pin_pgm)
-        -   [Table 4: const uint8_t external_int_to_digital_pin_PGM](#table-4-const-uint8_t-external_int_to_digital_pin_pgm)
+        -   [Table 1: const uint8_t
+            digital_pin_to_pps_out_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_pps_out_pgm)
+        -   [Table 2: const uint8_t
+            digital_pin_to_pps_in_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_pps_in_pgm)
+        -   [Table 3: const uint8_t
+            output_compare_to_digital_pin_PGM\[\]](#table-3-const-uint8_t-output_compare_to_digital_pin_pgm)
+        -   [Table 4: const uint8_t
+            external_int_to_digital_pin_PGM](#table-4-const-uint8_t-external_int_to_digital_pin_pgm)
 
 Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [| Board Variant Mechanism](http://chipkit.net/wp-content/uploads/2013/11/chipKIT-MPIDE-Board-Variant-Mechanism-Rev-A.pdf)
 
@@ -632,7 +647,7 @@ Pin mapping is the process of translating from the logical digital pin numbers a
 
 All of the code in the core files is written to perform the translation from logical digital pin number or logical analog input number to the corresponding physical values (e.g., port address and bit position) using macros defined in pins_arduino.h. The default definition of these macros is provided in pins_arduino.h, but a given board variant can, and often will, override these default definitions by providing board specific definitions of some of the macros. In many cases, these macros will make use of look-up tables stored in program flash to perform the translation.
 
-The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by \#undef'ing the macro and then using
+The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by #undef'ing the macro and then using
 
 1.  define to give a new definition for the macro.
 
