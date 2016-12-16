@@ -308,27 +308,27 @@ This is a board-specific file that contains the definitions for a number of boar
 
 There is one Board_Def.h header file for each board variant. The file is located in the board variants folder and it contains declarations of symbols and macros that are specific to that board variant. A number of symbols are defined in Board_Defs.h. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-<h5>
+<h4>
 <span class="mw-headline" id="Resource_Availability_Symbols">Resource Availability Symbols</span>
 
-</h5>
+</h4>
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
 <div style="margin-left:1.6em;">
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_DIGITAL_PINS">NUM_DIGITAL_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_DIGITAL_PINS_EXTENDED">NUM_DIGITAL_PINS_EXTENDED</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
@@ -347,20 +347,20 @@ If a board implements digital I/O pins that are external to the microcontroller,
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_ANALOG_PINS">NUM_ANALOG_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This symbol gives the number of analog inputs defined by the board variant that are implemented using internal A/D converters in the microcontroller. Numbers in the range 0 through NUM_ANALOG_PINS-1 are valid analog inputs number that can be passed to analogRead().
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_ANALOG_PINS_EXTENDED">NUM_ANALOG_PINS_EXTENDED</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn't define it.
@@ -373,50 +373,50 @@ As with digital pins, this doesn't imply that all of these analog inputs are acc
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_OC_PINS">NUM_OC_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of timer output compare channels that are meaningfully usable on the board.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_IC_PINS">NUM_IC_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of timer input capture channels that are meaningfully usable on the board.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_TCK_PINS">NUM_TCK_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of timer external clock input channels that are meaningfully usable on the board.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_INT_PINS">NUM_INT_PINS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of external interrupt inputs that are meaningfully usable on the board.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_SERIAL_PORTS">NUM_SERIAL_PORTS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of UARTs that are meaningfully usable on the board.
@@ -426,27 +426,27 @@ This gives the number of UARTs that are meaningfully usable on the board.
 <h6>
 <span class="mw-headline" id="NUM_SPI_PORTS">NUM_SPI_PORTS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of SPI ports that are usable via the SPI standard library. The SPI standard library only supports a single SPI port, so this symbol is normally only ever defined to be 1. A board that had no hardware SPI ports available would define it to be 0.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_I2C_PORTS">NUM_I2C_PORTS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of I2C ports that are usable via the wire standard library. The wire library only supports a single I2C port, so this symbol is normally only ever defined to be 1. A board that has no hardware I2C ports available would define it to be 0.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_DSPI_PORTS">NUM_DSPI_PORTS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of hardware SPI ports that are accessible using the DSPI standard library.
@@ -456,37 +456,37 @@ This gives the number of hardware SPI ports that are accessible using the DSPI s
 <h6>
 <span class="mw-headline" id="NUM_DTWI_PORTS">NUM_DTWI_PORTS</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of hardware I2C ports that are accessible using the DTWI standard library. (NOTE: The DTWI library is not currently implemented and is planned for future expansion). NUM_LED This gives the number of LEDs on the board that are accessible using digitalWrite().
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_BTN">NUM_BTN</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of momentary contact push buttons on the board that are accessible using digitalRead().
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_SWT">NUM_SWT</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be "press to make, press to break" type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
 
 </dd>
 </dl>
-<h6>
+<h5>
 <span class="mw-headline" id="NUM_SERVO">NUM_SERVO</span>
 
-</h6>
+</h5>
 <dl>
 <dd>
 This gives the number of connectors on the board suitable for direct connection of an RC hobby-type servo.
@@ -494,81 +494,81 @@ This gives the number of connectors on the board suitable for direct connection 
 </dd>
 </dl>
 </div>
-<h5>
+<h4>
 <span class="mw-headline" id="Digital_Resource_Access_Symbols">Digital Resource Access Symbols</span>
 
-</h5>
+</h4>
 The following sets of symbols are defined to provide a mechanism for user sketches to have portable access to digital-pin-based resources on different boards (x represents an integer value). They give the pin numbers to use to access various system resources available on the board.
 
 <div style="margin-left:1.6em;">
 <h6>
 <span class="mw-headline" id="PIN_LEDx">PIN_LEDx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers used to access the user accessible LEDs available on the board.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_BTNx">PIN_BTNx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers used to access the push-button inputs available on the board.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_SWTx">PIN_SWTx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers used to access the switch inputs available on the board.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_SERVOx">PIN_SERVOx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers used to access the servo connectors available on the board.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_OCx">PIN_OCx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers where the useable timer output compare channels are located.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_ICx">PIN_ICx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers where the usable timer input capture channels are located.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_TCKx">PIN_TCKx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers where the usable timer external clock inputs are located.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_INTx">PIN_INTx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers where the usable external interrupt inputs are located.
 
-<h6>
+<h5>
 <span class="mw-headline" id="PIN_CNx">PIN_CNx</span>
 
-</h6>
+</h5>
   
 These symbols give the pin numbers where the usable change notice input pins are located.
 
 </div>
-<h5>
+<h4>
 <span class="mw-headline" id="Analog_Resource_Access_Symbols">Analog Resource Access Symbols</span>
 
-</h5>
+</h4>
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
 The Arduino system allows two different types of values to be used to specify the analog input number as the parameter to analogRead(). Either the analog input number can be specified, or the digital pin number corresponding to the analog input can be specified. Unfortunately, this has the potential to create an ambiguity that can't be resolved. The general presumption is that a number in the range 0 to NUM_ANALOG_PINS-1 is the analog input number and a number outside of this range is the digital pin number of the pin that shares that analog input. However, there are three actual cases that could occur: For the following discussion, assume that Ax refers to analog input x, N refers to the number of analog inputs, and D refers to the digital pin number of the first digital pin sharing an analog input. Analog inputs are always in the range Ax &gt;= 0 and Ax &lt;= N-1.
@@ -579,10 +579,10 @@ Case 2: D &lt; N, but Ax = Dx: In this case, there is an overlap between the ran
 
 Case 3: D &lt; N, but Ax != Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
 
-<h5>
+<h4>
 <span class="mw-headline" id="SPI_Port_Pin_Declarations">SPI Port Pin Declarations</span>
 
-</h5>
+</h4>
 The following symbols are defined for compatibility with the original Arduino SPI library: SS, MOSI, MISO, and SCK. Typically, this looks like the following, taken from the Board_Defs.h file for the Uno32:
 
 ```cpp
