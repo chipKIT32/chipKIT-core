@@ -140,139 +140,109 @@ chipkit_uc32.build.variant=uC32
 
 The list below shows each key used in the boards.txt file and what its corresponding function is. Note that the lines beginning with # are commented out. 
 
-<h4>
-    <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
-        xxx.name
-    </span>
-</h4>
 <dl>
-    <dd style="margin-left:3.2em;">
+	<dt>xxx.name</dt>
+	<dd>
         This provides the text that will show up in the Tools-&gt;Boards menu item.
     </dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.group</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.group</dt>
+	<dd>
 		This provides the name for the subsection under which the board should appear on the Tools-&gt;Boards menu.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.platform" style="margin-left:1.6em;">xxx.platform</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.platform</dt>
+	<dd>
 		This tells the Arduino IDE which platform is used by this board which sets the compiler toolchain and run-time implementation used. This should be set to pic32 for all chipKIT boards.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.board" style="margin-left:1.6em;">xxx.build.board</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.board</dt>
+	<dd>
 		This defines a symbol which can be used by developers to generate code specific to this board. This is commonly used in conjunction with preprocessor #IFDEF conditional statements in libraries. 
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.ldscript" style="margin-left:1.6em;">xxx.ldscript</span>
+<dl>
+	<dt>xxx.ldscript</dt>
 </h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dd">
 		This identifies the linker script to be used when building a sketch for the board.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.compiler.c.extra_flags" style="margin-left:1.6em;">xxx.compiler.c.extra_flags</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.compiler.c.extra_flags</dt>
+	<dd>
 		Compiler flag for c code. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.compiler.cpp.extra_flags" style="margin-left:1.6em;">xxx.compiler.cpp.extra_flags</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.compiler.cpp.extra_flags</dt>
+	<dd>
 		Compiler flag for cpp code. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.protocol" style="margin-left:1.6em;">xxx.upload.protocol</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.protocol</dt>
+	<dd>
 		This is the communication protocol used to program the chipKIT. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.maximum_size</dt>
+	<dd>
 		This specifies the amount of useable program memory on the microcontroller.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.maximum_data_size</dt>
+	<dd>
 		This specifies the max amount of space useable for dynamic memory (variables). The Arduino IDE will tell you at compile time how much of memory is being used by the current sketch.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.speed" style="margin-left:1.6em;">xxx.upload.speed</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.speed</dt>
+	<dd>
 		Required for programming. Don't change this as it must agree with the bootloader.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.tool" style="margin-left:1.6em;">xxx.upload.tool</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.tool</dt>
+	<dd>
 		Required for programming. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.mcu</dt>
+	<dd>
 		This identifies the particular microcontroller used on the board. 
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.f_cpu" style="margin-left:1.6em;">xxx.build.f_cpu</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.f_cpu</dt>
+	<dd>
 		This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.variant" style="margin-left:1.6em;">xxx.build.variant</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.variant</dt>
+	<dd>
 		This identifies the board variant to be used when building for this board. This causes the specified variant folder for the board to be on the include list so that the correct board variant files will be available when building a sketch for the board.
 
 	</dd>
