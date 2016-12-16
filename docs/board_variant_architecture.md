@@ -285,7 +285,7 @@ Linker scripts are input files used to describe to the linker things such as the
 ### p32_defs.h
 ---
   
-This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select mechanism defined as part of the board variant facility.
+This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers (SFR) in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select (PPS) mechanism.
 
 ### pins_arduino.h
 ---
