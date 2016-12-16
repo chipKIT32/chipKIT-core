@@ -309,6 +309,7 @@ This is a board-specific file that contains the definitions for a number of boar
 Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
 #### Resource Availability Symbols
+---
 
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
@@ -436,6 +437,7 @@ The following symbols are generally used internally by the system, but they are 
 </dl>
 
 #### Digital Resource Access Symbols
+---
 
 The following sets of symbols are defined to provide a mechanism for user sketches to have portable access to digital-pin-based resources on different boards (x represents an integer value). They give the pin numbers to use to access various system resources available on the board.
 
@@ -503,6 +505,7 @@ The following sets of symbols are defined to provide a mechanism for user sketch
 </dl>
 
 #### Analog Resource Access Symbols
+---
 
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
