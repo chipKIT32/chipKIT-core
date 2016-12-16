@@ -502,20 +502,31 @@ The following sets of symbols are defined to provide a mechanism for user sketch
 	</dd>
 </dl>
 
-<h4>
-<span class="mw-headline" id="Analog_Resource_Access_Symbols">Analog Resource Access Symbols</span>
+#### Analog Resource Access Symbols
 
-</h4>
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
 The Arduino system allows two different types of values to be used to specify the analog input number as the parameter to analogRead(). Either the analog input number can be specified, or the digital pin number corresponding to the analog input can be specified. Unfortunately, this has the potential to create an ambiguity that can't be resolved. The general presumption is that a number in the range 0 to NUM_ANALOG_PINS-1 is the analog input number and a number outside of this range is the digital pin number of the pin that shares that analog input. However, there are three actual cases that could occur: For the following discussion, assume that Ax refers to analog input x, N refers to the number of analog inputs, and D refers to the digital pin number of the first digital pin sharing an analog input. Analog inputs are always in the range Ax &gt;= 0 and Ax &lt;= N-1.
 
-Case 1: D &gt; N: This is the usual case and the condition which the original Arduino design was intended to accommodate. There is no overlap between the range of analog input numbers, Ax, and the digital pin numbers, and there is no ambiguity.
+<dl>
+	<dt>Case 1: D &gt; N</dt>
+	<dd>
+		This is the usual case and the condition which the original Arduino design was intended to accommodate. There is no overlap between the range of analog input numbers, Ax, and the digital pin numbers, and there is no ambiguity.
+	</dd>
+</dl>
 
-Case 2: D &lt; N, but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn't matter because they both have the same value.
-
-Case 3: D &lt; N, but Ax != Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
-
+<dl>
+	<dt>Case 2: D &lt; N</dt>
+	<dd>
+		but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn't matter because they both have the same value.
+	</dd>
+	
+<dl>
+	<dt>Case 3: D &lt; N</dt>
+	<dd>
+		but Ax != Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
+	</dd>
+	
 <h4>
 <span class="mw-headline" id="SPI_Port_Pin_Declarations">SPI Port Pin Declarations</span>
 
