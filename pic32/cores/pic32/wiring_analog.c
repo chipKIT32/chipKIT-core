@@ -690,7 +690,7 @@ void turnOffPWM(uint8_t timer)
     }
 }
 
-static const psval[8] = {1, 2, 4, 6, 16, 32, 64, 256};
+static const uint32_t psval[8] = {1, 2, 4, 6, 16, 32, 64, 256};
 
 
 static void configurePWM() {
@@ -698,8 +698,6 @@ static void configurePWM() {
 #if defined(__PIC32MZXX__)
     CFGCONbits.OCACLK = 0;
 #endif
-
-    uint32_t res = (1 << _pwmResolution);
 
     uint32_t baseClock = getPeripheralClock();
 
