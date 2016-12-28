@@ -1,6 +1,3 @@
-- title: "chipKIT-core"
-  href: "/"
-
 - title: "API (core users)"
   subcategories:
     - subtitle: "Non-blocking analogRead() functions"

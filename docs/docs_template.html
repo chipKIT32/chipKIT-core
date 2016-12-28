@@ -1,5 +1,5 @@
 ---
-layout: autodefault
+layout: default
 title: Board Variant Architecture
 ---
 
