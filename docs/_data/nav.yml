@@ -11,9 +11,9 @@
     - subtitle: "How to Hack chipKIT-core"
       subhref: "core_how_to_hack_chipkit_core.html"
     - subtitle: "Board Variant Architecture"
-      subhref: "chipKIT-core/board_variant_architecture"
+      subhref: "board_variant_architecture"
 
 - title: "docs (how to contribute)"
   subcategories:
     - subtitle: "How to add documentation to the docs folder"
-      subhref: "chipKIT-core/docs_template.html"
+      subhref: "docs_template.html"
