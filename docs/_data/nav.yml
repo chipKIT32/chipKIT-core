@@ -13,4 +13,4 @@
 - title: "docs (how to contribute)"
   subcategories:
     - subtitle: "How to add documentation to the docs folder"
-      subhref: "docs_template.html"
+      subhref: "docs_template"
