@@ -177,7 +177,7 @@ The list below shows each key used in the boards.txt file and what its correspon
 	<dt>xxx.ldscript</dt>
 </h4>
 <dl>
-	<dd">
+	<dd>
 		This identifies the linker script to be used when building a sketch for the board.
 	</dd>
 </dl>
@@ -249,7 +249,6 @@ The list below shows each key used in the boards.txt file and what its correspon
 	<dt>xxx.build.variant</dt>
 	<dd>
 		This identifies the board variant to be used when building for this board. This causes the specified variant folder for the board to be on the include list so that the correct board variant files will be available when building a sketch for the board.
-
 	</dd>
 </dl>
 
@@ -283,7 +282,7 @@ This is a board-specific file that contains the definitions for a number of boar
 
 Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-### Resource Availability Symbols
+#### Resource Availability Symbols
 ---
 
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
