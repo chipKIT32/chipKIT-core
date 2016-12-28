@@ -6,7 +6,7 @@
     - subtitle: "Example1"
       subhref: "api_analogread_non_blocking.html"
 	  
- - title: "core(core developers)"
+- title: "core(core developers)"
   subcategories:
     - subtitle: "How to Hack chipKIT-core"
       subhref: "core_how_to_hack_chipkit_core.html"
