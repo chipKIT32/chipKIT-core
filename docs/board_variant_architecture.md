@@ -175,8 +175,6 @@ The list below shows each key used in the boards.txt file and what its correspon
 
 <dl>
 	<dt>xxx.ldscript</dt>
-</h4>
-<dl>
 	<dd>
 		This identifies the linker script to be used when building a sketch for the board.
 	</dd>
