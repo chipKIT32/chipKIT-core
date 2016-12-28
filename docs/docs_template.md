@@ -3,8 +3,6 @@ layout: default
 title: How to add documentation to the docs folder
 ---
 
-    <!-- START OF DOCUMENTATION, DO NOT ALTER LINES ABOVE THIS POINT (UNLESS YOU HAVE A REALLY GOOD REASON) -->
-		
 	## Formatting Documents
 	
 	All documents need to have something called YAML front matter. This is a section at the beginning of your document which starte with three dashes and ends with three dashes. In between these dashes you can specify the layout template you wish to use as well as the page title. The YAML is processed by a Jekyll engine by github. Here is an example:
@@ -23,5 +21,4 @@ title: How to add documentation to the docs folder
 	## Update the Navigation Menu
 	
 	In the _data folder you will find the nav.yml file. Update this file to add a link to your file.
-	
-    <!-- END OF DOCUMENTATION, DO NOT ALTER LINES BELOW THIS POINT (UNLESS YOU HAVE A REALLY GOOD REASON) -->
+
