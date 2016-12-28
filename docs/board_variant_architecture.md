@@ -480,7 +480,7 @@ The following sets of symbols are defined to provide a mechanism for user sketch
 </dl>
 
 #### Analog Resource Access Symbols
----
+----
 
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
@@ -508,7 +508,7 @@ The Arduino system allows two different types of values to be used to specify th
 </dl>
 	
 #### SPI Port Pin Declarations
----
+----
 
 The following symbols are defined for compatibility with the original Arduino SPI library: SS, MOSI, MISO, and SCK. Typically, this looks like the following, taken from the Board_Defs.h file for the Uno32:
 
