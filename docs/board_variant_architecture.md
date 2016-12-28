@@ -498,6 +498,7 @@ The Arduino system allows two different types of values to be used to specify th
 	<dd>
 		but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn't matter because they both have the same value.
 	</dd>
+</dl>
 	
 <dl>
 	<dt>Case 3: D &lt; N</dt>
