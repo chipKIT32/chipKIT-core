@@ -283,7 +283,7 @@ This is a board-specific file that contains the definitions for a number of boar
 
 Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-##### Resource Availability Symbols
+### Resource Availability Symbols
 ---
 
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
