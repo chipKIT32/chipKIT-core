@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Change this Title in Default Template</title>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <title>chipKIT-core Documentation</title>
 
-    <div id="content">
-	My Template 12345
-	
+    <!-- Put the next two lines in every file -->
+    <script src="/js/w3data.js"></script>
+</head>
+<body>
+
+    <!-- This next line creates the menu for the site -->
+    {% include menu.html %}
+
+    <div>
         {{ content }}
-		
-    </div>
+    <div/>
 
-  </body>
+    <!-- Put the next three lines in every html file -->
+    <script>w3IncludeHTML();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> <!-- Include all compiled plugins (below), or include individual files as needed -->
+</body>
 </html>
