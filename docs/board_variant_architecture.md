@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Testing Jekyll
+layout: default
+title: Board Variant Architecture
 ---
 
 -   [Introduction](#introduction)
@@ -16,6 +16,7 @@ title: Testing Jekyll
     -   [p32_defs.h](#user-content-p32_defsh)
     -   [pins_arduino.h](#user-content-pins_arduinoh)
     -   [pins_arduino.c](#user-content-pins_arduinoc)
+	-   [Board_Data.c](#user-content-board_datac)
     -   [Board_Defs.h](#user-content-board_defsh)
 -   [Pin Mapping](#pin-mapping)
     -   [Pin Mapping Mechanism](#pin-mapping-mechanism)
@@ -91,7 +92,7 @@ This folder contains the core hardware abstraction layer source files, header fi
 
 ### ./chipKIT/hardware/pic32/x.x.x/libraries
 
-This folder is the root for where the standard libraries are stored. Within this folder is a separate folder for each standard library.
+This folder is the root where the standard libraries are stored. Within this folder is a separate folder for each standard library.
 
 ### ./chipKIT/hardware/pic32/x.x.x/variants
   
@@ -100,7 +101,7 @@ This folder is the root for where the board variant files are stored. Within thi
 Key Files
 ---------
 
-There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: p32_defs.h, pins_arduino.h, and pins_arduino.c are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
+There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c) are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
@@ -108,9 +109,7 @@ The following data files are significant to the board variant mechanism:
 ---
 
   
-The boards.txt file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
-  
-Each board variant entry is made up of a number of lines, setting a number of configuration parameters used by the system. In some cases, these configuration parameters apply to the AVR microcontrollers originally used on Arduino boards and are not relevant to chipKIT boards. Many of the entries will also have the same value for all, or most, chipKIT boards, and so do not need to be given unique values.
+The [boards.txt](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/boards.txt) file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
 
 The best procedure is for a board variant developer to copy an existing boards.txt entry and paste it as a new entry in the boards.txt file. You'll then need to modify it to meet your needs. In the example below the prefix 'chipkit_uc32' is unique to a particular board variant. This prefix is known as the board ID. When you create a new board variant entry, you will replace 'chipkit_uc32' at the beginning of each string with 'your_board' Then modify the entries as necessary. Common practice is to make your unique identifier the name of your board. 
 
@@ -144,141 +143,111 @@ chipkit_uc32.build.variant=uC32
 ############################################################
 </pre>
 
-The list below shows each key used in the boards.txt file and what its corresponding function is.. Note that the lines beginning with # are commented out. 
+The list below shows each key used in the boards.txt file and what its corresponding function is. Note that the lines beginning with # are commented out. 
 
-<h4>
-    <span class="mw-headline" id="xxx.name" style="margin-left:1.6em;">
-        xxx.name
-    </span>
-</h4>
 <dl>
-    <dd style="margin-left:3.2em;">
+	<dt>xxx.name</dt>
+	<dd>
         This provides the text that will show up in the Tools-&gt;Boards menu item.
     </dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.group" style="margin-left:1.6em;">xxx.group</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
-		This provides the name for the submenu under which the board should appear on the Tools-&gt;Boards menu.
+	<dt>xxx.group</dt>
+	<dd>
+		This provides the name for the subsection under which the board should appear on the Tools-&gt;Boards menu.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.platform" style="margin-left:1.6em;">xxx.platform</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
-		This tells the Arduino IDE which platform is used by this board. This sets which compiler toolchain and run-time implementation is used by the board. All chipKIT boards should use pic32.
+	<dt>xxx.platform</dt>
+	<dd>
+		This tells the Arduino IDE which platform is used by this board which sets the compiler toolchain and run-time implementation used. This should be set to pic32 for all chipKIT boards.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.board" style="margin-left:1.6em;">xxx.build.board</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
-		This defines a symbol for the compilation that board-specific sketch code can use to identify when the sketch is being compiled for a particular target board.
+	<dt>xxx.build.board</dt>
+	<dd>
+		This defines a symbol which can be used by developers to generate code specific to this board. This is commonly used in conjunction with preprocessor #IFDEF conditional statements in libraries. 
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.ldscript" style="margin-left:1.6em;">xxx.ldscript</span>
+<dl>
+	<dt>xxx.ldscript</dt>
 </h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dd>
 		This identifies the linker script to be used when building a sketch for the board.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.compiler.c.extra_flags" style="margin-left:1.6em;">xxx.compiler.c.extra_flags</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.compiler.c.extra_flags</dt>
+	<dd>
 		Compiler flag for c code. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.compiler.cpp.extra_flags" style="margin-left:1.6em;">xxx.compiler.cpp.extra_flags</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.compiler.cpp.extra_flags</dt>
+	<dd>
 		Compiler flag for cpp code. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.protocol" style="margin-left:1.6em;">xxx.upload.protocol</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.protocol</dt>
+	<dd>
 		This is the communication protocol used to program the chipKIT. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.maximum_size" style="margin-left:1.6em;">xxx.upload.maximum_size</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.maximum_size</dt>
+	<dd>
 		This specifies the amount of useable program memory on the microcontroller.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.maximum_data_size" style="margin-left:1.6em;">xxx.upload.maximum_data_size</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.maximum_data_size</dt>
+	<dd>
 		This specifies the max amount of space useable for dynamic memory (variables). The Arduino IDE will tell you at compile time how much of memory is being used by the current sketch.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.speed" style="margin-left:1.6em;">xxx.upload.speed</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.speed</dt>
+	<dd>
 		Required for programming. Don't change this as it must agree with the bootloader.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.upload.tool" style="margin-left:1.6em;">xxx.upload.tool</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.upload.tool</dt>
+	<dd>
 		Required for programming. Don't change this.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.mcu" style="margin-left:1.6em;">xxx.build.mcu</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
-		This identifies the particular microcontroller used on the board.
+	<dt>xxx.build.mcu</dt>
+	<dd>
+		This identifies the particular microcontroller used on the board. 
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.f_cpu" style="margin-left:1.6em;">xxx.build.f_cpu</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.f_cpu</dt>
+	<dd>
 		This sets a symbol available at compile-time to give the operating speed of the microcontroller on the board.
 	</dd>
 </dl>
 
-<h4>
-	<span class="mw-headline" id="xxx.build.variant" style="margin-left:1.6em;">xxx.build.variant</span>
-</h4>
 <dl>
-	<dd style="margin-left:3.2em;">
+	<dt>xxx.build.variant</dt>
+	<dd>
 		This identifies the board variant to be used when building for this board. This causes the specified variant folder for the board to be on the include list so that the correct board variant files will be available when building a sketch for the board.
 
 	</dd>
@@ -289,314 +258,256 @@ The list below shows each key used in the boards.txt file and what its correspon
   
 Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
-### avrdude.conf
----
-  
-AVRDUDE is the program used by the MPIDE to communicate with the boot loader on the board and to actually download a sketch to the board. AVRDUDE needs certain information about the microcontroller on the board to function. avrdude.conf is a data file that AVRDUDE uses to configure itself with the specific information it needs about the microcontroller on the board. If the particular PIC32 device on the board is one used by some other chipKIT board, there will already be an entry in avrdude.conf for that microcontroller. If there isn't already an entry in avrdude.conf for the specific microcontroller, then one will have to be added.
-
 ### p32_defs.h
 ---
   
-This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select mechanism defined as part of the board variant facility.
+This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers (SFR) in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select (PPS) mechanism.
 
 ### pins_arduino.h
 ---
   
-This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by WProgram.h which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
+This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by [WProgram.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/WProgram.h) which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
 ---
   
 The primary purpose of this file is to cause the Board_Data.c file for the selected board variant to be included into the set of files being compiled. It defines some generic tables that are part of the board variant mechanism and then includes Board_Data.c.
 
+### Board_Data.c 
+---
+
+This is a board-specific file that contains the definitions for a number of board specific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
+
 ### Board_Defs.h
 ---
-  
-This is a board-specific header file that contains declarations for common symbols and macros that describe the specific details of a given board to the system. There is one of these files for each defined board variant. Board_Data.c This is a board-specific file that contains the definitions for a number of boardspecific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
 
-<div style="margin-left:1.6em;">
-<h4>
-<span class="mw-headline" id="General_Symbol_Definitions">General Symbol Definitions</span>
+Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
 
-</h4>
-There are a number of symbols defined by the Board_Defs.h file for the board variant. In some cases, these symbols are used to describe the available resources on the board. In other cases these symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards.
+#### Resource Availability Symbols
+---
 
-<div style="margin-left:1.6em;">
-<h5>
-<span class="mw-headline" id="Resource_Availability_Symbols">Resource Availability Symbols</span>
-
-</h5>
 The following symbols are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
-<div style="margin-left:1.6em;">
-<h6>
-<span class="mw-headline" id="NUM_DIGITAL_PINS">NUM_DIGITAL_PINS</span>
-
-</h6>
 <dl>
-<dd>
-Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
-
-</dd>
+	<dt>NUM_DIGITAL_PINS</dt>
+	<dd>
+		Nominally, this symbol gives the number of digital I/O pins defined by the board variant that exist natively in the microcontroller on the board. This isn't strictly the actual number of pins. There may be holes in the range and pins within this range that are not valid. NUM_DIGITAL_PINS-1 is the highest numbered digital pin that is accessed directly by the microcontroller.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_DIGITAL_PINS_EXTENDED">NUM_DIGITAL_PINS_EXTENDED</span>
 
-</h6>
 <dl>
-<dd>
-This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
-
-</dd>
+	<dt>NUM_DIGITAL_PINS_EXTENDED</dt>
+	<dd>
+		This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
+	</dd>
+	<dd>	
+		There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don't go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn't go out to a connector.
+	</dd>
+	<dd>
+		If a board implements digital I/O pins that are external to the microcontroller, such as would be the case if the board contains an I/O expansion chip of some kind, the digital pins implemented in the microcontroller should be the lower numbered pins (i.e., starting with pin 0) and the external pins should then follow the internal pins (i.e., externally defined pins start with digital pin number NUM_DIGITAL_PINS and go up from there to NUM_DIGITAL_PINS_EXTENDED-1).
+	</dd>
 </dl>
+
 <dl>
-<dd>
-There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don't go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn't go out to a connector.
+	<dt>NUM_ANALOG_PINS</dt>
+	<dd>
+		This symbol gives the number of analog inputs defined by the board variant that are implemented using internal A/D converters in the microcontroller. Numbers in the range 0 through NUM_ANALOG_PINS-1 are valid analog inputs number that can be passed to analogRead().
 
-</dd>
+	</dd>
 </dl>
+
 <dl>
-<dd>
-If a board implements digital I/O pins that are external to the microcontroller, such as would be the case if the board contains an I/O expansion chip of some kind, the digital pins implemented in the microcontroller should be the lower numbered pins (i.e., starting with pin 0) and the external pins should then follow the internal pins (i.e., externally defined pins start with digital pin number NUM_DIGITAL_PINS and go up from there to NUM_DIGITAL_PINS_EXTENDED-1).
+	<dt>NUM_ANALOG_PINS_EXTENDED</dt>
+	<dd>
+		Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn't define it.
+	</dd>
 
-</dd>
+	<dd>
+		As with digital pins, this doesn't imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that don't go out to a connector. There is also no implication that these "analog inputs" are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the "analog values" associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_ANALOG_PINS">NUM_ANALOG_PINS</span>
 
-</h6>
 <dl>
-<dd>
-This symbol gives the number of analog inputs defined by the board variant that are implemented using internal A/D converters in the microcontroller. Numbers in the range 0 through NUM_ANALOG_PINS-1 are valid analog inputs number that can be passed to analogRead().
-
-</dd>
+	<dt>NUM_OC_PINS</dt>
+	<dd>
+		This gives the number of timer output compare channels that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_ANALOG_PINS_EXTENDED">NUM_ANALOG_PINS_EXTENDED</span>
 
-</h6>
 <dl>
-<dd>
-Similarly to the NUM_DIGITAL_PINS_EXTENDED symbol, this symbol gives the number of analog inputs that are implemented on the board including any implemented externally from A/D converters internal to the microcontroller. As with digital pins, in most cases, the value of this symbol will be the same as NUM_ANALOG_PINS and a default definition is created by pins_arduino.h if the Board_Defs.h file for the board variant doesn't define it.
-
-</dd>
+	<dt>NUM_IC_PINS</dt>
+	<dd>
+		This gives the number of timer input capture channels that are meaningfully usable on the board.
+	</dd>
 </dl>
+
 <dl>
-<dd>
-As with digital pins, this doesn't imply that all of these analog inputs are accessible from connectors. There may be analog inputs internal to a board that measure levels on a board and that don't go out to a connector. There is also no implication that these "analog inputs" are implemented via an A/D converter. A board could, for example, have a built-in temperature sensor, or a built-in accelerometer. These could be represented by the board variant as analog inputs that are internal to the board, and the code to access the "analog values" associated with these channels (e.g., read the acceleration from the accelerometer) could be provided as part of the definition of the board variant. See the section below on Board Extension Functions for the mechanism used to accomplish this. If a board provided analog inputs implemented externally to the microcontroller, their analog input numbers should follow the analog input numbers for the analog inputs implemented internally to the microcontroller. This is analogous to the case described above for externally implemented digital pins.
-
-</dd>
+	<dt>NUM_TCK_PINS</dt>
+	<dd>
+		This gives the number of timer external clock input channels that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_OC_PINS">NUM_OC_PINS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of timer output compare channels that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_INT_PINS</dt>
+	<dd>
+		This gives the number of external interrupt inputs that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_IC_PINS">NUM_IC_PINS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of timer input capture channels that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_SERIAL_PORTS</dt>
+	<dd>
+		This gives the number of UARTs that are meaningfully usable on the board.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_TCK_PINS">NUM_TCK_PINS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of timer external clock input channels that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_SPI_PORTS</dt>
+	<dd>
+		This gives the number of SPI ports that are usable via the SPI standard library. The SPI standard library only supports a single SPI port, so this symbol is normally only ever defined to be 1. A board that had no hardware SPI ports available would define it to be 0.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_INT_PINS">NUM_INT_PINS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of external interrupt inputs that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_I2C_PORTS</dt>
+	<dd>
+		This gives the number of I2C ports that are usable via the wire standard library. The wire library only supports a single I2C port, so this symbol is normally only ever defined to be 1. A board that has no hardware I2C ports available would define it to be 0.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_SERIAL_PORTS">NUM_SERIAL_PORTS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of UARTs that are meaningfully usable on the board.
-
-</dd>
+	<dt>NUM_DSPI_PORTS</dt>
+	<dd>
+		This gives the number of hardware SPI ports that are accessible using the DSPI standard library.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_SPI_PORTS">NUM_SPI_PORTS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of SPI ports that are usable via the SPI standard library. The SPI standard library only supports a single SPI port, so this symbol is normally only ever defined to be 1. A board that had no hardware SPI ports available would define it to be 0.
-
-</dd>
+	<dt>NUM_DTWI_PORTS</dt>
+	<dd>
+		This gives the number of hardware I2C ports that are accessible using the DTWI standard library. (NOTE: The DTWI library is not currently implemented and is planned for future expansion). NUM_LED This gives the number of LEDs on the board that are accessible using digitalWrite().
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_I2C_PORTS">NUM_I2C_PORTS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of I2C ports that are usable via the wire standard library. The wire library only supports a single I2C port, so this symbol is normally only ever defined to be 1. A board that has no hardware I2C ports available would define it to be 0.
-
-</dd>
+	<dt>NUM_BTN</dt>
+	<dd>
+		This gives the number of momentary contact push buttons on the board that are accessible using digitalRead().
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_DSPI_PORTS">NUM_DSPI_PORTS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of hardware SPI ports that are accessible using the DSPI standard library.
-
-</dd>
+	<dt>NUM_SWT</dt>
+	<dd>
+		This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be "press to make, press to break" type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_DTWI_PORTS">NUM_DTWI_PORTS</span>
 
-</h6>
 <dl>
-<dd>
-This gives the number of hardware I2C ports that are accessible using the DTWI standard library. (NOTE: The DTWI library is not currently implemented and is planned for future expansion). NUM_LED This gives the number of LEDs on the board that are accessible using digitalWrite().
-
-</dd>
+	<dt>NUM_SERVO</dt>
+	<dd>
+		This gives the number of connectors on the board suitable for direct connection of an RC hobby-type servo.
+	</dd>
 </dl>
-<h6>
-<span class="mw-headline" id="NUM_BTN">NUM_BTN</span>
 
-</h6>
-<dl>
-<dd>
-This gives the number of momentary contact push buttons on the board that are accessible using digitalRead().
+#### Digital Resource Access Symbols
+---
 
-</dd>
-</dl>
-<h6>
-<span class="mw-headline" id="NUM_SWT">NUM_SWT</span>
-
-</h6>
-<dl>
-<dd>
-This gives the number of switches on the board. This nominally represents slide switches or toggle switches, but these could also be "press to make, press to break" type button switches or jumpers. This is intended to be used for non-monentary-contact type switches.
-
-</dd>
-</dl>
-<h6>
-<span class="mw-headline" id="NUM_SERVO">NUM_SERVO</span>
-
-</h6>
-<dl>
-<dd>
-This gives the number of connectors on the board suitable for direct connection of an RC hobby-type servo.
-
-</dd>
-</dl>
-</div>
-<h5>
-<span class="mw-headline" id="Digital_Resource_Access_Symbols">Digital Resource Access Symbols</span>
-
-</h5>
 The following sets of symbols are defined to provide a mechanism for user sketches to have portable access to digital-pin-based resources on different boards (x represents an integer value). They give the pin numbers to use to access various system resources available on the board.
 
-<div style="margin-left:1.6em;">
-<h6>
-<span class="mw-headline" id="PIN_LEDx">PIN_LEDx</span>
+<dl>
+	<dt>PIN_LEDx</dt>
+	<dd>
+		These symbols give the pin numbers used to access the user accessible LEDs available on the board.
+	</dd>
+</dl>
 
-</h6>
-  
-These symbols give the pin numbers used to access the user accessible LEDs available on the board.
+<dl>
+	<dt>PIN_BTNx</dt>
+	<dd>  
+		These symbols give the pin numbers used to access the push-button inputs available on the board.
+	</dd>
+</dl>
 
-<h6>
-<span class="mw-headline" id="PIN_BTNx">PIN_BTNx</span>
+<dl>
+	<dt>PIN_SWTx</dt>
+	<dd> 
+		These symbols give the pin numbers used to access the switch inputs available on the board.
+	</dd>
+</dl>
 
-</h6>
-  
-These symbols give the pin numbers used to access the push-button inputs available on the board.
+<dl>
+	<dt>PIN_SERVOx</dt>
+	<dd>  
+		These symbols give the pin numbers used to access the servo connectors available on the board.
+	</dd>
+</dl>
 
-<h6>
-<span class="mw-headline" id="PIN_SWTx">PIN_SWTx</span>
+<dl>
+	<dt>PIN_OCx</dt>
+	<dd>  
+		These symbols give the pin numbers where the useable timer output compare channels are located.
+	</dd>
+</dl>
 
-</h6>
-  
-These symbols give the pin numbers used to access the switch inputs available on the board.
+<dl>
+	<dt>PIN_ICx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable timer input capture channels are located.
+	</dd>
+</dl>
 
-<h6>
-<span class="mw-headline" id="PIN_SERVOx">PIN_SERVOx</span>
+<dl>
+	<dt>PIN_TCKx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable timer external clock inputs are located.
+	</dd>
+</dl>
 
-</h6>
-  
-These symbols give the pin numbers used to access the servo connectors available on the board.
+<dl>
+	<dt>PIN_INTx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable external interrupt inputs are located.
+	</dd>
+</dl>
 
-<h6>
-<span class="mw-headline" id="PIN_OCx">PIN_OCx</span>
+<dl>
+	<dt>PIN_CNx</dt>
+	<dd>  
+		These symbols give the pin numbers where the usable change notice input pins are located.
+	</dd>
+</dl>
 
-</h6>
-  
-These symbols give the pin numbers where the useable timer output compare channels are located.
+#### Analog Resource Access Symbols
+---
 
-<h6>
-<span class="mw-headline" id="PIN_ICx">PIN_ICx</span>
-
-</h6>
-  
-These symbols give the pin numbers where the usable timer input capture channels are located.
-
-<h6>
-<span class="mw-headline" id="PIN_TCKx">PIN_TCKx</span>
-
-</h6>
-  
-These symbols give the pin numbers where the usable timer external clock inputs are located.
-
-<h6>
-<span class="mw-headline" id="PIN_INTx">PIN_INTx</span>
-
-</h6>
-  
-These symbols give the pin numbers where the usable external interrupt inputs are located.
-
-<h6>
-<span class="mw-headline" id="PIN_CNx">PIN_CNx</span>
-
-</h6>
-  
-These symbols give the pin numbers where the usable change notice input pins are located.
-
-</div>
-<h5>
-<span class="mw-headline" id="Analog_Resource_Access_Symbols">Analog Resource Access Symbols</span>
-
-</h5>
 The analog resource access symbols are of the form Ax, where x ranges from 0 to the highest numbered analog input(e.g., A0, A1, etc.). These symbols are intended to be used by sketches as the parameter to analogRead() to specify the analog input to be read.
 
 The Arduino system allows two different types of values to be used to specify the analog input number as the parameter to analogRead(). Either the analog input number can be specified, or the digital pin number corresponding to the analog input can be specified. Unfortunately, this has the potential to create an ambiguity that can't be resolved. The general presumption is that a number in the range 0 to NUM_ANALOG_PINS-1 is the analog input number and a number outside of this range is the digital pin number of the pin that shares that analog input. However, there are three actual cases that could occur: For the following discussion, assume that Ax refers to analog input x, N refers to the number of analog inputs, and D refers to the digital pin number of the first digital pin sharing an analog input. Analog inputs are always in the range Ax &gt;= 0 and Ax &lt;= N-1.
 
-Case 1: D &gt; N: This is the usual case and the condition which the original Arduino design was intended to accommodate. There is no overlap between the range of analog input numbers, Ax, and the digital pin numbers, and there is no ambiguity.
+<dl>
+	<dt>Case 1: D &gt; N</dt>
+	<dd>
+		This is the usual case and the condition which the original Arduino design was intended to accommodate. There is no overlap between the range of analog input numbers, Ax, and the digital pin numbers, and there is no ambiguity.
+	</dd>
+</dl>
 
-Case 2: D &lt; N, but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn't matter because they both have the same value.
+<dl>
+	<dt>Case 2: D &lt; N</dt>
+	<dd>
+		but Ax = Dx: In this case, there is an overlap between the range of analog input numbers and the digital pin numbers, but it happens to be that for the pins that overlap, the analog input number and the digital pin number are the same. This will occur when the analog inputs start on digital pin 0 and are on a continuous range of digital pin numbers. This happens to be the case on the Digilent Cerebot MX4cK board. In this case, there is ambiguity between whether the given value is intended to be an analog input number or a digital pin number, but it doesn't matter because they both have the same value.
+	</dd>
+	
+<dl>
+	<dt>Case 3: D &lt; N</dt>
+	<dd>
+		but Ax�!= Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
+	</dd>
+	
+#### SPI Port Pin Declarations
+---
 
-Case 3: D &lt; N, but Ax�!= Dx: In this case, there is an ambiguity that can't be resolved. Some of the analog inputs are on digital pins where the pin number is less than N, but the analog input number and the digital pin number of a given input are different numbers. In this case, the Arduino rule that either the analog input number or the digital pin number can be passed to analogRead() breaks down. If a board falls into the third case above, the board variant designer has to make a decision as to whether to give precedence to the analog input number or the digital pin number. The definition of the analog input number symbols, Ax, and the analog input mapping macros and mapping table described below have to be set up appropriately to give the desired precedence. If the preference is to give precedence to the digital pin number, then define the Ax symbols to have the values corresponding to the digital pin numbers and code the digitalPinToAnalog() macro to make the transformation appropriately. If the preference is to give precedence to the analog input number, define the Ax symbols to have the analog input number values (i.e., 0 to N-1) and code the digitalPinToAnalog() macro appropriately for this choice.
-
-<h5>
-<span class="mw-headline" id="SPI_Port_Pin_Declarations">SPI Port Pin Declarations</span>
-
-</h5>
 The following symbols are defined for compatibility with the original Arduino SPI library: SS, MOSI, MISO, and SCK. Typically, this looks like the following, taken from the Board_Defs.h file for the Uno32:
 
 ```cpp

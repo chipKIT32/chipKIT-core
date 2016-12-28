@@ -208,19 +208,19 @@ void initIntVector(void)
 {
     const IMAGE_HEADER_INFO * pImageHeader = getImageHeaderInfoStructure();
     int i = 0;
-    void * pvOrgIntVec = (void *)pImageHeader->pOrgVector0;
+    uint32_t * pvOrgIntVec = (uint32_t *)pImageHeader->pOrgVector0;
 
     for(i=0; i<NUM_INT_VECTOR; i++)
     {
         // If a compiler installed interrupt handler exits, pre-load it with the original handler
         // However, if a class construtor has already loaded a value in the table, don't replace it
         // There is now a default ISR handler so this replacement almost always occurs
-        if(*((uint32_t *) pvOrgIntVec) != 0xFFFFFFFF  && _isr_primary_install[i] == (isrFunc) &_GEN_EXCPT_ADDR)
+        if(*pvOrgIntVec != 0xFFFFFFFF  && _isr_primary_install[i] == (isrFunc) &_GEN_EXCPT_ADDR)
         {
             _isr_primary_install[i] = (isrFunc) pvOrgIntVec;
         }
 
-        pvOrgIntVec += pImageHeader->cbVectorSpacing;
+        pvOrgIntVec += pImageHeader->cbVectorSpacing / sizeof(*pvOrgIntVec);
     }
 
     return;
