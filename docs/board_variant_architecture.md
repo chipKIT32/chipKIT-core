@@ -1,3 +1,8 @@
+---
+layout: default
+title: Board Variant Architecture
+---
+
 -   [Introduction](#introduction)
 -   [Folder Organization](#folder-organization)
     -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
