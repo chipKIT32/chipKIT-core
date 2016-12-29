@@ -572,7 +572,7 @@ There are two structures defined in p32_defs.h used by the digital I/O mechanism
 
 In the PIC32, most special function registers have a regular structure made up of four physical registers: the actual register itself; a clear register; a set register; and an invert register. The p32_regset structure describes this layout.
 
-~~~cpp
+``` cpp
 /* This structure describes the register layout of the primary
 ** register, clear, set, and invert registers associated with
 ** most special function registers.
@@ -583,11 +583,11 @@ typedef struct {
      volatile uint32_t set;
      volatile uint32_t inv;
 } p32_regset;
-~~~
+```
 
 In the PIC32, an I/O port is made up of a collection of these special function registers. The actual I/O port on PIC32 devices has two variants: The first variant is for devices in the PIC32MX3xx/4xx/5xx/6xx/7xx families; the second variant is for devices in the PIC32MX1xx/2xx families. The PIC32MX1xx/2xx devices expanded the definition of the I/O port and rearranged the order of the registers.
 
-```cpp
+``` cpp
 /* This structure describes the register layout of an I/O port.
 */
 #if defined(__PIC32MX1XX__) || defined(__PIC32MX2XX__)
