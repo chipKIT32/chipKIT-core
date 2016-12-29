@@ -2,7 +2,11 @@
 layout: default
 title: Board Variant Architecture
 ---
-
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
 -   [Introduction](#introduction)
 -   [Folder Organization](#folder-organization)
     -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
@@ -572,7 +576,7 @@ There are two structures defined in p32_defs.h used by the digital I/O mechanism
 
 In the PIC32, most special function registers have a regular structure made up of four physical registers: the actual register itself; a clear register; a set register; and an invert register. The p32_regset structure describes this layout.
 
-``` cpp
+```cpp
 /* This structure describes the register layout of the primary
 ** register, clear, set, and invert registers associated with
 ** most special function registers.
