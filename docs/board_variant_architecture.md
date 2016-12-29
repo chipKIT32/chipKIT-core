@@ -556,9 +556,7 @@ Pin mapping is the process of translating from the logical digital pin numbers a
 
 All of the code in the core files is written to perform the translation from logical digital pin number or logical analog input number to the corresponding physical values (e.g., port address and bit position) using macros defined in pins_arduino.h. The default definition of these macros is provided in pins_arduino.h, but a given board variant can, and often will, override these default definitions by providing board specific definitions of some of the macros. In many cases, these macros will make use of look-up tables stored in program flash to perform the translation.
 
-The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by \#undef'ing the macro and then using
-
-1.  define to give a new definition for the macro.
+The default definition for the mapping macros are given in pins_arduino.h. The board variant will override the default definitions, if necessary, in Board_Defs.h by \#undef'ing the macro and then using \#define to give a new definition for the macro.
 
 There are some generic pin mapping tables defined in pins_arduino.c, but the majority of the mapping tables will be board specific and are defined in the board variant file Board_Data.c. In many cases, the default definition for a macro will reference a table that the Board_Data.c file is expected to provide.
 
