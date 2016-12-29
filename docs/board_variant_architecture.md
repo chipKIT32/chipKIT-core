@@ -2,11 +2,7 @@
 layout: default
 title: Board Variant Architecture
 ---
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-```
+
 -   [Introduction](#introduction)
 -   [Folder Organization](#folder-organization)
     -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
