@@ -5,8 +5,19 @@
     <title>chipKIT-core Documentation</title>
 
     <!-- Put the next two lines in every file -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/js/w3data.js"></script>
+    <script type="text/javascript" src="/js/jquery.ntm.js"></script>
+	<link href="assets/highlighter-monokai.css" rel="stylesheet" type="text/css">
+	<link href="assets/toctheme/css/toctheme.css" rel="stylesheet" type="text/css">
+
     {% include bootstrap_head.html %}
+	
+	    <script type="text/javascript">
+            $(document).ready(function($) {
+                $('#markdown-toc').ntm();
+            });
+        </script>
 </head>
 <body>
 

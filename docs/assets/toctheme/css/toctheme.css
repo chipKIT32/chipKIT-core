@@ -1,0 +1,58 @@
+
+ul#markdown-toc { list-style: none;
+				  padding-left: 0px;
+}
+
+ul#markdown-toc li { list-style: none; }
+
+ul#markdown-toc > ul { padding: 0; }
+
+ul#markdown-toc a {
+  display: block;
+  vertical-align: middle;
+  text-decoration: none;
+  padding: 6px;
+  background-color: #efefef;
+  border-radius: 4px;
+  margin-bottom: 1px;
+  color: #002888;
+  -moz-transition: background-color 0.25s linear;
+  -webkit-transition: background-color 0.25s linear;
+  -o-transition: background-color 0.25s linear;
+  transition: background-color 0.25s linear;
+  -moz-transition-delay: 0.15s;
+  -webkit-transition-delay: 0.15s;
+  -o-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+
+ul#markdown-toc a:hover {
+  color: #f53d3e;
+  -moz-transition: background-color 0.1s linear;
+  -webkit-transition: background-color 0.1s linear;
+  -o-transition: background-color 0.1s linear;
+  transition: background-color 0.1s linear;
+}
+
+ul#markdown-toc .active > a:hover,
+ul#markdown-toc .selected > a,
+ul#markdown-toc a:hover { background-color: #c6cdde; }
+
+ul#markdown-toc .selected > a {
+  color: #f53d3e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+ul#markdown-toc .active > a { background-color: #e1e3e9; }
+
+ul#markdown-toc .closed > a,
+ul#markdown-toc .opened > a {
+  padding-left: 24px;
+  background-position: 4px 8px;
+  background-repeat: no-repeat;
+}
+
+ul#markdown-toc .closed > a { background-image: url(/assets/toctheme/img/icon-expand.gif); }
+
+ul#markdown-toc .opened > a { background-image: url(/assets/toctheme/img/icon-collapse.gif); }

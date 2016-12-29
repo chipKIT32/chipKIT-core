@@ -41,3 +41,6 @@ dist
 tmp
 
 *.project
+
+#local jekyll site directory
+/docs/_site/
