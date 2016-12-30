@@ -1,6 +1,8 @@
 
 ul#markdown-toc { list-style: none;
 				  padding-left: 0px;
+				  max-width: 500px;
+				  background-color: #efefef;
 }
 
 ul#markdown-toc li { list-style: none; }

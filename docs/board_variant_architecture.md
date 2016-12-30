@@ -2,11 +2,10 @@
 layout: default
 title: Board Variant Architecture
 ---
+Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [Board Variant Mechanism](http://chipkit.net/wp-content/uploads/2013/11/chipKIT-MPIDE-Board-Variant-Mechanism-Rev-A.pdf)
 
 * Will be replaced with the ToC, excluding the "Contents" header
 {:toc}
-
-Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [| Board Variant Mechanism](http://chipkit.net/wp-content/uploads/2013/11/chipKIT-MPIDE-Board-Variant-Mechanism-Rev-A.pdf)
 
 Introduction
 ------------
@@ -17,8 +16,7 @@ To follow along with this document you will need to have the chipKIT Core instal
 
 
 
-Folder Organization
--------------------
+## Folder Organization
 
 The Arduino IDE is designed to allow you to extend its functionality without modifiying its installation directory. In addition to the installation directory you also have a Sketchbook directory and an Applications Data(AppData) directory. The sketchbook directory is where the end user might store their sketches, whereas the chipKIT Core gets installed in the AppData directory.
 
@@ -41,15 +39,13 @@ This folder is the root where the standard libraries are stored. Within this fol
   
 This folder is the root for where the board variant files are stored. Within this folder is a separate folder for each board variant. The subfolders at this location are named for each board variant. 
 
-Key Files
----------
+## Key Files
 
 There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c) are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
 ### boards.txt
----
 
   
 The [boards.txt](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/boards.txt) file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
@@ -194,37 +190,38 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 ### linker scripts
----
+
   
 Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
 ### p32_defs.h
----
+
   
 This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers (SFR) in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select (PPS) mechanism.
 
 ### pins_arduino.h
----
+
   
 This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by [WProgram.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/WProgram.h) which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
----
+
   
 The primary purpose of this file is to cause the Board_Data.c file for the selected board variant to be included into the set of files being compiled. It defines some generic tables that are part of the board variant mechanism and then includes Board_Data.c.
 
 ### Board_Data.c 
----
+
 
 This is a board-specific file that contains the definitions for a number of board specific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
 
 ### Board_Defs.h
----
+
 
 Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards. 
 
+
 #### Resource Availability Symbols
----
+
 
 The following symbols, which are typically found in the Board_Defs.h file, are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
