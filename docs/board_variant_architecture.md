@@ -2,68 +2,10 @@
 layout: default
 title: Board Variant Architecture
 ---
+Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [Board Variant Mechanism](http://chipkit.net/wp-content/uploads/2013/11/chipKIT-MPIDE-Board-Variant-Mechanism-Rev-A.pdf)
 
--   [Introduction](#introduction)
--   [Folder Organization](#folder-organization)
-    -   [./chipKIT/hardware/pic32/x.x.x](#user-content-chipkithardwarepic32xxx)
-    -   [./chipKIT/hardware/pic32/x.x.x/cores/pic32](#user-content-chipkithardwarepic32xxxcorespic32)
-    -   [./chipKIT/hardware/pic32/x.x.x/libraries](#user-content-chipkithardwarepic32xxxlibraries)
-    -   [./chipKIT/hardware/pic32/x.x.x/variants](#user-content-chipkithardwarepic32xxxvariants)
--   [Key Files](#key-files)
-    -   [boards.txt](#user-content-boardstxt)
-    -   [linker scripts](#user-content-linker-scripts)
-    -   [avrdude.conf](#user-content-avrdudeconf)
-    -   [p32_defs.h](#user-content-p32_defsh)
-    -   [pins_arduino.h](#user-content-pins_arduinoh)
-    -   [pins_arduino.c](#user-content-pins_arduinoc)
-	-   [Board_Data.c](#user-content-board_datac)
-    -   [Board_Defs.h](#user-content-board_defsh)
--   [Pin Mapping](#pin-mapping)
-    -   [Pin Mapping Mechanism](#pin-mapping-mechanism)
-    -   [Digital Pin Mapping](#digital-pin-mapping)
-    -   [Port Data Structures](#port-data-structures)
-    -   [Digital Pin Mapping Macros](#digital-pin-mapping-macros)
-    -   [Digital Input/Output Macros](#digital-inputoutput-macros)
-        -   [Macro 1: digitalPinToPort(P)](#macro-1-digitalpintoportp)
-        -   [Macro 2: digitalPinToBitMask(P)](#macro-2-digitalpintobitmaskp)
-        -   [Macro 3: portRegisters(P)](#macro-3-portregistersp)
-    -   [Timer Resource Mapping Macros](#timer-resource-mapping-macros)
-    -   [Digital Pin and Timer Resource Mapping Tables](#digital-pin-and-timer-resource-mapping-tables)
-        -   [Table 1: const uint32_t port_to_tris_PGM\[\]](#table-1-const-uint32_t-port_to_tris_pgm)
-        -   [Table 2: const uint8_t digital_pin_to_port_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_port_pgm)
-        -   [Table 3: const uint16_t digital_pin_to_bit_mask_PGM\[\]](#table-3-const-uint16_t-digital_pin_to_bit_mask_pgm)
-        -   [Table 4: const uint16_t digital_pin_to_timer_PGM\[\]](#table-4-const-uint16_t-digital_pin_to_timer_pgm)
-    -   [Analog Pin Mapping](#analog-pin-mapping)
-        -   [Analog Pin Mapping Macros](#analog-pin-mapping-macros)
-        -   [Analog Pin Mapping Tables](#analog-pin-mapping-tables)
-            -   [Table 1: const uint8_t digital_pin_to_analog_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_analog_pgm)
-            -   [Table 2: const uint8_t analog_pin_to_channel_PGM\[\]](#table-2-const-uint8_t-analog_pin_to_channel_pgm)
-    -   [Mapping Logical Peripherals to Physical Peripherals](#mapping-logical-peripherals-to-physical-peripherals)
-        -   [HardwareSerial Library](#hardwareserial-library)
-    -   [USB Serial Port](#usb-serial-port)
-    -   [SPI Library](#spi-library)
-    -   [DSPI Library](#dspi-library)
-    -   [Wire Library](#wire-library)
-    -   [DTWI Library](#dtwi-library)
--   [Board Extension Functions](#board-extension-functions)
-    -   [OPT_BOARD_INIT](#opt_board_init)
-    -   [OPT_BOARD_DIGITAL_IO](#opt_board_digital_io)
-    -   [OPT_BOARD_ANALOG_READ](#opt_board_analog_read)
-    -   [OPT_BOARD_ANALOG_WRITE](#opt_board_analog_write)
--   [Peripheral Pin Select](#peripheral-pin-select)
-    -   [PPS Support Implementation](#pps-support-implementation)
-        -   [Function: boolean mapPps(uint8_t pin, ppsFunctionType func)](#function-boolean-mapppsuint8_t-pin-ppsfunctiontype-func)
-        -   [PPS Symbol Definitions](#pps-symbol-definitions)
-            -   [PPS Functions Definition Symbols](#pps-functions-definition-symbols)
-            -   [PPS Pin Definition Symbols](#pps-pin-definition-symbols)
-        -   [PPS Macro Definitions](#pps-macro-definitions)
-    -   [PPS Mapping Table Definitions](#pps-mapping-table-definitions)
-        -   [Table 1: const uint8_t digital_pin_to_pps_out_PGM\[\]](#table-1-const-uint8_t-digital_pin_to_pps_out_pgm)
-        -   [Table 2: const uint8_t digital_pin_to_pps_in_PGM\[\]](#table-2-const-uint8_t-digital_pin_to_pps_in_pgm)
-        -   [Table 3: const uint8_t output_compare_to_digital_pin_PGM\[\]](#table-3-const-uint8_t-output_compare_to_digital_pin_pgm)
-        -   [Table 4: const uint8_t external_int_to_digital_pin_PGM](#table-4-const-uint8_t-external_int_to_digital_pin_pgm)
-
-Original Draft by: Gene Apperson, Digilent Inc., November 4, 2013 [| Board Variant Mechanism](http://chipkit.net/wp-content/uploads/2013/11/chipKIT-MPIDE-Board-Variant-Mechanism-Rev-A.pdf)
+* Will be replaced with the ToC, excluding the "Contents" header
+{:toc}
 
 Introduction
 ------------
@@ -74,8 +16,7 @@ To follow along with this document you will need to have the chipKIT Core instal
 
 
 
-Folder Organization
--------------------
+## Folder Organization
 
 The Arduino IDE is designed to allow you to extend its functionality without modifiying its installation directory. In addition to the installation directory you also have a Sketchbook directory and an Applications Data(AppData) directory. The sketchbook directory is where the end user might store their sketches, whereas the chipKIT Core gets installed in the AppData directory.
 
@@ -98,15 +39,13 @@ This folder is the root where the standard libraries are stored. Within this fol
   
 This folder is the root for where the board variant files are stored. Within this folder is a separate folder for each board variant. The subfolders at this location are named for each board variant. 
 
-Key Files
----------
+## Key Files
 
 There are a number of files that make up the board variant mechanism and that define symbols, macros, and data tables used by the board variant mechanism. The files: [p32_defs.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/p32_defs.h), [pins_arduino.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.h), and [pins_arduino.c](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/pins_arduino.c) are defined in the cores folder and are part of the core hardware abstraction layer. There is a separate copy of Board_Defs.h and Board_Data.c for each supported board variant. These exist in the variants folder under a separate sub-folder named for each supported board.
 
 The following data files are significant to the board variant mechanism:
 
 ### boards.txt
----
 
   
 The [boards.txt](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/boards.txt) file, located in the folder: /hardware/pic32/x.x.x/, contains information used by the Arduino IDE to determine basic things about the board, such as which compiler toolchain is used, what the processor on the board is, compiler options to use when building the sketch, and so on. Also, the boards.txt entries are used to populate the list of known boards in the Arduino IDE. The boards.txt file is formatted as key=value pairs. 
@@ -251,37 +190,38 @@ The list below shows each key used in the boards.txt file and what its correspon
 </dl>
 
 ### linker scripts
----
+
   
 Linker scripts are input files used to describe to the linker things such as the layout of memory. There is a separate linker script needed for each specific PIC32 microcontroller. In most cases, the specific PIC32 device on a board has already been used on some other board and there will already be a linker script for it. If there isn't already a linker script for the specific microcontroller, or if the board has some particular need for a different memory layout, then a linker script will have to be added for the board. The default linker scripts are located in the cores folder. If a board variant requires a custom linker script, it can be placed in the board variant folder.
 
 ### p32_defs.h
----
+
   
 This file contains a number of definitions for symbols describing the PIC32 hardware resources. It defines structure types for accessing the special function registers (SFR) in the PIC32 hardware, bit definitions for control, and status bits in the SFRs. These symbol and type definitions are used throughout the system as well as being part of the board definition mechanism. This file also defines a number of symbols that are at the core of the peripheral pin select (PPS) mechanism.
 
 ### pins_arduino.h
----
+
   
 This file is the primary "entry point" into the board variant mechanism. This file was inherited from the original Arduino system, but the way that it is used by the system has been completely redefined from its role in Arduino. This file is implicitly included in all sketches, as it is included by [WProgram.h](https://github.com/chipKIT32/chipKIT-core/blob/master/pic32/cores/pic32/WProgram.h) which is automatically included in the compilation of every sketch. This file defines a number of symbols and macros that are used by the board variant files and then includes the board variant header file Board_Defs.h.
 
 ### pins_arduino.c
----
+
   
 The primary purpose of this file is to cause the Board_Data.c file for the selected board variant to be included into the set of files being compiled. It defines some generic tables that are part of the board variant mechanism and then includes Board_Data.c.
 
 ### Board_Data.c 
----
+
 
 This is a board-specific file that contains the definitions for a number of board specific data tables and functions that make up the implementation for the board variant support for a given board. There is one of these files for each defined board variant.
 
 ### Board_Defs.h
----
+
 
 Each board variant folder contains a Board_Def.h header file which has declarations of symbols and macros that are specific to that board variant. This file is used to describe the available resources on the board. Many of the symbols are intended to be used by a user's sketch to provide a portable mechanism to access resources across different boards. 
 
+
 #### Resource Availability Symbols
----
+
 
 The following symbols, which are typically found in the Board_Defs.h file, are generally used internally by the system, but they are also available for the user sketch to use to determine the availability of resources on the board.
 
@@ -297,9 +237,11 @@ The following symbols, which are typically found in the Board_Defs.h file, are g
 	<dd>
 		This symbol gives the number of digital pins that can be accessed on the board including digital pins that are implemented external to the microcontroller via some kind of I/O extender. There may be holes in the total range of pin numbers. NUM_DIGITAL_PINS_EXTENDED-1 is the highest numbered digital pin implemented on the board including any implemented externally to the microcontroller. In most cases, the value of this symbol is the same as NUM_DIGITAL_PINS, and a default definition of the symbol will be created in pins_arduino.h with that value if the Board_Defs.h file for the board variant doesn't define it otherwise.
 	</dd>
+	
 	<dd>	
 		There is no requirement that all of the digital I/O pins appear on a connector. There may, and often are, pins that control internal functions on a board that don't go out to a connector. This is often the case, for example, with LEDs where the corresponding pin only drives the LED and doesn't go out to a connector.
 	</dd>
+	
 	<dd>
 		If a board implements digital I/O pins that are external to the microcontroller, such as would be the case if the board contains an I/O expansion chip of some kind, the digital pins implemented in the microcontroller should be the lower numbered pins (i.e., starting with pin 0) and the external pins should then follow the internal pins (i.e., externally defined pins start with digital pin number NUM_DIGITAL_PINS and go up from there to NUM_DIGITAL_PINS_EXTENDED-1).
 	</dd>
@@ -946,53 +888,95 @@ The DSPI library provides access to all usable SPI ports on the board. The libra
 
 The HardwareSerial object class is written to work with any PIC32 UART, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are six symbols that need to be defined for each usable UART. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the "Core Configuration Declarations" section. The following symbols need to be defined:
 
-_SERx_BASE : The physical base address of the set of special function registers for the UART.  
+<dl>
+	<dt>_SERx_BASE</dt>
+	<dd>
+		The physical base address of the set of special function registers for the UART.  
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SERx_IRQ</dt>
+	<dd>
+		 The interrupt request number used by the UART.  
+	</dd>
+</dl> 
 
-_SERx_IRQ : The interrupt request number used by the UART.  
+<dl>
+	<dt>_SERx_VECTOR</dt>
+	<dd>
+		 The interrupt vector number of the receive interrupt used by the UART.
+	</dd>
+</dl> 
 
-<!-- -->
+<dl>
+	<dt>_SERx_IPL_ISR</dt>
+	<dd>
+		 The interrupt privilege level for the interrupt service routine to the receive interrupt.
+	</dd>
+</dl> 
 
-_SERx_VECTOR : The interrupt vector number of the receive interrupt used by the UART.  
+<dl>
+	<dt>_SERx_IPL</dt>
+	<dd>
+		 The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SERx_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register. 
+	</dd>
+</dl>
 
-<!-- -->
-
-_SERx_IPL_ISR : The interrupt privilege level for the interrupt service routine to the receive interrupt.  
-
-<!-- -->
-
-_SERx_IPL : The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SERx_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.  
-
-<!-- -->
-
-_SERx_SPL : The sub-privilege level to be programmed into the interrupt privilege level register.  
+<dl>
+	<dt>_SERx_SPL</dt>
+	<dd>
+		  The sub-privilege level to be programmed into the interrupt privilege level register. 
+	</dd>
+</dl>
+ 
 
 The hardware UARTs available on the microcontroller are described by corresponding symbols for the UARTs. Some of these symbols are defined in the processor header file that is distributed as part of the compiler tool chain, and some of these symbols are defined in System_Defs.h in the cores folder.
 
 The following symbols are used:
 
-_UARTx_BASE_ADDRESS : This symbol is defined in the processor header file and gives the physical base address of the special function registers for the UART.  
+<dl>
+	<dt>_UARTx_BASE_ADDRESS</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the physical base address of the special function registers for the UART. 
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_UARTx_ERR_IRQ</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the base interrupt request number used by the UART. 
+	</dd>
+</dl>
 
-_UARTx_ERR_IRQ : This symbol is defined in the processor header file and gives the base interrupt request number used by the UART.  
+<dl>
+	<dt>_UART_x_VECTOR</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the UART.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_UARTx_IPL_ISR</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routine.
+	</dd>
+</dl>
 
-_UART_x_VECTOR : This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the UART.  
+<dl>
+	<dt>_UARTx_IPL_IPC</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.
+	</dd>
+</dl>
 
-<!-- -->
-
-_UARTx_IPL_ISR : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routine.  
-
-<!-- -->
-
-_UARTx_IPL_IPC : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.  
-
-<!-- -->
-
-_UARTx_SPL_IPC : This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.  
+<dl>
+	<dt>_UARTx_SPL_IPC</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
+  
 
 The following example is taken from the Board_Defs.h file for the chipKIT Max32 board and shows that logical serial port 0 (i.e., the Serial object) is implemented using UART1 on this board:
 
@@ -1058,69 +1042,122 @@ HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IP
 
 The SPIClass object class is written to work with any PIC32 SPI interface, provided it is given the necessary configuration information. This information is passed as parameters into the constructor when the object instance is created and stored in member data for later use by the object methods. There are eight symbols that need to be defined to configure the library to work with the SPI port. The definition for these symbols goes in the Board_Defs.h file for the board variant and is typically placed in the "Core Configuration Declarations" section. The following symbols need to be defined:
 
-_SPI_BASE : The physical base address of the set of special function registers for the SPI port.  
+<dl>
+	<dt>_SPI_BASE</dt>
+	<dd>
+		  The physical base address of the set of special function registers for the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPI_ERR_IRQ</dt>
+	<dd>
+		  The interrupt request number used by the SPI error interrupt.
+	</dd>
+</dl>
 
-_SPI_ERR_IRQ : The interrupt request number used by the SPI error interrupt.  
+<dl>
+	<dt>_SPI_RX_IRQ</dt>
+	<dd>
+		  The interrupt request number used by the SPI receive interrupt.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPI_TX_IRQ</dt>
+	<dd>
+		  The interrupt request number used by the SPI transmit interrupt.
+	</dd>
+</dl>
 
-_SPI_RX_IRQ : The interrupt request number used by the SPI receive interrupt.  
+<dl>
+	<dt>_SPI_VECTOR</dt>
+	<dd>
+		  The vector number of the interrupt vector used by the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPI_IPL_ISR</dt>
+	<dd>
+		  The interrupt privilege level for the interrupt service routine to the receive interrupt.
+	</dd>
+</dl>
 
-_SPI_TX_IRQ : The interrupt request number used by the SPI transmit interrupt.  
+<dl>
+	<dt>_SPI_IPL</dt>
+	<dd>
+		  The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SPI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPI_SPL</dt>
+	<dd>
+		  The sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
 
-_SPI_VECTOR : The vector number of the interrupt vector used by the SPI port.  
-
-<!-- -->
-
-_SPI_IPL_ISR : The interrupt privilege level for the interrupt service routine to the receive interrupt.  
-
-<!-- -->
-
-_SPI_IPL : The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SPI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.  
-
-<!-- -->
-
-_SPI_SPL T: he sub-privilege level to be programmed into the interrupt privilege level register.  
 
 The hardware SPI ports available on the microcontroller are described by corresponding symbols for the actual hardware ports available. Some of these symbols are defined in the processor header file that is distributed as part of the compiler tool chain, and some of these symbols are defined in System_Defs.h in the cores folder.
 
 The following symbols are used:
 
-_SPIx_BASE_ADDRESS : This symbol is defined in the processor header file and gives the physical base address of the special function registers for the SPI port.  
+<dl>
+	<dt>_SPIx_BASE_ADDRESS</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the physical base address of the special function registers for the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPIx_ERR_IRQ</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the error interrupt request number used by the SPI port.
+	</dd>
+</dl>
 
-_SPIx_ERR_IRQ : This symbol is defined in the processor header file and gives the error interrupt request number used by the SPI port.  
+<dl>
+	<dt>_SPIx_RX_IRQ</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the receive interrupt request number used by the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPIx_TX_IRQ</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the transmit interrupt request number used by the SPI port.
+	</dd>
+</dl>
 
-_SPIx_RX_IRQ : This symbol is defined in the processor header file and gives the receive interrupt request number used by the SPI port.  
+<dl>
+	<dt>_SPI_x_VECTOR</dt>
+	<dd>
+		  This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_SPIx_IPL_ISR</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routines.
+	</dd>
+</dl>
 
-_SPIx_TX_IRQ : This symbol is defined in the processor header file and gives the transmit interrupt request number used by the SPI port.  
+<dl>
+	<dt>_SPIx_IPL_IPC</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.
+	</dd>
+</dl>
 
-<!-- -->
-
-_SPI_x_VECTOR : This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the SPI port.  
-
-<!-- -->
-
-_SPIx_IPL_ISR : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routines.  
-
-<!-- -->
-
-_SPIx_IPL_IPC : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.  
-
-<!-- -->
-
-_SPIx_SPL_IPC : This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.  
+<dl>
+	<dt>_SPIx_SPL_IPC</dt>
+	<dd>
+		  This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
 
 The following example, taken from the Board_Defs.h file for the Uno32, illustrates assigning hardware SPI port 2 to be used by the SPI library.
 
@@ -1141,35 +1178,62 @@ The DSPI library works very closely to the way that the SPI library works. The D
 
 The base object class for the DSPI library is written to operate with any available SPI port using configuration parameters passed into the object constructor. These configuration values are supplied using configuration symbols defined in the Board_Defs.h file for the board variant. The following symbols are defined:
 
-_DSPIx_BASE : The physical base address of the set of special function registers for the SPI port.  
+<dl>
+	<dt>_DSPIx_BASE</dt>
+	<dd>
+		The physical base address of the set of special function registers for the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_DSPIx_ERR_IRQ</dt>
+	<dd>
+		The interrupt request number used by the SPI error interrupt.
+	</dd>
+</dl>
 
-_DSPIx_ERR_IRQ : The interrupt request number used by the SPI error interrupt.  
+<dl>
+	<dt>_DSPIx_RX_IRQ</dt>
+	<dd>
+		The interrupt request number used by the SPI receive interrupt.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_DSPIx_TX_IRQ</dt>
+	<dd>
+		The interrupt request number used by the SPI transmit interrupt.
+	</dd>
+</dl>
 
-_DSPIx_RX_IRQ : The interrupt request number used by the SPI receive interrupt.  
+<dl>
+	<dt>_DSPIx_VECTOR</dt>
+	<dd>
+		The vector number of the interrupt vector used by the SPI port.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_DSPIx_IPL_ISR</dt>
+	<dd>
+		The interrupt privilege level for the interrupt service routine to the receive interrupt.
+	</dd>
+</dl>
 
-_DSPIx_TX_IRQ : The interrupt request number used by the SPI transmit interrupt.  
+<dl>
+	<dt>_DSPIx_IPL</dt>
+	<dd>
+		The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SPI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.
+	</dd>
+</dl>
 
-<!-- -->
-
-_DSPIx_VECTOR : The vector number of the interrupt vector used by the SPI port.  
-
-<!-- -->
-
-_DSPIx_IPL_ISR : The interrupt privilege level for the interrupt service routine to the receive interrupt.  
-
-<!-- -->
-
-_DSPIx_IPL : The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _SPI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.  
-
-<!-- -->
-
-_DSPIx_SPL : The sub-privilege level to be programmed into the interrupt privilege level register.  
+<dl>
+	<dt>_DSPIx_SPL</dt>
+	<dd>
+		The sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
+  
 
 The physical hardware SPI ports are described using exactly the same symbols as described above for the SPI library.
 
@@ -1190,67 +1254,121 @@ The following example, taken from the Board_Defs.h file for the Uno32, board ill
 
 The wire library is used to access I2C. As with the SPI library, the Arduino wire library wasn't written is such a way as to easily allow it to be extended to work with multiple I2C ports. The wire library works with the "primary" I2C port. The TwoWire object class in the wire library is written to work with any hardware I2C controller on the microcontroller. The wire object is configured by configuration values passed in as parameters to the constructor. There are eight symbols that are defined to be passed to the wire constructor:
 
-_TWI_BASE : The physical base address of the set of special function registers for the I2C controller.  
+<dl>
+	<dt>_TWI_BASE</dt>
+	<dd>
+		The physical base address of the set of special function registers for the I2C controller.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_TWI_BUS_IRQ</dt>
+	<dd>
+		The interrupt request number used by the I2C bus interrupt. 
+	</dd>
+</dl>
 
-_TWI_BUS_IRQ : The interrupt request number used by the I2C bus interrupt.  
+<dl>
+	<dt>_TWI_SLV_IRQ</dt>
+	<dd>
+		The interrupt request number used by the I2C slave interrupt.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_TWI_MST_IRQ</dt>
+	<dd>
+		The interrupt request number used by the I2C master interrupt.
+	</dd>
+</dl>
 
-_TWI_SLV_IRQ : The interrupt request number used by the I2C slave interrupt.  
+<dl>
+	<dt>_TWI_VECTOR</dt>
+	<dd>
+		The vector number of the interrupt vector used by the I2C controller.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_TWI_IPL_ISR</dt>
+	<dd>
+		The interrupt privilege level for the interrupt service routine to the I2C interrupt.
+	</dd>
+</dl>
 
-_TWI_MST_IRQ : The interrupt request number used by the I2C master interrupt.  
+<dl>
+	<dt>_TWI_IPL</dt>
+	<dd>
+		The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _TWI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_TWI_SPL</dt>
+	<dd>
+		The sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
 
-_TWI_VECTOR : The vector number of the interrupt vector used by the I2C controller.  
-
-<!-- -->
-
-_TWI_IPL_ISR : The interrupt privilege level for the interrupt service routine to the I2C interrupt  
-
-<!-- -->
-
-_TWI_IPL : The interrupt privilege level to be programmed into the privilege level register. This value must agree with the value given by _TWI_IPL_ISR. There are two different symbols as the form needed for the ISR is different than the form needed for programming the IPL register.  
-
-<!-- -->
-
-_TWI_SPL : The sub-privilege level to be programmed into the interrupt privilege level register.  
 
 The hardware SPI ports available on the microcontroller are described by corresponding symbols for the actual hardware ports available. Some of these symbols are defined in the processor header file that is distributed as part of the compiler tool chain, and some of these symbols are defined in System_Defs.h in the cores folder. The following symbols are used:
 
-_I2Cx_BASE_ADDRESS : This symbol is defined in the processor header file and gives the physical base address of the special function registers for the I2C controller.  
+<dl>
+	<dt>_I2Cx_BASE_ADDRESS</dt>
+	<dd>
+		This symbol is defined in the processor header file and gives the physical base address of the special function registers for the I2C controller.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_I2Cx_BUS_IRQ</dt>
+	<dd>
+		This symbol is defined in the processor header file and gives the bus interrupt request number used by the I2C controller.
+	</dd>
+</dl>
 
-_I2Cx_BUS_IRQ : This symbol is defined in the processor header file and gives the bus interrupt request number used by the I2C controller.  
+<dl>
+	<dt>_I2Cx_SLAVE_IRQ</dt>
+	<dd>
+		This symbol is defined in the processor header file and gives the slave interrupt request number used by the I2C controller.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_I2Cx_MASTER_IRQ</dt>
+	<dd>
+		This symbol is defined in the processor header file and gives the master interrupt request number used by the I2C controller.
+	</dd>
+</dl>
 
-_I2Cx_SLAVE_IRQ : This symbol is defined in the processor header file and gives the slave interrupt request number used by the I2C controller.  
+<dl>
+	<dt>_I2C_x_VECTOR</dt>
+	<dd>
+		This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the I2C controller.
+	</dd>
+</dl>
 
-<!-- -->
+<dl>
+	<dt>_I2Cx_IPL_ISR</dt>
+	<dd>
+		This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routines.
+	</dd>
+</dl>
 
-_I2Cx_MASTER_IRQ : This symbol is defined in the processor header file and gives the master interrupt request number used by the I2C controller.  
+<dl>
+	<dt>_I2Cx_IPL_IPC</dt>
+	<dd>
+		This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.
+	</dd>
+</dl>
 
-<!-- -->
-
-_I2C_x_VECTOR : This symbol is defined in the processor header file and gives the interrupt vector number for the interrupt vector used by the I2C controller.  
-
-<!-- -->
-
-_I2Cx_IPL_ISR : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be used by the interrupt service routines.  
-
-<!-- -->
-
-_I2Cx_IPL_IPC : This symbol is defined in System_Defs.h and gives the interrupt privilege level to be programmed into the interrupt privilege register.  
-
-<!-- -->
-
-_I2Cx_SPL_IPC : This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.  
+<dl>
+	<dt>_I2Cx_SPL_IPC</dt>
+	<dd>
+		This symbol is defined in System_Defs.h and gives the sub-privilege level to be programmed into the interrupt privilege level register.
+	</dd>
+</dl>
+   
 
 The following example, taken from the Board_Defs.h file for the Uno32, board illustrates assigning hardware I2C1 to be used by the wire object:
 
