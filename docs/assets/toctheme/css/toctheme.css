@@ -60,9 +60,9 @@ ul#markdown-toc .opened li> a {
   padding-left: 20px;
 }
 
-ul#markdown-toc .closed > a { background-image: url(assets/toctheme/img/icon-expand.gif); }
+ul#markdown-toc .closed > a { background-image: url(../img/icon-expand.gif); }
 
-ul#markdown-toc .opened > a { background-image: url(assets/toctheme/img/icon-collapse.gif); }
+ul#markdown-toc .opened > a { background-image: url(../img/icon-collapse.gif); }
 
 ul#markdown-toc .closed li > a { background-position: 0px 5px;}
 
