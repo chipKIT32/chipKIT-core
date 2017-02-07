@@ -287,7 +287,7 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					Serial Port Declarations					*/
 /* ------------------------------------------------------------ */
 
-/* Serial port 0 uses UART1 – for the serial monitor
+/* Serial port 0 uses UART1 Â– for the serial monitor
 */
 #define       _SER0_BASE           _UART1_BASE_ADDRESS
 #define       _SER0_IRQ            _UART1_ERR_IRQ
@@ -310,9 +310,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define       _SER1_IPL            _UART2_IPL_IPC
 #define       _SER1_SPL            _UART2_SPL_IPC
 #define       _SER1_TX_OUT         PPS_OUT_U2TX     // RPB14R = U2TX = 2
-#define       _SER1_TX_PIN         7                // RB14 CVREF/AN10/C3INB/RPB14/VBUSON/SCK1/CTED5/RB14
+#define       _SER1_TX_PIN         11               // RB0 PGED1/AN2/C1IND/C2INB/C3IND/RPB0/PMD0/RB0
 #define       _SER1_RX_IN          PPS_IN_U2RX      // U2RXR = RPA1 = 0
-#define       _SER1_RX_PIN         10               // RA1  PGEC3/VREF-/CVREF-/AN1/RPA1/CTED2/PMD6/RA1 
+#define       _SER1_RX_PIN         12               // RB1 PGEC1/AN3/C1INC/C2INA/RPB1/CTED12/PMD1/RB1 
 
 
 /* ------------------------------------------------------------ */
