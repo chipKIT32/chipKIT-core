@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+
+	{% include bootstrap_head.html %}
+	
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="js/w3data.js"></script>
+    <script type="text/javascript" src="js/jquery.ntm.js"></script>
+	<link href="assets/highlighter-monokai.css" rel="stylesheet" type="text/css">
+	<link href="assets/toctheme/css/toctheme.css" rel="stylesheet" type="text/css">
+	<link href="assets/style.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript">
+        $(document).ready(function($) {
+            $('#markdown-toc').ntm();
+        });
+    </script>
+</head>
+<body>
+
+    <!-- This next line creates the menu for the site -->
+    {% include nav.html %}
+	<h1 class="title">{{ page.title }}</h1>
+	
+    <div>
+        {{ content }}
+    <div/>
+
+    <!-- Put the next three lines in every html file -->
+    <script>w3IncludeHTML();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> <!-- Include all compiled plugins (below), or include individual files as needed -->
+</body>
+</html>

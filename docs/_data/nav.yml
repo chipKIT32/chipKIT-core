@@ -1,0 +1,16 @@
+- title: "API (core users)"
+  subcategories:
+    - subtitle: "Non-blocking analogRead() functions"
+      subhref: "api_analogread_non_blocking.html"
+
+- title: "core(core developers)"
+  subcategories:
+    - subtitle: "How to Hack chipKIT-core"
+      subhref: "core_how_to_hack_chipkit_core.html"
+    - subtitle: "Board Variant Architecture"
+      subhref: "board_variant_architecture"
+
+- title: "docs (how to contribute)"
+  subcategories:
+    - subtitle: "How to add documentation to the docs folder"
+      subhref: "docs_template"

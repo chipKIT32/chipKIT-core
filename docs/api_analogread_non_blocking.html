@@ -1,21 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>chipKIT-core Template</title>
-
-    <!-- Put the next two lines in every file -->
-    <script src="js/w3data.js"></script>
-    <div w3-include-html="bootstrap_head.html"></div>
-</head>
-<body>
-
-    <!-- This next line creates the menu for the site -->
-    <div w3-include-html="menu.html"></div>
+---
+layout: default
+title: Non-blocking analogRead() functions
+---
 
     <!-- START OF DOCUMENTATION, DO NOT ALTER LINES ABOVE THIS POINT (UNLESS YOU HAVE A REALLY GOOD REASON) -->
 
-    <h1>Non-blocking analogRead() functions</h1>
     <p>
         In an effort to increase the number of times per second the loop function is called when using analogRead
         functions non-blocking equivalent functions have been implemented into the chipKIT-core.
@@ -150,10 +139,3 @@ void loop() {
     </pre>
 
     <!-- END OF DOCUMENTATION, DO NOT ALTER LINES BELOW THIS POINT (UNLESS YOU HAVE A REALLY GOOD REASON) -->
-
-    <!-- Put the next three lines in every html file -->
-    <script>w3IncludeHTML();</script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> <!-- Include all compiled plugins (below), or include individual files as needed -->
-</body>
-</html>
