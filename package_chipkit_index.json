@@ -12,8 +12,8 @@
           "architecture": "pic32",
           "version": "1.4.0",
           "category": "pic32",
-          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.4.0/chipkit-core-16778045.master-1.4.0-1-gd3a630f.zip",
-          "archiveFileName": "chipkit-core-16778044.master-1.4.0-1-gd3a630f.zip",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.4.0/chipkit-core-16778045.master-v1.4.0-1-gd3a630f.zip",
+          "archiveFileName": "chipkit-core-16778045.master-v1.4.0-1-gd3a630f.zip",
           "checksum": "SHA-256:34fb7c8b9c77cb8476b9ee464ba08083093bb10b350b74121e04f9d991e14e98",
           "size": "7642901",
           "help": {
