@@ -7,7 +7,77 @@
       },
       "websiteURL": "http://chipkit.net/",
       "platforms": [
-       {
+        {
+          "name": "chipKIT",
+          "architecture": "pic32",
+          "version": "1.4.0",
+          "category": "pic32",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.4.0/chipkit-core-16778044.master-1.4.0-1-gd3a630f.zip",
+          "archiveFileName": "chipkit-core-16778044.master-1.4.0-1-gd3a630f.zip",
+          "checksum": "SHA-256:34fb7c8b9c77cb8476b9ee464ba08083093bb10b350b74121e04f9d991e14e98",
+          "size": "7642901",
+          "help": {
+            "online": "http://chipkit.net/started/learn-basics/"
+          },
+          "boards": [
+            {"name": "cerebot32mx4"},
+            {"name": "cerebot32mx7"},
+            {"name": "cerebot_mx3ck"},
+            {"name": "chipkit_mx3"},
+            {"name": "cerebot_mx3ck_512"},
+            {"name": "cerebot_mx4ck"},
+            {"name": "chipkit_pro_mx4"},
+            {"name": "cerebot_mx7ck"},
+            {"name": "chipkit_pro_mx7"},
+            {"name": "chipkit_Pi"},
+            {"name": "chipkit_Pi_USB_Serial"},
+            {"name": "cmod"},
+            {"name": "CUI32stem"},
+            {"name": "ubw32_mx460"},
+            {"name": "ubw32_mx795"},
+            {"name": "cui32"},
+            {"name": "usbono_pic32"},
+            {"name": "chipkit_DP32"},
+            {"name": "fubarino_mini_dev"},
+            {"name": "fubarino_mini"},
+            {"name": "fubarino_sd_seeed"},
+            {"name": "fubarino_sd"},
+            {"name": "Fubarino_SDZ"},
+            {"name": "mega_pic32"},
+            {"name": "mega_usb_pic32"},
+            {"name": "Olimex_Pinguino32"},
+            {"name": "picadillo_35t"},
+            {"name": "quick240_usb_pic32"},
+            {"name": "chipkit_uc32"},
+            {"name": "uc32_pmod"},
+            {"name": "uno_pic32"},
+            {"name": "uno_pmod"},
+            {"name": "chipkit_WF32"},
+            {"name": "chipkit_WiFire"},
+            {"name": "chipkit_WiFire_80MHz"},
+            {"name": "OpenScope"},
+            {"name": "openbci"},
+            {"name": "Clicker2"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "chipKIT",
+              "version": "1.42-pic32gcc",
+              "name": "pic32-tools"
+            }, 
+            {
+              "packager": "chipKIT",
+              "version": "v2.1.24",
+              "name": "pic32prog"
+            },
+            {
+              "packager": "chipKIT",
+              "version": "v2",
+              "name": "drivers-windows"
+            }
+          ]
+        },
+        {
           "name": "chipKIT",
           "architecture": "pic32",
           "version": "1.3.1",
@@ -77,7 +147,7 @@
             }
           ]
         },
-       {
+        {
           "name": "chipKIT",
           "architecture": "pic32",
           "version": "1.3.0",
