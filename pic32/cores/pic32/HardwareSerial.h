@@ -47,10 +47,7 @@
 #define __LANGUAGE_C__
 #endif
 
-#include <inttypes.h>
-#include <p32xxxx.h>
-
-#include "p32_defs.h"
+#include "wiring.h"
 
 #ifdef __cplusplus
 	#include "Print.h"
@@ -86,7 +83,7 @@ class HardwareSerial : public Stream
 {
 	private:
 		p32_uart *		uart;		//uart register map
-        isrFunc         isr;        // the ISR routine to use
+		isrFunc         isr;        // the ISR routine to use
 		uint8_t			irq;		//base IRQ number for the UART
 		uint8_t			vec;		//interrupt vector for the UART
 		uint8_t			ipl;		//interrupt priority level
