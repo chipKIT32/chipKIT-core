@@ -1,0 +1,27 @@
+These are just reminders for anyone doing an official chipKIT build what the steps are, they are not meant to be exhaustive step by step instructions.
+
+Must have Ant installed
+
+1) Manually update version.properties file - increment the CHIPKITCOREVER number, save it, then commit
+2) Tag the whole repo, with a simple tag of the form "vX.Y.Z" where X Y and Z are the major, minor, and bugfix numbers
+3) Push to GH, making sure to push the tag up.
+4) Open a command prompt in the repo
+5) "ant clean-all"
+6) "ant github-release" - this will build the zip file for putting up at GitHub
+7) Update the package_chipkit_index.json file
+  * Copy/paste the top 'platform' section
+  * edit the top one to be the new version
+  * change the version number
+  * change the url
+  * change the archiveFileName
+  * change the checksum (copy/paste checksum from .asc file in same directory as .zip file - leave "SHA-256:" in .json file
+  * change the size (file will be in \chipkit-core\tmp\ and you can right click and select Properties, then look at "Size" field)
+8) Commit and push the updated .json file
+9) From chipKIT-core GH page, click Releases tab, click Draft a new release
+10) Drag over the new release .zip and .asc files, add text to the new release and publish it (from GH web page)
+11) Using the Arduino IDE, test that the new chipKIT-core version is recognized and can be installed by the IDE. If it can't go back to step 7 through 10 and fix whatever is wrong. (Normally just missed characters in the filename or such of the .json file)
+12) Edit http://chipkit.net/wiki/index.php?title=ChipKIT_core_release_notes with all of the pull requests that have been merged since the last release
+13) Do "ant dist-all" This will build all of the zip file builds for each platform.
+14) Upload all of the new .zip files to AWS server
+15) Edit http://chipkit.net/wiki/index.php?title=ChipKIT_core to reflect new zip file release build locations
+
