@@ -28,14 +28,13 @@ int analogRead(uint8_t pin)
 }
 ```
 	
-##Results 
+## Results 
 
 The result of using the non-blocking analogRead functions result in a simple loop speed up of nearly 2x. On a MZ EFG chip this speed up is about 4.9x as fast as the blocking functions and allows for a loop frequency greater than 1MHz!
 
-    <!-- This would be better shown in a table -->
-	
+{:.test-results}
 | chipKIT Board (Rev)| PIC32 | Clock Freq  | loop() Frequency Blocking Analog Read  | loop() Frequency Non-Blocking Analog Read  | Improvement  | Notes                      |
-| ------------------ |:-----:| -----------:| -------------------------------------- | ------------------------------------------ | ------------ | -------------------------- |
+| :----------------: |:-----:| :----------:| :------------------------------------: | :----------------------------------------: | :----------: | :------------------------: |
 | Lenny              | MX    | 40 Mhz      | 49.14 kHz (20.35uS)					| 127.39 kHz (7.84uS)		            	 | 2.59	  	    |							 |
 | Fubarino SD (1.5)  | MX    | 80 Mhz      | 90.91 kHz (10.99uS)					| 217.39 kHz	(4.60uS)	          		 | 2.39	  	    |							 |
 | Wi-Fire (C)        | MZEFG | 200 Mhz     | 233.10 kHz (4.29uS)					| 1162.79 kHz (0.86us)		                 | 4.98	  	    |							 |
@@ -44,7 +43,9 @@ The result of using the non-blocking analogRead functions result in a simple loo
 
 ## Example
 
-The following code example shows how to use the <a href="https://en.wikipedia.org/wiki/Non-blocking_algorithm">non-blocking</a> analogRead functions.  In the current implementation it is important that you do not mix blocking and non-blocking analogRead functions due to an internal state maching that keeps track of which ADC channel is currently selected.
+The following code example shows how to use the <a href="https://en.wikipedia.org/wiki/Non-blocking_algorithm">non-blocking</a> analogRead functions.  In the current implementation it is important that you do not mix blocking and non-blocking analogRead functions due to an internal state machine that keeps track of which ADC channel is currently selected.
+
+This example is used to benchmark the performance of the non-blocking and blocking analog read functions and will print the results to the serial monitor. The default mode is Non-Blocking. To switch to Blocking ADC for comparison simply comment out #define FAST_ADC.
 
 ```cpp
 // This is in wiring.c, we shouldn't have to redefine it here (issue #288)
@@ -71,14 +72,14 @@ void loop() {
 
     uint32_t value;
 
-#ifdef FAST_ADC
-    if ( analogReadConversionComplete() ) {
-    value = analogReadConversion();
-    analogReadConversionStart(ADC_TEST_PIN);
-    }
-#else
-    value = analogRead(ADC_TEST_PIN);
-#endif
+	#ifdef FAST_ADC
+		if ( analogReadConversionComplete() ) {
+		value = analogReadConversion();
+			analogReadConversionStart(ADC_TEST_PIN);
+		}
+	#else
+		value = analogRead(ADC_TEST_PIN);
+	#endif
 
     stop_us = readCoreTimer(); //micros();
 
