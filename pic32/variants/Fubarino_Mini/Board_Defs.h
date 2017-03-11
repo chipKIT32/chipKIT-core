@@ -149,14 +149,13 @@
 /*					SPI Pin Declarations						*/
 /* ------------------------------------------------------------ */
 /* These symbols are defined for compatibility with the original
-** SPI library and the original pins_arduino.h. SPI2 is used for
-** the default SPI port as it's pin numbers stay constant on all
-** devices.
+** SPI library (<SPI.h>) and the original pins_arduino.h. SPI1 is 
+** used as the default SPI port on Fubarino Mini for this library.
 */
-static const uint8_t SS   = 30;		// PIC32 SS2
-static const uint8_t MOSI = 29;		// PIC32 SDO2
-static const uint8_t MISO = 27;		// PIC32 SDI2
-static const uint8_t SCK  = 4;		// PIC32 SCK2
+static const uint8_t SS   = 5;		// PIC32 SS1
+static const uint8_t MOSI = 18;		// PIC32 SDO1
+static const uint8_t MISO = 19;		// PIC32 SDI1
+static const uint8_t SCK  = 3;		// PIC32 SCK1
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -317,8 +316,13 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
 
-/* The Digilent DSPI and standard SPI libraries uses these ports.
- * Note SCK1 only comes out B14, which is Arduino pin 3
+/* SPI1 (also known as DSPI0)
+ * The Digilent DSPI and standard SPI libraries uses these ports.
+ * This port (SPI1) is the port used by the default SPI library
+ * <SPI.h>. Both port's MOSI/MISO pins can be changed using PPS
+ * from within a sketch.
+ * Note SCK1 only comes out B14, which is Arduino/Fubarino Mini
+ * pin 3
  */
 #define	_DSPI0_BASE			_SPI1_BASE_ADDRESS
 #define	_DSPI0_ERR_IRQ		_SPI1_ERR_IRQ
@@ -334,8 +338,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define _DSPI0_MOSI_OUT		PPS_OUT_SDO1
 #define _DSPI0_MOSI_PIN		18
 
-/* SPI2
- * Note SCK2 only comes out B15, which is Arduino pin 4
+/* SPI2 (also known as DSPI1)
+ * Note SCK2 only comes out B15, which is Arduino/Fubarino Mini 
+ * pin 4
  */
 #define	_DSPI1_BASE			_SPI2_BASE_ADDRESS
 #define	_DSPI1_ERR_IRQ		_SPI2_ERR_IRQ
@@ -347,9 +352,9 @@ extern const uint8_t	external_int_to_digital_pin_PGM[];
 #define	_DSPI1_SPL			0
 
 #define _DSPI1_MISO_IN      PPS_IN_SDI2
-#define _DSPI1_MISO_PIN     MISO
+#define _DSPI1_MISO_PIN     27
 #define _DSPI1_MOSI_OUT     PPS_OUT_SDO2
-#define _DSPI1_MOSI_PIN     MOSI
+#define _DSPI1_MOSI_PIN     29
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
