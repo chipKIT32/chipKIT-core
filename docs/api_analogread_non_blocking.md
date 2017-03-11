@@ -26,9 +26,9 @@ int analogRead(uint8_t pin)
     while( ! analogReadConversionComplete() );
     return analogReadConversion();
 }
-'''
+```
 	
-##Results
+##Results 
 
 The result of using the non-blocking analogRead functions result in a simple loop speed up of nearly 2x. On a MZ EFG chip this speed up is about 4.9x as fast as the blocking functions and allows for a loop frequency greater than 1MHz!
 
@@ -100,4 +100,4 @@ void loop() {
     start_us = readCoreTimer(); //micros();
 
 }
-'''
+```
