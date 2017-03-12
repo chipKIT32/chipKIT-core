@@ -57,11 +57,16 @@
   <target description="Build mpide." name="build">
     <antcall target="${platform}-build"/>
   </target>
-
+ 
+  <!-- Commenting this out (BPS Feb 18th, 2017) because there are multiple builds we do now,
+       and we want to have manual control over the core version number so that no matter what
+       builds we do, in what order, the version number always just increments once. -->
   <target description="increment build version number" name="increment">
+    <!--
     <propertyfile file="version.properties">
       <entry default="16777998" key="CHIPKITCOREVER" operation="+" pattern="00000000" type="int"/>
     </propertyfile>
+    -->
   </target>
 
   <target description="configure directories" name="setup">
