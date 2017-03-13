@@ -1,7 +1,7 @@
 - title: "API (core users)"
   subcategories:
-    - subtitle: "Non-blocking analogRead() functions"
-      subhref: "api_analogread_non_blocking.html"
+    - subtitle: "Non-Blocking Analog Read Functions"
+      subhref: "api_analogread_non_blocking"
 
 - title: "core(core developers)"
   subcategories:
