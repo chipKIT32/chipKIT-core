@@ -55,3 +55,6 @@ See http://chipkit.net/wiki/index.php?title=ChipKIT_core for complete instructio
 ```
 Copy from dist OS Platform and move to ~/Documents/Arduino/hardware folder
 ```
+
+## Developer Documentation
+* http://chipkit32.github.io/chipKIT-core/
