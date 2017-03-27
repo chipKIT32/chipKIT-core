@@ -544,7 +544,7 @@ uint32_t analogReadConversion(){
 
 int analogRead(uint8_t pin)
 {
-  analogReadConversionStart(pin);
+  if (!analogReadConversionStart(pin)) return 0;
   while( ! analogReadConversionComplete() );
   return analogReadConversion();
 }
