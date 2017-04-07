@@ -381,11 +381,11 @@
 #define	_SPI1_IPL_IPC	3		//interrupt priority for the IPC register
 #define	_SPI1_SPL_IPC	0		//interrupt subpriority for the IPC register
 
-#if defined(__PIC32_PPS__)
-#define	_SPI2_IPL_ISR	IPL3SOFT    //interrupt priority for the ISR
+#if defined(__PIC32MZXX__)
+#define	_SPI2_IPL_ISR	IPL3SRS    //interrupt priority for the ISR
 #define	_SPI2_IPL_IPC	3       //interrupt priority for the IPC register
 #define	_SPI2_SPL_IPC	0       //interrupt subpriority for the IPC register
-#endif
+#else
 
 #if defined(__PIC32MX5XX__) || defined(__PIC32MX6XX__) || defined(__PIC32MX7XX__)
 #define	_SPI2_IPL_ISR	_UART3_IPL_ISR	//shared with UART3
@@ -399,6 +399,12 @@
 #define	_SPI4_IPL_ISR	_UART2_IPL_ISR	//shared with UART2
 #define	_SPI4_IPL_IPC	_UART2_IPL_IPC
 #define	_SPI4_SPL_IPC	_UART2_SPL_IPC
+#else	// 3XX/4XX non-PPS devices, and all non-MZ PPS devices
+#define	_SPI2_IPL_ISR	IPL3SOFT    //interrupt priority for the ISR
+#define	_SPI2_IPL_IPC	3       //interrupt priority for the IPC register
+#define	_SPI2_SPL_IPC	0       //interrupt subpriority for the IPC register
+#endif
+
 #endif
 
 #if  defined(__PIC32MZXX__)
