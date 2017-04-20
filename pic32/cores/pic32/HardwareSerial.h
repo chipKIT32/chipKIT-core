@@ -206,52 +206,70 @@ class USBSerial : public Stream
         ** instantiated as Serial0.
         */
         extern USBSerial Serial;
+        void serialEvent() __attribute__((weak));
+        bool Serial_available() __attribute__((weak));
         #define SERIAL_PORT_USBVIRTUAL Serial
         #define SERIAL_PORT_MONITOR    Serial
         #if (NUM_SERIAL_PORTS > 0)
                 extern HardwareSerial Serial0;
+                void serialEvent0() __attribute__((weak));
+                bool Serial0_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE       Serial0
                 #define SERIAL_PORT_HARDWARE_OPEN  Serial0
         #endif
 
         #if (NUM_SERIAL_PORTS > 1)
                 extern HardwareSerial Serial1;
+                void serialEvent1() __attribute__((weak));
+                bool Serial1_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE1       Serial1
                 #define SERIAL_PORT_HARDWARE_OPEN1  Serial1
                 #endif
 
         #if (NUM_SERIAL_PORTS > 2)
                 extern HardwareSerial Serial2;
+                void serialEvent2() __attribute__((weak));
+                bool Serial2_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE2       Serial2
                 #define SERIAL_PORT_HARDWARE_OPEN2  Serial2
         #endif
 
         #if (NUM_SERIAL_PORTS > 3)
                 extern HardwareSerial Serial3;
+                void serialEvent3() __attribute__((weak));
+                bool Serial3_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE3       Serial3
                 #define SERIAL_PORT_HARDWARE_OPEN3  Serial3
         #endif
 
         #if (NUM_SERIAL_PORTS > 4)
                 extern HardwareSerial Serial4;
+                void serialEvent4() __attribute__((weak));
+                bool Serial4_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE4       Serial4
                 #define SERIAL_PORT_HARDWARE_OPEN4  Serial4
         #endif
 
         #if (NUM_SERIAL_PORTS > 5)
                 extern HardwareSerial Serial5;
+                void serialEvent5() __attribute__((weak));
+                bool Serial5_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE5       Serial5
                 #define SERIAL_PORT_HARDWARE_OPEN5  Serial5
         #endif
 
         #if (NUM_SERIAL_PORTS > 6)
                 extern HardwareSerial Serial6;
+                void serialEvent6() __attribute__((weak));
+                bool Serial6_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE6       Serial6
                 #define SERIAL_PORT_HARDWARE_OPEN6  Serial6
         #endif
 
         #if (NUM_SERIAL_PORTS > 7)
                 extern HardwareSerial Serial7;
+                void serialEvent7() __attribute__((weak));
+                bool Serial7_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE7       Serial7
                 #define SERIAL_PORT_HARDWARE_OPEN7  Serial7
         #endif
@@ -262,57 +280,73 @@ class USBSerial : public Stream
         */
         #if (NUM_SERIAL_PORTS > 0)
                 extern HardwareSerial Serial;
+                void serialEvent() __attribute__((weak));
+                bool Serial_available() __attribute__((weak));
                 #define SERIAL_PORT_HARDWARE Serial
                 #define SERIAL_PORT_MONITOR  Serial
         #endif
-#if (NUM_SERIAL_PORTS > 1)
-        extern HardwareSerial Serial1;
-        #define SERIAL_PORT_HARDWARE1       Serial1
-        #define SERIAL_PORT_HARDWARE_OPEN   Serial1
+        #if (NUM_SERIAL_PORTS > 1)
+                extern HardwareSerial Serial1;
+                void serialEvent1() __attribute__((weak));
+                bool Serial1_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE1       Serial1
+                #define SERIAL_PORT_HARDWARE_OPEN   Serial1
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 2)
+                extern HardwareSerial Serial2;
+                void serialEvent2() __attribute__((weak));
+                bool Serial2_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE2       Serial2
+                #define SERIAL_PORT_HARDWARE_OPEN1  Serial2
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 3)
+                extern HardwareSerial Serial3;
+                void serialEvent3() __attribute__((weak));
+                bool Serial3_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE3       Serial3
+                #define SERIAL_PORT_HARDWARE_OPEN2  Serial3
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 4)
+                extern HardwareSerial Serial4;
+                void serialEvent4() __attribute__((weak));
+                bool Serial4_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE4       Serial4
+                #define SERIAL_PORT_HARDWARE_OPEN3  Serial4
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 5)
+                extern HardwareSerial Serial5;
+                void serialEvent5() __attribute__((weak));
+                bool Serial5_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE5       Serial5
+                #define SERIAL_PORT_HARDWARE_OPEN4  Serial5
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 6)
+                extern HardwareSerial Serial6;
+                void serialEvent6() __attribute__((weak));
+                bool Serial6_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE6       Serial6
+                #define SERIAL_PORT_HARDWARE_OPEN5  Serial6
+        #endif
+
+        #if (NUM_SERIAL_PORTS > 7)
+                extern HardwareSerial Serial7;
+                void serialEvent7() __attribute__((weak));
+                bool Serial7_available() __attribute__((weak));
+                #define SERIAL_PORT_HARDWARE7       Serial7
+                #define SERIAL_PORT_HARDWARE_OPEN6  Serial7
+        #endif
 #endif
 
-#if (NUM_SERIAL_PORTS > 2)
-        extern HardwareSerial Serial2;
-        #define SERIAL_PORT_HARDWARE2       Serial2
-        #define SERIAL_PORT_HARDWARE_OPEN1  Serial2
-#endif
-
-#if (NUM_SERIAL_PORTS > 3)
-        extern HardwareSerial Serial3;
-        #define SERIAL_PORT_HARDWARE3       Serial3
-        #define SERIAL_PORT_HARDWARE_OPEN2  Serial3
-#endif
-
-#if (NUM_SERIAL_PORTS > 4)
-        extern HardwareSerial Serial4;
-        #define SERIAL_PORT_HARDWARE4       Serial4
-        #define SERIAL_PORT_HARDWARE_OPEN3  Serial4
-#endif
-
-#if (NUM_SERIAL_PORTS > 5)
-        extern HardwareSerial Serial5;
-        #define SERIAL_PORT_HARDWARE5       Serial5
-        #define SERIAL_PORT_HARDWARE_OPEN4  Serial5
-#endif
-
-#if (NUM_SERIAL_PORTS > 6)
-        extern HardwareSerial Serial6;
-        #define SERIAL_PORT_HARDWARE6       Serial6
-        #define SERIAL_PORT_HARDWARE_OPEN5  Serial6
-#endif
-
-#if (NUM_SERIAL_PORTS > 7)
-        extern HardwareSerial Serial7;
-        #define SERIAL_PORT_HARDWARE7       Serial7
-        #define SERIAL_PORT_HARDWARE_OPEN6  Serial7
-#endif
-#endif
-
+void serialEventRun();
 
 //* ------------------------------------------------------------
 
 #endif  //      __cplusplus
-
 
 #endif  //      HardwareSerial_h
 
