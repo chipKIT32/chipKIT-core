@@ -1248,7 +1248,9 @@ void __attribute__((interrupt(), nomips16)) IntSer7Handler(void)
 ** instantiated as Serial0.
 */
 USBSerial		Serial(&rx_bufferUSB);
+bool Serial_available() { return Serial.available(); }
 #if defined(_SER0_BASE)
+bool Serial0_available() { return Serial0.available(); }
 #if defined(__PIC32_PPS__)
 HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
@@ -1264,6 +1266,7 @@ HardwareSerial Serial0((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IP
 ** however MZ have 6
 */
 #if defined(_SER0_BASE)
+bool Serial_available() { return Serial.available(); }
 #if defined(__PIC32_PPS__)
 HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL, _SER0_SPL, IntSer0Handler, _SER0_TX_PIN, _SER0_RX_PIN, _SER0_TX_OUT, _SER0_RX_IN);
 #else
@@ -1274,6 +1277,7 @@ HardwareSerial Serial((p32_uart *)_SER0_BASE, _SER0_IRQ, _SER0_VECTOR, _SER0_IPL
 #endif	//defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
 #if defined(_SER1_BASE)
+bool Serial1_available() { return Serial1.available(); }
 #if defined(__PIC32_PPS__)
 HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IPL, _SER1_SPL, IntSer1Handler, _SER1_TX_PIN, _SER1_RX_PIN, _SER1_TX_OUT, _SER1_RX_IN);
 #else
@@ -1282,6 +1286,7 @@ HardwareSerial Serial1((p32_uart *)_SER1_BASE, _SER1_IRQ, _SER1_VECTOR, _SER1_IP
 #endif
 
 #if defined(_SER2_BASE)
+bool Serial2_available() { return Serial2.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial2((p32_uart *)_SER2_BASE, _SER2_IRQ, _SER2_VECTOR, _SER2_IPL, _SER2_SPL, IntSer2Handler, _SER2_TX_PIN, _SER2_RX_PIN, _SER2_TX_OUT, _SER2_RX_IN);
 #else
@@ -1290,6 +1295,7 @@ HardwareSerial Serial2((p32_uart *)_SER2_BASE, _SER2_IRQ, _SER2_VECTOR, _SER2_IP
 #endif
 
 #if defined(_SER3_BASE)
+bool Serial3_available() { return Serial3.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial3((p32_uart *)_SER3_BASE, _SER3_IRQ, _SER3_VECTOR, _SER3_IPL, _SER3_SPL, IntSer3Handler, _SER3_TX_PIN, _SER3_RX_PIN, _SER3_TX_OUT, _SER3_RX_IN);
 #else
@@ -1298,6 +1304,7 @@ HardwareSerial Serial3((p32_uart *)_SER3_BASE, _SER3_IRQ, _SER3_VECTOR, _SER3_IP
 #endif
 
 #if defined(_SER4_BASE)
+bool Serial4_available() { return Serial4.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial4((p32_uart *)_SER4_BASE, _SER4_IRQ, _SER4_VECTOR, _SER4_IPL, _SER4_SPL, IntSer4Handler, _SER4_TX_PIN, _SER4_RX_PIN, _SER4_TX_OUT, _SER4_RX_IN);
 #else
@@ -1306,6 +1313,7 @@ HardwareSerial Serial4((p32_uart *)_SER4_BASE, _SER4_IRQ, _SER4_VECTOR, _SER4_IP
 #endif
 
 #if defined(_SER5_BASE)
+bool Serial5_available() { return Serial5.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial5((p32_uart *)_SER5_BASE, _SER5_IRQ, _SER5_VECTOR, _SER5_IPL, _SER5_SPL, IntSer5Handler, _SER5_TX_PIN, _SER5_RX_PIN, _SER5_TX_OUT, _SER5_RX_IN);
 #else
@@ -1314,6 +1322,7 @@ HardwareSerial Serial5((p32_uart *)_SER5_BASE, _SER5_IRQ, _SER5_VECTOR, _SER5_IP
 #endif
 
 #if defined(_SER6_BASE)
+bool Serial6_available() { return Serial6.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial6((p32_uart *)_SER6_BASE, _SER6_IRQ, _SER6_VECTOR, _SER6_IPL, _SER6_SPL, IntSer6Handler, _SER6_TX_PIN, _SER6_RX_PIN, _SER6_TX_OUT, _SER6_RX_IN);
 #else
@@ -1322,12 +1331,69 @@ HardwareSerial Serial6((p32_uart *)_SER6_BASE, _SER6_IRQ, _SER6_VECTOR, _SER6_IP
 #endif
 
 #if defined(_SER7_BASE)
+bool Serial7_available() { return Serial7.available(); }
 #if defined(__PIC32MZXX__)
 HardwareSerial Serial7((p32_uart *)_SER7_BASE, _SER7_IRQ, _SER7_VECTOR, _SER7_IPL, _SER7_SPL, IntSer7Handler, _SER7_TX_PIN, _SER7_RX_PIN, _SER7_TX_OUT, _SER7_RX_IN);
 #else
 HardwareSerial Serial7((p32_uart *)_SER7_BASE, _SER7_IRQ, _SER7_VECTOR, _SER7_IPL, _SER7_SPL, IntSer7Handler);
 #endif
 #endif
+
+void serialEventRun() {
+#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+        if (Serial_available && serialEvent && Serial_available()) serialEvent();
+        #if (NUM_SERIAL_PORTS > 0)
+            if (Serial0_available && serialEvent0 && Serial0_available()) serialEvent0();
+        #endif
+        #if (NUM_SERIAL_PORTS > 1)
+            if (Serial1_available && serialEvent1 && Serial1_available()) serialEvent1();
+        #endif
+        #if (NUM_SERIAL_PORTS > 2)
+            if (Serial2_available && serialEvent2 && Serial2_available()) serialEvent2();
+        #endif
+        #if (NUM_SERIAL_PORTS > 3)
+            if (Serial3_available && serialEvent3 && Serial3_available()) serialEvent3();
+        #endif
+        #if (NUM_SERIAL_PORTS > 4)
+            if (Serial4_available && serialEvent4 && Serial4_available()) serialEvent4();
+        #endif
+        #if (NUM_SERIAL_PORTS > 5)
+            if (Serial5_available && serialEvent5 && Serial5_available()) serialEvent5();
+        #endif
+        #if (NUM_SERIAL_PORTS > 6)
+            if (Serial6_available && serialEvent6 && Serial6_available()) serialEvent6();
+        #endif
+        #if (NUM_SERIAL_PORTS > 7)
+            if (Serial7_available && serialEvent7 && Serial7_available()) serialEvent7();
+        #endif
+#else
+        #if (NUM_SERIAL_PORTS > 0)
+            if (Serial_available && serialEvent && Serial_available()) serialEvent();
+        #endif
+        #if (NUM_SERIAL_PORTS > 1)
+            if (Serial1_available && serialEvent1 && Serial1_available()) serialEvent1();
+        #endif
+        #if (NUM_SERIAL_PORTS > 2)
+            if (Serial2_available && serialEvent2 && Serial2_available()) serialEvent2();
+        #endif
+        #if (NUM_SERIAL_PORTS > 3)
+            if (Serial3_available && serialEvent3 && Serial3_available()) serialEvent3();
+        #endif
+        #if (NUM_SERIAL_PORTS > 4)
+            if (Serial4_available && serialEvent4 && Serial4_available()) serialEvent4();
+        #endif
+        #if (NUM_SERIAL_PORTS > 5)
+            if (Serial5_available && serialEvent5 && Serial5_available()) serialEvent5();
+        #endif
+        #if (NUM_SERIAL_PORTS > 6)
+            if (Serial6_available && serialEvent6 && Serial6_available()) serialEvent6();
+        #endif
+        #if (NUM_SERIAL_PORTS > 7)
+            if (Serial7_available && serialEvent7 && Serial7_available()) serialEvent7();
+        #endif
+#endif
+}
+
 
 /* ------------------------------------------------------------ */
 
