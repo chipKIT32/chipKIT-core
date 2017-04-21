@@ -196,10 +196,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 71;
-const static uint8_t MOSI = 74;
-const static uint8_t MISO = 73;	
-const static uint8_t SCK  = 72;
+static const uint8_t SS   = 71;
+static const uint8_t MOSI = 74;
+static const uint8_t MISO = 73;	
+static const uint8_t SCK  = 72;
 
 /* The Digilent DSPI library uses these ports.
 */

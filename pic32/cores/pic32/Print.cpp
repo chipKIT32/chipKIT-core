@@ -45,7 +45,7 @@ size_t Print::print(const String &s)
 }
 
 size_t Print::print(const __FlashStringHelper *s) {
-    print((const char *)s);
+    return print((const char *)s);
 }
 
 size_t Print::print(const char str[])
@@ -120,7 +120,7 @@ size_t Print::println(const String &s)
 }
 
 size_t Print::println(const __FlashStringHelper *s) {
-    println((const char *)s);
+  return println((const char *)s);
 }
 
 size_t Print::println(const char c[])
