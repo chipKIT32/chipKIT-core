@@ -135,9 +135,18 @@ private:
      * at runtime (dynamically) and so we need to re-compute the proper
      * BRG value each time we start a transaction to be safe. */
     uint16_t GenerateBRG(void) {
-        /* Compute the baud rate divider for this frequency.
+        /* Compute the baud rate divider for this frequency. If the 
+         * desired clock rate is too slow for our slowest possible
+         * on this system, use the slowest possible.
         */
-      return (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
+      if ((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) > 512)
+      {
+        return(511);
+      }
+      else
+      {
+        return (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
+      }
     }
     uint32_t con;
     uint16_t brg;
