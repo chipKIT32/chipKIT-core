@@ -4,7 +4,7 @@
  * Copyright (c) 2014 by Matthijs Kooijman <matthijs@stdin.nl> (SPISettings AVR)
  * Copyright (c) 2014 by Andrew J. Kroll <xxxajk@gmail.com> (atomicity fixes)
  * Copyright (c) 2015 by Majenko Technologies <matt@majenko.co.uk> (port to chipKIT)
- * SPI Master library for arduino.
+ * SPI Master library for Arduino.
  *
  * This file is free software; you can redistribute it and/or modify
  * it under the terms of either the GNU General Public License version 2
@@ -99,10 +99,10 @@ private:
         DesiredSPIClockFrequency = clock;
         
         // By including the needed flag here, we have a speed optimization.
-        // We will always set the Master Enable bit, becuase we are always the SPI master
+        // We will always set the Master Enable bit, because we are always the SPI master
         // We will always set the ON bit because we always want the SPI peripheral turned on
         //
-        // The _SPICON_SMP bit makes the SPI preph actually follow the 
+        // The _SPICON_SMP bit makes the SPI peripheral actually follow the 
         // general SPI rules that everyone else uses. Normally an SPI master 
         // samples just before the next cycle starts.  
         // At high data rates it becomes very important to sample later 
@@ -127,50 +127,21 @@ private:
         }
     }
     /* This function computes the proper value for the BRG register 
-     * (baudrate generator divisor). This computation can't be done
-     * in this object's intializer, because the value __PIC32_pbClk 
-     * isn't guaranteed to be correct until after all obejcts have
-     * been intialized and the init() call in wiring.c has had a
+     * (baud rate generator divisor). This computation can't be done
+     * in this object's initializer, because the value __PIC32_pbClk 
+     * isn't guaranteed to be correct until after all objects have
+     * been initialized and the init() call in wiring.c has had a
      * chance to run. Also, this value can (theoretically) be changed
      * at runtime (dynamically) and so we need to re-compute the proper
-     * BRG value each time we start a tranasaction to be safe. */
+     * BRG value each time we start a transaction to be safe. */
     uint16_t GenerateBRG(void) {
         /* Compute the baud rate divider for this frequency.
         */
-        switch (DesiredSPIClockFrequency) {
-            case SPI_CLOCK_DIV2:
-                return (__PIC32_pbClk / 16000000) * 1;
-                break;
-
-            case SPI_CLOCK_DIV4:
-                return (__PIC32_pbClk / 16000000) * 3;
-                break;
-
-            case SPI_CLOCK_DIV8:
-                return (__PIC32_pbClk / 16000000) * 7;
-                break;
-
-            case SPI_CLOCK_DIV16:
-                return (__PIC32_pbClk / 16000000) * 15;
-                break;
-
-            case SPI_CLOCK_DIV32:
-                return (__PIC32_pbClk / 16000000) * 31;
-                break;
-
-            case SPI_CLOCK_DIV64:
-                return (__PIC32_pbClk / 16000000) * 63;
-                break;
-
-            case SPI_CLOCK_DIV128:
-                return (__PIC32_pbClk / 16000000) * 127;
-                break;
-        }
-        return (__PIC32_pbClk / 16000000) * 4;
+      return (uint16_t)((__PIC32_pbClk / (2 * DesiredSPIClockFrequency)) - 1);
     }
     uint32_t con;
     uint16_t brg;
-    /* A cached copy of the desired SPI clock freqency set at object creation */
+    /* A cached copy of the desired SPI clock frequency set at object creation */
     uint32_t DesiredSPIClockFrequency;
     friend class SPIClass;
 };
@@ -242,7 +213,7 @@ public:
         // pspi->sxCon.clr = (1 << _SPICON_ON);         // This line can cause glitches on the CLOCK output
         /* Compute and set the proper BRG register value based on our desired SPI clock rate */
         pspi->sxBrg.reg = settings.GenerateBRG();
-        /* Copy over the proper value of the CON regsiter for this set of settings, turning SPI peripheral back on */
+        /* Copy over the proper value of the CON register for this set of settings, turning SPI peripheral back on */
         pspi->sxCon.reg = settings.con;
         softBitOrder = settings.softBitOrder;
     }
