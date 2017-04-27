@@ -569,39 +569,39 @@
           "name": "pic32-tools",
           "systems": [
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43/pic32-tools-143-win32-image.tar.gz",
-              "checksum": "SHA-256:5262aee05ef9237e5ae3a85685cbfa0d83549748fcac48d1cd887fab2efb9cfc",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-2/pic32-tools-143-2-win32-image.tar.gz",
+              "checksum": "SHA-256:74136007b831737c53dcf31a13f5339594232ccf2411dc09f1811b2ea474ac25",
               "host": "i686-mingw32",
-              "archiveFileName": "pic32-tools-143-win32-image.tar.gz",
-              "size": "135982031"
+              "archiveFileName": "pic32-tools-143-2-win32-image.tar.gz",
+              "size": "124082200"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43/pic32-tools-143-Darwin-image.tar.gz",
-              "checksum": "SHA-256:2fbfb3a8e889396c96084607f99c2d21d27b3005b7be891e3816ceedf7da0137",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-2/pic32-tools-143-2-Darwin-image.tar.gz",
+              "checksum": "SHA-256:ef8c531fb7fa9a6a68711a3b26fc762eeeaa46e3bc4b2348644f836005f7c1d9",
               "host": "i386-apple-darwin",
-              "archiveFileName": "pic32-tools-143-Darwin-image.tar.gz",
-              "size": "140034198"
+              "archiveFileName": "pic32-tools-143-2-Darwin-image.tar.gz",
+              "size": "128342619"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43/pic32-tools-143-Linux32-image.tar.gz",
-              "checksum": "SHA-256:fc1fa8c319e1b852d23ec8c45f90afe830e86d00a743df7025a585810a78adb7",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-2/pic32-tools-143-2-Linux32-image.tar.gz",
+              "checksum": "SHA-256:4dfbd36dbf06147e55fa8ee77a2c03cd6e96f76ef90ac03eb79a6a31b041c211",
               "host": "x86_64-linux-gnu",
-              "archiveFileName": "pic32-tools-143-Linux32-image.tar.gz",
-              "size": "137556237"
+              "archiveFileName": "pic32-tools-143-2-Linux32-image.tar.gz",
+              "size": "125691190"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43/pic32-tools-143-Linux32-image.tar.gz",
-              "checksum": "SHA-256:fc1fa8c319e1b852d23ec8c45f90afe830e86d00a743df7025a585810a78adb7",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-2/pic32-tools-143-2-Linux32-image.tar.gz",
+              "checksum": "SHA-256:4dfbd36dbf06147e55fa8ee77a2c03cd6e96f76ef90ac03eb79a6a31b041c211",
               "host": "i686-pc-linux-gnu",
-              "archiveFileName": "pic32-tools-143-Linux32-image.tar.gz",
-              "size": "137556237"
+              "archiveFileName": "pic32-tools-143-2-Linux32-image.tar.gz",
+              "size": "125691190"
             }, 
             {
-              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43/pic32-tools-143-arm-linux-image.tar.gz",
-              "checksum": "SHA-256:ed9764117854e7031a21b46895c7aef0ff806b8f1957f8432c0609ce02e3fc5c",
+              "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-2/pic32-tools-143-2-arm-linux-image.tar.gz",
+              "checksum": "SHA-256:50536ea46ff47f5452308bca245d06643ba04118027e01855bc12a640ac724ad",
               "host": "i686-arm-gnu",
-              "archiveFileName": "pic32-tools-143-arm-linux-image.tar.gz",
-              "size": "136874837"
+              "archiveFileName": "pic32-tools-143-2-arm-linux-image.tar.gz",
+              "size": "124998538"
             }
           ]
         },
