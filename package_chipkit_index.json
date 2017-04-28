@@ -584,14 +584,14 @@
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-3/pic32-tools-143-3-Linux32-image.tar.gz",
-              "checksum": "SHA-256:5b4a6cc16bcf3455db5fe9e229212385177b3c4064b7bff31dfb043379c39ce3",
+              "checksum": "SHA-256:A9C9254B8563D48736429A37AA6BA96C6AC28EA5E0A3E7F9B75E860F74F2A50F",
               "host": "x86_64-linux-gnu",
               "archiveFileName": "pic32-tools-143-3-Linux32-image.tar.gz",
               "size": "134890316"
             }, 
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-3/pic32-tools-143-3-Linux32-image.tar.gz",
-              "checksum": "SHA-256:5b4a6cc16bcf3455db5fe9e229212385177b3c4064b7bff31dfb043379c39ce3",
+              "checksum": "SHA-256:A9C9254B8563D48736429A37AA6BA96C6AC28EA5E0A3E7F9B75E860F74F2A50F",
               "host": "i686-pc-linux-gnu",
               "archiveFileName": "pic32-tools-143-3-Linux32-image.tar.gz",
               "size": "134890316"
