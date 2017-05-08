@@ -61,7 +61,7 @@ int main(void)
 	{
 		_scheduleTask();
 		loop();
-        if (serialEventRun != NULL) serialEventRun();
+        serialEventRun();
 	}
 	return 0;
 }
