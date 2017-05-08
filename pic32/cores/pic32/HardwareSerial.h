@@ -342,7 +342,7 @@ class USBSerial : public Stream
         #endif
 #endif
 
-void serialEventRun();
+extern void serialEventRun(void) __attribute__((weak));
 
 //* ------------------------------------------------------------
 
