@@ -1,18 +1,9 @@
 /*
  * EEPROM Read
  *
- * Reads the value of each byte of the EEPROM and prints it 
+ * Reads the value of each byte of the EEPROM and prints it
  * to the computer.
  * This example code is in the public domain.
- *
- * Settings:
- *
- * EEPROM.setMaxAddress(int value)
- * This setting will allow a user determine the size
- * of the emulated EEPROM. However this setting has 
- * the potential to prematurely wear out the flash if
- * made to large. The largest allowable address is 1023
- * and the default value is 512
  */
 
 #include <EEPROM.h>
@@ -21,28 +12,45 @@
 int address = 0;
 byte value;
 
-void setup()
-{
+void setup() {
+  // initialize serial and wait for port to open:
   Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
 }
 
-void loop()
-{
+void loop() {
   // read a byte from the current address of the EEPROM
   value = EEPROM.read(address);
-  
+
   Serial.print(address);
   Serial.print("\t");
   Serial.print(value, DEC);
   Serial.println();
-  
-  // advance to the next address of the EEPROM
+
+  /***
+    Advance to the next address, when at the end restart at the beginning.
+
+    Larger AVR processors have larger EEPROM sizes, E.g:
+    - Arduno Duemilanove: 512b EEPROM storage.
+    - Arduino Uno:        1kb EEPROM storage.
+    - Arduino Mega:       4kb EEPROM storage.
+
+    Rather than hard-coding the length, you should use the pre-provided length function.
+    This will make your code portable to all AVR processors.
+  ***/
   address = address + 1;
-  
-  // there are only 512 bytes of EEPROM, from 0 to 511, so if we're
-  // on address 512, wrap around to address 0
-  if (address == 512)
+  if (address == EEPROM.length()) {
     address = 0;
-    
-  delay(100);
+  }
+
+  /***
+    As the EEPROM sizes are powers of two, wrapping (preventing overflow) of an
+    EEPROM address is also doable by a bitwise and of the length - 1.
+
+    ++address &= EEPROM.length() - 1;
+  ***/
+
+  delay(500);
 }
