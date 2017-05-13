@@ -69,11 +69,11 @@
 */
 #ifdef __cplusplus
 extern "C" {
-	void __attribute__((nomips16)) IntDtwi0Handler(void);
-	void __attribute__((nomips16)) IntDtwi1Handler(void);
-	void __attribute__((nomips16)) IntDtwi2Handler(void);
-	void __attribute__((nomips16)) IntDtwi3Handler(void);
-	void __attribute__((nomips16)) IntDtwi4Handler(void);
+	void __USER_ISR IntDtwi0Handler(void);
+	void __USER_ISR IntDtwi1Handler(void);
+	void __USER_ISR IntDtwi2Handler(void);
+	void __USER_ISR IntDtwi3Handler(void);
+	void __USER_ISR IntDtwi4Handler(void);
 };
 
 /* ------------------------------------------------------------ */
@@ -83,11 +83,11 @@ extern "C" {
 class DTWI {
 
     // needed to call the stateMachine
-    friend void __attribute__((nomips16)) IntDtwi0Handler(void);
-    friend void __attribute__((nomips16)) IntDtwi1Handler(void);
-    friend void __attribute__((nomips16)) IntDtwi2Handler(void);
-    friend void __attribute__((nomips16)) IntDtwi3Handler(void);
-    friend void __attribute__((nomips16)) IntDtwi4Handler(void);
+    friend void __USER_ISR IntDtwi0Handler(void);
+    friend void __USER_ISR IntDtwi1Handler(void);
+    friend void __USER_ISR IntDtwi2Handler(void);
+    friend void __USER_ISR IntDtwi3Handler(void);
+    friend void __USER_ISR IntDtwi4Handler(void);
 
 public:
     uint8_t static const    addrGenCall         = 0;
@@ -261,7 +261,7 @@ public:
 class DTWI0 : public DTWI {
 
     // needed to get to pDTWI
-    friend void __attribute__((nomips16)) IntDtwi0Handler(void);
+    friend void __USER_ISR IntDtwi0Handler(void);
 
 private:
     static DTWI0 * pDTWI0;
@@ -273,7 +273,7 @@ public:
 class DTWI1 : public DTWI {
 
     // needed to get to pDTWI
-    friend void __attribute__((nomips16)) IntDtwi1Handler(void);
+    friend void __USER_ISR IntDtwi1Handler(void);
 
 private:
     static DTWI1 * pDTWI1;
@@ -285,7 +285,7 @@ public:
 class DTWI2 : public DTWI {
 
     // needed to get to pDTWI
-    friend void __attribute__((nomips16)) IntDtwi2Handler(void);
+    friend void __USER_ISR IntDtwi2Handler(void);
 
 private:
     static DTWI2 * pDTWI2;
@@ -297,7 +297,7 @@ public:
 class DTWI3 : public DTWI {
 
     // needed to get to pDTWI
-    friend void __attribute__((nomips16)) IntDtwi3Handler(void);
+    friend void __USER_ISR IntDtwi3Handler(void);
 
 private:
     static DTWI3 * pDTWI3;
@@ -309,7 +309,7 @@ public:
 class DTWI4 : public DTWI {
 
     // needed to get to pDTWI
-    friend void __attribute__((nomips16)) IntDtwi4Handler(void);
+    friend void __USER_ISR IntDtwi4Handler(void);
 
 private:
     static DTWI4 * pDTWI4;

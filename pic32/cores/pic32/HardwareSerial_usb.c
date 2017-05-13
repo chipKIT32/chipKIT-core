@@ -35,7 +35,11 @@
 #include "HardwareSerial_cdcacm.h"
 #include "System_Defs.h"
 
-void __attribute__((vector(_USB_1_VECTOR), interrupt(_USB_IPL_ISR), nomips16)) IntUSB1Handler(void);
+#ifdef _USE_USB_IRQ_
+void __USER_ISR IntUSB1Handler(void);
+#else
+void IntUSB1Handler(void);
+#endif
 
 // XXX -- move to relocated compat.h
 #define MCF_USB_OTG_CTL  U1CON
@@ -328,7 +332,7 @@ static byte next_address;	// set after successful status
 // called by usb on device attach
 //************************************************************************
 #ifdef _USE_USB_IRQ_
-	void __attribute__((vector(_USB_1_VECTOR), interrupt(_USB_IPL_ISR),nomips16)) IntUSB1Handler(void)
+	void __USER_ISR IntUSB1Handler(void)
 #else
 	void	usb_isr(void)
 #endif

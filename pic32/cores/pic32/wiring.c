@@ -70,7 +70,7 @@ extern const uint32_t _verMPIDE_Stub;
 const uint32_t __attribute__((section(".mpide_version"))) _verMPIDE_Stub = MPIDEVER;    // assigns the build number in the header section in the image
 
 // core timer ISR
-void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void);
+void __USER_ISR CoreTimerHandler(void);
 
 //************************************************************************
 //*	globals
@@ -720,11 +720,7 @@ uint32_t millisecondCoreTimerService(uint32_t curTime)
 **      the real compare value to be interrupted to notify the Serivces when count hits that value.
 **
 */
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16, at_vector(_CORE_TIMER_VECTOR),interrupt(IPL7SRS))) CoreTimerHandler(void)
-#else
-void __attribute__((interrupt(),nomips16)) CoreTimerHandler(void)
-#endif
+void __USER_ISR CoreTimerHandler(void)
 {
     uint32_t curTime;
     uint32_t compare;

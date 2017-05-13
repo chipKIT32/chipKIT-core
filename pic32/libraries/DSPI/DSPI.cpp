@@ -54,10 +54,10 @@
 /* ------------------------------------------------------------ */
 /*				Forward references to int handlers              */
 /* ------------------------------------------------------------ */
-extern "C" void __attribute__((interrupt(),nomips16)) IntDspi0Handler(void);
-extern "C" void __attribute__((interrupt(),nomips16)) IntDspi1Handler(void);
-extern "C" void __attribute__((interrupt(),nomips16)) IntDspi2Handler(void);
-extern "C" void __attribute__((interrupt(),nomips16)) IntDspi3Handler(void);
+extern "C" void __USER_ISR IntDspi0Handler(void);
+extern "C" void __USER_ISR IntDspi1Handler(void);
+extern "C" void __USER_ISR IntDspi2Handler(void);
+extern "C" void __USER_ISR IntDspi3Handler(void);
 
 /* ------------------------------------------------------------ */
 /*				Local Type and Constant Definitions				*/
@@ -1403,12 +1403,7 @@ extern "C" {
 **		logical SPI port DSPI0
 */
 #if defined(_DSPI0_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DSPI0_VECTOR),interrupt(_DSPI0_IPL_ISR))) IntDspi0Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntDspi0Handler(void)
-#endif
+void __USER_ISR IntDspi0Handler(void)
 {
 	if (pdspi0 != 0) {
 		pdspi0->doDspiInterrupt();
@@ -1433,12 +1428,7 @@ void __attribute__((interrupt(), nomips16)) IntDspi0Handler(void)
 **		logical SPI port DSPI1
 */
 #if defined(_DSPI1_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DSPI1_VECTOR),interrupt(_DSPI1_IPL_ISR))) IntDspi1Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntDspi1Handler(void)
-#endif
+void __USER_ISR IntDspi1Handler(void)
 {
 	if (pdspi1 != 0) {
 		pdspi1->doDspiInterrupt();
@@ -1463,12 +1453,7 @@ void __attribute__((interrupt(), nomips16)) IntDspi1Handler(void)
 **		logical SPI port DSPI2
 */
 #if defined(_DSPI2_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DSPI2_VECTOR),interrupt(_DSPI2_IPL_ISR))) IntDspi2Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntDspi2Handler(void)
-#endif
+void __USER_ISR IntDspi2Handler(void)
 {
 	if (pdspi2 != 0) {
 		pdspi2->doDspiInterrupt();
@@ -1493,12 +1478,7 @@ void __attribute__((interrupt(), nomips16)) IntDspi2Handler(void)
 **		logical SPI port DSPI3
 */
 #if defined(_DSPI3_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DSPI3_VECTOR),interrupt(_DSPI3_IPL_ISR))) IntDspi3Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntDspi3Handler(void)
-#endif
+void __USER_ISR IntDspi3Handler(void)
 {
 	if (pdspi3 != 0) {
 		pdspi3->doDspiInterrupt();

@@ -1446,11 +1446,7 @@ DTWI0::DTWI0() : DTWI(((p32_i2c *) _DTWI0_BASE), _DTWI0_BUS_IRQ, _DTWI0_VECTOR, 
 };
 
 // the associated interrupt routine.
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DTWI0_VECTOR),interrupt(_DTWI0_IPL_ISR))) IntDtwi0Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) IntDtwi0Handler(void)
-#endif
+void __USER_ISR IntDtwi0Handler(void)
 {
     DTWI0::pDTWI0->stateMachine();
 }
@@ -1471,11 +1467,7 @@ DTWI1::DTWI1() : DTWI(((p32_i2c *) _DTWI1_BASE), _DTWI1_BUS_IRQ, _DTWI1_VECTOR, 
 };
 
 // the associated interrupt routine.
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DTWI1_VECTOR),interrupt(_DTWI1_IPL_ISR))) IntDtwi1Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) IntDtwi1Handler(void)
-#endif
+void __USER_ISR IntDtwi1Handler(void)
 {
     DTWI1::pDTWI1->stateMachine();
 }
@@ -1496,11 +1488,7 @@ DTWI2::DTWI2() : DTWI(((p32_i2c *) _DTWI2_BASE), _DTWI2_BUS_IRQ, _DTWI2_VECTOR, 
 };
 
 // the associated interrupt routine.
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DTWI2_VECTOR),interrupt(_DTWI2_IPL_ISR))) IntDtwi2Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) IntDtwi2Handler(void)
-#endif
+void __USER_ISR IntDtwi2Handler(void)
 {
     DTWI2::pDTWI2->stateMachine();
 }
@@ -1521,11 +1509,7 @@ DTWI3::DTWI3() : DTWI(((p32_i2c *) _DTWI3_BASE), _DTWI3_BUS_IRQ, _DTWI3_VECTOR, 
 };
 
 // the associated interrupt routine.
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DTWI3_VECTOR),interrupt(_DTWI3_IPL_ISR))) IntDtwi3Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) IntDtwi3Handler(void)
-#endif
+void __USER_ISR IntDtwi3Handler(void)
 {
     DTWI3::pDTWI3->stateMachine();
 }
@@ -1546,11 +1530,7 @@ DTWI4::DTWI4() : DTWI(((p32_i2c *) _DTWI4_BASE), _DTWI4_BUS_IRQ, _DTWI4_VECTOR, 
 };
 
 // the associated interrupt routine.
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_DTWI4_VECTOR),interrupt(_DTWI4_IPL_ISR))) IntDtwi4Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) IntDtwi4Handler(void)
-#endif
+void __USER_ISR IntDtwi4Handler(void)
 {
     DTWI4::pDTWI4->stateMachine();
 }
