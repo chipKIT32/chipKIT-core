@@ -122,6 +122,7 @@ class HardwareSerial : public Stream
         void            begin(unsigned long baudRate, uint8_t address);
 		void			end();
 		virtual int		available(void);
+        virtual int     availableForWrite();
 		virtual int		peek();
 		virtual int		read(void);
 		virtual void	flush(void);
