@@ -624,6 +624,16 @@ size_t HardwareSerial::write(uint8_t theChar)
     return 1;
 }
 
+// Hardware serial has a buffer of length 1
+int HardwareSerial::availableForWrite() {
+    if (uart->uxSta.reg & (1 << _UARTSTA_UTXBF)) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+
 // Hardware serial is always connected regardless.
 HardwareSerial::operator int() {
     return 1;
