@@ -73,10 +73,10 @@
 ** method doDspiInterrupt
 */
 extern "C" {
-	void __attribute__((nomips16)) IntDspi0Handler(void);
-	void __attribute__((nomips16)) IntDspi1Handler(void);
-	void __attribute__((nomips16)) IntDspi2Handler(void);
-	void __attribute__((nomips16)) IntDspi3Handler(void);
+	void __USER_ISR IntDspi0Handler(void);
+	void __USER_ISR IntDspi1Handler(void);
+	void __USER_ISR IntDspi2Handler(void);
+	void __USER_ISR IntDspi3Handler(void);
 };
 
 /* ------------------------------------------------------------ */
@@ -109,10 +109,10 @@ class DGSPI
 
 class DSPI : public DGSPI {
 
-	friend		void __attribute__((nomips16)) IntDspi0Handler(void);
-	friend		void __attribute__((nomips16)) IntDspi1Handler(void);
-	friend		void __attribute__((nomips16)) IntDspi2Handler(void);
-	friend		void __attribute__((nomips16)) IntDspi3Handler(void);
+	friend		void __USER_ISR IntDspi0Handler(void);
+	friend		void __USER_ISR IntDspi1Handler(void);
+	friend		void __USER_ISR IntDspi2Handler(void);
+	friend		void __USER_ISR IntDspi3Handler(void);
 
 private:
 	p32_regset *		pregIfs;	//pointer to interrupt flag register

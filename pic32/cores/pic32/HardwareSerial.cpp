@@ -132,14 +132,14 @@ static void RXLedSwitchOff(int id, void *tptr) {
 
 extern "C"
 {
-void __attribute__((interrupt(),nomips16)) IntSer0Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer1Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer2Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer3Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer4Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer5Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer6Handler(void);
-void __attribute__((interrupt(),nomips16)) IntSer7Handler(void);
+void __USER_ISR IntSer0Handler(void);
+void __USER_ISR IntSer1Handler(void);
+void __USER_ISR IntSer2Handler(void);
+void __USER_ISR IntSer3Handler(void);
+void __USER_ISR IntSer4Handler(void);
+void __USER_ISR IntSer5Handler(void);
+void __USER_ISR IntSer6Handler(void);
+void __USER_ISR IntSer7Handler(void);
 }
 
 /* ------------------------------------------------------------ */
@@ -1036,11 +1036,7 @@ extern "C" {
 */
 #if defined(_SER0_VECTOR)
 
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER0_VECTOR),interrupt(_SER0_IPL_ISR))) IntSer0Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer0Handler(void)
-#endif
+void __USER_ISR IntSer0Handler(void)
 {
 #if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 	Serial0.doSerialInt();
@@ -1067,12 +1063,7 @@ void __attribute__((interrupt(), nomips16)) IntSer0Handler(void)
 **		serial port 1.
 */
 #if defined(_SER1_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER1_VECTOR),interrupt(_SER1_IPL_ISR))) IntSer1Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer1Handler(void)
-#endif
+void __USER_ISR IntSer1Handler(void)
 {
 	Serial1.doSerialInt();
 }
@@ -1095,12 +1086,7 @@ void __attribute__((interrupt(), nomips16)) IntSer1Handler(void)
 **		serial port 2.
 */
 #if defined(_SER2_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER2_VECTOR),interrupt(_SER2_IPL_ISR))) IntSer2Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer2Handler(void)
-#endif
+void __USER_ISR IntSer2Handler(void)
 {
 	Serial2.doSerialInt();
 }
@@ -1123,12 +1109,7 @@ void __attribute__((interrupt(), nomips16)) IntSer2Handler(void)
 **		serial port 3.
 */
 #if defined(_SER3_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER3_VECTOR),interrupt(_SER3_IPL_ISR))) IntSer3Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer3Handler(void)
-#endif
+void __USER_ISR IntSer3Handler(void)
 {
 	Serial3.doSerialInt();
 }
@@ -1151,12 +1132,7 @@ void __attribute__((interrupt(), nomips16)) IntSer3Handler(void)
 **		serial port 4.
 */
 #if defined(_SER4_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER4_VECTOR),interrupt(_SER4_IPL_ISR))) IntSer4Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer4Handler(void)
-#endif
+void __USER_ISR IntSer4Handler(void)
 {
 	Serial4.doSerialInt();
 }
@@ -1179,12 +1155,7 @@ void __attribute__((interrupt(), nomips16)) IntSer4Handler(void)
 **		serial port 5.
 */
 #if defined(_SER5_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER5_VECTOR),interrupt(_SER5_IPL_ISR))) IntSer5Handler(void)
-#else
- void __attribute__((interrupt(), nomips16)) IntSer5Handler(void)
-#endif
+void __USER_ISR IntSer5Handler(void)
 {
 	Serial5.doSerialInt();
 }
@@ -1207,12 +1178,7 @@ void __attribute__((nomips16,at_vector(_SER5_VECTOR),interrupt(_SER5_IPL_ISR))) 
 **		serial port 6.
 */
 #if defined(_SER6_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER6_VECTOR),interrupt(_SER6_IPL_ISR))) IntSer6Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer6Handler(void)
-#endif
+void __USER_ISR IntSer6Handler(void)
 {
 	Serial6.doSerialInt();
 }
@@ -1235,12 +1201,7 @@ void __attribute__((interrupt(), nomips16)) IntSer6Handler(void)
 **		serial port 7.
 */
 #if defined(_SER7_VECTOR)
-
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_SER7_VECTOR),interrupt(_SER7_IPL_ISR))) IntSer7Handler(void)
-#else
-void __attribute__((interrupt(), nomips16)) IntSer7Handler(void)
-#endif
+void __USER_ISR IntSer7Handler(void)
 {
 	Serial7.doSerialInt();
 }

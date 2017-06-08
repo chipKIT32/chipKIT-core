@@ -213,7 +213,7 @@ SoftwareSerial::~SoftwareSerial()
  /*
  * ISR function called whenever any Change Notification pins change state.
  */
-void __attribute__((interrupt)) ChangeNotificationISR() 
+void __USER_ISR ChangeNotificationISR() 
 {
 DEBUG5_HIGH
     // Call the static function that handles all of the CN logic, pass in the current time

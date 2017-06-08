@@ -54,6 +54,8 @@
 #ifndef MRF24GADAPTOR_H
 #define	MRF24GADAPTOR_H
 
+#include <wiring.h>
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -199,7 +201,7 @@ typedef struct WFMRFD_T
     WFMRFP  priv;
 } WFMRFD;
 
-void __attribute__((interrupt(),nomips16)) _WFInterrupt(void);
+void __USER_ISR _WFInterrupt(void);
 const NWADP * GetMRF24GAdaptor(MACADDR *pUseThisMac, HRRHEAP hAdpHeap, IPSTATUS * pStatus);
 const NWWF *  GetMRF24WF(void);
 const WFMRF * GetMRF24GFunc(void);

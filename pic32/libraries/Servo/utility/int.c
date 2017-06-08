@@ -47,32 +47,20 @@
 //  currently existing PIC32 devices, but this needs to be rewritten to be
 //	more generic.
 
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_TIMER_3_VECTOR),interrupt(IPL4SRS))) T3_IntHandler(void)
-#else
-void __attribute__((interrupt(),nomips16)) T3_IntHandler (void)
-#endif
+void __USER_ISR T3_IntHandler (void)
 {
  	handle_interrupts(TIMER3, &TMR3, &PR3); 
 	IFS0bits.T3IF = 0; // Clear timer interrupt status flag
 }
 
 
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_TIMER_4_VECTOR),interrupt(IPL4SRS))) T4_IntHandler(void)
-#else
-void __attribute__((interrupt(),nomips16)) T4_IntHandler (void)
-#endif
+void __USER_ISR T4_IntHandler (void)
 {
  	handle_interrupts(TIMER4, &TMR4, &PR4); 
 	IFS0bits.T4IF = 0; // Clear timer interrupt status flag
 }
 
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_TIMER_5_VECTOR),interrupt(IPL4SRS))) T5_IntHandler(void)
-#else
-void __attribute__((interrupt(),nomips16)) T5_IntHandler (void)
-#endif
+void __USER_ISR T5_IntHandler (void)
 {
  	handle_interrupts(TIMER5, &TMR5, &PR5); 
 	IFS0bits.T5IF = 0; // Clear timer interrupt status flag

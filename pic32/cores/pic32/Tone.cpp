@@ -65,7 +65,7 @@
 #include "p32_defs.h"
 #include "pins_arduino.h"
 
-extern "C" void __attribute__((interrupt(),nomips16)) Timer1Handler(void);
+extern "C" void __USER_ISR Timer1Handler(void);
 
 //	timerx_toggle_count:
 //	> 0 - duration specified
@@ -173,11 +173,7 @@ extern "C"
 
 //*	not done yet
 //************************************************************************
-#if defined(__PIC32MZXX__)
-void __attribute__((nomips16,at_vector(_TIMER_1_VECTOR),interrupt(IPL3SRS))) Timer1Handler(void)
-#else
-void __attribute__((interrupt(),nomips16)) Timer1Handler(void)
-#endif
+void __USER_ISR Timer1Handler(void)
 {
 
 	if (timer1_toggle_count != 0)
