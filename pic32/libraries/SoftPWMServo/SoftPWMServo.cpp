@@ -221,7 +221,6 @@ int32_t SoftPWMServoPinDisable(uint32_t Pin)
 // the pin to the linked list.
 int32_t SoftPWMServoRawWrite(uint32_t Pin, uint32_t Value, bool PinType)
 {
-    int i;
     int32_t intr;
 
     if (Pin >= SOFTPWMSERVO_MAX_PINS)
@@ -367,7 +366,6 @@ int32_t SoftPWMServoSetServoFrames(uint32_t NewFrameCount)
 uint32_t HandlePWMServo(uint32_t CurrentCount)
 {
     uint32_t NextTime = 0;                  // The number of CoreTimer counts into the future when our next edge should occur
-    uint32_t OldPeriod;                     // The CoreTimer value that caused the ISR to fire
     static ChanType * CurChanP = NULL;      // Pointer to the current channel we're operating on
     bool DoItAgain = false;                 // True if we don't have time to leave the ISR and come back in
     uint32_t NextTimeAcc = CurrentCount;    // Records the sum of NextTime values while we stay in the do-while loop
@@ -549,10 +547,6 @@ uint32_t HandlePWMServo(uint32_t CurrentCount)
         // we can compensate for the number of CoreTimer counts it takes to leave
         // the ISR.
         //
-        // Change from v1.0 to v1.1: we now do this calculation by first subtracting
-        // off the OldPeriod from our current CoreTimer value. This subtraction will
-        // eliminate problems where adding NextTimeAcc rolls OldPeriod over, or where
-        // the CoreTimer has rolled over from OldPeriod.
         TempCoreTimer = readCoreTimer();
         if ((NextTimeAcc - TempCoreTimer) <= EXTRA_ISR_EXIT_CYCLES)
         {
