@@ -53,7 +53,7 @@
 #define _PPS_RPD8       ( 4 + _PPS_SET_D)
 #define _PPS_RPB6       ( 5 + _PPS_SET_D)
 #define _PPS_RPD5       ( 6 + _PPS_SET_D)
-#define _PPS_RPB2       ( 7 + _PPS_SET_D)
+//#define _PPS_RPB2       ( 7 + _PPS_SET_D)
 #define _PPS_RPF3       ( 8 + _PPS_SET_D | _PPS_SET_B)
 #define _PPS_RPF13      ( 9 + _PPS_SET_D)
 #define _PPS_RPC2       (12 + _PPS_SET_D)
