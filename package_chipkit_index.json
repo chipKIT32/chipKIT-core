@@ -57,7 +57,7 @@
             {"name": "chipkit_WiFire_80MHz"},
             {"name": "OpenScope"},
             {"name": "openbci"},
-            {"name": "Clicker2"}
+            {"name": "Clicker2"},
 			{"name": "FlipNClick_MZ"}
           ],
           "toolsDependencies": [
