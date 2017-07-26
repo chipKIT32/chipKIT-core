@@ -1058,10 +1058,15 @@ void __attribute__ ((nomips16)) _configSystem(uint32_t clk)
   // 
   // Set wait states and enable prefetch buffer 
   // 
+#if (F_CPU > 200000000UL)
+  PRECON = 0u 
+         | (4u << _PRECON_PFMWS_POSITION)  // 4 wait states 
+         | (3u << _PRECON_PREFEN_POSITION); // Enable prefetch for instructions + data 
+#else
   PRECON = 0u 
          | (2u << _PRECON_PFMWS_POSITION)  // 2 wait states 
          | (3u << _PRECON_PREFEN_POSITION); // Enable prefetch for instructions + data 
-
+#endif
 
 #endif
 
