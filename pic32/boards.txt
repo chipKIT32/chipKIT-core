@@ -1075,7 +1075,7 @@ flipnclickmz.bootloader.unlock_bits=0x3F
 flipnclickmz.bootloader.lock_bits=0x0F
 
 flipnclickmz.build.mcu=32MZ2048EFH100
-flipnclickmz.build.f_cpu=200000000L
+flipnclickmz.build.f_cpu=252000000L
 flipnclickmz.build.core=pic32
 flipnclickmz.build.variant=FlipNClick_MZ
 flipnclickmz.build.ldscript.path={build.variant.path}

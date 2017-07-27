@@ -74,7 +74,7 @@ MEMORY
   kseg0_vector_mem            : ORIGIN = 0x9D000000, LENGTH = 0x1000
   kseg1_vector_mem            : ORIGIN = 0xBD000000, LENGTH = 0x1000
   kseg0_program_mem    (rx)   : ORIGIN = 0x9D001000, LENGTH = 0x1FB000
-  kseg0_eeprom_mem            : ORIGIN = 0x9D1FC000, LENGTH = 0x4000
+  kseg1_eeprom_mem            : ORIGIN = 0xBD1FC000, LENGTH = 0x4000
   kseg0_boot_mem              : ORIGIN = 0x9FC004B0, LENGTH = 0x0
   kseg1_boot_mem              : ORIGIN = 0xBFC00000, LENGTH = 0x0
   kseg1_boot_mem_4B0          : ORIGIN = 0xBFC004B0, LENGTH = 0x0
@@ -241,7 +241,7 @@ _CACHE_ERR_EXCPT_ADDR           = _ebase_address + _CACHE_ERR_EXCPT_OFFSET;
 _GEN_EXCPT_ADDR                 = _ebase_address + _GEN_EXCPT_OFFSET - 0x30;
 _IMAGE_PTR_TABLE                = _ebase_address + _IMAGE_PTR_TABLE_OFFSET;
 _IMAGE_HEADER_ADDR              = _ebase_address + _IMAGE_HEADER_OFFSET;
-_EEPROM_ADDR                    = ORIGIN(kseg0_eeprom_mem);
+_EEPROM_ADDR                    = ORIGIN(kseg1_eeprom_mem);
 
 /*************************************************************************
  *  Bootloader program directives.
