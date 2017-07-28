@@ -37,14 +37,6 @@
 
 #if defined(__USB_ENABLED__)
 
-#ifndef _USB_VID_
-#define _USB_VID_ 0x0403
-#endif
-
-#ifndef _USB_PID_
-#define _USB_PID_ 0xa662
-#endif
-
 #if defined(__PIC32MZ__) 
 USBHS usbDriver;
 #elif defined(__PIC32MX__)
@@ -53,28 +45,43 @@ USBFS usbDriver;
 #error No USB driver defined for this chip type
 #endif // chip type selection
 
-USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
+#define VID_FUTURE  0x0403
+#define VID_MCHP    0x04d8
 
 #if defined(__USB_CDCACM__)
-CDCACM Serial;
-extern "C" void usb_boot_system() {
-    USB.addDevice(Serial);
-    USB.begin();
-}
+    #ifndef _USB_VID_
+        #define _USB_VID_ VID_FUTURE
+    #endif
+    #ifndef _USB_PID_
+        #define _USB_PID_ 0xa662
+    #endif
+    USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
+    CDCACM Serial;
+    extern "C" void usb_boot_system() {
+        USB.addDevice(Serial);
+        USB.begin();
+    }
 #endif // __USB_CDCACM__
 
 #if defined(__USB_CDCACM_KM__)
-CDCACM Serial;
-HID_Keyboard Keyboard;
-HID_Mouse Mouse;
-extern "C" {
-    void usb_boot_system() {
-        USB.addDevice(Serial);
-        USB.addDevice(Keyboard);
-        USB.addDevice(Mouse);
-        USB.begin();
+    #ifndef _USB_VID_
+        #define _USB_VID_ VID_FUTURE
+    #endif
+    #ifndef _USB_PID_
+        #define _USB_PID_ 0xa662
+    #endif
+    USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
+    CDCACM Serial;
+    HID_Keyboard Keyboard;
+    HID_Mouse Mouse;
+    extern "C" {
+        void usb_boot_system() {
+            USB.addDevice(Serial);
+            USB.addDevice(Keyboard);
+            USB.addDevice(Mouse);
+            USB.begin();
+        }
     }
-}
 #endif // __USB_CDCACM_KM__
 
 
