@@ -279,7 +279,10 @@ bool USBFS::sendBuffer(uint8_t ep, const uint8_t *data, uint32_t len) {
     memcpy(_endpointBuffers[ep].buffer, data, len);
     _endpointBuffers[ep].bufferPtr = _endpointBuffers[ep].buffer;
 
-    while (!canEnqueuePacket(ep));
+    ts = millis();
+    while (!canEnqueuePacket(ep)) {
+        if (millis() - ts > USB_TX_TIMEOUT) return false;
+    }
 
     uint32_t toSend = min(_endpointBuffers[ep].size, _endpointBuffers[ep].length);
     enqueuePacket(ep, _endpointBuffers[ep].bufferPtr, toSend);
@@ -342,7 +345,14 @@ void USBFS::handleInterrupt() {
 		U1CONbits.PPBRST = 0;
 		for (int i  = 0; i < 16; i++) {
 			_endpointBuffers[i].txAB = 0;
-            _endpointBuffers[i].data = 0x00;
+            _endpointBuffers[i].data = 0x40;
+
+            _bufferDescriptorTable[i][0].flags |= 0x80;
+            _bufferDescriptorTable[i][1].flags |= 0x80;
+
+            _bufferDescriptorTable[i][2].flags &= 0x7F;
+            _bufferDescriptorTable[i][3].flags &= 0x7F;
+
 		}
 	}
 	if (U1IRbits.IDLEIF) {
