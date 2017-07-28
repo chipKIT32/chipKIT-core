@@ -33,16 +33,28 @@ while (my $in = <IN>) {
     if ($in =~ / DO NOT ADD ANYTHING AFTER THIS LINE /) {
         last;
     }
-    if ($in =~ /^([^#]+)\.build\.extra_flags=-D_USE_USB_FOR_SERIAL_/) {
-        $boards{$1} = 1;
+    $in =~ s/[\r\n]//g;
+    if ($in =~ /^([^#]+)\.usb.enabled\s*=\s*true/) {
+        $boards{$1}->{enabled} = 1;
+    }
+    if ($in =~ /^([^#]+)\.usb.default\s*=\s*(.*)/) {
+        $boards{$1}->{default} = $2;
     }
 }
 close(IN);
 
+print Dumper(%boards);
+
 print OUT "\r\n";
 foreach my $board (keys %boards) {
+    my $defprof = $boards{$board}->{default};
+    print OUT "${board}.menu.USB.${defprof}=" . $profiles{$defprof}->{name} . "\r\n";
+    print OUT "${board}.menu.USB.${defprof}.build.extra_flags=" . $profiles{$defprof}->{flags} . "\r\n";
 
     foreach my $prof (sort keys %profiles) {
+        if ($prof eq $defprof) {
+            next;
+        }
         print OUT "${board}.menu.USB.${prof}=" . $profiles{$prof}->{name} . "\r\n";
         print OUT "${board}.menu.USB.${prof}.build.extra_flags=" . $profiles{$prof}->{flags} . "\r\n";
     }
