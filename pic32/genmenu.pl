@@ -10,7 +10,6 @@
 
 use strict;
 
-use Data::Dumper;
 use File::Copy;
 
 my %boards;
@@ -42,8 +41,6 @@ while (my $in = <IN>) {
     }
 }
 close(IN);
-
-print Dumper(%boards);
 
 print OUT "\r\n";
 foreach my $board (keys %boards) {
