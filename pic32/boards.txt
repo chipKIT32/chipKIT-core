@@ -1,3 +1,5 @@
+menu.USB=USB Devices
+
 ############################################################
 # REMINDER:
 # This boards.txt file is for the Arduino IDE 1.6.7+
@@ -1021,6 +1023,13 @@ lenny.build.mcu=32MX270F256D
 lenny.build.f_cpu=40000000L
 lenny.build.core=pic32
 lenny.build.variant=Lenny
+
+lenny.menu.USB.cdcacm=Serial
+lenny.menu.USB.cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+lenny.menu.USB.cdcacm_km=Serial, Keyboard & Mouse
+lenny.menu.USB.cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+lenny.menu.USB.custom=Custom / Disabled
+lenny.menu.USB.custom.build.extra_flags=
 
 ############################################################
 clicker2.name=MikroElektronika Clicker 2

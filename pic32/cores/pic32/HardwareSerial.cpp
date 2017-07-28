@@ -752,7 +752,7 @@ extern "C" {
 
 void __USER_ISR IntSer0Handler(void)
 {
-#if defined(__USB_CDCACM__)
+#if defined(__SERIAL_IS_USB__)
 	Serial0.doSerialInt();
 #else
 	Serial.doSerialInt();
@@ -927,7 +927,7 @@ void __USER_ISR IntSer7Handler(void)
 /*			Serial Port Object Instances						*/
 /* ------------------------------------------------------------ */
 
-#if defined(__USB_CDCACM__)
+#if defined(__SERIAL_IS_USB__)
 /* If we're using USB for serial, the USB serial port gets
 ** instantiated as Serial and hardware serial port 0 gets
 ** instantiated as Serial0.
@@ -1024,7 +1024,7 @@ HardwareSerial Serial7((p32_uart *)_SER7_BASE, _SER7_IRQ, _SER7_VECTOR, _SER7_IP
 #endif
 
 void serialEventRun() {
-#if defined(__USB_CDCACM__)
+#if defined(__SERIAL_IS_USB__)
         if (Serial_available && serialEvent && Serial_available()) serialEvent();
         #if (NUM_SERIAL_PORTS > 0)
             if (Serial0_available && serialEvent0 && Serial0_available()) serialEvent0();

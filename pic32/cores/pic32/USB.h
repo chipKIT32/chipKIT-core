@@ -31,6 +31,7 @@
 #ifndef _USB_H
 #define _USB_H
 
+#include <pins_arduino.h>
 #if defined(_USB)
 
 #include "Print.h"
@@ -671,6 +672,12 @@ class Audio_MIDI : public USBDevice {
 #if defined(__USB_CDCACM__)
     extern CDCACM Serial;
 #endif // __USB_CDCACM__
+
+#if defined(__USB_CDCACM_KM__)
+    extern CDCACM Serial;
+    extern HID_Keyboard Keyboard;
+    extern HID_Mouse Mouse;
+#endif // __USB_CDCACM_KM__
 
 
 #endif // _USB

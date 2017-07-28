@@ -54,7 +54,7 @@
 	#include "Stream.h"
 #endif
 
-#if defined (__USB_CDCACM__)
+#if defined (__SERIAL_IS_USB__)
     #include "USB.h"
 #endif
 
@@ -173,7 +173,7 @@ class HardwareSerial : public Stream
 
 //* NOTE: NUM_SERIAL_PORTS is defined in Board_Defs.h per-board type.
 
-#if defined (__USB_CDCACM__) 
+#if defined (__SERIAL_IS_USB__) 
         /* 
         ** If we're using USB for serial, the USB serial port gets
         ** instantiated as Serial and hardware serial port 0 gets

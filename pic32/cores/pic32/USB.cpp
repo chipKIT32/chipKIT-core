@@ -28,9 +28,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <pins_arduino.h>
 #if defined(_USB)
 
-#include <pins_arduino.h>
 #include <USB.h>
 
 // Default Combinations
@@ -57,13 +57,29 @@ USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
 
 #if defined(__USB_CDCACM__)
 CDCACM Serial;
-
 extern "C" void usb_boot_system() {
     USB.addDevice(Serial);
     USB.begin();
 }
-
 #endif // __USB_CDCACM__
+
+#if defined(__USB_CDCACM_KM__)
+CDCACM Serial;
+HID_Keyboard Keyboard;
+HID_Mouse Mouse;
+extern "C" {
+    void usb_boot_system() {
+        USB.addDevice(Serial);
+        USB.addDevice(Keyboard);
+        USB.addDevice(Mouse);
+        USB.begin();
+    }
+}
+#endif // __USB_CDCACM_KM__
+
+
+
+
 #endif // __USB_ENABLED__
 
 #define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))

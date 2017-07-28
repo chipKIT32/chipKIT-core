@@ -28,6 +28,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <pins_arduino.h>
 #if defined(_USB)
 #ifdef __PIC32MZ__
 
