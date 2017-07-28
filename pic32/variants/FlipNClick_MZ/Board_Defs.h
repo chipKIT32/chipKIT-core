@@ -58,6 +58,7 @@
 */
 
 #define	_BOARD_NAME_	"Mikroe FlipNClick MZ"
+#define _USB
 
 /* Define the Microcontroller peripherals available on the board.
 */

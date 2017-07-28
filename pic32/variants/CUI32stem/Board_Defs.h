@@ -53,7 +53,8 @@
 ** refer to periperhals on the board generically.
 */
 
-#define	_BOARD_NAME_	"64 Pin Default"
+#define	_BOARD_NAME_	"CUI32Stem"
+#define _USB
 
 /* Define the peripherals available on the board.
 */

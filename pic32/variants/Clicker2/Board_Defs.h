@@ -41,6 +41,7 @@
 */
 
 #define	_BOARD_NAME_	"PIC32MX Clicker"
+#define _USB
 
 /* Define the peripherals available on the board.
 */

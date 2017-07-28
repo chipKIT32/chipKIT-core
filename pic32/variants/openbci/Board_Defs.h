@@ -59,6 +59,7 @@
 
 // #define	_BOARD_NAME_	"chipKIT DP32"
 #define	_BOARD_NAME_	"OpenBCI 32"
+#define _USB
 
 /* Define the peripherals available on the board.
 */

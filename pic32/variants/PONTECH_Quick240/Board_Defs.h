@@ -55,6 +55,7 @@
 */
 
 #define	_BOARD_NAME_	"chipKIT Max32"
+#define _USB
 
 #define VIRTUAL_PROGRAM_BUTTON_TRIS TRISGbits.TRISG15
 #define VIRTUAL_PROGRAM_BUTTON LATGbits.LATG15

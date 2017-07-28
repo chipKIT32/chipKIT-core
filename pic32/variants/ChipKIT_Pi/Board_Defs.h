@@ -57,6 +57,7 @@
 */
 
 #define	_BOARD_NAME_	"chipKIT Pi"
+#define _USB
 
 /* Define the peripherals available on the board.
 */
