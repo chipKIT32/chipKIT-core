@@ -1,12 +1,8 @@
 menu.USB=USB Devices
 menu.MCU=MCU
 menu.Frequency=Core Frequency
+menu.Version=Version
 
-############################################################
-# REMINDER:
-# This boards.txt file is for the Arduino IDE 1.6.7+
-# MPIDE uses boards.txt in the individual variant folders
-############################################################
 cerebot32mx4.name=Cerebot 32MX4
 cerebot32mx4.group=Cerebot
 
@@ -31,8 +27,6 @@ cerebot32mx4.build.f_cpu=80000000L
 cerebot32mx4.build.core=pic32
 cerebot32mx4.build.variant=Cerebot_32MX4
 
-############################################################
-############################################################
 cerebot32mx7.name=Cerebot 32MX7
 cerebot32mx7.group=Cerebot
 
@@ -54,8 +48,6 @@ cerebot32mx7.build.f_cpu=80000000L
 cerebot32mx7.build.core=pic32
 cerebot32mx7.build.variant=Cerebot_32MX7
 
-############################################################
-############################################################
 cerebot_mx3ck.name=Cerebot MX3cK
 cerebot_mx3ck.group=Cerebot
 
@@ -80,34 +72,6 @@ cerebot_mx3ck.build.f_cpu=80000000L
 cerebot_mx3ck.build.core=pic32
 cerebot_mx3ck.build.variant=Cerebot_MX3cK
 
-############################################################
-chipkit_mx3.name=chipKIT MX3
-chipkit_mx3.group=chipKIT
-
-# new items
-chipkit_mx3.platform=pic32
-chipkit_mx3.build.board=_BOARD_CEREBOT_MX3CK_
-
-chipkit_mx3.ldscript=chipKIT-application-32MX320F128.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-chipkit_mx3.compiler.c.extra_flags=-G1024
-chipkit_mx3.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-chipkit_mx3.upload.protocol=stk500v2
-chipkit_mx3.upload.maximum_size=126976
-chipkit_mx3.upload.maximum_data_size=16384
-chipkit_mx3.upload.speed=115200
-chipkit_mx3.upload.tool=pic32prog
-
-chipkit_mx3.build.mcu=32MX320F128H
-chipkit_mx3.build.f_cpu=80000000L
-chipkit_mx3.build.core=pic32
-chipkit_mx3.build.variant=Cerebot_MX3cK
-
-
-############################################################
-############################################################
 cerebot_mx3ck_512.name=Cerebot MX3cK 512
 cerebot_mx3ck_512.group=Cerebot
 
@@ -131,8 +95,6 @@ cerebot_mx3ck_512.build.f_cpu=80000000L
 cerebot_mx3ck_512.build.core=pic32
 cerebot_mx3ck_512.build.variant=Cerebot_MX3cK_512
 
-############################################################
-############################################################
 cerebot_mx4ck.name=Cerebot MX4cK
 cerebot_mx4ck.group=Cerebot
 
@@ -156,33 +118,6 @@ cerebot_mx4ck.build.f_cpu=80000000L
 cerebot_mx4ck.build.core=pic32
 cerebot_mx4ck.build.variant=Cerebot_MX4cK
 
-############################################################
-chipkit_pro_mx4.name=chipKIT Pro MX4
-chipkit_pro_mx4.group=chipKIT
-
-# new items
-chipkit_pro_mx4.platform=pic32
-chipkit_pro_mx4.build.board=_BOARD_CEREBOT_MX4CK_
-
-chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-chipkit_pro_mx4.compiler.c.extra_flags=-G1024
-chipkit_pro_mx4.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-chipkit_pro_mx4.upload.protocol=stk500v2
-chipkit_pro_mx4.upload.maximum_size=520192
-chipkit_pro_mx4.upload.maximum_data_size=32768
-chipkit_pro_mx4.upload.speed=115200
-chipkit_pro_mx4.upload.tool=pic32prog
-
-chipkit_pro_mx4.build.mcu=32MX460F512L
-chipkit_pro_mx4.build.f_cpu=80000000L
-chipkit_pro_mx4.build.core=pic32
-chipkit_pro_mx4.build.variant=Cerebot_MX4cK
-
-############################################################
-############################################################
 cerebot_mx7ck.name=Cerebot MX7cK
 cerebot_mx7ck.group=Cerebot
 
@@ -205,62 +140,6 @@ cerebot_mx7ck.build.variant=Cerebot_MX7cK
 cerebot_mx7ck.usb.enabled=true
 cerebot_mx7ck.usb.default=z_custom
 
-############################################################
-chipkit_pro_mx7.name=chipKIT Pro MX7
-chipkit_pro_mx7.group=chipKIT
-
-chipkit_pro_mx7.usb.enabled=true
-chipkit_pro_mx7.usb.default=z_custom
-
-# new items
-chipkit_pro_mx7.platform=pic32
-chipkit_pro_mx7.build.board=_BOARD_CEREBOT_MX7CK_
-chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
-# end of new items
-
-chipkit_pro_mx7.upload.protocol=stk500v2
-chipkit_pro_mx7.upload.maximum_size=520192
-chipkit_pro_mx7.upload.maximum_data_size=131072
-chipkit_pro_mx7.upload.speed=115200
-chipkit_pro_mx7.upload.tool=pic32prog
-
-chipkit_pro_mx7.build.mcu=32MX795F512L
-chipkit_pro_mx7.build.f_cpu=80000000L
-chipkit_pro_mx7.build.core=pic32
-chipkit_pro_mx7.build.variant=Cerebot_MX7cK
-
-############################################################
-############################################################
-chipkit_Pi.name=chipKIT Pi
-chipkit_Pi.group=chipKIT
-
-# new items
-chipkit_Pi.platform=pic32
-chipkit_Pi.build.board=_BOARD_CHIPKIT_PI_
-chipkit_Pi.ccflags=-Map="map.map"
-chipkit_Pi.ldscript=chipKIT-application-32MX250F128.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-chipkit_Pi.compiler.c.extra_flags=-G1024
-chipkit_Pi.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-chipkit_Pi.usb.enabled=true
-chipkit_Pi.usb.default=z_custom
-
-chipkit_Pi.upload.protocol=stk500v2
-# 128KB - 4K for EEPROM - 4K for bootloader
-chipkit_Pi.upload.maximum_size=122880
-chipkit_Pi.upload.maximum_data_size=32768
-chipkit_Pi.upload.speed=115200
-chipkit_Pi.upload.tool=pic32prog
-
-chipkit_Pi.build.mcu=32MX250F128B
-chipkit_Pi.build.f_cpu=40000000L
-chipkit_Pi.build.core=pic32
-chipkit_Pi.build.variant=ChipKIT_Pi
-
-############################################################
-############################################################
 cmod.name=chipKIT Cmod
 cmod.group=chipKIT
 
@@ -286,115 +165,6 @@ cmod.build.core=pic32
 cmod.build.variant=Cmod
 cmod.build.ldscript.path={build.variant.path}
 
-############################################################
-############################################################
-CUI32stem.name=CUI32stem
-CUI32stem.group=CUI32
-
-# new items
-CUI32stem.platform=pic32
-CUI32stem.build.board=_BOARD_CUI32_
-
-CUI32stem.usb.enabled=true
-CUI32stem.usb.default=a_cdcacm
-
-CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
-# end of new items
-
-CUI32stem.upload.protocol=stk500v2
-CUI32stem.upload.maximum_size=520192
-CUI32stem.upload.maximum_data_size=131072
-CUI32stem.upload.speed=115200
-CUI32stem.upload.tool=pic32prog
-
-CUI32stem.build.mcu=32MX795F512H
-CUI32stem.build.f_cpu=80000000L
-CUI32stem.build.core=pic32
-CUI32stem.build.variant=CUI32stem
-
-############################################################
-############################################################
-ubw32_mx460.name=Pic32 UBW32-MX460
-ubw32_mx460.group=UBW32
-
-# new items
-ubw32_mx460.platform=pic32
-ubw32_mx460.build.board=_BOARD_UBW32_MX460_
-ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-ubw32_mx460.compiler.c.extra_flags=-G1024
-ubw32_mx460.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-ubw32_mx460.usb.enabled=true
-ubw32_mx460.usb.default=a_cdcacm
-
-ubw32_mx460.upload.protocol=stk500v2
-ubw32_mx460.upload.maximum_size=520192
-ubw32_mx460.upload.maximum_data_size=32768
-ubw32_mx460.upload.speed=115200
-ubw32_mx460.upload.tool=pic32prog
-
-ubw32_mx460.build.mcu=32MX460F512L
-ubw32_mx460.build.f_cpu=80000000L
-ubw32_mx460.build.core=pic32
-ubw32_mx460.build.variant=UBW_MX4
-
-############################################################
-ubw32_mx795.name=Pic32 UBW32-MX795
-ubw32_mx795.group=UBW32
-
-# new items
-ubw32_mx795.platform=pic32
-ubw32_mx795.build.board=_BOARD_UBW32_MX795_
-ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
-# end of new items
-
-ubw32_mx795.usb.enabled=true
-ubw32_mx795.usb.default=a_cdcacm
-
-ubw32_mx795.upload.protocol=stk500v2
-ubw32_mx795.upload.maximum_size=520192
-ubw32_mx795.upload.maximum_data_size=131072
-ubw32_mx795.upload.speed=115200
-ubw32_mx795.upload.tool=pic32prog
-
-ubw32_mx795.build.mcu=32MX795F512L
-ubw32_mx795.build.f_cpu=80000000L
-ubw32_mx795.build.core=pic32
-ubw32_mx795.build.variant=UBW_MX7
-
-############################################################
-############################################################
-cui32.name=Pic32 CUI32-Development Stick
-cui32.group=CUI32
-
-# new items
-cui32.platform=pic32
-cui32.build.board=_BOARD_CUI32_
-
-cui32.usb.enabled=true
-cui32.usb.default=a_cdcacm
-
-cui32.ldscript=chipKIT-application-32MX440F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-cui32.compiler.c.extra_flags=-G1024
-cui32.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-cui32.upload.protocol=stk500v2
-cui32.upload.maximum_size=520192
-cui32.upload.maximum_data_size=32768
-cui32.upload.speed=115200
-cui32.upload.tool=pic32prog
-
-cui32.build.mcu=32MX440F512H
-cui32.build.f_cpu=80000000L
-cui32.build.core=pic32
-cui32.build.variant=CUI32
-
-############################################################
-############################################################
 chipkit_DP32.name=chipKIT DP32
 chipkit_DP32.group=chipKIT
 
@@ -424,7 +194,372 @@ chipkit_DP32.build.f_cpu=40000000L
 chipkit_DP32.build.core=pic32
 chipkit_DP32.build.variant=DP32
 
-############################################################
+
+lenny.name=chipKIT Lenny
+lenny.group=chipKIT
+lenny.platform=pic32
+lenny.build.board=_BOARD_LENNY_
+lenny.ccflags=-Map="map.map"
+lenny.ldscript=chipKIT-application-32MX270F256.ld
+
+lenny.usb.enabled=true
+lenny.usb.default=b_cdcacm_km
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+lenny.compiler.c.extra_flags=-G1024
+lenny.compiler.cpp.extra_flags=-G1024
+lenny.upload.protocol=stk500v2
+
+# 128KB - 4K for EEPROM - 4K for bootloader
+lenny.upload.maximum_size=122880
+lenny.upload.speed=115200
+lenny.upload.tool=pic32prog
+
+lenny.build.mcu=32MX270F256D
+lenny.build.f_cpu=40000000L
+lenny.build.core=pic32
+lenny.build.variant=Lenny
+
+mega_pic32.name=chipKIT MAX32
+mega_pic32.group=chipKIT
+
+# new items
+mega_pic32.platform=pic32
+mega_pic32.build.board=_BOARD_MEGA_
+mega_pic32.ldscript=chipKIT-application-32MX795F512.ld
+# end of new items
+
+mega_pic32.upload.protocol=stk500v2
+mega_pic32.upload.maximum_size=520192
+mega_pic32.upload.maximum_data_size=131072
+mega_pic32.upload.speed=115200
+mega_pic32.upload.tool=pic32prog
+
+mega_pic32.build.mcu=32MX795F512L
+mega_pic32.build.f_cpu=80000000L
+mega_pic32.build.core=pic32
+mega_pic32.build.variant=Max32
+
+mega_pic32.usb.enabled=true
+mega_pic32.usb.default=z_custom
+
+chipkit_mx3.name=chipKIT MX3
+chipkit_mx3.group=chipKIT
+
+# new items
+chipkit_mx3.platform=pic32
+chipkit_mx3.build.board=_BOARD_CEREBOT_MX3CK_
+
+chipkit_mx3.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_mx3.compiler.c.extra_flags=-G1024
+chipkit_mx3.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+chipkit_mx3.upload.protocol=stk500v2
+chipkit_mx3.upload.maximum_size=126976
+chipkit_mx3.upload.maximum_data_size=16384
+chipkit_mx3.upload.speed=115200
+chipkit_mx3.upload.tool=pic32prog
+
+chipkit_mx3.build.mcu=32MX320F128H
+chipkit_mx3.build.f_cpu=80000000L
+chipkit_mx3.build.core=pic32
+chipkit_mx3.build.variant=Cerebot_MX3cK
+
+chipkit_Pi.name=chipKIT Pi
+chipkit_Pi.group=chipKIT
+
+# new items
+chipkit_Pi.platform=pic32
+chipkit_Pi.build.board=_BOARD_CHIPKIT_PI_
+chipkit_Pi.ccflags=-Map="map.map"
+chipkit_Pi.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_Pi.compiler.c.extra_flags=-G1024
+chipkit_Pi.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+chipkit_Pi.usb.enabled=true
+chipkit_Pi.usb.default=z_custom
+
+chipkit_Pi.upload.protocol=stk500v2
+# 128KB - 4K for EEPROM - 4K for bootloader
+chipkit_Pi.upload.maximum_size=122880
+chipkit_Pi.upload.maximum_data_size=32768
+chipkit_Pi.upload.speed=115200
+chipkit_Pi.upload.tool=pic32prog
+
+chipkit_Pi.build.mcu=32MX250F128B
+chipkit_Pi.build.f_cpu=40000000L
+chipkit_Pi.build.core=pic32
+chipkit_Pi.build.variant=ChipKIT_Pi
+
+chipkit_pro_mx4.name=chipKIT Pro MX4
+chipkit_pro_mx4.group=chipKIT
+
+# new items
+chipkit_pro_mx4.platform=pic32
+chipkit_pro_mx4.build.board=_BOARD_CEREBOT_MX4CK_
+
+chipkit_pro_mx4.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_pro_mx4.compiler.c.extra_flags=-G1024
+chipkit_pro_mx4.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+chipkit_pro_mx4.upload.protocol=stk500v2
+chipkit_pro_mx4.upload.maximum_size=520192
+chipkit_pro_mx4.upload.maximum_data_size=32768
+chipkit_pro_mx4.upload.speed=115200
+chipkit_pro_mx4.upload.tool=pic32prog
+
+chipkit_pro_mx4.build.mcu=32MX460F512L
+chipkit_pro_mx4.build.f_cpu=80000000L
+chipkit_pro_mx4.build.core=pic32
+chipkit_pro_mx4.build.variant=Cerebot_MX4cK
+
+chipkit_pro_mx7.name=chipKIT Pro MX7
+chipkit_pro_mx7.group=chipKIT
+
+chipkit_pro_mx7.usb.enabled=true
+chipkit_pro_mx7.usb.default=z_custom
+
+# new items
+chipkit_pro_mx7.platform=pic32
+chipkit_pro_mx7.build.board=_BOARD_CEREBOT_MX7CK_
+chipkit_pro_mx7.ldscript=chipKIT-application-32MX795F512.ld
+# end of new items
+
+chipkit_pro_mx7.upload.protocol=stk500v2
+chipkit_pro_mx7.upload.maximum_size=520192
+chipkit_pro_mx7.upload.maximum_data_size=131072
+chipkit_pro_mx7.upload.speed=115200
+chipkit_pro_mx7.upload.tool=pic32prog
+
+chipkit_pro_mx7.build.mcu=32MX795F512L
+chipkit_pro_mx7.build.f_cpu=80000000L
+chipkit_pro_mx7.build.core=pic32
+chipkit_pro_mx7.build.variant=Cerebot_MX7cK
+
+chipkit_uc32.name=chipKIT uC32
+chipkit_uc32.group=chipKIT
+
+# new items
+chipkit_uc32.platform=pic32
+chipkit_uc32.build.board=_BOARD_UC32_
+chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+chipkit_uc32.compiler.c.extra_flags=-G1024
+chipkit_uc32.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+chipkit_uc32.upload.protocol=stk500v2
+chipkit_uc32.upload.maximum_size=520192
+chipkit_uc32.upload.maximum_data_size=16384
+chipkit_uc32.upload.speed=115200
+chipkit_uc32.upload.tool=pic32prog
+
+chipkit_uc32.build.mcu=32MX340F512H
+chipkit_uc32.build.f_cpu=80000000L
+chipkit_uc32.build.core=pic32
+chipkit_uc32.build.variant=uC32
+
+uc32_pmod.name=chipKIT uC32 with Pmod Shield
+uc32_pmod.group=chipKIT
+
+# new items
+uc32_pmod.platform=pic32
+uc32_pmod.build.board=_BOARD_UC32_
+uc32_pmod.ldscript=chipKIT-application-32MX340F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uc32_pmod.compiler.c.extra_flags=-G1024
+uc32_pmod.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+uc32_pmod.upload.protocol=stk500v2
+uc32_pmod.upload.maximum_size=520192
+uc32_pmod.upload.maximum_data_size=16384
+uc32_pmod.upload.speed=115200
+uc32_pmod.upload.tool=pic32prog
+
+uc32_pmod.build.mcu=32MX340F512H
+uc32_pmod.build.f_cpu=80000000L
+uc32_pmod.build.core=pic32
+uc32_pmod.build.variant=uC32_Pmod_Shield
+
+uno_pic32.name=chipKIT UNO32
+
+# new items
+uno_pic32.group=chipKIT
+uno_pic32.platform=pic32
+uno_pic32.build.board=_BOARD_UNO_
+uno_pic32.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pic32.compiler.c.extra_flags=-G1024
+uno_pic32.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+uno_pic32.upload.tool=pic32prog
+uno_pic32.upload.protocol=stk500v2
+uno_pic32.upload.maximum_size=126976
+uno_pic32.upload.maximum_data_size=16384
+uno_pic32.upload.speed=115200
+uno_pic32.upload.tool=pic32prog
+
+uno_pic32.build.mcu=32MX320F128H
+uno_pic32.build.f_cpu=80000000L
+uno_pic32.build.core=pic32
+uno_pic32.build.variant=Uno32
+
+uno_pmod.name=chipKIT UNO32 with Pmod Shield
+uno_pmod.group=chipKIT
+
+# new items
+uno_pmod.platform=pic32
+uno_pmod.build.board=_BOARD_UNO_
+uno_pmod.ldscript=chipKIT-application-32MX320F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+uno_pmod.compiler.c.extra_flags=-G1024
+uno_pmod.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+uno_pic32.upload.tool=pic32prog
+uno_pmod.upload.protocol=stk500v2
+uno_pmod.upload.maximum_size=126976
+uno_pmod.upload.maximum_data_size=16384
+uno_pmod.upload.speed=115200
+uno_pmod.upload.tool=pic32prog
+
+uno_pmod.build.mcu=32MX320F128H
+uno_pmod.build.f_cpu=80000000L
+uno_pmod.build.core=pic32
+uno_pmod.build.variant=Uno32_Pmod_shield
+
+chipkit_WF32.name=chipKIT WF32
+chipkit_WF32.group=chipKIT
+
+chipkit_WF32.usb.enabled=true
+chipkit_WF32.usb.default=z_custom
+
+# new items
+chipkit_WF32.platform=pic32
+chipkit_WF32.build.board=_BOARD_WF32_
+chipkit_WF32.ldscript=chipKIT-application-32MX695F512.ld
+# end of new items
+
+chipkit_WF32.upload.protocol=stk500v2
+chipkit_WF32.upload.maximum_size=520192
+chipkit_WF32.upload.maximum_data_size=131072
+chipkit_WF32.upload.speed=115200
+chipkit_WF32.upload.tool=pic32prog
+
+chipkit_WF32.build.mcu=32MX695F512L
+chipkit_WF32.build.f_cpu=80000000L
+chipkit_WF32.build.core=pic32
+chipkit_WF32.build.variant=WF32
+chipkit_WF32.build.ldscript.path={build.variant.path}
+
+chipkit_WiFire.name=chipKIT WiFire
+chipkit_WiFire.group=chipKIT
+
+# new items
+chipkit_WiFire.platform=pic32
+chipkit_WiFire.build.board=_BOARD_WIFIRE_
+chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+chipkit_WiFire.upload.protocol=stk500v2
+chipkit_WiFire.upload.maximum_size=2080768
+chipkit_WiFire.upload.maximum_data_size=524288
+chipkit_WiFire.upload.speed=115200
+chipkit_WiFire.upload.tool=pic32prog
+
+chipkit_WiFire.build.mcu=32MZ2048EFG100
+chipkit_WiFire.build.f_cpu=200000000UL
+chipkit_WiFire.build.core=pic32
+chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
+chipkit_WiFire.build.variant=WiFire
+chipkit_WiFire.build.ldscript.path={build.variant.path}
+
+chipkit_WiFire.usb.enabled=true
+chipkit_WiFire.usb.default=z_custom
+
+chipkit_WiFire_80MHz.name=chipKIT WiFire 80MHz
+chipkit_WiFire_80MHz.group=chipKIT
+
+chipkit_WiFire_80MHz.usb.enabled=true
+chipkit_WiFire_80MHz.usb.default=z_custom
+
+# new items
+chipkit_WiFire_80MHz.platform=pic32
+chipkit_WiFire_80MHz.build.board=_BOARD_WIFIRE_80MHZ_
+chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+chipkit_WiFire_80MHz.upload.protocol=stk500v2
+chipkit_WiFire_80MHz.upload.maximum_size=520192
+chipkit_WiFire_80MHz.upload.maximum_data_size=524288
+chipkit_WiFire_80MHz.upload.speed=115200
+chipkit_WiFire_80MHz.upload.tool=pic32prog
+
+chipkit_WiFire_80MHz.build.mcu=32MZ2048ECG100
+chipkit_WiFire_80MHz.build.f_cpu=80000000UL
+chipkit_WiFire_80MHz.build.core=pic32
+chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
+chipkit_WiFire_80MHz.build.variant=WiFire
+chipkit_WiFire_80MHz.build.ldscript.path={build.variant.path}
+
+chipkit_WiFire_AB.name=chipKIT WiFire (RevA&B, No FPU)
+chipkit_WiFire_AB.group=chipKIT
+
+chipkit_WiFire_AB.usb.enabled=true
+chipkit_WiFire_AB.usb.default=z_custom
+
+# new items
+chipkit_WiFire_AB.platform=pic32
+chipkit_WiFire_AB.build.board=_BOARD_WIFIRE_
+chipkit_WiFire_AB.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+chipkit_WiFire_AB.upload.protocol=stk500v2
+chipkit_WiFire_AB.upload.maximum_size=2080768
+chipkit_WiFire_AB.upload.maximum_data_size=524288
+chipkit_WiFire_AB.upload.speed=115200
+chipkit_WiFire_AB.upload.tool=pic32prog
+
+chipkit_WiFire_AB.build.mcu=32MZ2048ECG100
+chipkit_WiFire_AB.build.f_cpu=200000000UL
+chipkit_WiFire_AB.build.core=pic32
+chipkit_WiFire_AB.ldcommon=chipKIT-application-COMMON-MZ.ld
+chipkit_WiFire_AB.build.variant=WiFire
+chipkit_WiFire_AB.build.ldscript.path={build.variant.path}
+
+
+CUI32stem.name=CUI32stem
+CUI32stem.group=CUI32
+
+# new items
+CUI32stem.platform=pic32
+CUI32stem.build.board=_BOARD_CUI32_
+
+CUI32stem.usb.enabled=true
+CUI32stem.usb.default=a_cdcacm
+
+CUI32stem.ldscript=chipKIT-application-32MX795F512.ld
+# end of new items
+
+CUI32stem.upload.protocol=stk500v2
+CUI32stem.upload.maximum_size=520192
+CUI32stem.upload.maximum_data_size=131072
+CUI32stem.upload.speed=115200
+CUI32stem.upload.tool=pic32prog
+
+CUI32stem.build.mcu=32MX795F512H
+CUI32stem.build.f_cpu=80000000L
+CUI32stem.build.core=pic32
+CUI32stem.build.variant=CUI32stem
+
 fubarino_mini.name=Fubarino Mini
 fubarino_mini.group=Fubarino
 
@@ -457,85 +592,35 @@ fubarino_mini.menu.Frequency.build.f_cpu=48000000L
 fubarino_mini.menu.Frequency.40=40MHz (Dev Version)
 fubarino_mini.menu.Frequency.build.f_cpu=40000000L
 
-############################################################
-#fubarino_mini_dbg.name=FubarinoMini Debug
-#
-## new items
-#fubarino_mini_dbg.platform=pic32
-#fubarino_mini_dbg.build.board=_BOARD_FUBARINO_MINI_
-#fubarino_mini_dbg.usb.enabled=true
-#fubarino_mini_dbg.usb.default=a_cdcacm
-#fubarino_mini_dbg.ccflags=-Map="map.map"
-#fubarino_mini_dbg.ldscript=chipKIT-application-32MX250F128-nobootloader.ld
-## end of new items
-#
-#fubarino_mini_dbg.upload.protocol=stk500v2
-## 128KB - 4K for EEPROM - 4K for bootloader
-#fubarino_mini_dbg.upload.maximum_size=122880
-#fubarino_mini_dbg.upload.maximum_data_size=32768
-#fubarino_mini_dbg.upload.speed=115200
-## Use this -G1024 option ONLY for boards with 64K RAM or less
-#fubarino_mini_dbg.compiler.c.extra_flags=-G1024
-#fubarino_mini_dbg.compiler.cpp.extra_flags=-G1024
-#
-#
-#fubarino_mini_dbg.build.mcu=32MX250F128D
-#fubarino_mini_dbg.build.f_cpu=40000000L
-#fubarino_mini_dbg.build.core=pic32
-#fubarino_mini_dbg.build.variant=Fubarino_Mini
-
-############################################################
-############################################################
-fubarino_sd_seeed.name=Fubarino SD (Seeed/1.4)
-fubarino_sd_seeed.group=Fubarino
-
-fubarino_sd_seeed.platform=pic32
-fubarino_sd_seeed.build.board=_BOARD_FUBARINO_SD_
-
-fubarino_sd_seeed.usb.enabled=true
-fubarino_sd_seeed.usb.default=a_cdcacm
-
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-fubarino_sd_seeed.compiler.c.extra_flags=-G1024
-fubarino_sd_seeed.compiler.cpp.extra_flags=-G1024
-
-fubarino_sd_seeed.ldscript=chipKIT-application-32MX440F256.ld
-
-fubarino_sd_seeed.upload.protocol=stk500v2
-fubarino_sd_seeed.upload.maximum_size=258048
-fubarino_sd_seeed.upload.maximum_data_size=32768
-fubarino_sd_seeed.upload.speed=115200
-fubarino_sd_seeed.upload.tool=pic32prog
-
-fubarino_sd_seeed.build.mcu=32MX440F256H
-fubarino_sd_seeed.build.f_cpu=80000000L
-fubarino_sd_seeed.build.core=pic32
-fubarino_sd_seeed.build.variant=Fubarino_SD
-
-############################################################
-fubarino_sd.name=Fubarino SD (1.5)
+fubarino_sd.name=Fubarino SD
 fubarino_sd.group=Fubarino
 
 fubarino_sd.platform=pic32
 fubarino_sd.build.board=_BOARD_FUBARINO_SD_
-fubarino_sd.ldscript=chipKIT-application-32MX795F512.ld
+
+fubarino_sd.menu.Version.v15=1.5
+fubarino_sd.menu.Version.v15.ldscript=chipKIT-application-32MX795F512.ld
+fubarino_sd.menu.Version.v15.build.mcu=32MX795F512H
+fubarino_sd.menu.Version.v15.upload.maximum_size=520192
+fubarino_sd.menu.Version.v15.upload.maximum_data_size=131072
+
+fubarino_sd.menu.Version.v14=1.4 (Seeed)
+fubarino_sd.menu.Version.v14.ldscript=chipKIT-application-32MX440F256.ld
+fubarino_sd.menu.Version.v14.build.mcu=32MX440F256H
+fubarino_sd.menu.Version.v14.upload.maximum_size=258048
+fubarino_sd.menu.Version.v14.upload.maximum_data_size=32768
 
 fubarino_sd.usb.enabled=true
 fubarino_sd.usb.default=a_cdcacm
 
 fubarino_sd.upload.protocol=stk500v2
-fubarino_sd.upload.maximum_size=520192
-fubarino_sd.upload.maximum_data_size=131072
 fubarino_sd.upload.speed=115200
 fubarino_sd.upload.tool=pic32prog
 
-fubarino_sd.build.mcu=32MX795F512H
 fubarino_sd.build.f_cpu=80000000L
 fubarino_sd.build.core=pic32
 fubarino_sd.build.variant=Fubarino_SD
 
-############################################################
-############################################################
 Fubarino_SDZ.name=Fuarbino SDZ
 Fubarino_SDZ.group=Fubarino
 
@@ -561,463 +646,6 @@ Fubarino_SDZ.ldcommon=chipKIT-application-COMMON-MZ.ld
 Fubarino_SDZ.build.variant=Fubarino_SDZ
 Fubarino_SDZ.build.ldscript.path={build.variant.path}
 
-############################################################
-############################################################
-mega_pic32.name=chipKIT MAX32
-mega_pic32.group=chipKIT
-
-# new items
-mega_pic32.platform=pic32
-mega_pic32.build.board=_BOARD_MEGA_
-mega_pic32.ldscript=chipKIT-application-32MX795F512.ld
-# end of new items
-
-mega_pic32.upload.protocol=stk500v2
-mega_pic32.upload.maximum_size=520192
-mega_pic32.upload.maximum_data_size=131072
-mega_pic32.upload.speed=115200
-mega_pic32.upload.tool=pic32prog
-
-mega_pic32.build.mcu=32MX795F512L
-mega_pic32.build.f_cpu=80000000L
-mega_pic32.build.core=pic32
-mega_pic32.build.variant=Max32
-
-mega_pic32.usb.enabled=true
-mega_pic32.usb.default=z_custom
-
-
-############################################################
-############################################################
-Olimex_Pinguino32.name=PIC32 Pinguino
-Olimex_Pinguino32.group=Olimex
-
-Olimex_Pinguino32.platform=pic32
-Olimex_Pinguino32.build.board=_BOARD_OLIMEX_PIC32_PINGUINO_
-Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
-
-Olimex_Pinguino32.usb.enabled=true
-Olimex_Pinguino32.usb.default=a_cdcacm
-
-Olimex_Pinguino32.upload.protocol=stk500v2
-Olimex_Pinguino32.upload.maximum_size=258048
-Olimex_Pinguino32.upload.maximum_data_size=32768
-Olimex_Pinguino32.upload.speed=115200
-Olimex_Pinguino32.upload.tool=pic32prog
-
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-Olimex_Pinguino32.compiler.c.extra_flags=-G1024
-Olimex_Pinguino32.compiler.cpp.extra_flags=-G1024
-
-Olimex_Pinguino32.build.mcu=32MX440F256H
-Olimex_Pinguino32.build.f_cpu=80000000L
-Olimex_Pinguino32.build.core=pic32
-Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
-
-############################################################
-picadillo_35t.name=Picadillo 35T
-picadillo_35t.group=4D Systems
-picadillo_35t.platform=pic32
-picadillo_35t.build.board=_BOARD_PICADILLO_35T_
-picadillo_35t.ldscript=chipKIT-application-32MX795F512.ld
-
-picadillo_35t.variant=picadillo_35t
-picadillo_35t.description=PICadillo-35T
-picadillo_35t.bootloader=bootloader.hex
-picadillo_35t.upload.protocol=stk500v2
-picadillo_35t.upload.maximum_size=520192
-picadillo_35t.upload.maximum_data_size=131072
-picadillo_35t.upload.speed=115200
-picadillo_35t.upload.tool=pic32prog
-
-picadillo_35t.build.mcu=32MX795F512L
-picadillo_35t.build.f_cpu=80000000L
-picadillo_35t.build.core=pic32
-picadillo_35t.build.variant=picadillo_35t
-
-picadillo_35t.usb.enabled=true
-picadillo_35t.usb.default=z_custom
-
-
-############################################################
-############################################################
-pontech_NoFire.name=PONTECH NoFire
-pontech_NoFire.group=PONTECH
-
-pontech_NoFire.usb.enabled=true
-pontech_NoFire.usb.default=a_cdcacm
-
-# new items
-pontech_NoFire.platform=pic32
-pontech_NoFire.build.board=_BOARD_PONTECH_NOFIRE_
-pontech_NoFire.ldscript=MZ-application-32MZ2048ECX.ld
-# end of new items
-
-pontech_NoFire.upload.protocol=stk500v2
-pontech_NoFire.upload.maximum_size=2080768
-pontech_NoFire.upload.maximum_data_size=524288
-pontech_NoFire.upload.speed=115200
-pontech_NoFire.upload.tool=pic32prog
-
-pontech_NoFire.build.mcu=32MZ2048EFG100
-pontech_NoFire.build.f_cpu=200000000UL
-pontech_NoFire.build.core=pic32
-pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
-pontech_NoFire.build.variant=PONTECH_NoFire
-pontech_NoFire.build.ldscript.path={build.variant.path}
-
-############################################################
-############################################################
-quick240_usb_pic32.name=PONTECH Quick240
-quick240_usb_pic32.group=PONTECH
-
-# new items
-quick240_usb_pic32.platform=pic32
-quick240_usb_pic32.build.board=_BOARD_PONTECH_QUICK240_USB_
-quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
-# end of new items
-
-quick240_usb_pic32.usb.enabled=true
-quick240_usb_pic32.usb.default=a_cdcacm
-
-quick240_usb_pic32.upload.protocol=stk500v2
-quick240_usb_pic32.upload.maximum_size=520192
-quick240_usb_pic32.upload.maximum_data_size=131072
-quick240_usb_pic32.upload.speed=115200
-quick240_usb_pic32.upload.tool=pic32prog
-
-quick240_usb_pic32.build.mcu=32MX795F512L
-quick240_usb_pic32.build.f_cpu=80000000L
-quick240_usb_pic32.build.core=pic32
-quick240_usb_pic32.build.variant=PONTECH_Quick240
-
-############################################################
-############################################################
-usbono_pic32.name=PONTECH UAV100
-usbono_pic32.group=PONTECH
-
-# new items
-usbono_pic32.platform=pic32
-usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
-
-usbono_pic32.usb.enabled=true
-usbono_pic32.usb.default=a_cdcacm
-
-usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-usbono_pic32.compiler.c.extra_flags=-G1024 -Danything=1
-usbono_pic32.compiler.cpp.extra_flags=-G1024 -Danything=1
-#chipKIT-UNO32-application-32MX320F128L.ld
-# end of new items
-
-usbono_pic32.upload.protocol=stk500v2
-usbono_pic32.upload.maximum_size=520192
-usbono_pic32.upload.maximum_data_size=32768
-usbono_pic32.upload.speed=115200
-usbono_pic32.upload.tool=pic32prog
-
-usbono_pic32.build.mcu=32MX440F512H
-usbono_pic32.build.f_cpu=80000000L
-usbono_pic32.build.core=pic32
-usbono_pic32.build.variant=PONTECH_UAV100
-#usbono_pic32.build.variant=Uno32
-
-############################################################
-############################################################
-chipkit_uc32.name=chipKIT uC32
-chipkit_uc32.group=chipKIT
-
-# new items
-chipkit_uc32.platform=pic32
-chipkit_uc32.build.board=_BOARD_UC32_
-chipkit_uc32.ldscript=chipKIT-application-32MX340F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-chipkit_uc32.compiler.c.extra_flags=-G1024
-chipkit_uc32.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-chipkit_uc32.upload.protocol=stk500v2
-chipkit_uc32.upload.maximum_size=520192
-chipkit_uc32.upload.maximum_data_size=16384
-chipkit_uc32.upload.speed=115200
-chipkit_uc32.upload.tool=pic32prog
-
-chipkit_uc32.build.mcu=32MX340F512H
-chipkit_uc32.build.f_cpu=80000000L
-chipkit_uc32.build.core=pic32
-chipkit_uc32.build.variant=uC32
-
-############################################################
-############################################################
-uc32_pmod.name=chipKIT uC32 with Pmod Shield
-uc32_pmod.group=chipKIT
-
-# new items
-uc32_pmod.platform=pic32
-uc32_pmod.build.board=_BOARD_UC32_
-uc32_pmod.ldscript=chipKIT-application-32MX340F512.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-uc32_pmod.compiler.c.extra_flags=-G1024
-uc32_pmod.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-uc32_pmod.upload.protocol=stk500v2
-uc32_pmod.upload.maximum_size=520192
-uc32_pmod.upload.maximum_data_size=16384
-uc32_pmod.upload.speed=115200
-uc32_pmod.upload.tool=pic32prog
-
-uc32_pmod.build.mcu=32MX340F512H
-uc32_pmod.build.f_cpu=80000000L
-uc32_pmod.build.core=pic32
-uc32_pmod.build.variant=uC32_Pmod_Shield
-
-############################################################
-############################################################
-uno_pic32.name=chipKIT UNO32
-
-# new items
-uno_pic32.group=chipKIT
-uno_pic32.platform=pic32
-uno_pic32.build.board=_BOARD_UNO_
-uno_pic32.ldscript=chipKIT-application-32MX320F128.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-uno_pic32.compiler.c.extra_flags=-G1024
-uno_pic32.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-uno_pic32.upload.tool=pic32prog
-uno_pic32.upload.protocol=stk500v2
-uno_pic32.upload.maximum_size=126976
-uno_pic32.upload.maximum_data_size=16384
-uno_pic32.upload.speed=115200
-uno_pic32.upload.tool=pic32prog
-
-uno_pic32.build.mcu=32MX320F128H
-uno_pic32.build.f_cpu=80000000L
-uno_pic32.build.core=pic32
-uno_pic32.build.variant=Uno32
-
-############################################################
-############################################################
-uno_pmod.name=chipKIT UNO32 with Pmod Shield
-uno_pmod.group=chipKIT
-
-# new items
-uno_pmod.platform=pic32
-uno_pmod.build.board=_BOARD_UNO_
-uno_pmod.ldscript=chipKIT-application-32MX320F128.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-uno_pmod.compiler.c.extra_flags=-G1024
-uno_pmod.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-uno_pic32.upload.tool=pic32prog
-uno_pmod.upload.protocol=stk500v2
-uno_pmod.upload.maximum_size=126976
-uno_pmod.upload.maximum_data_size=16384
-uno_pmod.upload.speed=115200
-uno_pmod.upload.tool=pic32prog
-
-uno_pmod.build.mcu=32MX320F128H
-uno_pmod.build.f_cpu=80000000L
-uno_pmod.build.core=pic32
-uno_pmod.build.variant=Uno32_Pmod_shield
-
-############################################################
-############################################################
-chipkit_WF32.name=chipKIT WF32
-chipkit_WF32.group=chipKIT
-
-chipkit_WF32.usb.enabled=true
-chipkit_WF32.usb.default=z_custom
-
-# new items
-chipkit_WF32.platform=pic32
-chipkit_WF32.build.board=_BOARD_WF32_
-chipkit_WF32.ldscript=chipKIT-application-32MX695F512.ld
-# end of new items
-
-chipkit_WF32.upload.protocol=stk500v2
-chipkit_WF32.upload.maximum_size=520192
-chipkit_WF32.upload.maximum_data_size=131072
-chipkit_WF32.upload.speed=115200
-chipkit_WF32.upload.tool=pic32prog
-
-chipkit_WF32.build.mcu=32MX695F512L
-chipkit_WF32.build.f_cpu=80000000L
-chipkit_WF32.build.core=pic32
-chipkit_WF32.build.variant=WF32
-chipkit_WF32.build.ldscript.path={build.variant.path}
-
-############################################################
-############################################################
-chipkit_WiFire.name=chipKIT WiFire
-chipkit_WiFire.group=chipKIT
-
-# new items
-chipkit_WiFire.platform=pic32
-chipkit_WiFire.build.board=_BOARD_WIFIRE_
-chipkit_WiFire.ldscript=MZ-application-32MZ2048ECX.ld
-# end of new items
-
-chipkit_WiFire.upload.protocol=stk500v2
-chipkit_WiFire.upload.maximum_size=2080768
-chipkit_WiFire.upload.maximum_data_size=524288
-chipkit_WiFire.upload.speed=115200
-chipkit_WiFire.upload.tool=pic32prog
-
-chipkit_WiFire.build.mcu=32MZ2048EFG100
-chipkit_WiFire.build.f_cpu=200000000UL
-chipkit_WiFire.build.core=pic32
-chipkit_WiFire.ldcommon=chipKIT-application-COMMON-MZ.ld
-chipkit_WiFire.build.variant=WiFire
-chipkit_WiFire.build.ldscript.path={build.variant.path}
-
-chipkit_WiFire.usb.enabled=true
-chipkit_WiFire.usb.default=z_custom
-
-############################################################
-############################################################
-chipkit_WiFire_AB.name=chipKIT WiFire (RevA&B, No FPU)
-chipkit_WiFire_AB.group=chipKIT
-
-chipkit_WiFire_AB.usb.enabled=true
-chipkit_WiFire_AB.usb.default=z_custom
-
-# new items
-chipkit_WiFire_AB.platform=pic32
-chipkit_WiFire_AB.build.board=_BOARD_WIFIRE_
-chipkit_WiFire_AB.ldscript=MZ-application-32MZ2048ECX.ld
-# end of new items
-
-chipkit_WiFire_AB.upload.protocol=stk500v2
-chipkit_WiFire_AB.upload.maximum_size=2080768
-chipkit_WiFire_AB.upload.maximum_data_size=524288
-chipkit_WiFire_AB.upload.speed=115200
-chipkit_WiFire_AB.upload.tool=pic32prog
-
-chipkit_WiFire_AB.build.mcu=32MZ2048ECG100
-chipkit_WiFire_AB.build.f_cpu=200000000UL
-chipkit_WiFire_AB.build.core=pic32
-chipkit_WiFire_AB.ldcommon=chipKIT-application-COMMON-MZ.ld
-chipkit_WiFire_AB.build.variant=WiFire
-chipkit_WiFire_AB.build.ldscript.path={build.variant.path}
-
-############################################################
-############################################################
-chipkit_WiFire_80MHz.name=chipKIT WiFire 80MHz
-chipkit_WiFire_80MHz.group=chipKIT
-
-chipkit_WiFire_80MHz.usb.enabled=true
-chipkit_WiFire_80MHz.usb.default=z_custom
-
-# new items
-chipkit_WiFire_80MHz.platform=pic32
-chipkit_WiFire_80MHz.build.board=_BOARD_WIFIRE_80MHZ_
-chipkit_WiFire_80MHz.ldscript=MZ-application-32MZ2048ECX.ld
-# end of new items
-
-chipkit_WiFire_80MHz.upload.protocol=stk500v2
-chipkit_WiFire_80MHz.upload.maximum_size=520192
-chipkit_WiFire_80MHz.upload.maximum_data_size=524288
-chipkit_WiFire_80MHz.upload.speed=115200
-chipkit_WiFire_80MHz.upload.tool=pic32prog
-
-chipkit_WiFire_80MHz.build.mcu=32MZ2048ECG100
-chipkit_WiFire_80MHz.build.f_cpu=80000000UL
-chipkit_WiFire_80MHz.build.core=pic32
-chipkit_WiFire_80MHz.ldcommon=chipKIT-application-COMMON-MZ.ld
-chipkit_WiFire_80MHz.build.variant=WiFire
-chipkit_WiFire_80MHz.build.ldscript.path={build.variant.path}
-
-############################################################
-############################################################
-OpenScope.name=OpenScope
-OpenScope.group=chipKIT
-
-# new items
-OpenScope.platform=pic32
-OpenScope.build.board=_BOARD_OPENSCOPE_
-OpenScope.ldscript=OpenScope.ld
-# end of new items
-
-OpenScope.upload.protocol=stk500v2
-OpenScope.upload.maximum_size=2031616
-OpenScope.upload.maximum_data_size=524288
-OpenScope.upload.speed=115200
-
-OpenScope.build.mcu=32MZ2048EFG124
-OpenScope.build.f_cpu=200000000UL
-OpenScope.build.core=pic32
-OpenScope.ldcommon=chipKIT-application-COMMON-MZ.ld
-OpenScope.build.variant=OpenScope
-OpenScope.build.ldscript.path={build.variant.path}
-#OpenScope.upload.using=avrdude1
-OpenScope.upload.tool=pic32prog
-#OpenScope.upload.tool=avrdude
-
-OpenScope.usb.enabled=true
-OpenScope.usb.default=a_cdcacm
-
-############################################################
-openbci.name=OpenBCI 32
-openbci.group=chipKIT
-
-# new items
-openbci.platform=pic32
-openbci.build.board=_BOARD_DP32_
-
-openbci.usb.enabled=true
-openbci.usb.default=a_cdcacm
-
-openbci.ccflags=-Map="map.map"
-openbci.ldscript=chipKIT-application-32MX250F128.ld
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-openbci.compiler.c.extra_flags=-G1024
-openbci.compiler.cpp.extra_flags=-G1024
-# end of new items
-
-openbci.upload.protocol=stk500v2
-# 128KB - 4K for EEPROM - 4K for bootloader
-openbci.upload.maximum_size=122880
-openbci.upload.maximum_data_size=32768
-openbci.upload.speed=115200
-openbci.upload.tool=pic32prog
-
-openbci.build.mcu=32MX250F128B
-openbci.build.f_cpu=40000000L
-openbci.build.core=pic32
-openbci.build.variant=openbci
-
-############################################################
-
-lenny.name=chipKIT Lenny
-lenny.group=chipKIT
-lenny.platform=pic32
-lenny.build.board=_BOARD_LENNY_
-lenny.ccflags=-Map="map.map"
-lenny.ldscript=chipKIT-application-32MX270F256.ld
-
-lenny.usb.enabled=true
-lenny.usb.default=b_cdcacm_km
-
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-lenny.compiler.c.extra_flags=-G1024
-lenny.compiler.cpp.extra_flags=-G1024
-lenny.upload.protocol=stk500v2
-
-# 128KB - 4K for EEPROM - 4K for bootloader
-lenny.upload.maximum_size=122880
-lenny.upload.speed=115200
-lenny.upload.tool=pic32prog
-
-lenny.build.mcu=32MX270F256D
-lenny.build.f_cpu=40000000L
-lenny.build.core=pic32
-lenny.build.variant=Lenny
-
-############################################################
 clicker2.name=MikroElektronika Clicker 2
 clicker2.group=MikroElektronika
 clicker2.platform=pic32
@@ -1045,7 +673,6 @@ clicker2.build.f_cpu=80000000L
 clicker2.build.core=pic32
 clicker2.build.variant=Clicker2
 
-############################################################
 flipnclickmz.name=MikroElektronika Flip N Click MZ
 flipnclickmz.group=MikroElektronika
 flipnclickmz.platform=pic32
@@ -1080,106 +707,265 @@ flipnclickmz.build.core=pic32
 flipnclickmz.build.variant=FlipNClick_MZ
 flipnclickmz.build.ldscript.path={build.variant.path}
 
+openbci.name=OpenBCI 32
+openbci.group=chipKIT
+
+# new items
+openbci.platform=pic32
+openbci.build.board=_BOARD_DP32_
+
+openbci.usb.enabled=true
+openbci.usb.default=a_cdcacm
+
+openbci.ccflags=-Map="map.map"
+openbci.ldscript=chipKIT-application-32MX250F128.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+openbci.compiler.c.extra_flags=-G1024
+openbci.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+openbci.upload.protocol=stk500v2
+# 128KB - 4K for EEPROM - 4K for bootloader
+openbci.upload.maximum_size=122880
+openbci.upload.maximum_data_size=32768
+openbci.upload.speed=115200
+openbci.upload.tool=pic32prog
+
+openbci.build.mcu=32MX250F128B
+openbci.build.f_cpu=40000000L
+openbci.build.core=pic32
+openbci.build.variant=openbci
+
+OpenScope.name=OpenScope
+OpenScope.group=chipKIT
+
+# new items
+OpenScope.platform=pic32
+OpenScope.build.board=_BOARD_OPENSCOPE_
+OpenScope.ldscript=OpenScope.ld
+# end of new items
+
+OpenScope.upload.protocol=stk500v2
+OpenScope.upload.maximum_size=2031616
+OpenScope.upload.maximum_data_size=524288
+OpenScope.upload.speed=115200
+
+OpenScope.build.mcu=32MZ2048EFG124
+OpenScope.build.f_cpu=200000000UL
+OpenScope.build.core=pic32
+OpenScope.ldcommon=chipKIT-application-COMMON-MZ.ld
+OpenScope.build.variant=OpenScope
+OpenScope.build.ldscript.path={build.variant.path}
+#OpenScope.upload.using=avrdude1
+OpenScope.upload.tool=pic32prog
+#OpenScope.upload.tool=avrdude
+
+OpenScope.usb.enabled=true
+OpenScope.usb.default=a_cdcacm
+
+cui32.name=Pic32 CUI32-Development Stick
+cui32.group=CUI32
+
+# new items
+cui32.platform=pic32
+cui32.build.board=_BOARD_CUI32_
+
+cui32.usb.enabled=true
+cui32.usb.default=a_cdcacm
+
+cui32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+cui32.compiler.c.extra_flags=-G1024
+cui32.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+cui32.upload.protocol=stk500v2
+cui32.upload.maximum_size=520192
+cui32.upload.maximum_data_size=32768
+cui32.upload.speed=115200
+cui32.upload.tool=pic32prog
+
+cui32.build.mcu=32MX440F512H
+cui32.build.f_cpu=80000000L
+cui32.build.core=pic32
+cui32.build.variant=CUI32
+
+Olimex_Pinguino32.name=PIC32 Pinguino
+Olimex_Pinguino32.group=Olimex
+
+Olimex_Pinguino32.platform=pic32
+Olimex_Pinguino32.build.board=_BOARD_OLIMEX_PIC32_PINGUINO_
+Olimex_Pinguino32.ldscript=chipKIT-application-32MX440F256.ld
+
+Olimex_Pinguino32.usb.enabled=true
+Olimex_Pinguino32.usb.default=a_cdcacm
+
+Olimex_Pinguino32.upload.protocol=stk500v2
+Olimex_Pinguino32.upload.maximum_size=258048
+Olimex_Pinguino32.upload.maximum_data_size=32768
+Olimex_Pinguino32.upload.speed=115200
+Olimex_Pinguino32.upload.tool=pic32prog
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+Olimex_Pinguino32.compiler.c.extra_flags=-G1024
+Olimex_Pinguino32.compiler.cpp.extra_flags=-G1024
+
+Olimex_Pinguino32.build.mcu=32MX440F256H
+Olimex_Pinguino32.build.f_cpu=80000000L
+Olimex_Pinguino32.build.core=pic32
+Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
+
+ubw32_mx460.name=Pic32 UBW32-MX460
+ubw32_mx460.group=UBW32
+
+# new items
+ubw32_mx460.platform=pic32
+ubw32_mx460.build.board=_BOARD_UBW32_MX460_
+ubw32_mx460.ldscript=chipKIT-application-32MX460F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+ubw32_mx460.compiler.c.extra_flags=-G1024
+ubw32_mx460.compiler.cpp.extra_flags=-G1024
+# end of new items
+
+ubw32_mx460.usb.enabled=true
+ubw32_mx460.usb.default=a_cdcacm
+
+ubw32_mx460.upload.protocol=stk500v2
+ubw32_mx460.upload.maximum_size=520192
+ubw32_mx460.upload.maximum_data_size=32768
+ubw32_mx460.upload.speed=115200
+ubw32_mx460.upload.tool=pic32prog
+
+ubw32_mx460.build.mcu=32MX460F512L
+ubw32_mx460.build.f_cpu=80000000L
+ubw32_mx460.build.core=pic32
+ubw32_mx460.build.variant=UBW_MX4
+
+ubw32_mx795.name=Pic32 UBW32-MX795
+ubw32_mx795.group=UBW32
+
+# new items
+ubw32_mx795.platform=pic32
+ubw32_mx795.build.board=_BOARD_UBW32_MX795_
+ubw32_mx795.ldscript=chipKIT-application-32MX795F512.ld
+# end of new items
+
+ubw32_mx795.usb.enabled=true
+ubw32_mx795.usb.default=a_cdcacm
+
+ubw32_mx795.upload.protocol=stk500v2
+ubw32_mx795.upload.maximum_size=520192
+ubw32_mx795.upload.maximum_data_size=131072
+ubw32_mx795.upload.speed=115200
+ubw32_mx795.upload.tool=pic32prog
+
+ubw32_mx795.build.mcu=32MX795F512L
+ubw32_mx795.build.f_cpu=80000000L
+ubw32_mx795.build.core=pic32
+ubw32_mx795.build.variant=UBW_MX7
+
+picadillo_35t.name=Picadillo 35T
+picadillo_35t.group=4D Systems
+picadillo_35t.platform=pic32
+picadillo_35t.build.board=_BOARD_PICADILLO_35T_
+picadillo_35t.ldscript=chipKIT-application-32MX795F512.ld
+
+picadillo_35t.variant=picadillo_35t
+picadillo_35t.description=PICadillo-35T
+picadillo_35t.bootloader=bootloader.hex
+picadillo_35t.upload.protocol=stk500v2
+picadillo_35t.upload.maximum_size=520192
+picadillo_35t.upload.maximum_data_size=131072
+picadillo_35t.upload.speed=115200
+picadillo_35t.upload.tool=pic32prog
+
+picadillo_35t.build.mcu=32MX795F512L
+picadillo_35t.build.f_cpu=80000000L
+picadillo_35t.build.core=pic32
+picadillo_35t.build.variant=picadillo_35t
+
+picadillo_35t.usb.enabled=true
+picadillo_35t.usb.default=z_custom
+
+pontech_NoFire.name=PONTECH NoFire
+pontech_NoFire.group=PONTECH
+
+pontech_NoFire.usb.enabled=true
+pontech_NoFire.usb.default=a_cdcacm
+
+# new items
+pontech_NoFire.platform=pic32
+pontech_NoFire.build.board=_BOARD_PONTECH_NOFIRE_
+pontech_NoFire.ldscript=MZ-application-32MZ2048ECX.ld
+# end of new items
+
+pontech_NoFire.upload.protocol=stk500v2
+pontech_NoFire.upload.maximum_size=2080768
+pontech_NoFire.upload.maximum_data_size=524288
+pontech_NoFire.upload.speed=115200
+pontech_NoFire.upload.tool=pic32prog
+
+pontech_NoFire.build.mcu=32MZ2048EFG100
+pontech_NoFire.build.f_cpu=200000000UL
+pontech_NoFire.build.core=pic32
+pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
+pontech_NoFire.build.variant=PONTECH_NoFire
+pontech_NoFire.build.ldscript.path={build.variant.path}
+
+quick240_usb_pic32.name=PONTECH Quick240
+quick240_usb_pic32.group=PONTECH
+
+# new items
+quick240_usb_pic32.platform=pic32
+quick240_usb_pic32.build.board=_BOARD_PONTECH_QUICK240_USB_
+quick240_usb_pic32.ldscript=chipKIT-application-32MX795F512.ld
+# end of new items
+
+quick240_usb_pic32.usb.enabled=true
+quick240_usb_pic32.usb.default=a_cdcacm
+
+quick240_usb_pic32.upload.protocol=stk500v2
+quick240_usb_pic32.upload.maximum_size=520192
+quick240_usb_pic32.upload.maximum_data_size=131072
+quick240_usb_pic32.upload.speed=115200
+quick240_usb_pic32.upload.tool=pic32prog
+
+quick240_usb_pic32.build.mcu=32MX795F512L
+quick240_usb_pic32.build.f_cpu=80000000L
+quick240_usb_pic32.build.core=pic32
+quick240_usb_pic32.build.variant=PONTECH_Quick240
+
+usbono_pic32.name=PONTECH UAV100
+usbono_pic32.group=PONTECH
+
+# new items
+usbono_pic32.platform=pic32
+usbono_pic32.build.board=_BOARD_PONTECH_UAV100_
+
+usbono_pic32.usb.enabled=true
+usbono_pic32.usb.default=a_cdcacm
+
+usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+usbono_pic32.compiler.c.extra_flags=-G1024 -Danything=1
+usbono_pic32.compiler.cpp.extra_flags=-G1024 -Danything=1
+#chipKIT-UNO32-application-32MX320F128L.ld
+# end of new items
+
+usbono_pic32.upload.protocol=stk500v2
+usbono_pic32.upload.maximum_size=520192
+usbono_pic32.upload.maximum_data_size=32768
+usbono_pic32.upload.speed=115200
+usbono_pic32.upload.tool=pic32prog
+
+usbono_pic32.build.mcu=32MX440F512H
+usbono_pic32.build.f_cpu=80000000L
+usbono_pic32.build.core=pic32
+usbono_pic32.build.variant=PONTECH_UAV100
+#usbono_pic32.build.variant=Uno32
+
 ############# Auto generated menu entries below here. ###############
 ############### DO NOT ADD ANYTHING AFTER THIS LINE #################
-
-CUI32stem.menu.USB.a_cdcacm=Serial
-CUI32stem.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-CUI32stem.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-CUI32stem.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-CUI32stem.menu.USB.z_custom=Custom / Disabled
-CUI32stem.menu.USB.z_custom.build.extra_flags=
-
-chipkit_WiFire.menu.USB.z_custom=Custom / Disabled
-chipkit_WiFire.menu.USB.z_custom.build.extra_flags=
-chipkit_WiFire.menu.USB.a_cdcacm=Serial
-chipkit_WiFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_WiFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_WiFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-ubw32_mx460.menu.USB.a_cdcacm=Serial
-ubw32_mx460.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-ubw32_mx460.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-ubw32_mx460.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-ubw32_mx460.menu.USB.z_custom=Custom / Disabled
-ubw32_mx460.menu.USB.z_custom.build.extra_flags=
-
-usbono_pic32.menu.USB.a_cdcacm=Serial
-usbono_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-usbono_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-usbono_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-usbono_pic32.menu.USB.z_custom=Custom / Disabled
-usbono_pic32.menu.USB.z_custom.build.extra_flags=
-
-fubarino_mini.menu.USB.a_cdcacm=Serial
-fubarino_mini.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-fubarino_mini.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-fubarino_mini.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-fubarino_mini.menu.USB.z_custom=Custom / Disabled
-fubarino_mini.menu.USB.z_custom.build.extra_flags=
-
-chipkit_DP32.menu.USB.a_cdcacm=Serial
-chipkit_DP32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_DP32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_DP32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-chipkit_DP32.menu.USB.z_custom=Custom / Disabled
-chipkit_DP32.menu.USB.z_custom.build.extra_flags=
-
-cui32.menu.USB.a_cdcacm=Serial
-cui32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-cui32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-cui32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-cui32.menu.USB.z_custom=Custom / Disabled
-cui32.menu.USB.z_custom.build.extra_flags=
-
-cerebot_mx7ck.menu.USB.z_custom=Custom / Disabled
-cerebot_mx7ck.menu.USB.z_custom.build.extra_flags=
-cerebot_mx7ck.menu.USB.a_cdcacm=Serial
-cerebot_mx7ck.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-cerebot_mx7ck.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-cerebot_mx7ck.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-chipkit_WiFire_80MHz.menu.USB.z_custom=Custom / Disabled
-chipkit_WiFire_80MHz.menu.USB.z_custom.build.extra_flags=
-chipkit_WiFire_80MHz.menu.USB.a_cdcacm=Serial
-chipkit_WiFire_80MHz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_WiFire_80MHz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_WiFire_80MHz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-pontech_NoFire.menu.USB.a_cdcacm=Serial
-pontech_NoFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-pontech_NoFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-pontech_NoFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-pontech_NoFire.menu.USB.z_custom=Custom / Disabled
-pontech_NoFire.menu.USB.z_custom.build.extra_flags=
-
-flipnclickmz.menu.USB.a_cdcacm=Serial
-flipnclickmz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-flipnclickmz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-flipnclickmz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-flipnclickmz.menu.USB.z_custom=Custom / Disabled
-flipnclickmz.menu.USB.z_custom.build.extra_flags=
-
-Fubarino_SDZ.menu.USB.a_cdcacm=Serial
-Fubarino_SDZ.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-Fubarino_SDZ.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-Fubarino_SDZ.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-Fubarino_SDZ.menu.USB.z_custom=Custom / Disabled
-Fubarino_SDZ.menu.USB.z_custom.build.extra_flags=
-
-quick240_usb_pic32.menu.USB.a_cdcacm=Serial
-quick240_usb_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-quick240_usb_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-quick240_usb_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-quick240_usb_pic32.menu.USB.z_custom=Custom / Disabled
-quick240_usb_pic32.menu.USB.z_custom.build.extra_flags=
-
-openbci.menu.USB.a_cdcacm=Serial
-openbci.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-openbci.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-openbci.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-openbci.menu.USB.z_custom=Custom / Disabled
-openbci.menu.USB.z_custom.build.extra_flags=
 
 fubarino_sd.menu.USB.a_cdcacm=Serial
 fubarino_sd.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
@@ -1188,40 +974,40 @@ fubarino_sd.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDC
 fubarino_sd.menu.USB.z_custom=Custom / Disabled
 fubarino_sd.menu.USB.z_custom.build.extra_flags=
 
+usbono_pic32.menu.USB.a_cdcacm=Serial
+usbono_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+usbono_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+usbono_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+usbono_pic32.menu.USB.z_custom=Custom / Disabled
+usbono_pic32.menu.USB.z_custom.build.extra_flags=
+
+cerebot_mx7ck.menu.USB.z_custom=Custom / Disabled
+cerebot_mx7ck.menu.USB.z_custom.build.extra_flags=
+cerebot_mx7ck.menu.USB.a_cdcacm=Serial
+cerebot_mx7ck.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+cerebot_mx7ck.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+cerebot_mx7ck.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+openbci.menu.USB.a_cdcacm=Serial
+openbci.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+openbci.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+openbci.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+openbci.menu.USB.z_custom=Custom / Disabled
+openbci.menu.USB.z_custom.build.extra_flags=
+
+chipkit_WiFire.menu.USB.z_custom=Custom / Disabled
+chipkit_WiFire.menu.USB.z_custom.build.extra_flags=
+chipkit_WiFire.menu.USB.a_cdcacm=Serial
+chipkit_WiFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_WiFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_WiFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
 picadillo_35t.menu.USB.z_custom=Custom / Disabled
 picadillo_35t.menu.USB.z_custom.build.extra_flags=
 picadillo_35t.menu.USB.a_cdcacm=Serial
 picadillo_35t.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
 picadillo_35t.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
 picadillo_35t.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-chipkit_WiFire_AB.menu.USB.z_custom=Custom / Disabled
-chipkit_WiFire_AB.menu.USB.z_custom.build.extra_flags=
-chipkit_WiFire_AB.menu.USB.a_cdcacm=Serial
-chipkit_WiFire_AB.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_WiFire_AB.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_WiFire_AB.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-clicker2.menu.USB.a_cdcacm=Serial
-clicker2.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-clicker2.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-clicker2.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-clicker2.menu.USB.z_custom=Custom / Disabled
-clicker2.menu.USB.z_custom.build.extra_flags=
-
-Olimex_Pinguino32.menu.USB.a_cdcacm=Serial
-Olimex_Pinguino32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-Olimex_Pinguino32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-Olimex_Pinguino32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-Olimex_Pinguino32.menu.USB.z_custom=Custom / Disabled
-Olimex_Pinguino32.menu.USB.z_custom.build.extra_flags=
-
-chipkit_pro_mx7.menu.USB.z_custom=Custom / Disabled
-chipkit_pro_mx7.menu.USB.z_custom.build.extra_flags=
-chipkit_pro_mx7.menu.USB.a_cdcacm=Serial
-chipkit_pro_mx7.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_pro_mx7.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_pro_mx7.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 
 chipkit_WF32.menu.USB.z_custom=Custom / Disabled
 chipkit_WF32.menu.USB.z_custom.build.extra_flags=
@@ -1230,26 +1016,12 @@ chipkit_WF32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCAC
 chipkit_WF32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
 chipkit_WF32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 
-chipkit_Pi.menu.USB.z_custom=Custom / Disabled
-chipkit_Pi.menu.USB.z_custom.build.extra_flags=
-chipkit_Pi.menu.USB.a_cdcacm=Serial
-chipkit_Pi.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_Pi.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_Pi.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-fubarino_sd_seeed.menu.USB.a_cdcacm=Serial
-fubarino_sd_seeed.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-fubarino_sd_seeed.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-fubarino_sd_seeed.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-fubarino_sd_seeed.menu.USB.z_custom=Custom / Disabled
-fubarino_sd_seeed.menu.USB.z_custom.build.extra_flags=
-
-OpenScope.menu.USB.a_cdcacm=Serial
-OpenScope.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-OpenScope.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-OpenScope.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-OpenScope.menu.USB.z_custom=Custom / Disabled
-OpenScope.menu.USB.z_custom.build.extra_flags=
+quick240_usb_pic32.menu.USB.a_cdcacm=Serial
+quick240_usb_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+quick240_usb_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+quick240_usb_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+quick240_usb_pic32.menu.USB.z_custom=Custom / Disabled
+quick240_usb_pic32.menu.USB.z_custom.build.extra_flags=
 
 ubw32_mx795.menu.USB.a_cdcacm=Serial
 ubw32_mx795.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
@@ -1258,6 +1030,13 @@ ubw32_mx795.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDC
 ubw32_mx795.menu.USB.z_custom=Custom / Disabled
 ubw32_mx795.menu.USB.z_custom.build.extra_flags=
 
+Olimex_Pinguino32.menu.USB.a_cdcacm=Serial
+Olimex_Pinguino32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+Olimex_Pinguino32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+Olimex_Pinguino32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+Olimex_Pinguino32.menu.USB.z_custom=Custom / Disabled
+Olimex_Pinguino32.menu.USB.z_custom.build.extra_flags=
+
 lenny.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
 lenny.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 lenny.menu.USB.a_cdcacm=Serial
@@ -1265,10 +1044,108 @@ lenny.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D_
 lenny.menu.USB.z_custom=Custom / Disabled
 lenny.menu.USB.z_custom.build.extra_flags=
 
+CUI32stem.menu.USB.a_cdcacm=Serial
+CUI32stem.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+CUI32stem.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+CUI32stem.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+CUI32stem.menu.USB.z_custom=Custom / Disabled
+CUI32stem.menu.USB.z_custom.build.extra_flags=
+
+ubw32_mx460.menu.USB.a_cdcacm=Serial
+ubw32_mx460.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+ubw32_mx460.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+ubw32_mx460.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+ubw32_mx460.menu.USB.z_custom=Custom / Disabled
+ubw32_mx460.menu.USB.z_custom.build.extra_flags=
+
+chipkit_DP32.menu.USB.a_cdcacm=Serial
+chipkit_DP32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_DP32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_DP32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+chipkit_DP32.menu.USB.z_custom=Custom / Disabled
+chipkit_DP32.menu.USB.z_custom.build.extra_flags=
+
+fubarino_mini.menu.USB.a_cdcacm=Serial
+fubarino_mini.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+fubarino_mini.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+fubarino_mini.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+fubarino_mini.menu.USB.z_custom=Custom / Disabled
+fubarino_mini.menu.USB.z_custom.build.extra_flags=
+
 mega_pic32.menu.USB.z_custom=Custom / Disabled
 mega_pic32.menu.USB.z_custom.build.extra_flags=
 mega_pic32.menu.USB.a_cdcacm=Serial
 mega_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
 mega_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
 mega_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+chipkit_WiFire_80MHz.menu.USB.z_custom=Custom / Disabled
+chipkit_WiFire_80MHz.menu.USB.z_custom.build.extra_flags=
+chipkit_WiFire_80MHz.menu.USB.a_cdcacm=Serial
+chipkit_WiFire_80MHz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_WiFire_80MHz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_WiFire_80MHz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+clicker2.menu.USB.a_cdcacm=Serial
+clicker2.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+clicker2.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+clicker2.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+clicker2.menu.USB.z_custom=Custom / Disabled
+clicker2.menu.USB.z_custom.build.extra_flags=
+
+chipkit_Pi.menu.USB.z_custom=Custom / Disabled
+chipkit_Pi.menu.USB.z_custom.build.extra_flags=
+chipkit_Pi.menu.USB.a_cdcacm=Serial
+chipkit_Pi.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_Pi.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_Pi.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+chipkit_pro_mx7.menu.USB.z_custom=Custom / Disabled
+chipkit_pro_mx7.menu.USB.z_custom.build.extra_flags=
+chipkit_pro_mx7.menu.USB.a_cdcacm=Serial
+chipkit_pro_mx7.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_pro_mx7.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_pro_mx7.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+Fubarino_SDZ.menu.USB.a_cdcacm=Serial
+Fubarino_SDZ.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+Fubarino_SDZ.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+Fubarino_SDZ.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+Fubarino_SDZ.menu.USB.z_custom=Custom / Disabled
+Fubarino_SDZ.menu.USB.z_custom.build.extra_flags=
+
+chipkit_WiFire_AB.menu.USB.z_custom=Custom / Disabled
+chipkit_WiFire_AB.menu.USB.z_custom.build.extra_flags=
+chipkit_WiFire_AB.menu.USB.a_cdcacm=Serial
+chipkit_WiFire_AB.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+chipkit_WiFire_AB.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+chipkit_WiFire_AB.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+OpenScope.menu.USB.a_cdcacm=Serial
+OpenScope.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+OpenScope.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+OpenScope.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+OpenScope.menu.USB.z_custom=Custom / Disabled
+OpenScope.menu.USB.z_custom.build.extra_flags=
+
+flipnclickmz.menu.USB.a_cdcacm=Serial
+flipnclickmz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+flipnclickmz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+flipnclickmz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+flipnclickmz.menu.USB.z_custom=Custom / Disabled
+flipnclickmz.menu.USB.z_custom.build.extra_flags=
+
+cui32.menu.USB.a_cdcacm=Serial
+cui32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+cui32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+cui32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+cui32.menu.USB.z_custom=Custom / Disabled
+cui32.menu.USB.z_custom.build.extra_flags=
+
+pontech_NoFire.menu.USB.a_cdcacm=Serial
+pontech_NoFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+pontech_NoFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+pontech_NoFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+pontech_NoFire.menu.USB.z_custom=Custom / Disabled
+pontech_NoFire.menu.USB.z_custom.build.extra_flags=
 
