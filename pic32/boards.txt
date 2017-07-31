@@ -1,4 +1,6 @@
 menu.USB=USB Devices
+menu.MCU=MCU
+menu.Frequency=Core Frequency
 
 ############################################################
 # REMINDER:
@@ -423,35 +425,6 @@ chipkit_DP32.build.core=pic32
 chipkit_DP32.build.variant=DP32
 
 ############################################################
-############################################################
-fubarino_mini_dev.name=Fubarino Mini (dev)
-fubarino_mini_dev.group=Fubarino
-
-fubarino_mini_dev.platform=pic32
-fubarino_mini_dev.build.board=_BOARD_FUBARINO_MINI_
-fubarino_mini_dev.ccflags=-Map="map.map"
-fubarino_mini_dev.ldscript=chipKIT-application-32MX250F128.ld
-
-fubarino_mini_dev.usb.enabled=true
-fubarino_mini_dev.usb.default=a_cdcacm
-
-# Use this -G1024 option ONLY for boards with 64K RAM or less
-fubarino_mini_dev.compiler.c.extra_flags=-G1024
-fubarino_mini_dev.compiler.cpp.extra_flags=-G1024
-
-fubarino_mini_dev.upload.protocol=stk500v2
-# 128KB - 4K for EEPROM - 4K for bootloader
-fubarino_mini_dev.upload.maximum_size=122880
-fubarino_mini_dev.upload.maximum_data_size=32768
-fubarino_mini_dev.upload.speed=115200
-fubarino_mini_dev.upload.tool=pic32prog
-
-fubarino_mini_dev.build.mcu=32MX250F128D
-fubarino_mini_dev.build.f_cpu=40000000L
-fubarino_mini_dev.build.core=pic32
-fubarino_mini_dev.build.variant=Fubarino_Mini
-
-############################################################
 fubarino_mini.name=Fubarino Mini
 fubarino_mini.group=Fubarino
 
@@ -478,6 +451,11 @@ fubarino_mini.build.mcu=32MX250F128D
 fubarino_mini.build.f_cpu=48000000L
 fubarino_mini.build.core=pic32
 fubarino_mini.build.variant=Fubarino_Mini
+
+fubarino_mini.menu.Frequency.48=48MHz
+fubarino_mini.menu.Frequency.build.f_cpu=48000000L
+fubarino_mini.menu.Frequency.40=40MHz (Dev Version)
+fubarino_mini.menu.Frequency.build.f_cpu=40000000L
 
 ############################################################
 #fubarino_mini_dbg.name=FubarinoMini Debug
@@ -1265,13 +1243,6 @@ fubarino_sd_seeed.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
 fubarino_sd_seeed.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 fubarino_sd_seeed.menu.USB.z_custom=Custom / Disabled
 fubarino_sd_seeed.menu.USB.z_custom.build.extra_flags=
-
-fubarino_mini_dev.menu.USB.a_cdcacm=Serial
-fubarino_mini_dev.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-fubarino_mini_dev.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-fubarino_mini_dev.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-fubarino_mini_dev.menu.USB.z_custom=Custom / Disabled
-fubarino_mini_dev.menu.USB.z_custom.build.extra_flags=
 
 OpenScope.menu.USB.a_cdcacm=Serial
 OpenScope.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
