@@ -34,15 +34,44 @@
 #include <USB.h>
 
 uint16_t Audio_MIDI::getDescriptorLength() {
-    return (9+7+6+6+9+9+9+5+9+5);
+    return (8+9+9 + 9+7+6+6+9+9+9+5+9+5);
 }
 
 uint8_t Audio_MIDI::getInterfaceCount() {
-    return 1;
+    return 2;
 }
 
 uint32_t Audio_MIDI::populateConfigurationDescriptor(uint8_t *buf) {
     uint8_t i = 0;
+
+    buf[i++] =     8;                                      // bLength
+    buf[i++] =     11;                                     // bDescriptorType
+    buf[i++] =     _ifCtl;                                 // bFirstInterface
+    buf[i++] =     2;                                      // bInterfaceCount
+    buf[i++] =     0x01;                                   // bFunctionClass
+    buf[i++] =     0x01;                                   // bFunctionSubClass
+    buf[i++] =     0x00;                                   // bFunctionProtocol
+    buf[i++] =     0; // iFunction
+
+    buf[i++] = 9;
+    buf[i++] = 4;
+    buf[i++] = _ifCtl;
+    buf[i++] = 0;
+    buf[i++] = 0;
+    buf[i++] = 1;
+    buf[i++] = 1;
+    buf[i++] = 0;
+    buf[i++] = 0;
+
+    buf[i++] = 9;
+    buf[i++] = 36;
+    buf[i++] = 1;
+    buf[i++] = 0;
+    buf[i++] = 1;
+    buf[i++] = 9;
+    buf[i++] = 0;
+    buf[i++] = 1;
+    buf[i++] = _ifBulk;
 
     buf[i++] = 9;                                // bLength
     buf[i++] = 4;                                // bDescriptorType
@@ -98,34 +127,13 @@ uint32_t Audio_MIDI::populateConfigurationDescriptor(uint8_t *buf) {
 
     buf[i++] = 9;                                // bLength
     buf[i++] = 5;                                // bDescriptorType = ENDPOINT
-    buf[i++] = _epBulk;                          // bEndpointAddress
-    buf[i++] = 0x02;                             // bmAttributes (0x02=bulk)
-    if (_manager->isHighSpeed()) {
-        buf[i++] = 0x00;                     // |
-        buf[i++] = 0x02;                        // wMaxPacketSize
-    } else {
-        buf[i++] = 0x40;                     // |
-        buf[i++] = 0x00;                        // wMaxPacketSize
-    }
-    buf[i++] = 0;                                // bInterval
-    buf[i++] = 0;                                // bRefresh
-    buf[i++] = 0;                                // bSynchAddress
-
-    buf[i++] = 5;                                // bLength
-    buf[i++] = 0x25;                             // bDescriptorSubtype = CS_ENDPOINT
-    buf[i++] = 0x01;                             // bJackType = MS_GENERAL
-    buf[i++] = 1;                                // bNumEmbMIDIJack = 1 jack
-    buf[i++] = 1;                                // BaAssocJackID(1) = jack ID #1
-
-    buf[i++] = 9;                                // bLength
-    buf[i++] = 5;                                // bDescriptorType = ENDPOINT
     buf[i++] = 0x80 | _epBulk;                   // bEndpointAddress
     buf[i++] = 0x02;                             // bmAttributes (0x02=bulk)
     if (_manager->isHighSpeed()) {
         buf[i++] = 0x00;                     // |
         buf[i++] = 0x02;                        // wMaxPacketSize
     } else {
-        buf[i++] = 0x40;                     // |
+        buf[i++] = 0x08;                     // |   0x40
         buf[i++] = 0x00;                        // wMaxPacketSize
     }
     buf[i++] = 0;                                // bInterval
@@ -138,12 +146,34 @@ uint32_t Audio_MIDI::populateConfigurationDescriptor(uint8_t *buf) {
     buf[i++] = 1;                                // bNumEmbMIDIJack = 1 jack
     buf[i++] = 3;                                // BaAssocJackID(1) = jack ID #3
 
+    buf[i++] = 9;                                // bLength
+    buf[i++] = 5;                                // bDescriptorType = ENDPOINT
+    buf[i++] = _epBulk;                          // bEndpointAddress
+    buf[i++] = 0x02;                             // bmAttributes (0x02=bulk)
+    if (_manager->isHighSpeed()) {
+        buf[i++] = 0x00;                     // |
+        buf[i++] = 0x02;                        // wMaxPacketSize
+    } else {
+        buf[i++] = 0x08;                     // |   0x40
+        buf[i++] = 0x00;                        // wMaxPacketSize
+    }
+    buf[i++] = 0;                                // bInterval
+    buf[i++] = 0;                                // bRefresh
+    buf[i++] = 0;                                // bSynchAddress
+
+    buf[i++] = 5;                                // bLength
+    buf[i++] = 0x25;                             // bDescriptorSubtype = CS_ENDPOINT
+    buf[i++] = 0x01;                             // bJackType = MS_GENERAL
+    buf[i++] = 1;                                // bNumEmbMIDIJack = 1 jack
+    buf[i++] = 1;                                // BaAssocJackID(1) = jack ID #1
+
     return i;
 }
 
 
 void Audio_MIDI::initDevice(USBManager *manager) {
     _manager = manager;
+    _ifCtl = _manager->allocateInterface();
     _ifBulk = _manager->allocateInterface();
     _epBulk = _manager->allocateEndpoint();
 }
@@ -161,8 +191,8 @@ void Audio_MIDI::configureEndpoints() {
         _manager->addEndpoint(_epBulk, EP_IN, EP_BLK, 512, _bulkRxA, _bulkRxB);
         _manager->addEndpoint(_epBulk, EP_OUT, EP_BLK, 512, _bulkTxA, _bulkTxB);
     } else {
-        _manager->addEndpoint(_epBulk, EP_IN, EP_BLK, 64, _bulkRxA, _bulkRxB);
-        _manager->addEndpoint(_epBulk, EP_OUT, EP_BLK, 64, _bulkTxA, _bulkTxB);
+        _manager->addEndpoint(_epBulk, EP_IN, EP_BLK, 8, _bulkRxA, _bulkRxB);
+        _manager->addEndpoint(_epBulk, EP_OUT, EP_BLK, 8, _bulkTxA, _bulkTxB);
     }
 }
 

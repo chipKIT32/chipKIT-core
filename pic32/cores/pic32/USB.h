@@ -624,6 +624,7 @@ class HID_Raw : public USBDevice {
 class Audio_MIDI : public USBDevice {
     private:
         USBManager *_manager;
+        uint8_t _ifCtl;
         uint8_t _ifBulk;
         uint8_t _epBulk;
 
