@@ -405,4 +405,8 @@ void HID_Keyboard::releaseAll(void)
     _keyReport.modifiers = 0;
     sendReport(&_keyReport);
 }
+
+void HID_Keyboard::onEnumerated() {
+    releaseAll();
+}
 #endif // _USB

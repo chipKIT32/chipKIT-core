@@ -306,6 +306,7 @@ class USBDevice {
         virtual bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) = 0;  // Called when a SETUP packet arrives
         virtual bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) = 0; // Called when an IN packet is requested
         virtual bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) = 0;    // Called when an OUT packet arrives
+        virtual void onEnumerated() = 0; // Called when enumeration is finished and the device is attached
 };
 
 class CDCACM : public USBDevice, public Stream {
@@ -364,6 +365,7 @@ class CDCACM : public USBDevice, public Stream {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
 
         size_t write(uint8_t);
         size_t write(const uint8_t *b, size_t len);
@@ -406,6 +408,7 @@ class HID_Keyboard : public USBDevice, public Print {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
         size_t write(uint8_t);
 
         size_t press(uint8_t key);
@@ -476,6 +479,7 @@ class HID_Media : public USBDevice {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
         size_t write(uint8_t);
 
         size_t pressSystem(uint16_t key);
@@ -520,6 +524,7 @@ class HID_Mouse : public USBDevice {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
 
         HID_Mouse() : _buttons(0) {}
     
@@ -570,6 +575,7 @@ class HID_Joystick : public USBDevice {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
 
         HID_Joystick(void);
         void begin(void) {};
@@ -613,6 +619,7 @@ class HID_Raw : public USBDevice {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
 
         void begin(void) {};
         void end(void) {};
@@ -655,6 +662,7 @@ class Audio_MIDI : public USBDevice {
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
 
         void begin(void) {};
         void end(void) {};

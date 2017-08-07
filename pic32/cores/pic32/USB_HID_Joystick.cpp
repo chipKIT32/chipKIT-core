@@ -255,4 +255,8 @@ void HID_Joystick::setHat(uint8_t d) {
     sendReport((uint8_t *)&_rep, sizeof(_rep));
 }
 
+void HID_Joystick::onEnumerated() {
+    setPosition(127, 127, 127);
+}
+
 #endif // _USB

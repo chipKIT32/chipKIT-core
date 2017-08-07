@@ -305,4 +305,9 @@ int CDCACM::peek() {
     return _rxBuffer[_rxTail];
 }
 
+void CDCACM::onEnumerated() {
+    _manager->sendBuffer(_epBulk, (uint8_t *)"\0", 1);
+}
+
 #endif // _USB
+

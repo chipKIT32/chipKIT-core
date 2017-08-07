@@ -347,6 +347,13 @@ void USBManager::onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l) {
             _wantedAddress = data[2];
             break;
 
+        case 0x0009: // Set Configuration
+            for (struct USBDeviceList *scan = _devices; scan; scan = scan->next) {
+                scan->device->onEnumerated();
+            }
+            _driver->sendBuffer(0, NULL, 0);
+            break;
+
         default:
             for (struct USBDeviceList *scan = _devices; scan; scan = scan->next) {
                 if (scan->device->onSetupPacket(ep, _target, data, l)) {

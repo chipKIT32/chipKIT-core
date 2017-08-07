@@ -186,4 +186,9 @@ void HID_Raw::sendReport(uint8_t *b, uint8_t l) {
         if (millis() - ts > USB_TX_TIMEOUT) return;
     }
 }
+
+void HID_Raw::onEnumerated() {
+    sendReport((uint8_t *)"\0", 1);
+}
+
 #endif // _USB

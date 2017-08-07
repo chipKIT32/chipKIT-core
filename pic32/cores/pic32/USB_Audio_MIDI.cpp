@@ -239,4 +239,8 @@ void Audio_MIDI::onMidiMessage(void (*func)(uint8_t status, uint8_t d0, uint8_t 
     _onMidiMessage = func;
 }
 
+void Audio_MIDI::onEnumerated() {
+}
+
+
 #endif // _USB

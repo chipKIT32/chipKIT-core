@@ -271,4 +271,8 @@ void HID_Media::releaseAllConsumer(void)
     sendReport(2, _consumerKeys);
 }
 
+void HID_Media::onEnumerated() {
+    releaseAll();
+}
+
 #endif // _USB
