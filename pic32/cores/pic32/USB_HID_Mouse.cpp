@@ -213,4 +213,7 @@ bool HID_Mouse::isPressed(uint8_t b) {
     return false;
 }
 
+void HID_Mouse::onEnumerated() {
+}
+
 #endif // _USB
