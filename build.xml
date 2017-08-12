@@ -60,6 +60,10 @@
     <os arch="arm" family="unix"/>
   </condition>
 
+  <condition property="destdir" value="${env.DESTDIR}">
+    <isset property="env.DESTDIR" />
+  </condition>
+
   <!-- set time property -->
   <tstamp>
     <format pattern="yyyyMMdd" property="TODAY"/>
@@ -372,10 +376,15 @@
   </target>
 
   <target name="compress" depends="git.revision" description="Compress the distribution for deployment." >
-    <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
+    <condition property="destdir" value="dist/${localplatform}">
+        <not>
+            <isset property="destdir"/>
+        </not>
+    </condition>
+    <zip destfile="${destdir}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
-    <checksum algorithm="SHA-256" file="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+    <checksum algorithm="SHA-256" file="${destdir}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 
   <target depends="" description="Clean build" name="clean">
