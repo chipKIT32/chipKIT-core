@@ -64,6 +64,10 @@
 #define _CORE_TIMER_IRQ _CORE_TIMER_VECTOR
 #endif
 
+#if defined(__USB_ENABLED__)
+extern void usb_boot_system();
+#endif
+
 //************************************************************************
 //*	This sets the MPIDE version number in the image header as defined in the linker script
 extern const uint32_t _verMPIDE_Stub;
@@ -242,6 +246,10 @@ void	_board_init(void);
 	p32_uart *	uart;
 	uart = (p32_uart *)_SER0_BASE;
 	uart->uxMode.clr = (1 << _UARTMODE_ON);
+#endif
+
+#if defined(__USB_ENABLED__)
+    usb_boot_system();
 #endif
 }
 

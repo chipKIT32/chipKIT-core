@@ -58,6 +58,7 @@
 */
 
 #define	_BOARD_NAME_	"OpenScope"
+#define _USB
 
 /* Define the Microcontroller peripherals available on the board.
 */

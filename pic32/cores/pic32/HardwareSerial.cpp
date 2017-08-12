@@ -83,10 +83,6 @@
 
 #include "HardwareSerial.h"
 
-#if defined(_USE_USB_FOR_SERIAL_)
-//	#define	_DEBUG_USB_VIA_SERIAL0_
-#endif
-
 // Definitions for a built-in TX and RX LED for USB serial.
 // Relies on the board defining PIN_LED_TX and PIN_LED_RX
 // Only supports active-high LEDs at the moment.
@@ -728,288 +724,6 @@ void HardwareSerial::disableAddressDetection(void) {
 }
 
 /* ------------------------------------------------------------ */
-/*				USBSerial Object Class Implementation			*/
-/* ------------------------------------------------------------ */
-
-
-//*******************************************************************************************
-
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
-
-#include	"HardwareSerial_cdcacm.h"
-#include	"HardwareSerial_usb.h"
-
-ring_buffer rx_bufferUSB = { { 0 }, 0, 0 };
-
-#define     USBSerialBufferFree()     (((RX_BUFFER_SIZE - 1) + rx_bufferUSB.tail - rx_bufferUSB.head) % RX_BUFFER_SIZE)
-
-//*******************************************************************************************
-// Return TRUE if we could take the character, return FALSE if there wasn't room
-inline boolean store_char(unsigned char theChar, ring_buffer *rx_buffer)
-{
-int	bufIndex;
-
-    // Compute the place where we want to store this byte - one beyond the head
-	bufIndex	= (rx_buffer->head + 1) % RX_BUFFER_SIZE;
-
-    // If the place where we are about to store the character is the tail, then
-    // we would overflow the buffer if we put our character there. This is because
-    // if head = tail, the buffer is empty. If head = tail-1, then the buffer
-    // is full. So only write into the buffer if we are not writing at the tail.
-	if (bufIndex != rx_buffer->tail)
-	{
-		rx_buffer->buffer[rx_buffer->head]	=	theChar;
-		rx_buffer->head	=	bufIndex;
-        return(true);
-	}
-    else
-    {
-        return(false);
-	}
-}
-
-//****************************************************************
-void	USBresetRoutine(void)
-{
-	
-}
-
-//****************************************************************
-// Need to return FALSE if we need USB to hold off for awhile
-boolean	USBstoreDataRoutine(const byte *buffer, int length)
-{
-    int	i;
-    RXOn();
-
-    // If we have a receive callback defined then repeatedly
-    // call it with each character.
-    if (Serial.rxIntr != NULL) {
-        for (i = 0; i < length; i++) {
-            Serial.rxIntr(buffer[i]);
-        }
-        RXOff();
-        return true;
-    }
-
-    // Put each byte into the serial recieve buffer
-    for (i=0; i<length; i++)
-	{
-        store_char(buffer[i], &rx_bufferUSB);
-	}
-    // If there isn't going to be enough space for a whole nother buffer, then return
-    // false so USB will NAK and we won't get any more data.
-    if (USBSerialBufferFree() < USB_SERIAL_MIN_BUFFER_FREE)
-    {
-        RXOff();
-        return(false);
-    }
-    else
-    {
-        RXOff();
-        return(true);
-    }
-}
-
-
-//*******************************************************************************************
-USBSerial::USBSerial(ring_buffer	*rx_buffer)
-{
-	_rx_buffer			=	rx_buffer;
-	_rx_buffer->head	=	0;
-	_rx_buffer->tail	=	0;
-    rxIntr = NULL;
-}
-
-USBSerial::operator int() {
-    return gCdcacm_active ? 1 : 0;
-}
-
-#ifdef _DEBUG_USB_VIA_SERIAL0_
-	#define	DebugViaSerial0(x)	Serial0.println(x)
-#else
-	#define	DebugViaSerial0(x)
-#endif
-
-
-//*******************************************************************************************
-void USBSerial::begin(unsigned long baudRate)
-{
-    // Added to remove warning about unused parameter
-    (void)baudRate;
-#ifdef PIN_LED_TX
-    pinMode(PIN_LED_TX, OUTPUT);
-    digitalWrite(PIN_LED_TX, LOW);
-    createTask(TXLedSwitchOff, 10, TASK_ENABLE, NULL);
-#endif
-
-#ifdef PIN_LED_RX
-    pinMode(PIN_LED_RX, OUTPUT);
-    digitalWrite(PIN_LED_RX, LOW);
-    createTask(RXLedSwitchOff, 10, TASK_ENABLE, NULL);
-#endif
-
-	DebugViaSerial0("USBSerial::begin");
-
-	DebugViaSerial0("calling usb_initialize");
-	usb_initialize();
-	DebugViaSerial0("returned from usb_initialize");
-
-	cdcacm_register(USBresetRoutine, USBstoreDataRoutine);
-	DebugViaSerial0("returned from cdcacm_register");
-
-	// Must enable glocal interrupts - in this case, we are using multi-vector mode
-	//INTEnableSystemMultiVectoredInt();
-	DebugViaSerial0("INTEnableSystemMultiVectoredInt");
-
-}
-
-
-//*******************************************************************************************
-void USBSerial::end()
-{
-}
-
-//*******************************************************************************************
-extern "C" uint8_t *cdcacm_get_line_coding();
-unsigned long USBSerial::getBaudRate() {
-    uint8_t *line_coding = cdcacm_get_line_coding();
-    uint32_t br = line_coding[0] | (line_coding[1] << 8) | (line_coding[2] << 16) | (line_coding[3] << 24);
-    return br;
-}
-
-//*******************************************************************************************
-int USBSerial::available(void)
-{
-	return (RX_BUFFER_SIZE + _rx_buffer->head - _rx_buffer->tail) % RX_BUFFER_SIZE;
-}
-
-//*******************************************************************************************
-int USBSerial::peek()
-{
-	if (_rx_buffer->head == _rx_buffer->tail)
-	{
-		return -1;
-	}
-	else
-	{
-		return _rx_buffer->buffer[_rx_buffer->tail];
-	}
-}
-
-//*******************************************************************************************
-int USBSerial::read(void)
-{
-	unsigned char theChar;
-
-	// If the head = tail, then the buffer is empty, so nothing to read
-	if (_rx_buffer->head == _rx_buffer->tail)
-	{
-		return -1;
-	}
-	else
-	{
-		theChar				=	_rx_buffer->buffer[_rx_buffer->tail];
-		_rx_buffer->tail	=	(_rx_buffer->tail + 1) % RX_BUFFER_SIZE;
-        
-        // If we just made enough room for the next packet to fit into our buffer,
-        // start the packets flowing from the PC again
-        if (USBSerialBufferFree() >= USB_SERIAL_MIN_BUFFER_FREE)
-        {
-            cdcacm_command_ack();
-        }
-        
-		return (theChar);
-	}
-}
-
-//*******************************************************************************************
-void USBSerial::flush()
-{
-	// don't reverse this or there may be problems if the RX interrupt
-	// occurs after reading the value of rx_buffer_head but before writing
-	// the value to rx_buffer_tail; the previous value of rx_buffer_head
-	// may be written to rx_buffer_tail, making it appear as if the buffer
-	// were full, not empty.
-	_rx_buffer->head	=	_rx_buffer->tail;
-}
-
-//*******************************************************************************************
-size_t USBSerial::write(uint8_t theChar)
-{
-unsigned char	usbBuf[4];
-
-	usbBuf[0]	=	theChar;
-	
-    TXOn();
-	cdcacm_print(usbBuf, 1);
-    TXOff();
-    return 1;
-}
-
-/* Attach the interrupt by storing a function pointer in the rxIntr variable */
-void USBSerial::attachInterrupt(void (*callback)(int)) {
-    rxIntr = callback;
-}
-
-/* Detatching the interrupt is as simple as setting the rxIntr to null. */
-void USBSerial::detachInterrupt() {
-    rxIntr = NULL;
-}
-
-//*	testing showed 63 gave better speed results than 64
-
-#define	kMaxUSBxmitPkt	63
-//*******************************************************************************************
-size_t USBSerial::write(const uint8_t *buffer, size_t size)
-{
-    TXOn();
-	if (size < kMaxUSBxmitPkt)
-	{
-		//*	it will fit in one transmit packet
-		cdcacm_print(buffer, size);
-	}
-	else
-	{
-	//*	we can only transmit a maxium of 63 bytes at a time, break it up into 63 byte packets
-	unsigned char	usbBuffer[kMaxUSBxmitPkt + 2];
-	unsigned short	ii;
-	size_t 			packetSize;
-	
-		packetSize	=	0;
-		for (ii=0; ii<size; ii++)
-		{
-			usbBuffer[packetSize++]	=	buffer[ii];
-			if (packetSize >= kMaxUSBxmitPkt)
-			{
-				cdcacm_print(usbBuffer, packetSize);
-				packetSize	=	0;
-			}
-		}
-		if (packetSize > 0)
-		{
-			cdcacm_print(usbBuffer, packetSize);
-		}
-	}
-    TXOff();
-    return size;
-}
-
-//*******************************************************************************************
-size_t USBSerial::write(const char *str)
-{
-size_t size;
-
-	size	=	strlen(str);
-	write((const uint8_t *)str, size);
-    return size;
-}
-
-
-#endif		//	defined(_USB)
-
-
-
-/* ------------------------------------------------------------ */
 /*			UART Interrupt Service Routines						*/
 /* ------------------------------------------------------------ */
 
@@ -1038,7 +752,7 @@ extern "C" {
 
 void __USER_ISR IntSer0Handler(void)
 {
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined(__SERIAL_IS_USB__)
 	Serial0.doSerialInt();
 #else
 	Serial.doSerialInt();
@@ -1213,12 +927,11 @@ void __USER_ISR IntSer7Handler(void)
 /*			Serial Port Object Instances						*/
 /* ------------------------------------------------------------ */
 
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined(__SERIAL_IS_USB__)
 /* If we're using USB for serial, the USB serial port gets
 ** instantiated as Serial and hardware serial port 0 gets
 ** instantiated as Serial0.
 */
-USBSerial		Serial(&rx_bufferUSB);
 bool Serial_available() { return Serial.available(); }
 #if defined(_SER0_BASE)
 bool Serial0_available() { return Serial0.available(); }
@@ -1311,7 +1024,7 @@ HardwareSerial Serial7((p32_uart *)_SER7_BASE, _SER7_IRQ, _SER7_VECTOR, _SER7_IP
 #endif
 
 void serialEventRun() {
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined(__SERIAL_IS_USB__)
         if (Serial_available && serialEvent && Serial_available()) serialEvent();
         #if (NUM_SERIAL_PORTS > 0)
             if (Serial0_available && serialEvent0 && Serial0_available()) serialEvent0();

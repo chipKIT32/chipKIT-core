@@ -56,6 +56,7 @@
 */
 
 #define	_BOARD_NAME_	"PIC32_Pinguino"
+#define _USB
 
 /* Define the peripherals available on the board.
 */

@@ -55,6 +55,7 @@
 */
 
 #define	_BOARD_NAME_	"chipKIT Max32"
+#define _USB
 
 /* Define the Microcontroller peripherals available on the board.
 */
