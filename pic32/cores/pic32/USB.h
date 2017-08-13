@@ -279,6 +279,10 @@ class USBManager {
             return _driver->canEnqueuePacket(ep);
         }
 
+		bool enqueuePacket(uint8_t ep, const uint8_t *data, uint32_t len) {
+            return _driver->enqueuePacket(ep, data, len);
+        }
+
         void haltEndpoint(uint8_t ep) {
             _driver->haltEndpoint(ep);
         }
@@ -368,7 +372,7 @@ class CDCACM : public USBDevice, public Stream {
         void onEnumerated();
 
         size_t write(uint8_t);
-//        size_t write(const uint8_t *b, size_t len);
+        size_t write(const uint8_t *b, size_t len);
 
         int available();
         int read();
