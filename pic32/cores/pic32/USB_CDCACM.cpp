@@ -259,21 +259,21 @@ size_t CDCACM::write(uint8_t b) {
     return 1;
 }
 
-size_t CDCACM::write(const uint8_t *b, size_t len) {
-
-    if (_lineState == 0) return 0;
-
-    size_t pos = 0;
-    int32_t slen = len;
-    uint32_t packetSize = _manager->isHighSpeed() ? 512 : 64;
-    int32_t toSend = min((int32_t)packetSize, slen);
-    while (pos < len) {
-        _manager->sendBuffer(_epBulk, &b[pos], toSend);
-        pos += toSend;
-        slen -= toSend;
-    }
-    return 1;
-}
+//size_t CDCACM::write(const uint8_t *b, size_t len) {
+//
+//    if (_lineState == 0) return 0;
+//
+//    size_t pos = 0;
+//    int32_t slen = len;
+//    uint32_t packetSize = _manager->isHighSpeed() ? 512 : 64;
+//    int32_t toSend = min((int32_t)packetSize, slen);
+//    while (pos < len) {
+//        _manager->sendBuffer(_epBulk, &b[pos], toSend);
+//        pos += toSend;
+//        slen -= toSend;
+//    }
+//    return 1;
+//}
 
 int CDCACM::available() {
     return (CDCACM_BUFFER_SIZE + _rxHead - _rxTail) % CDCACM_BUFFER_SIZE;

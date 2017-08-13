@@ -368,7 +368,7 @@ class CDCACM : public USBDevice, public Stream {
         void onEnumerated();
 
         size_t write(uint8_t);
-        size_t write(const uint8_t *b, size_t len);
+//        size_t write(const uint8_t *b, size_t len);
 
         int available();
         int read();
