@@ -50,8 +50,12 @@
 #include <p32xxxx.h>
 #include <sys/attribs.h>
 
+#ifndef OPT_SYSTEM_INTERNAL
 #define	OPT_SYSTEM_INTERNAL
+#endif
+#ifndef OPT_BOARD_INTERNAL
 #define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#endif
 #include "pins_arduino.h"
 #include "p32_defs.h"
 

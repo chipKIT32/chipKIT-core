@@ -77,54 +77,16 @@
 #include "wiring.h"
 #include "wiring_private.h"
 
+#ifndef OPT_SYSTEM_INTERNAL
 #define OPT_SYSTEM_INTERNAL
-#define	OPT_BOARD_INTERNAL
+#endif
+#ifndef OPT_BOARD_INTERNAL
+#define OPT_BOARD_INTERNAL  //pull in internal symbol definitons
+#endif
+
 #include "pins_arduino.h"
 
 #include "HardwareSerial.h"
-
-// Definitions for a built-in TX and RX LED for USB serial.
-// Relies on the board defining PIN_LED_TX and PIN_LED_RX
-// Only supports active-high LEDs at the moment.
-// The LED is turned on in the main code, and a timestamp
-// is set for turning it off.  A task is executed every 10ms
-// to turn the LED off between 10 and 20ms after it's been
-// requested with xXOff(); which means that you get to actually
-// see the LED in action.
-
-#ifdef PIN_LED_TX
-static volatile uint32_t gTXLedTimeout = 0;
-# define TXOn() digitalWrite(PIN_LED_TX, HIGH); gTXLedTimeout = 0;
-# define TXOff() gTXLedTimeout = millis();
-static void TXLedSwitchOff(int id, void *tptr) {
-    if (gTXLedTimeout > 0) {
-        if (millis() - gTXLedTimeout >= 10) {
-            digitalWrite(PIN_LED_TX, LOW);
-            gTXLedTimeout = 0;
-        }
-    }
-}
-#else
-# define TXOn()
-# define TXOff()
-#endif
-
-#ifdef PIN_LED_RX
-static volatile uint32_t gRXLedTimeout = 0;
-# define RXOn() digitalWrite(PIN_LED_RX, HIGH); gRXLedTimeout = 0;
-# define RXOff() gRXLedTimeout = millis();
-static void RXLedSwitchOff(int id, void *tptr) {
-    if (gRXLedTimeout > 0) {
-        if (millis() - gRXLedTimeout >= 10) {
-            digitalWrite(PIN_LED_RX, LOW);
-            gRXLedTimeout = 0;
-        }
-    }
-}
-#else
-# define RXOn()
-# define RXOff()
-#endif
 
 extern "C"
 {

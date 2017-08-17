@@ -42,7 +42,9 @@
 
 #include	<p32xxxx.h>
 
+#ifndef OPT_SYSTEM_INTERNAL
 #define	OPT_SYSTEM_INTERNAL
+#endif
 #include	<System_Defs.h>
 #include	<p32_defs.h>
 
