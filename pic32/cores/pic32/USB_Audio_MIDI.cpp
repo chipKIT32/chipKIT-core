@@ -178,11 +178,11 @@ void Audio_MIDI::initDevice(USBManager *manager) {
     _epBulk = _manager->allocateEndpoint();
 }
 
-bool Audio_MIDI::getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool Audio_MIDI::getDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
-bool Audio_MIDI::getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool Audio_MIDI::getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
@@ -197,15 +197,15 @@ void Audio_MIDI::configureEndpoints() {
 }
 
 
-bool Audio_MIDI::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool Audio_MIDI::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     return false;
 }
 
-bool Audio_MIDI::onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool Audio_MIDI::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     return false;
 }
 
-bool Audio_MIDI::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool Audio_MIDI::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t l) {
     if (ep == _epBulk) {
         if (_onMidiMessage != NULL) {
             for (uint32_t i = 0; i < l; i += 4) {

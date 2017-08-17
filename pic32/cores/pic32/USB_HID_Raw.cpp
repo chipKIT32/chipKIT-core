@@ -107,11 +107,11 @@ void HID_Raw::initDevice(USBManager *manager) {
     _epInt = _manager->allocateEndpoint();
 }
 
-bool HID_Raw::getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Raw::getDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
-bool HID_Raw::getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Raw::getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t target, uint8_t __attribute__((unused)) id, uint8_t maxlen) {
     if (target == _ifInt) {
         _manager->sendBuffer(0, rawHidReport, min(sizeof(rawHidReport), maxlen));
         return true;
@@ -124,7 +124,7 @@ void HID_Raw::configureEndpoints() {
     _manager->addEndpoint(_epInt, EP_OUT, EP_INT, 64, _intTxA, _intTxB);
 }
 
-bool HID_Raw::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Raw::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
 
     if (data[4] != _ifInt) return false;
     uint16_t signature = (data[0] << 8) | data[1];
@@ -151,17 +151,11 @@ bool HID_Raw::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t 
 
 }
 
-bool HID_Raw::onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
-//    if ((ep == 0) && (target == _ifInt)) {
-//        return true;
-//    }
-//    if (ep == _epInt) {
-//        sendReport(&_keyReport);
-//    }
+bool HID_Raw::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     return false;
 }
 
-bool HID_Raw::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Raw::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
     if (ep == 0) {
         if (_nextPacketIsMine == true) {
             _features[data[0]] = data[1];

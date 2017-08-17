@@ -123,11 +123,11 @@ void HID_Joystick::initDevice(USBManager *manager) {
     _epInt = _manager->allocateEndpoint();
 }
 
-bool HID_Joystick::getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Joystick::getDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
-bool HID_Joystick::getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Joystick::getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t target, uint8_t __attribute__((unused)) id, uint8_t maxlen) {
     if (target == _ifInt) {
         _manager->sendBuffer(0, joystickHidReport, min(sizeof(joystickHidReport), maxlen));
         return true;
@@ -140,7 +140,7 @@ void HID_Joystick::configureEndpoints() {
 }
 
 
-bool HID_Joystick::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Joystick::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
     if (data[4] != _ifInt) return false;
 
     uint16_t signature = (data[0] << 8) | data[1];
@@ -155,15 +155,14 @@ bool HID_Joystick::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint
 
 }
 
-bool HID_Joystick::onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Joystick::onInPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     if (ep == _epInt) {
-//        sendReport((uint8_t *)&_rep, sizeof(_rep));
         return true;
     }
     return false;
 }
 
-bool HID_Joystick::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Joystick::onOutPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unused)) __attribute__((unused)) *data, uint32_t __attribute__((unused)) __attribute__((unused)) l) {
     if (ep == 0) {
         if (target == _ifInt) {
             return true;

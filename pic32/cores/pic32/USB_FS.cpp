@@ -135,7 +135,7 @@ bool USBFS::disableUSB() {
 }
 	
 
-bool USBFS::addEndpoint(uint8_t id, uint8_t direction, uint8_t type, uint32_t size, uint8_t *a, uint8_t *b) {
+bool USBFS::addEndpoint(uint8_t id, uint8_t direction, uint8_t __attribute__((unused)) type, uint32_t size, uint8_t *a, uint8_t *b) {
 	if (id > 15) return false;
     _endpointBuffers[id].data = 0x40;
     _endpointBuffers[id].size = size;

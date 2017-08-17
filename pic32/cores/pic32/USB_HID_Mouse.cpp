@@ -116,11 +116,11 @@ void HID_Mouse::initDevice(USBManager *manager) {
     _epInt = _manager->allocateEndpoint();
 }
 
-bool HID_Mouse::getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Mouse::getDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
-bool HID_Mouse::getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool HID_Mouse::getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t target, uint8_t __attribute__((unused)) id, uint8_t maxlen) {
     if (target == _ifInt) {
         _manager->sendBuffer(0, mouseHidReport, min(sizeof(mouseHidReport), maxlen));
         return true;
@@ -133,7 +133,7 @@ void HID_Mouse::configureEndpoints() {
 }
 
 
-bool HID_Mouse::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Mouse::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
 
     if (data[4] != _ifInt) return false;
 
@@ -153,11 +153,11 @@ bool HID_Mouse::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_
     return false;
 }
 
-bool HID_Mouse::onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Mouse::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     return false;
 }
 
-bool HID_Mouse::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool HID_Mouse::onOutPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     if (ep == 0) {
         if (target == _ifInt) {
             return true;

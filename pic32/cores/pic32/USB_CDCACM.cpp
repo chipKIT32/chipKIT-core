@@ -152,7 +152,7 @@ void CDCACM::initDevice(USBManager *manager) {
     _epBulk = _manager->allocateEndpoint();
 }
 
-bool CDCACM::getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) {
+bool CDCACM::getDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) {
     return false;
 }
 
@@ -168,7 +168,7 @@ void CDCACM::configureEndpoints() {
 }
 
 
-bool CDCACM::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool CDCACM::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
     if (data[4] == _ifControl) {
         uint16_t signature = (data[0] << 8) | data[1];
         switch (signature) {
@@ -197,16 +197,10 @@ bool CDCACM::onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l
     return false;
 }
 
-bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) {
+bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
     if ((ep == 0) && (target == _ifControl)) {
         return true;
     }
-//    if (ep == _epBulk) {
-//        if (_txPos > 0) {
-//            _manager->sendBuffer(_epBulk, _txBuffer, _txPos);
-//            _txPos = 0;
-//        }
-//    }
     return false;
 }
 
