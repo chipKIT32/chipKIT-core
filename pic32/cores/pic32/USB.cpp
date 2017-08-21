@@ -45,15 +45,34 @@ USBFS usbDriver;
 #error No USB driver defined for this chip type
 #endif // chip type selection
 
-#define VID_FUTURE  0x0403
-#define VID_MCHP    0x04d8
+#define VID_FUTURE          0x0403
+#define VID_MCHP            0x04d8
+
+#define PID_CDCACM          0xa662
+#define PID_CDCACM_KM       0x0f50
+
+#define PID_UNASSIGNED_1    0x0f51
+#define PID_UNASSIGNED_2    0x0f52
+#define PID_UNASSIGNED_3    0x0f53
+#define PID_UNASSIGNED_4    0x0f54
+#define PID_UNASSIGNED_5    0x0f55
+#define PID_UNASSIGNED_6    0x0f56
+#define PID_UNASSIGNED_7    0x0f57
+#define PID_UNASSIGNED_8    0x0f58
+#define PID_UNASSIGNED_9    0x0f59
+#define PID_UNASSIGNED_10   0x0f5a
+#define PID_UNASSIGNED_11   0x0f5b
+#define PID_UNASSIGNED_12   0x0f5c
+#define PID_UNASSIGNED_13   0x0f5d
+#define PID_UNASSIGNED_14   0x0f5e
+#define PID_UNASSIGNED_15   0x0f5f
 
 #if defined(__USB_CDCACM__)
     #ifndef _USB_VID_
         #define _USB_VID_ VID_FUTURE
     #endif
     #ifndef _USB_PID_
-        #define _USB_PID_ 0xa662
+        #define _USB_PID_ PID_CDCACM
     #endif
     USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
     CDCACM Serial;
@@ -65,10 +84,10 @@ USBFS usbDriver;
 
 #if defined(__USB_CDCACM_KM__)
     #ifndef _USB_VID_
-        #define _USB_VID_ VID_FUTURE
+        #define _USB_VID_ VID_MICROCHIP
     #endif
     #ifndef _USB_PID_
-        #define _USB_PID_ 0xa662
+        #define _USB_PID_ PID_CDCACM_KM
     #endif
     USBManager USB(usbDriver, _USB_VID_, _USB_PID_);
     CDCACM Serial;
