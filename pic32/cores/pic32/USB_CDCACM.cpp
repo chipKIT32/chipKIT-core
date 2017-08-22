@@ -201,6 +201,23 @@ bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unuse
     if ((ep == 0) && (target == _ifControl)) {
         return true;
     }
+    if (ep == _epBulk) {
+        uint32_t avail = (CDCACM_BUFFER_SIZE + _txHead - _txTail) % CDCACM_BUFFER_SIZE;
+        if (avail == 0) return false;
+
+        if (avail > CDCACM_BULKEP_SIZE) {
+            avail = CDCACM_BULKEP_SIZE;
+        }
+
+        uint8_t tbuf[avail];
+
+        for (uint32_t i = 0; i < avail; i++) {
+            _txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
+            tbuf[i] = _txBuffer[_txTail];
+        }
+        _manager->enqueuePacket(_epBulk, tbuf, avail);
+        return true;
+    }
     return false;
 }
 
@@ -245,17 +262,50 @@ bool CDCACM::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) 
     return false;
 }
 
+
 size_t CDCACM::write(uint8_t b) {
 
     if (_lineState == 0) return 0;
 
-    _manager->sendBuffer(_epBulk, &b, 1);
+    uint32_t newhead = (_txHead + 1) % CDCACM_BUFFER_SIZE;
+
+    // Wait for room
+    while (newhead == _txTail) {
+//        yield();
+        newhead = (_txHead + 1) % CDCACM_BUFFER_SIZE;
+    }
+
+    _txBuffer[newhead] = b;
+    _txHead = newhead;
+
+    if (_manager->canEnqueuePacket(_epBulk)) {
+        uint32_t s = disableInterrupts();
+        uint32_t avail = (CDCACM_BUFFER_SIZE + _txHead - _txTail) % CDCACM_BUFFER_SIZE;
+        if (avail > CDCACM_BULKEP_SIZE) {
+            avail = CDCACM_BULKEP_SIZE;
+        }
+
+        uint8_t tbuf[avail];
+
+        for (uint32_t i = 0; i < avail; i++) {
+            _txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
+            tbuf[i] = _txBuffer[_txTail];
+        }
+        _manager->enqueuePacket(_epBulk, tbuf, avail);
+        restoreInterrupts(s);
+    }
+
+//    _manager->sendBuffer(_epBulk, &b, 1);
     return 1;
 }
 
 size_t CDCACM::write(const uint8_t *b, size_t len) {
 
     if (_lineState == 0) return 0;
+    for (uint32_t i = 0; i < len; i++) {
+        write(b[i]);
+    }
+/*
 
     size_t pos = 0;
     int32_t slen = len;
@@ -268,7 +318,8 @@ size_t CDCACM::write(const uint8_t *b, size_t len) {
         pos += toSend;
         slen -= toSend;
     }
-    return 1;
+*/
+    return len;
 }
 
 int CDCACM::available() {

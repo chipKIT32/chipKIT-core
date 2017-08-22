@@ -613,6 +613,9 @@ void USBHS::resumeEndpoint(uint8_t ep) {
     USBCSR3bits.ENDPOINT = oep;
 }
 
+void USBHS::isIdle(uint8_t ep) {
+    return true;
+}
 
 #endif // __PIC32MZ__
 #endif // _USB

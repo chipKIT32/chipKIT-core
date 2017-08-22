@@ -377,6 +377,9 @@ bool USBFS::setAddress(uint8_t address) {
 	return true;
 }
 
+bool USBFS::isIdle(uint8_t ep) {
+    return (_endpointBuffers[ep].buffer == NULL);
+}
 
 
 #endif // __PIC32MX__

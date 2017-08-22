@@ -132,6 +132,8 @@ class USBDriver {
         virtual void haltEndpoint(uint8_t ep) = 0;
         virtual void resumeEndpoint(uint8_t ep) = 0;
 
+        virtual bool isIdle(uint8_t ep) = 0;
+
         USBManager *_manager;
 };
 #ifdef __PIC32MX__
@@ -167,6 +169,8 @@ class USBFS : public USBDriver {
         void resumeEndpoint(uint8_t __attribute__((unused)) ep) {}
 
 		void handleInterrupt();
+
+        bool isIdle(uint8_t ep);
 
 		__attribute__ ((aligned(512))) volatile struct bdt _bufferDescriptorTable[16][4];
 
@@ -210,6 +214,7 @@ class USBHS : public USBDriver {
 
         void haltEndpoint(uint8_t ep);
         void resumeEndpoint(uint8_t ep);
+        bool isIdle(uint8_t ep);
 
         using USBDriver::_manager;
 
@@ -291,6 +296,10 @@ class USBManager {
             _driver->resumeEndpoint(ep);
         }
 
+        bool isIdle(uint8_t ep) {
+            return _driver->isIdle(ep);
+        }
+
         void end() {}
 
 };
@@ -328,25 +337,28 @@ class CDCACM : public USBDevice, public Stream {
         uint8_t _dataBits;
         uint8_t _parity;
 #if defined (__PIC32MX__)
-//        uint8_t _txBuffer[64];
 #define CDCACM_BUFFER_SIZE 256
+#define CDCACM_BULKEP_SIZE 64
         uint8_t _rxBuffer[CDCACM_BUFFER_SIZE];
-        uint8_t _bulkRxA[64];
-        uint8_t _bulkRxB[64];
-        uint8_t _bulkTxA[64];
-        uint8_t _bulkTxB[64];
+        uint8_t _txBuffer[CDCACM_BUFFER_SIZE];
+        uint8_t _bulkRxA[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkRxB[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkTxA[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkTxB[CDCACM_BULKEP_SIZE];
 #define CDCACM_BUFFER_HIGH 64
 #elif defined(__PIC32MZ__)
-//        uint8_t _txBuffer[2048];
 #define CDCACM_BUFFER_SIZE 2048
+#define CDCACM_BULKEP_SIZE 512
         uint8_t _rxBuffer[CDCACM_BUFFER_SIZE];
-        uint8_t _bulkRxA[512];
-        uint8_t _bulkRxB[512];
-        uint8_t _bulkTxA[512];
-        uint8_t _bulkTxB[512];
+        uint8_t _txBuffer[CDCACM_BUFFER_SIZE];
+        uint8_t _bulkRxA[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkRxB[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkTxA[CDCACM_BULKEP_SIZE];
+        uint8_t _bulkTxB[CDCACM_BULKEP_SIZE];
 #define CDCACM_BUFFER_HIGH 512
 #endif
-        volatile uint32_t _txPos;
+        volatile uint32_t _txHead;
+        volatile uint32_t _txTail;
         volatile uint32_t _rxHead;
         volatile uint32_t _rxTail;
 
@@ -354,7 +366,7 @@ class CDCACM : public USBDevice, public Stream {
         uint8_t _ctlB[8];
 
     public:
-        CDCACM() : _txPos(0), _rxHead(0), _rxTail(0) {}
+        CDCACM() : _txHead(0), _txTail(0), _rxHead(0), _rxTail(0) {}
 
         operator int();
         uint16_t getDescriptorLength();
