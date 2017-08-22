@@ -262,17 +262,19 @@ bool CDCACM::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) 
     return false;
 }
 
-
 size_t CDCACM::write(uint8_t b) {
+
+    uint32_t s;
 
     if (_lineState == 0) return 0;
 
-    uint32_t newhead = (_txHead + 1) % CDCACM_BUFFER_SIZE;
+    volatile uint32_t h = _txHead;
+    volatile uint32_t newhead = (h + 1) % CDCACM_BUFFER_SIZE;
 
     // Wait for room
     while (newhead == _txTail) {
-//        yield();
-        newhead = (_txHead + 1) % CDCACM_BUFFER_SIZE;
+        h = _txHead;
+        newhead = (h + 1) % CDCACM_BUFFER_SIZE;
     }
 
     _txBuffer[newhead] = b;
@@ -353,7 +355,9 @@ int CDCACM::peek() {
 }
 
 void CDCACM::onEnumerated() {
+#ifdef __PIC32MX__
     _manager->sendBuffer(_epBulk, (uint8_t *)"\0", 1);
+#endif
 }
 
 #endif // _USB
