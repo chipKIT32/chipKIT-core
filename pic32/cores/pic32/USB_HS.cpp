@@ -613,7 +613,7 @@ void USBHS::resumeEndpoint(uint8_t ep) {
     USBCSR3bits.ENDPOINT = oep;
 }
 
-void USBHS::isIdle(uint8_t ep) {
+bool USBHS::isIdle(uint8_t ep) {
     return true;
 }
 
