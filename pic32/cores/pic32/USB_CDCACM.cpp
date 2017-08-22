@@ -264,8 +264,6 @@ bool CDCACM::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) 
 
 size_t CDCACM::write(uint8_t b) {
 
-    uint32_t s;
-
     if (_lineState == 0) return 0;
 
     volatile uint32_t h = _txHead;
@@ -326,6 +324,10 @@ size_t CDCACM::write(const uint8_t *b, size_t len) {
 
 int CDCACM::available() {
     return (CDCACM_BUFFER_SIZE + _rxHead - _rxTail) % CDCACM_BUFFER_SIZE;
+}
+
+int CDCACM::availableForWrite() {
+    return (CDCACM_BUFFER_SIZE + _txTail - _txHead) % CDCACM_BUFFER_SIZE;
 }
 
 int CDCACM::read() {

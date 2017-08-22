@@ -393,6 +393,8 @@ class CDCACM : public USBDevice, public Stream {
         void begin() {}
         void begin(uint32_t __attribute__((unused)) baud) {}
         void end() {}
+
+        int availableForWrite();
 };
 
 #define KEY_LEFT_CTRL       0x80
