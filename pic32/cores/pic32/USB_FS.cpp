@@ -139,6 +139,8 @@ bool USBFS::addEndpoint(uint8_t id, uint8_t direction, uint8_t __attribute__((un
 	if (id > 15) return false;
     _endpointBuffers[id].data = 0x40;
     _endpointBuffers[id].size = size;
+    _endpointBuffers[id].buffer = NULL;
+    _endpointBuffers[id].bufferPtr = NULL;
 	if (direction == EP_IN) {
         _endpointBuffers[id].rx[0] = a;
         _endpointBuffers[id].rx[1] = b;
@@ -267,7 +269,9 @@ bool USBFS::sendBuffer(uint8_t ep, const uint8_t *data, uint32_t len) {
         }
     } else {
         while (_endpointBuffers[ep].buffer != NULL) {
-            if (millis() - ts > USB_TX_TIMEOUT) return false;
+            if (millis() - ts > USB_TX_TIMEOUT) {
+                return false;
+            }
         }
     }
 

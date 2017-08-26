@@ -592,6 +592,49 @@ class HID_Mouse : public USBDevice {
         bool isPressed(uint8_t b = MOUSE_LEFT); // check LEFT by default
 };
 
+class HID_Tablet : public USBDevice {
+    private:
+        USBManager *_manager;
+        uint8_t _ifInt;
+        uint8_t _epInt;
+        void sendReport(const uint8_t *b, uint8_t l);
+        void buttons(uint8_t b);
+        uint8_t _intA[16];
+        uint8_t _intB[16];
+        uint16_t _buttons;
+        uint16_t _x;
+        uint16_t _y;
+        uint16_t _w;
+        uint16_t _h;
+
+    public:
+        uint16_t getDescriptorLength();
+        uint8_t getInterfaceCount();
+        uint32_t populateConfigurationDescriptor(uint8_t *buf);
+        void initDevice(USBManager *manager);
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        void configureEndpoints();
+
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
+        void onEnumerated();
+
+        HID_Tablet(int w, int h) : _buttons(0), _x(0), _y(0), _w(w), _h(h) {}
+    
+        void begin(void) {};
+        void end(void) {};
+        void click(uint8_t b = MOUSE_LEFT);
+        void move(uint16_t x, uint16_t y);
+        void press(uint8_t b = MOUSE_LEFT);     // press LEFT by default
+        void release(uint8_t b = MOUSE_LEFT);   // release LEFT by default
+        bool isPressed(uint8_t b = MOUSE_LEFT); // check LEFT by default
+        void update();
+};
+
+
 struct JoystickReport {
     struct {
         uint8_t x;
