@@ -118,6 +118,9 @@ bool USBFS::enableUSB() {
 	U1IEbits.URSTIE = 1;
 	U1EIE = 0xFF;
 
+    U1OTGIR = 0xFF;
+    U1OTGIEbits.SESVDIE = 1;
+
 	setIntVector(_USB_1_VECTOR, _usbInterrupt);
 	setIntPriority(_USB_1_VECTOR, 6, 0);
 	clearIntFlag(_USB_IRQ);
@@ -374,6 +377,10 @@ void USBFS::handleInterrupt() {
 	if (U1EIR) {
     
 	}
+    if (U1OTGIRbits.SESVDIF) {
+        _manager->setEnumerated(false);
+    }
+	U1OTGIR = 0xFF;
 	U1EIR = 0xFF;
 	U1IR = 0xFF;
 	clearIntFlag(_USB_IRQ);
