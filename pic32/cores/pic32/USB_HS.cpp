@@ -624,5 +624,24 @@ bool USBHS::isIdle(uint8_t ep) {
     return true;
 }
 
+int USBHS::populateDefaultSerial(char *defSerial) {
+    defSerial[0] = 'C';
+    defSerial[1] = 'K';
+    defSerial[2] = D2H(DEVID >> 28);
+    defSerial[3] = D2H(DEVID >> 24);
+    defSerial[4] = D2H(DEVID >> 20);
+    defSerial[5] = D2H(DEVID >> 16);
+    defSerial[6] = D2H(DEVID >> 12);
+    defSerial[7] = D2H(DEVID >> 8);
+    defSerial[8] = D2H(DEVID >> 4);
+    defSerial[9] = D2H(DEVID);
+    defSerial[10] = D2H(DEVCFG3 >> 12);
+    defSerial[11] = D2H(DEVCFG3 >> 8);
+    defSerial[12] = D2H(DEVCFG3 >> 4);
+    defSerial[13] = D2H(DEVCFG3);
+    return 14;
+}
+
+
 #endif // __PIC32MZ__
 #endif // _USB
