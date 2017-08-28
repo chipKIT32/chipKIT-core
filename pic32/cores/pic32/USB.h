@@ -133,6 +133,8 @@ class USBDriver {
         virtual void resumeEndpoint(uint8_t ep) = 0;
 
         virtual bool isIdle(uint8_t ep) = 0;
+        virtual int populateDefaultSerial(char *defSerial) = 0;
+
 
         USBManager *_manager;
 };
@@ -171,6 +173,7 @@ class USBFS : public USBDriver {
 		void handleInterrupt();
 
         bool isIdle(uint8_t ep);
+        int populateDefaultSerial(char *defSerial);
 
 		__attribute__ ((aligned(512))) volatile struct bdt _bufferDescriptorTable[16][4];
 
@@ -208,6 +211,7 @@ class USBHS : public USBDriver {
 		bool setAddress(uint8_t address);
         bool canEnqueuePacket(uint8_t ep);
         bool sendBuffer(uint8_t ep, const uint8_t *data, uint32_t len);
+        int populateDefaultSerial(char *defSerial);
 
 
 		void handleInterrupt();
@@ -251,7 +255,6 @@ class USBManager {
         const char *_serial;
         char _defSerial[14];
 
-        void populateDefaultSerial();
         bool _enumerated;
 
 	public:

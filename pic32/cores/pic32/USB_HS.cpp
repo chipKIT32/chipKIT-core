@@ -38,6 +38,8 @@
 #define PA_TO_KVA0(pa)  ((pa) | 0x80000000)  // cachable
 #define PA_TO_KVA1(pa)  ((pa) | 0xa000000
 
+#define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
+
 /*-------------- USB FS ---------------*/
 
 USBHS *USBHS::_this;

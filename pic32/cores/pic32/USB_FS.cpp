@@ -41,6 +41,9 @@
 #define PA_TO_KVA0(pa)  ((pa) | 0x80000000)  // cachable
 #define PA_TO_KVA1(pa)  ((pa) | 0xa000000
 
+#define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
+
+
 /*-------------- USB FS ---------------*/
 
 USBFS *USBFS::_this;
@@ -384,6 +387,24 @@ bool USBFS::setAddress(uint8_t address) {
 
 bool USBFS::isIdle(uint8_t ep) {
     return (_endpointBuffers[ep].buffer == NULL);
+}
+
+int USBFS::populateDefaultSerial(char *defSerial) {
+    defSerial[0] = 'C';
+    defSerial[1] = 'K';
+    defSerial[2] = D2H(DEVID >> 28);
+    defSerial[3] = D2H(DEVID >> 24);
+    defSerial[4] = D2H(DEVID >> 20);
+    defSerial[5] = D2H(DEVID >> 16);
+    defSerial[6] = D2H(DEVID >> 12);
+    defSerial[7] = D2H(DEVID >> 8);
+    defSerial[8] = D2H(DEVID >> 4);
+    defSerial[9] = D2H(DEVID);
+    defSerial[10] = D2H(DEVCFG3 >> 12);
+    defSerial[11] = D2H(DEVCFG3 >> 8);
+    defSerial[12] = D2H(DEVCFG3 >> 4);
+    defSerial[13] = D2H(DEVCFG3);
+    return 14;
 }
 
 #endif // __PIC32MX__

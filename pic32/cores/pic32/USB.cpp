@@ -108,8 +108,6 @@ USBFS usbDriver;
 
 #endif // __USB_ENABLED__
 
-#define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
-
 USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser) {
     _enumerated = false;
     _driver = driver;
@@ -125,7 +123,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
         _serial = ser;
     } else {
         _serial = _defSerial;
-        populateDefaultSerial();
+        _driver->populateDefaultSerial(_defSerial);
     }
 }
 
@@ -144,7 +142,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char
         _serial = ser;
     } else {
         _serial = _defSerial;
-        populateDefaultSerial();
+        _driver->populateDefaultSerial(_defSerial);
     }
 }
 
@@ -160,25 +158,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
-    populateDefaultSerial();
-}
-
-void USBManager::populateDefaultSerial() {
-    _enumerated = false;
-    _defSerial[0] = 'C';
-    _defSerial[1] = 'K';
-    _defSerial[2] = D2H(DEVID >> 28);
-    _defSerial[3] = D2H(DEVID >> 24);
-    _defSerial[4] = D2H(DEVID >> 20);
-    _defSerial[5] = D2H(DEVID >> 16);
-    _defSerial[6] = D2H(DEVID >> 12);
-    _defSerial[7] = D2H(DEVID >> 8);
-    _defSerial[8] = D2H(DEVID >> 4);
-    _defSerial[9] = D2H(DEVID);
-    _defSerial[10] = D2H(DEVCFG3 >> 12);
-    _defSerial[11] = D2H(DEVCFG3 >> 8);
-    _defSerial[12] = D2H(DEVCFG3 >> 4);
-    _defSerial[13] = D2H(DEVCFG3);
+    _driver->populateDefaultSerial(_defSerial);
 }
 
 USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
@@ -193,7 +173,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
-    populateDefaultSerial();
+    _driver->populateDefaultSerial(_defSerial);
 }
 
 uint8_t USBManager::allocateInterface() {
