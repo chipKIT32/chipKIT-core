@@ -387,6 +387,11 @@ void USBHS::handleInterrupt() {
     if (isRESETIF) {
         addEndpoint(0, EP_IN, EP_CTL, 64, _ctlRxA, _ctlRxB);
         addEndpoint(0, EP_OUT, EP_CTL, 64, _ctlTxA, _ctlTxB);
+        _manager->setEnumerated(false);
+    }
+
+    if (isDISCONIF) {
+        _manager->setEnumerated(false);
     }
 
     volatile uint8_t *fifo;

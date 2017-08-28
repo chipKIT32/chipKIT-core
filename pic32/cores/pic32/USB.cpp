@@ -111,6 +111,7 @@ USBFS usbDriver;
 #define D2H(X) ((X & 0xF) < 10 ? '0' + (X & 0xF) : 'A' - 10 + (X & 0xF))
 
 USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser) {
+    _enumerated = false;
     _driver = driver;
     _driver->setManager(this);
     _devices = NULL;
@@ -129,6 +130,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
 }
 
 USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser) {
+    _enumerated = false;
     _driver = &driver;
     _driver->setManager(this);
     _devices = NULL;
@@ -147,6 +149,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char
 }
 
 USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
+    _enumerated = false;
     _driver = driver;
     _driver->setManager(this);
     _devices = NULL;
@@ -161,6 +164,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
 }
 
 void USBManager::populateDefaultSerial() {
+    _enumerated = false;
     _defSerial[0] = 'C';
     _defSerial[1] = 'K';
     _defSerial[2] = D2H(DEVID >> 28);
@@ -178,6 +182,7 @@ void USBManager::populateDefaultSerial() {
 }
 
 USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
+    _enumerated = false;
     _driver = &driver;
     _driver->setManager(this);
     _devices = NULL;
@@ -367,6 +372,7 @@ void USBManager::onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l) {
             break;
 
         case 0x0009: // Set Configuration
+            _enumerated = true;
             for (struct USBDeviceList *scan = _devices; scan; scan = scan->next) {
                 scan->device->onEnumerated();
             }
@@ -423,6 +429,10 @@ void USBManager::addDevice(USBDevice *d) {
         scan = scan->next;
     }
     scan->next = newDevice;
+}
+
+bool USBManager::isEnumerated() { 
+    return _enumerated;
 }
 
 #endif // _USB

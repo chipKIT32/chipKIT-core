@@ -342,6 +342,7 @@ void USBFS::handleInterrupt() {
 		U1CONbits.TOKBUSY=0;
 	}
 	if (U1IRbits.URSTIF) {
+        _manager->setEnumerated(false);
 		U1IEbits.IDLEIE = 1;
 		U1IEbits.TRNIE = 1;
 		U1ADDR = 0;
@@ -384,7 +385,6 @@ bool USBFS::setAddress(uint8_t address) {
 bool USBFS::isIdle(uint8_t ep) {
     return (_endpointBuffers[ep].buffer == NULL);
 }
-
 
 #endif // __PIC32MX__
 #endif // _USB

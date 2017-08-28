@@ -252,11 +252,15 @@ class USBManager {
         char _defSerial[14];
 
         void populateDefaultSerial();
+        bool _enumerated;
 
 	public:
         void onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l);
         void onInPacket(uint8_t ep, uint8_t *data, uint32_t l);
         void onOutPacket(uint8_t ep, uint8_t *data, uint32_t l);
+
+        bool isEnumerated();
+        void setEnumerated(bool e) { _enumerated = e; }
 
         bool isHighSpeed() { return _driver->isHighSpeed(); }
 
@@ -277,15 +281,24 @@ class USBManager {
         }
 
         bool sendBuffer(uint8_t ep, const uint8_t *data, uint32_t len) {
-            return _driver->sendBuffer(ep, data, len);
+            if (_enumerated) {
+                return _driver->sendBuffer(ep, data, len);
+            }
+            return true; // Honest, guv, we sent it!
         }
 
         bool canEnqueuePacket(uint8_t ep) {
-            return _driver->canEnqueuePacket(ep);
+            if (_enumerated) {
+                return _driver->canEnqueuePacket(ep);
+            }
+            return true; // Sure, guv, you can send it... honest...
         }
 
 		bool enqueuePacket(uint8_t ep, const uint8_t *data, uint32_t len) {
-            return _driver->enqueuePacket(ep, data, len);
+            if (_enumerated) {
+                return _driver->enqueuePacket(ep, data, len);
+            }
+            return true; // Honest, guv, we sent it!
         }
 
         void haltEndpoint(uint8_t ep) {
