@@ -163,6 +163,55 @@ bool USBHS::enableUSB() {
 }
 
 bool USBHS::disableUSB() {
+    clearIntEnable(_USB_VECTOR);
+
+#ifdef PIN_LED_TX
+    pinMode(PIN_LED_TX, INPUT);
+#endif
+
+#ifdef PIN_LED_RX
+    pinMode(PIN_LED_RX, INPUT);
+#endif
+
+    USBCSR0bits.SOFTCONN = 0;
+    USBCSR0bits.FUNC = 0;
+
+    IEC4bits.USBIE = 0;
+#if defined(USBCRCON)
+    USBCRCONbits.USBIE = 0;
+#endif
+
+    USBCSR1bits.EP0IE = 0;
+    USBE0CSR0bits.TXMAXP = 0;
+//    for (int i = 0; i < 8; i++) {
+//        USBCSR3bits.ENDPOINT = i;
+//        USBIENCSR0bits.TXMAXP = 0;
+//        USBIENCSR3bits.PROTOCOL = 0b00; 
+//        USBFIFOAbits.RXFIFOAD = 0;
+//        USBIENCSR0bits.CLRDT = 0;
+//        USBOTGbits.RXFIFOSZ = 0;
+//        USBCSR2bits.EP1RXIE = 0;
+//        USBFIFOAbits.TXFIFOAD = 0;
+//        USBIENCSR1bits.ISO = 0;
+//    }
+//
+//    USBCSR2bits.EP1RXIE = 0;
+//    USBCSR2bits.EP2RXIE = 0;
+//    USBCSR2bits.EP3RXIE = 0;
+//    USBCSR2bits.EP4RXIE = 0;
+//    USBCSR2bits.EP5RXIE = 0;
+//    USBCSR2bits.EP6RXIE = 0;
+//    USBCSR2bits.EP7RXIE = 0;
+//    USBCSR1bits.EP1TXIE = 0;
+//    USBCSR1bits.EP2TXIE = 0;
+//    USBCSR1bits.EP3TXIE = 0;
+//    USBCSR1bits.EP4TXIE = 0;
+//    USBCSR1bits.EP5TXIE = 0;
+//    USBCSR1bits.EP6TXIE = 0;
+//    USBCSR1bits.EP7TXIE = 0;
+//
+//    USBCSR3bits.ENDPOINT = 0;
+
 	return true;
 }
 	

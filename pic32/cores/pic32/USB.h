@@ -316,7 +316,7 @@ class USBManager {
             return _driver->isIdle(ep);
         }
 
-        void end() {}
+        void end();
 
 };
 
@@ -719,6 +719,8 @@ class HID_Raw : public USBDevice {
         bool _nextPacketIsMine;
         uint8_t _features[256];
 
+        void (*_outputReportHandler)(uint8_t *data, uint32_t len);
+
     public:
         void sendReport(uint8_t *b, uint8_t l);
         uint16_t getDescriptorLength();
@@ -740,6 +742,8 @@ class HID_Raw : public USBDevice {
 
         uint8_t getFeature(uint8_t f) { return _features[f]; }
         void setFeature(uint8_t f, uint8_t v) { _features[f] = v; }
+
+        void onOutputReport(void (*func)(uint8_t *, uint32_t)) { _outputReportHandler = func; }
 };
 
 class Audio_MIDI : public USBDevice {

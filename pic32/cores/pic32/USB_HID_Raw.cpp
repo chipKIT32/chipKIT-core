@@ -155,7 +155,7 @@ bool HID_Raw::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute
     return false;
 }
 
-bool HID_Raw::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
+bool HID_Raw::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t l) {
     if (ep == 0) {
         if (_nextPacketIsMine == true) {
             _features[data[0]] = data[1];
@@ -166,6 +166,9 @@ bool HID_Raw::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, ui
     }
 
     if (ep == _epInt) {
+        if (_outputReportHandler) {
+            _outputReportHandler(data, l);
+        }
         return true;
     }
     return false;
@@ -182,7 +185,7 @@ void HID_Raw::sendReport(uint8_t *b, uint8_t l) {
 }
 
 void HID_Raw::onEnumerated() {
-    sendReport((uint8_t *)"\0", 1);
+//    sendReport((uint8_t *)"\0", 1);
 }
 
 #endif // _USB

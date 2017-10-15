@@ -196,6 +196,10 @@ void USBManager::begin() {
     _driver->enableUSB();
 }
 
+void USBManager::end() {
+    _driver->disableUSB();
+}
+
 void USBManager::onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l) {
     uint16_t signature = (data[0] << 8) | data[1];
     uint16_t outLength = (data[7] << 8) | data[6];
