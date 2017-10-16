@@ -253,7 +253,8 @@ class USBManager {
         const char *_manufacturer;
         const char *_product;
         const char *_serial;
-        char _defSerial[14];
+        uint32_t _serialLen;
+        char _defSerial[16];
 
         bool _enumerated;
 

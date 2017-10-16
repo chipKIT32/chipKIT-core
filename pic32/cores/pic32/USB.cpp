@@ -121,9 +121,10 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
     _product = prod;
     if (ser) {
         _serial = ser;
+        _serialLen = strlen(ser);
     } else {
         _serial = _defSerial;
-        _driver->populateDefaultSerial(_defSerial);
+        _serialLen = _driver->populateDefaultSerial(_defSerial);
     }
 }
 
@@ -140,9 +141,10 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char
     _product = prod;
     if (ser) {
         _serial = ser;
+        _serialLen = strlen(ser);
     } else {
         _serial = _defSerial;
-        _driver->populateDefaultSerial(_defSerial);
+        _serialLen = _driver->populateDefaultSerial(_defSerial);
     }
 }
 
@@ -158,7 +160,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
-    _driver->populateDefaultSerial(_defSerial);
+    _serialLen = _driver->populateDefaultSerial(_defSerial);
 }
 
 USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
@@ -173,7 +175,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
-    _driver->populateDefaultSerial(_defSerial);
+    _serialLen = _driver->populateDefaultSerial(_defSerial);
 }
 
 uint8_t USBManager::allocateInterface() {
@@ -302,7 +304,7 @@ void USBManager::onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l) {
                                 break;
 
                             case 0x03: { // Serial
-                                    uint8_t mlen = strlen(_serial);
+                                    uint8_t mlen = _serialLen;
                                     uint8_t o[mlen * 2 + 2];
                                     o[0] = mlen * 2 + 2;
                                     o[1] = 0x03;
