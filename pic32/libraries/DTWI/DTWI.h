@@ -153,7 +153,7 @@ public:
     } I2C_FREQ;
 
 protected:
-	DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC);
+	DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, isrFunc vecP, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC);
 
 private:
 
