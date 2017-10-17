@@ -70,7 +70,7 @@
 /************************************************************************/
 /************************************************************************/
 
-DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC)
+DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, isrFunc vecP, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC)
 {
     int             bnIRQ   = (irqBusC % 32);                           // IE and IF bit locations
     uint32_t        bmI2C   = 0;
@@ -107,8 +107,8 @@ DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, uint8_t iplC, uint8_t
     // the MZ part works off of offset tables
     // We are given the BUS VEC, and we must fill in the 
     // the SLAVE and MASTER VECs as well
-    setIntVector(vec+1, getIntVector(vec));
-    setIntVector(vec+2, getIntVector(vec));
+    setIntVector(vec+1, vecP);
+    setIntVector(vec+2, vecP);
 
     // and set the priorities for the other 2 vectors.
     setIntPriority(vec+1, ipl, spl);
@@ -239,6 +239,7 @@ DTWI::I2C_STATUS DTWI::getStatus(void)
  *
  *      Notes:
  * ------------------------------------------------------------ */
+
 uint32_t DTWI::write(const byte * pb, uint32_t cb)
 {
     uint8_t iNext       = iWriteNext;   // freeze this, interrupt routine updates this  
@@ -485,13 +486,11 @@ bool DTWI::setNAK(uint32_t cbToNakT)
  * ------------------------------------------------------------ */
 void DTWI::primeMasterSlave(void)
 {
-
     // Only do something if it is my bus
     if(!getStatus().fMyBus)
     {                               
         return;
     }
-
     // master mode, prime the master
     else if(fMasterMode)
     {
@@ -499,7 +498,6 @@ void DTWI::primeMasterSlave(void)
         pregIfs->set = (bitB << shiftMaster);
         pregIec->set = (bitB << shiftMaster);
     }
-
     // slave mode, prime the slave
     else
     {
@@ -1435,7 +1433,7 @@ void __attribute__((nomips16)) DTWI::slaveMachine(void)
 DTWI0 * DTWI0::pDTWI0 = NULL;
 
 // the class methods
-DTWI0::DTWI0() : DTWI(((p32_i2c *) _DTWI0_BASE), _DTWI0_BUS_IRQ, _DTWI0_VECTOR, _DTWI0_IPL, _DTWI0_SPL, _DTWI0_SCL_PIN, _DTWI0_SDA_PIN) 
+DTWI0::DTWI0() : DTWI(((p32_i2c *) _DTWI0_BASE), _DTWI0_BUS_IRQ, _DTWI0_VECTOR, IntDtwi0Handler, _DTWI0_IPL, _DTWI0_SPL, _DTWI0_SCL_PIN, _DTWI0_SDA_PIN) 
 {
     // save the instance away so the interrupt routine can
     // get back to this instance
@@ -1456,7 +1454,7 @@ void __USER_ISR IntDtwi0Handler(void)
 DTWI1 * DTWI1::pDTWI1 = NULL;
 
 // the class methods
-DTWI1::DTWI1() : DTWI(((p32_i2c *) _DTWI1_BASE), _DTWI1_BUS_IRQ, _DTWI1_VECTOR, _DTWI1_IPL, _DTWI1_SPL, _DTWI1_SCL_PIN, _DTWI1_SDA_PIN) 
+DTWI1::DTWI1() : DTWI(((p32_i2c *) _DTWI1_BASE), _DTWI1_BUS_IRQ, _DTWI1_VECTOR, IntDtwi1Handler, _DTWI1_IPL, _DTWI1_SPL, _DTWI1_SCL_PIN, _DTWI1_SDA_PIN) 
 {
     // save the instance away so the interrupt routine can
     // get back to this instance
@@ -1477,7 +1475,7 @@ void __USER_ISR IntDtwi1Handler(void)
 DTWI2 * DTWI2::pDTWI2 = NULL;
 
 // the class methods
-DTWI2::DTWI2() : DTWI(((p32_i2c *) _DTWI2_BASE), _DTWI2_BUS_IRQ, _DTWI2_VECTOR, _DTWI2_IPL, _DTWI2_SPL, _DTWI2_SCL_PIN, _DTWI2_SDA_PIN) 
+DTWI2::DTWI2() : DTWI(((p32_i2c *) _DTWI2_BASE), _DTWI2_BUS_IRQ, _DTWI2_VECTOR, IntDtwi2Handler, _DTWI2_IPL, _DTWI2_SPL, _DTWI2_SCL_PIN, _DTWI2_SDA_PIN) 
 {
     // save the instance away so the interrupt routine can
     // get back to this instance
@@ -1498,7 +1496,7 @@ void __USER_ISR IntDtwi2Handler(void)
 DTWI3 * DTWI3::pDTWI3 = NULL;
 
 // the class methods
-DTWI3::DTWI3() : DTWI(((p32_i2c *) _DTWI3_BASE), _DTWI3_BUS_IRQ, _DTWI3_VECTOR, _DTWI3_IPL, _DTWI3_SPL, _DTWI3_SCL_PIN, _DTWI3_SDA_PIN) 
+DTWI3::DTWI3() : DTWI(((p32_i2c *) _DTWI3_BASE), _DTWI3_BUS_IRQ, _DTWI3_VECTOR, IntDtwi3Handler, _DTWI3_IPL, _DTWI3_SPL, _DTWI3_SCL_PIN, _DTWI3_SDA_PIN) 
 {
     // save the instance away so the interrupt routine can
     // get back to this instance
@@ -1519,7 +1517,7 @@ void __USER_ISR IntDtwi3Handler(void)
 DTWI4 * DTWI4::pDTWI4 = NULL;
 
 // the class methods
-DTWI4::DTWI4() : DTWI(((p32_i2c *) _DTWI4_BASE), _DTWI4_BUS_IRQ, _DTWI4_VECTOR, _DTWI4_IPL, _DTWI4_SPL, _DTWI4_SCL_PIN, _DTWI4_SDA_PIN) 
+DTWI4::DTWI4() : DTWI(((p32_i2c *) _DTWI4_BASE), _DTWI4_BUS_IRQ, _DTWI4_VECTOR, IntDtwi4Handler, _DTWI4_IPL, _DTWI4_SPL, _DTWI4_SCL_PIN, _DTWI4_SDA_PIN) 
 {
     // save the instance away so the interrupt routine can
     // get back to this instance
