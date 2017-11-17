@@ -63,6 +63,9 @@
 // Uncomment this to enable the end function
 //#define ENABLE_END 1
 
+#define WIRE_HAS_SETCLOCK // iplements a setClock() method
+#define WIRE_HAS_GETCLOCK // iplements a getClock() method
+
 class TwoWire
 {
   private:
@@ -110,6 +113,8 @@ class TwoWire
     uint8_t read(void);
     void onReceive( void (*)(int) );
     void onRequest( void (*)(void) );
+    void setClock(uint32_t);
+    uint32_t getClock(void);
 };
 
 extern TwoWire Wire;
