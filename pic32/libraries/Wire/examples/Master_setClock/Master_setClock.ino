@@ -3,8 +3,8 @@
 // Demonstrates use of the Wire library
 // setClock() & getClock() methods.
 //
-// void Wire.setClock(clockFrequencyHZ);
-//	returns - nothing
+// uint32_t Wire.setClock(clockFrequencyHZ);
+//	returns - actual Master mode clock frequency in Hz
 //
 // uint32_t Wire.getClock();
 //	returns - actual Master mode clock frequency in Hz
@@ -31,9 +31,13 @@ void setup()
 #if defined(WIRE_HAS_SETCLOCK) && defined(WIRE_HAS_GETCLOCK)
 	for(uint32_t f = 0; f < 3500000; f += 10000)
 	{
-		Wire.setClock(f); // set i2c clock bit rate, if asked
-		Serial.print("Set clock: ");
+	uint32_t rf;
+
+		rf = Wire.setClock(f); // set i2c clock bit rate
+		Serial.print("setClock(");
 		Serial.print(f);
+		Serial.print(") returned: ");
+		Serial.print(rf);
 		Serial.print(" Actual clock: ");
 		Serial.print(Wire.getClock());
 		Serial.println();

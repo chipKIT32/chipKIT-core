@@ -113,7 +113,7 @@ class TwoWire
     uint8_t read(void);
     void onReceive( void (*)(int) );
     void onRequest( void (*)(void) );
-    void setClock(uint32_t);
+    uint32_t setClock(uint32_t);
     uint32_t getClock(void);
 };
 

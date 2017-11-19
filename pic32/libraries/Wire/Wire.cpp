@@ -381,7 +381,7 @@ void TwoWire::onRequest( void (*function)(void) )
 
 // sets i2c clock
 // clockFrequency is in Hz
-void TwoWire::setClock(uint32_t clockFrequency)
+uint32_t TwoWire::setClock(uint32_t clockFrequency)
 {
 
     di2c.endMaster(); // shut down the i2c interface
@@ -390,6 +390,9 @@ void TwoWire::setClock(uint32_t clockFrequency)
     // rounding down if necessary to avoid going over requested
     // frequency
     di2c.beginMaster(di2c.freqHz2i2c_freq(clockFrequency, -1));
+
+    // return the actual clock rate
+    return(getClock());
 }
 
 // return current i2c Master clock rate in Hz

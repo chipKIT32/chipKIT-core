@@ -943,7 +943,7 @@ bool DTWI::stopMaster(void)
  *
  *      Unfortunately, due to beginMaster() using a I2C_FREQ enum vs
  *      an actual frequency, the mapping of frequencies to enums
- *      is slightly different dependind on picking an enum based on an
+ *      is slightly different depending on picking an enum based on an
  *      arbitrary frequency or picking an enum from an actual frequency
  *      that was previously created from an enum.
  *
@@ -1013,8 +1013,8 @@ DTWI::I2C_FREQ DTWI::freqHz2i2c_freq(uint32_t freqHz, int round)
  * ------------------------------------------------------------ */
 DTWI::I2C_FREQ DTWI::getClock(uint32_t *pfreqHz)
 {
-uint32_t freqHz = 0;
-I2C_FREQ I2Cfreq;
+    uint32_t freqHz = 0;
+    I2C_FREQ I2Cfreq;
 
     if(fMasterMode)
     {
