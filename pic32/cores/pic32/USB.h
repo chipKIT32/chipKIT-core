@@ -451,6 +451,44 @@ class CDCACM : public USBDevice, public Stream {
 #define KEY_F11             0xCC
 #define KEY_F12             0xCD
 
+#define COUNTRY_NOT_SUPPORTED       0
+#define COUNTRY_ARABIC              1
+#define COUNTRY_BELGIAN             2
+#define COUNTRY_CANADIAN_BILINGUAL  3
+#define COUNTRY_CANADIAN_FRENCH     4
+#define COUNTRY_CZECH_REPUBLIC      5
+#define COUNTRY_DANISH              6
+#define COUNTRY_FINNISH             7
+#define COUNTRY_FRENCH              8
+#define COUNTRY_GERMAN              9
+#define COUNTRY_GREEK               10
+#define COUNTRY_HEBREW              11
+#define COUNTRY_HUNGARY             12
+#define COUNTRY_INTERNATIONAL       13
+#define COUNTRY_ITALIAN             14
+#define COUNTRY_JAPAN               15
+#define COUNTRY_KOREAN              16
+#define COUNTRY_LATIN_AMERICA       17
+#define COUNTRY_NETHERLANDS         18
+#define COUNTRY_NORWEGIAN           19
+#define COUNTRY_PERSION             20
+#define COUNTRY_POLAND              21
+#define COUNTRY_PORTUGUESE          22
+#define COUNTRY_RUSSIA              23
+#define COUNTRY_SLOVAKIA            24
+#define COUNTRY_SPANISH             25
+#define COUNTRY_SWEDISH             26
+#define COUNTRY_SWISS_FRENCH        27
+#define COUNTRY_SWISS_GERMAN        28
+#define COUNTRY_SWIZERLAND          29
+#define COUNTRY_TAIWAN              30
+#define COUNTRY_TURKISH_Q           31
+#define COUNTRY_UK                  32
+#define COUNTRY_US                  33
+#define COUNTRY_YUGOSLAVIA          34
+#define COUNTRY_TURKISH_F           35
+
+
 struct KeyReport {
     uint8_t modifiers;
     uint8_t reserved;
@@ -466,8 +504,12 @@ class HID_Keyboard : public USBDevice, public Print {
         void sendReport(struct KeyReport *keys);
         uint8_t _intA[8];
         uint8_t _intB[8];
+        uint8_t _countryCode;
 
     public:
+        HID_Keyboard() : _countryCode(0) {}
+        HID_Keyboard(uint8_t cc) : _countryCode(cc) {}
+
         uint16_t getDescriptorLength();
         uint8_t getInterfaceCount();
         uint32_t populateConfigurationDescriptor(uint8_t *buf);

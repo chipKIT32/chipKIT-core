@@ -225,7 +225,7 @@ uint32_t HID_Keyboard::populateConfigurationDescriptor(uint8_t *buf) {
     buf[i++] =                      0x21;
     buf[i++] =                      0x11;
     buf[i++] =                      0x01;
-    buf[i++] =                      0x00;
+    buf[i++] =                      _countryCode;
     buf[i++] =                      1;
     buf[i++] =                      0x22;
     buf[i++] =                      sizeof(keyboardHidReport) & 0xFF;
