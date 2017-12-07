@@ -65,7 +65,8 @@ USBFS usbDriver;
 #define PID_UNASSIGNED_12   0x0f5c
 #define PID_UNASSIGNED_13   0x0f5d
 #define PID_UNASSIGNED_14   0x0f5e
-#define PID_UNASSIGNED_15   0x0f5f
+
+#define PID_BOOTLOADER      0x0f5f
 
 #if defined(__USB_CDCACM__)
     #ifndef _USB_VID_
@@ -119,6 +120,8 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
     _epCount = 1;
     _manufacturer = mfg;
     _product = prod;
+    _deviceAttributes = 0x80; // Bus powered
+    _devicePower = 250; // 500mA
     if (ser) {
         _serial = ser;
         _serialLen = strlen(ser);
@@ -253,8 +256,8 @@ void USBManager::onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l) {
                         desc->bNumInterfaces = faces;
                         desc->bConfigurationValue = 1;
                         desc->iConfiguration = 0;
-                        desc->bmAttributes = 0x80;
-                        desc->bMaxPower = 250;
+                        desc->bmAttributes = _deviceAttributes; // 0x80;
+                        desc->bMaxPower = _devicePower; // 250;
 
                         ptr += sizeof(struct ConfigurationDescriptor);
 

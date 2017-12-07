@@ -258,6 +258,9 @@ class USBManager {
 
         bool _enumerated;
 
+        uint8_t _deviceAttributes;
+        uint8_t _devicePower;
+
 	public:
         void onSetupPacket(uint8_t ep, uint8_t *data, uint32_t l);
         void onInPacket(uint8_t ep, uint8_t *data, uint32_t l);
@@ -318,6 +321,20 @@ class USBManager {
         }
 
         void end();
+
+        void setSelfPowered() {
+            _deviceAttributes &= 0x7F;
+        }
+
+        void setBusPowered() {
+            _deviceAttributes |= 0x80;
+        }
+
+        void setPowerLimit(int power) {
+            if (power < 0) power = 0;
+            if (power > 500) power = 500;
+            _devicePower = power / 2;
+        }
 
 };
 
