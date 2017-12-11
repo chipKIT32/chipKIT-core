@@ -113,6 +113,8 @@ DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, isrFunc vecP, uint8_t
     // and set the priorities for the other 2 vectors.
     setIntPriority(vec+1, ipl, spl);
     setIntPriority(vec+2, ipl, spl);
+#else
+    (void) vecP; // eliminated warning for unused parameter vecP
 #endif
 
     // calculated values
