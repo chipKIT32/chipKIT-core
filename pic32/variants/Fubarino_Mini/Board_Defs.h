@@ -54,6 +54,7 @@
 ** refer to peripherals on the board generically.
 */
 
+#define _USB
 #define	_BOARD_NAME_	"Fubarino Mini"
 
 /* Define the peripherals available on the board.

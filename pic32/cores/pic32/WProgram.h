@@ -19,6 +19,7 @@
 #ifndef HardwareSerial_h
 	#include "HardwareSerial.h"
 #endif
+#include "USB.h"
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);

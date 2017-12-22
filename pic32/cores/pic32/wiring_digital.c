@@ -37,7 +37,10 @@
 //*	Jul 26, 2012	<GeneApperson> Added PPS support for PIC32MX1xx/MX2xx devices
 //************************************************************************
 
+#ifndef OPT_BOARD_INTERNAL
 #define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#endif
+
 #include <p32xxxx.h>
 #include "p32_defs.h"
 #include "wiring_private.h"

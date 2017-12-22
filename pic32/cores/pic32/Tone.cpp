@@ -60,8 +60,13 @@
 
 #include "wiring.h"
 
-#define	OPT_SYSTEM_INTERNAL
-#define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#ifndef OPT_SYSTEM_INTERNAL
+#define OPT_SYSTEM_INTERNAL
+#endif
+#ifndef OPT_BOARD_INTERNAL
+#define OPT_BOARD_INTERNAL  //pull in internal symbol definitons
+#endif
+
 #include "p32_defs.h"
 #include "pins_arduino.h"
 

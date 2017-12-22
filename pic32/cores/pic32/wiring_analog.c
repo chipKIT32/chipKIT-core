@@ -47,8 +47,9 @@
 #include <p32xxxx.h>
 
 #include "wiring_private.h"
-
-#define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#ifndef OPT_BOARD_INTERNAL
+#define OPT_BOARD_INTERNAL  //pull in internal symbol definitons
+#endif
 #include "p32_defs.h"
 #include "pins_arduino.h"
 #include "Board_Defs.h"
