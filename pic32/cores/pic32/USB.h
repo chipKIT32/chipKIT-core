@@ -417,6 +417,10 @@ class CDCACM : public USBDevice, public Stream {
         bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
         void onEnumerated();
 
+        int getLineState() { return _lineState; }
+        bool getDTR() { return ((_lineState & 0x01) == 0x01); }
+        bool getRTS() { return ((_lineState & 0x02) == 0x02); }
+
         size_t write(uint8_t);
         size_t write(const uint8_t *b, size_t len);
 
