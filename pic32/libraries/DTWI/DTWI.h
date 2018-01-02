@@ -52,6 +52,8 @@
 /*					Miscellaneous Declarations					*/
 /* ------------------------------------------------------------ */
 
+#define DTWI_HAS_GETCLOCK // DTWI implements a getClock() method
+
 
 /* ------------------------------------------------------------ */
 /*					Variable Declarations						*/
@@ -147,6 +149,8 @@ public:
     typedef enum
     {
         FQ0Hz       = 0,
+        FQ10KHz     = 10000, 
+        FQ50KHz     = 50000,
         FQ100KHz    = 100000,
         FQ400KHz    = 400000,
         FQ1MHz      = 1000000
@@ -208,6 +212,8 @@ public:
     // MASTER methods
     bool beginMaster(I2C_FREQ feqI2C=FQ100KHz);
     void endMaster(void);
+    I2C_FREQ getClock(uint32_t *pfreqHz = NULL);
+    I2C_FREQ freqHz2i2c_freq(uint32_t freqHz, int round);
 
     bool startMasterWrite(uint8_t addrSlave)
     {

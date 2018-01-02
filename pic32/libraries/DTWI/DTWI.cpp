@@ -567,7 +567,7 @@ void DTWI::forceIdleState(void)
 /************************************************************************/
 /************************************************************************/
 
-/***    bool beginMaster(uint8_t addrSlave)
+/***    bool beginMaster(I2C_FREQ feqI2C)
  *
  *    Parameters:
  *          feqI2C: The freq to run the clock at. By default this is 100KHz
@@ -589,7 +589,7 @@ bool DTWI::beginMaster(I2C_FREQ feqI2C)
     }
     // check that it is one of the allowed frequences
     // the bus must be in a idle state
-    else if(ptwi->i2cCon.ON || !(feqI2C == FQ100KHz || feqI2C == FQ400KHz || feqI2C == FQ1MHz) || ptwi->i2cStat.S)
+    else if(ptwi->i2cCon.ON || !(feqI2C == FQ10KHz  || feqI2C == FQ50KHz|| feqI2C == FQ100KHz || feqI2C == FQ400KHz || feqI2C == FQ1MHz) || ptwi->i2cStat.S)
     {
         return(false);
     }
@@ -927,6 +927,118 @@ bool DTWI::stopMaster(void)
     }
 
     return(false);
+}
+/***    I2C_FREQ freqHz2i2c_freq(uint32_t freqHz, int round);
+ *
+ *    Parameters:
+ *          freqHz: The desired frequency.
+ *
+ *          round: which way to round when selecting the enum
+ *               < 0 rounds down
+ *              >= 0 rounds up
+ *
+ *    Return Value:
+ *          A I2C_FREQ enum for the given freqHz
+ *
+ *    Description: 
+ *      Converts a frequency in Hz to an I2C_FREQ enum.
+ *
+ *      Unfortunately, due to beginMaster() using a I2C_FREQ enum vs
+ *      an actual frequency, the mapping of frequencies to enums
+ *      is slightly different depending on picking an enum based on an
+ *      arbitrary frequency or picking an enum from an actual frequency
+ *      that was previously created from an enum.
+ *
+ *	When picking an enum from an arbitrary frequency, round down
+ *      which ensures that the frequency enum will be no greater than the
+ *      desired frequency.
+ *
+ *      When picking an enum from an actual frequency, round up
+ *      to ensure that beginMaster() will create the same actual
+ *      frequency.
+ *
+ *	If freqHz is a frequency that is exactly supported,
+ *	the rounding direction does not matter.
+ *       
+ * ------------------------------------------------------------ */
+
+DTWI::I2C_FREQ DTWI::freqHz2i2c_freq(uint32_t freqHz, int round)
+{
+    // round up or down?
+    if(round < 0)
+    {
+        // pick closest frequency enum without going over
+        if(freqHz < FQ10KHz)  return(FQ0Hz);
+        if(freqHz < FQ50KHz)  return(FQ10KHz);
+        if(freqHz < FQ100KHz) return(FQ50KHz);
+        if(freqHz < FQ400KHz) return(FQ100KHz);
+        if(freqHz < FQ1MHz)   return(FQ400KHz);
+        return(FQ1MHz);
+    }
+    else
+    {
+        // pick closest I2C_FREQ enum that should give same actual frequency
+        // when used with beginMaster()
+        // note: this assumes freqHz was an actual frequency created using
+        // the I2C_FREQ enums.
+        if(!freqHz)             return(FQ0Hz);
+        if(freqHz <=  FQ10KHz)  return(FQ10KHz);
+        if(freqHz <=  FQ50KHz)  return(FQ50KHz);
+        if(freqHz <=  FQ100KHz) return(FQ100KHz);
+        if(freqHz <= FQ400KHz)  return(FQ400KHz);
+        return(FQ1MHz);
+    }
+}
+
+/***    I2C_FREQ getClock(uint32_t *pfreqHz = NULL)
+ *
+ *    Parameters:
+ *          pfreqHz:
+ *            optional and if provided and non NULL,
+ *            will point to the location where to store actual i2c
+ *            master clock frequency in Hz.
+ *              
+ *    Return Values:
+ *          The current I2C_FREQ frequency of the i2c clock being used.
+ *          If not in master mode or not initilized FQ0Hz is returned.
+ *	
+ *
+ *    Description: 
+ *	Checks for master mode and intialization.
+ *      If h/w is in master mode and initalized, it reads the clock register
+ *      and back calculates the actual frequency.
+ *	Then, it must convert the actual frequency back to a I2C_FREQ enum.
+ *	getClock() must round up from the actual frequency to the nearest enum
+ *      value to enusure that the same clock frequency is created from the
+ *      enum when handed to beginMaster()
+ *
+ * ------------------------------------------------------------ */
+DTWI::I2C_FREQ DTWI::getClock(uint32_t *pfreqHz)
+{
+    uint32_t freqHz = 0;
+    I2C_FREQ I2Cfreq;
+
+    if(fMasterMode)
+    {
+        // read the BRG and then back calculate actual i2c clock frequency.
+        freqHz = __PIC32_pbClk / (2 * (ptwi->ixBrg.reg + 2  + (((__PIC32_pbClk / 10000000) * 26) / 25)));
+    }
+    
+    // pick closest I2C_FREQ enum that should give same actual frequency
+    // when used with beginMaster()
+    // If freqHz is a frequency that is exactly supported,
+    // rounding won't be an issue, but just in case,
+    // the frequency enum must round up since the actual frequency should always be
+    // equal to or less than the enum passed into beginMaster().
+    // 
+
+    I2Cfreq = freqHz2i2c_freq(freqHz, 1);
+
+    if(pfreqHz)
+        *pfreqHz = freqHz;
+
+    return(I2Cfreq);
+
 }
 
 /************************************************************************/
@@ -1535,6 +1647,5 @@ void __USER_ISR IntDtwi4Handler(void)
     DTWI4::pDTWI4->stateMachine();
 }
 #endif
-
 
 

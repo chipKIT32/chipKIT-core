@@ -103,7 +103,7 @@ static bool beginSlave(void (*onReceiveService) (uint8_t*, int), void (*onReques
     if(getTaskId(onI2C) == -1)
     {
         createTask(onI2C, 0, TASK_ENABLE, NULL);
-    };
+    }
     onReceiveServiceR = onReceiveService;
     onRequestServiceR = onRequestService;
     iSessionCur = 0xFF;
@@ -123,7 +123,7 @@ void TwoWire::begin(void)
 {
     if(beginCount == 0)
     {
-    beginCount++;
+        beginCount++;
         // there are no callback in Master mode
         destroyTask(getTaskId(onI2C));
         di2c.beginMaster();
@@ -149,7 +149,8 @@ void TwoWire::begin(uint8_t address)
 // Until it is completed this is an option function enabled in the Wire.h header file.
 
 #ifdef ENABLE_END
-void TwoWire::end() {
+void TwoWire::end()
+{
     DTWI::I2C_STATUS status = di2c.getStatus();
 
     if(beginCount == 0)
@@ -173,12 +174,12 @@ void TwoWire::end() {
     // clean out the read / write buffer
     di2c.abort();
     di2c.discard();
-    }
+}
 #endif
 
 void TwoWire::begin(int address)
 {
-  begin((uint8_t)address);
+    begin((uint8_t)address);
 }
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity)
@@ -227,7 +228,7 @@ void TwoWire::beginTransmission(uint8_t address)
 
 void TwoWire::beginTransmission(int address)
 {
-  beginTransmission((uint8_t)address);
+    beginTransmission((uint8_t)address);
 }
 
 uint8_t TwoWire::endTransmission(uint8_t fStopBit)
@@ -317,7 +318,7 @@ void TwoWire::send(int data) { write(data); }
 // or after requestFrom(address, numBytes)
 uint8_t TwoWire::available(void)
 {
-  return (di2c.available());
+    return (di2c.available());
 }
 
 // receive() is pre Arduino 1.x
@@ -328,8 +329,10 @@ uint8_t TwoWire::receive(void)
 
     value = read();
     if(value < 0)
-        return('\0');
-
+    {
+        value = '\0';
+    }
+    
     return((uint8_t)value);
 }
 
@@ -353,38 +356,62 @@ int TwoWire::read(void)
 // behind the scenes function that is called when data is received
 void TwoWire::onReceiveService(uint8_t* inBytes __attribute__((unused)), int numBytes)
 {
-  // don't bother if user hasn't registered a callback
-  if(!user_onReceive){
-    return;
-  }
-  // don't bother if rx buffer is in use by a master requestFrom() op
-  // i know this drops data, but it allows for slight stupidity
-  // meaning, they may not have read all the master requestFrom() data yet
+    // don't bother if user hasn't registered a callback
+    if(!user_onReceive)
+    {
+        return;
+    }
+    // don't bother if rx buffer is in use by a master requestFrom() op
+    // i know this drops data, but it allows for slight stupidity
+    // meaning, they may not have read all the master requestFrom() data yet
     user_onReceive(numBytes);
 }
 
 // behind the scenes function that is called when data is requested
 void TwoWire::onRequestService(void)
 {
-  // don't bother if user hasn't registered a callback
-  if(!user_onRequest){
-    return;
-  }
-  // alert user program
-  user_onRequest();
+    // don't bother if user hasn't registered a callback
+    if(!user_onRequest)
+    {
+        return;
+    }
+    // alert user program
+    user_onRequest();
 }
 
 // sets function called on slave write
 void TwoWire::onReceive( void (*function)(int) )
 {
-  user_onReceive = function;
+    user_onReceive = function;
 }
 
 // sets function called on slave read
 void TwoWire::onRequest( void (*function)(void) )
 {
-  user_onRequest = function;
+    user_onRequest = function;
 }
 
+// sets i2c clock
+// clockFrequency is in Hz
+uint32_t TwoWire::setClock(uint32_t clockFrequency)
+{
 
+    di2c.endMaster(); // shut down the i2c interface
 
+    // restart interface at the closest frequency supported.
+    // rounding down if necessary to avoid going over requested
+    // frequency
+    di2c.beginMaster(di2c.freqHz2i2c_freq(clockFrequency, -1));
+
+    // return the actual clock rate
+    return(getClock());
+}
+
+// return current i2c Master clock rate in Hz
+uint32_t TwoWire::getClock(void)
+{
+    uint32_t freqHz;
+
+    di2c.getClock(&freqHz);
+    return(freqHz);
+}
