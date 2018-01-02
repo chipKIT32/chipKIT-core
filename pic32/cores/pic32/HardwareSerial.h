@@ -54,6 +54,10 @@
 	#include "Stream.h"
 #endif
 
+#if defined (__SERIAL_IS_USB__)
+    #include "USB.h"
+#endif
+
 
 //* ------------------------------------------------------------
 //* 		General Declarations
@@ -133,37 +137,6 @@ class HardwareSerial : public Stream
 
 };
 
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
-//*******************************************************************************************
-class USBSerial : public Stream
-{
-	private:
-		ring_buffer				*_rx_buffer;
-		
-	public:
-		USBSerial	(ring_buffer	*rx_buffer);
-
-        void            (*rxIntr)(int); // Interrupt callback routine
-
-        void            attachInterrupt(void (*callback)(int));
-        void            detachInterrupt();
-
-		void			begin(unsigned long baudRate);
-		void			end();
-		virtual int		available(void);
-		virtual int		peek();
-		virtual int		read(void);
-		virtual void	flush(void);
-		virtual	size_t	write(uint8_t);
-		virtual size_t	write(const char *str);
-		virtual size_t	write(const uint8_t *buffer, size_t size);
-        operator        int();
-        virtual unsigned long getBaudRate();
-
-		using	Print::write; // pull in write(str) and write(buf, size) from Print
-};
-
-#endif	//	defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
 
 //* ------------------------------------------------------------
 //* 		Declare Serial Port Objects
@@ -200,13 +173,13 @@ class USBSerial : public Stream
 
 //* NOTE: NUM_SERIAL_PORTS is defined in Board_Defs.h per-board type.
 
-#if defined(_USB) && defined(_USE_USB_FOR_SERIAL_)
+#if defined (__SERIAL_IS_USB__) 
         /* 
         ** If we're using USB for serial, the USB serial port gets
         ** instantiated as Serial and hardware serial port 0 gets
         ** instantiated as Serial0.
         */
-        extern USBSerial Serial;
+        extern CDCACM Serial;
         void serialEvent() __attribute__((weak));
         bool Serial_available() __attribute__((weak));
         #define SERIAL_PORT_USBVIRTUAL Serial

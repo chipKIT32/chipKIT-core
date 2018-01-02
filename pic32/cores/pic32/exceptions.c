@@ -63,7 +63,7 @@ static unsigned int _excep_addr;
 
 //************************************************************************
 // this function overrides the normal _weak_ generic handler
-void _general_exception_handler(void)
+void __attribute__((nomips16)) _general_exception_handler(void)
 {
 	asm volatile("mfc0 %0,$13" : "=r" (_epc_code));
 	asm volatile("mfc0 %0,$14" : "=r" (_excep_addr));

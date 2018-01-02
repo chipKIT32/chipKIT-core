@@ -42,7 +42,10 @@
 /*				Include File Definitions						*/
 /* ------------------------------------------------------------ */
 
-#define	OPT_SYSTEM_INTERNAL
+#ifndef OPT_SYSTEM_INTERNAL
+#define OPT_SYSTEM_INTERNAL
+#endif
+
 #include	<System_Defs.h>
 #include	<pins_arduino.h>
 

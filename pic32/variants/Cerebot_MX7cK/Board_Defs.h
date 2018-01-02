@@ -55,6 +55,7 @@
 */
 
 #define	_BOARD_NAME_	"Cerebot MX7cK"
+#define _USB
 
 /* Define the peripherals available on the board.
 */

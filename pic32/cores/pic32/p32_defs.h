@@ -624,9 +624,10 @@ typedef struct {
     volatile p32_regset adxCon1;
     volatile p32_regset adxCon2;
     volatile p32_regset adxCon3;
+    volatile p32_regset unused;
     volatile p32_regset adxChs;
-    volatile p32_regset adxPcfg;
     volatile p32_regset adxCssl;
+    volatile p32_regset adxPcfg;
     volatile p32_regbuf adxBuf0;
     volatile p32_regbuf adxBuf1;
     volatile p32_regbuf adxBuf2;

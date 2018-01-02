@@ -16,6 +16,7 @@
   <property file="upload.properties"/>
   <property file="version.properties"/>
   <property name="aws.bucket" value="chipkit"/>
+  <property environment="env" />
 
   <condition property="macosx">
     <os family="mac"/>
@@ -33,6 +34,16 @@
     <os arch="arm" family="unix"/>
   </condition>
 
+  <condition property="cache" value="${env.ANT_CACHE}">
+    <isset property="env.ANT_CACHE" />
+  </condition>
+
+  <condition property="cache" value="tmp">
+    <not>
+      <isset property="env.ANT_CACHE" />
+    </not>
+  </condition>
+
   <condition property="platform" value="macosx">
     <os family="mac"/>
   </condition>
@@ -47,6 +58,10 @@
   </condition>
   <condition property="platform" value="arm">
     <os arch="arm" family="unix"/>
+  </condition>
+
+  <condition property="destdir" value="${env.DESTDIR}">
+    <isset property="env.DESTDIR" />
   </condition>
 
   <!-- set time property -->
@@ -70,7 +85,7 @@
   </target>
 
   <target description="configure directories" name="setup">
-    <mkdir dir="tmp"/>
+    <mkdir dir="tmp" />
     <mkdir dir="dist"/>
     <antcall target="updatepic32prog"/>
   </target>
@@ -98,8 +113,8 @@
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <!-- tar.gz 1.42 version from compiler-builds -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Darwin-image.tar.gz" usetimestamp="true" verbose="false"/>
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Darwin-image.tar.gz" compression="gzip"/>
+    <get dest="${cache}" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Darwin-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="${cache}/pic32-tools-142-Darwin-image.tar.gz" compression="gzip"/>
 
     <!-- tar.gz 1.40 version from chipkit-core/releases
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Darwin-image.tar.gz" usetimestamp="true" verbose="false"/>
@@ -117,8 +132,8 @@
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <!-- tar.gz 1.42 version from compiler-builds --> 
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
+    <get dest="${cache}" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="${cache}/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
     
     <!-- tar.gz 1.40 version from chipkit-core/releases 
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
@@ -153,8 +168,8 @@
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
 
     <!-- tar.gz 1.42 version from compiler-builds -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-arm-linux-image.tar.gz" usetimestamp="true" verbose="false"/>
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-arm-linux-image.tar.gz" compression="gzip"/>
+    <get dest="${cache}" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-arm-linux-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="${cache}/pic32-tools-142-arm-linux-image.tar.gz" compression="gzip"/>
     
     <!-- tar.gz 1.40 version from chipkit-core/releases
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz" usetimestamp="true" verbose="false"/>
@@ -189,8 +204,8 @@
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
  
     <!-- tar.gz 1.42 version from compiler-builds -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
+    <get dest="${cache}" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="${cache}/pic32-tools-142-Linux32-image.tar.gz" compression="gzip"/>
     
     <!-- tar.gz 1.40 version from chipkit-core/releases
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-Linux32-image.tar.gz" usetimestamp="true" verbose="false"/>
@@ -225,8 +240,8 @@
     <mkdir dir="dist/${localplatform}/chipkit-core"/>
     
     <!-- tar.gz 1.42 version from compiler-builds -->
-    <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.tar.gz" usetimestamp="true" verbose="false"/>
-    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="tmp/pic32-tools-142-win32-image.tar.gz" compression="gzip"/>
+    <get dest="${cache}" src="https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-win32-image.tar.gz" usetimestamp="true" verbose="false"/>
+    <untar dest="dist/${localplatform}/chipkit-core/pic32/compiler" overwrite="false" src="${cache}/pic32-tools-142-win32-image.tar.gz" compression="gzip"/>
 
     <!-- zip 1.40 version from chipkit-core/releases
     <get dest="tmp" src="https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-win32-image.zip" usetimestamp="true" verbose="false"/>
@@ -241,8 +256,8 @@
       <fileset dir="pic32"/>
     </copy>
 
-    <get dest="tmp" src="https://github.com/sergev/pic32prog/archive/master.zip" usetimestamp="true" verbose="false"/>
-    <unzip dest="tmp" overwrite="false" src="tmp/master.zip"/>
+    <get dest="${cache}" src="https://github.com/sergev/pic32prog/archive/master.zip" usetimestamp="true" verbose="false"/>
+    <unzip dest="tmp" overwrite="false" src="${cache}/master.zip"/>
 
     <copy tofile="dist/${localplatform}/chipkit-core/pic32/tools/bin/pic32prog.exe"
             file="modules/pic32prog-autotools/bin/pic32prog-win32.exe"
@@ -342,7 +357,7 @@
 
   <target name="checksum-pic32tools">
     <checksum algorithm="SHA-256" fileext=".asc" forceOverwrite="yes">
-      <fileset dir="tmp">
+      <fileset dir="${cache}">
         <include name="pic32-tools*.zip"/>
       </fileset>
     </checksum>
@@ -361,10 +376,15 @@
   </target>
 
   <target name="compress" depends="git.revision" description="Compress the distribution for deployment." >
-    <zip destfile="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
+    <condition property="destdir" value="dist/${localplatform}">
+        <not>
+            <isset property="destdir"/>
+        </not>
+    </condition>
+    <zip destfile="${destdir}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip">
       <zipfileset dir="dist/${localplatform}" filemode="755"/>
     </zip>
-    <checksum algorithm="SHA-256" file="dist/${localplatform}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
+    <checksum algorithm="SHA-256" file="${destdir}/chipkit-core-${localplatform}.${CHIPKITCOREVER}.${repository.version}.zip" fileext=".asc"/>
   </target>
 
   <target depends="" description="Clean build" name="clean">

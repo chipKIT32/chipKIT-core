@@ -50,8 +50,12 @@
 #include <p32xxxx.h>
 #include <sys/attribs.h>
 
+#ifndef OPT_SYSTEM_INTERNAL
 #define	OPT_SYSTEM_INTERNAL
+#endif
+#ifndef OPT_BOARD_INTERNAL
 #define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#endif
 #include "pins_arduino.h"
 #include "p32_defs.h"
 
@@ -62,6 +66,10 @@
 // for the MZ parts, IRQ and VECTORS are the same
 #ifndef _CORE_TIMER_IRQ
 #define _CORE_TIMER_IRQ _CORE_TIMER_VECTOR
+#endif
+
+#if defined(__USB_ENABLED__)
+extern void usb_boot_system();
 #endif
 
 //************************************************************************
@@ -242,6 +250,10 @@ void	_board_init(void);
 	p32_uart *	uart;
 	uart = (p32_uart *)_SER0_BASE;
 	uart->uxMode.clr = (1 << _UARTMODE_ON);
+#endif
+
+#if defined(__USB_ENABLED__)
+    usb_boot_system();
 #endif
 }
 

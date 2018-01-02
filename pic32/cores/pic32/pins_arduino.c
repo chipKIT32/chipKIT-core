@@ -35,8 +35,13 @@
 //*	Jul 26, 2012	<GeneApperson> Added PPS support for PIC32MX1xx/MX2xx devices
 //************************************************************************
 
+#ifndef OPT_BOARD_INTERNAL
 #define OPT_BOARD_INTERNAL
+#endif
+#ifndef OPT_BOARD_DATA
 #define OPT_BOARD_DATA
+#endif
+
 #include <p32xxxx.h>
 #include "pins_arduino.h"
 #include "p32_defs.h"

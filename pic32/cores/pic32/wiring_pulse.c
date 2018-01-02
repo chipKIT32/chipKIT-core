@@ -30,7 +30,9 @@
 //*	Nov 25,	2011	<MLS> Fixed pulsIn as per Issue#63
 //************************************************************************
 
+#ifndef OPT_BOARD_INTERNAL
 #define OPT_BOARD_INTERNAL	//pull in internal symbol definitons
+#endif
 #include	"wiring_private.h"
 #include	"p32_defs.h"
 #include	"pins_arduino.h"

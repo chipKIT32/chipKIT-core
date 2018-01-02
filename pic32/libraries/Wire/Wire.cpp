@@ -321,24 +321,34 @@ uint8_t TwoWire::available(void)
     return (di2c.available());
 }
 
+// receive() is pre Arduino 1.x
+// receive returns '\0' (null) when there is no data
 uint8_t TwoWire::receive(void)
 {
-    return(read());
+    int value;
+
+    value = read();
+    if(value < 0)
+        return('\0');
+
+    return((uint8_t)value);
 }
 
+// read() is Arduino 1.x 
+// read returns < 0 when there is no data
 // must be called in:
 // slave rx event callback
 // or after requestFrom(address, numBytes)
-uint8_t TwoWire::read(void)
+int TwoWire::read(void)
 {
     byte    data;
   
     if(di2c.read(&data, 1) == 1)
     {
-        return((uint8_t) data);
+        return((int) ((uint8_t) data));
     }
 
-    return('\0');
+    return(-1);
 }
 
 // behind the scenes function that is called when data is received

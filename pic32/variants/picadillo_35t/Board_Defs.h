@@ -5,6 +5,7 @@
 #include <inttypes.h>
 
 #define	_BOARD_NAME_	"PICadillo-35T"
+#define _USB
 
 // Define the Microcontroller peripherals available on the board.
 #define	NUM_DIGITAL_PINS	58
