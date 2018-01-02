@@ -329,8 +329,10 @@ uint8_t TwoWire::receive(void)
 
     value = read();
     if(value < 0)
-        return('\0');
-
+    {
+        value = '\0';
+    }
+    
     return((uint8_t)value);
 }
 
