@@ -379,7 +379,7 @@ class CDCACM : public USBDevice, public Stream {
         uint8_t _bulkRxB[CDCACM_BULKEP_SIZE];
         uint8_t _bulkTxA[CDCACM_BULKEP_SIZE];
         uint8_t _bulkTxB[CDCACM_BULKEP_SIZE];
-#define CDCACM_BUFFER_HIGH 64
+#define CDCACM_BUFFER_HIGH 4
 #elif defined(__PIC32MZ__)
 #define CDCACM_BUFFER_SIZE 256
 #define CDCACM_BULKEP_SIZE 512
@@ -389,7 +389,7 @@ class CDCACM : public USBDevice, public Stream {
         uint8_t _bulkRxB[CDCACM_BULKEP_SIZE];
         uint8_t _bulkTxA[CDCACM_BULKEP_SIZE];
         uint8_t _bulkTxB[CDCACM_BULKEP_SIZE];
-#define CDCACM_BUFFER_HIGH 512
+#define CDCACM_BUFFER_HIGH 8
 #endif
         volatile uint32_t _txHead;
         volatile uint32_t _txTail;

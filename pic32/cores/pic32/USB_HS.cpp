@@ -31,8 +31,11 @@
 #include <pins_arduino.h>
 #if defined(_USB)
 #ifdef __PIC32MZ__
+#include <Arduino.h>
 
 #include <USB.h>
+
+//#define DEBUG 1
 
 #define KVA_TO_PA(v)  ((v) & 0x1fffffff)
 #define PA_TO_KVA0(pa)  ((pa) | 0x80000000)  // cachable
@@ -589,7 +592,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 1;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(1, _endpointBuffers[1].tx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(1, _endpointBuffers[1].tx[0], _endpointBuffers[1].size);
     }
         
     if (isEP2TXIF) {
@@ -597,7 +600,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 2;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(2, _endpointBuffers[2].tx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(2, _endpointBuffers[2].tx[0], _endpointBuffers[2].size);
     }
         
     if (isEP3TXIF) {
@@ -613,7 +616,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 4;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(4, _endpointBuffers[4].rx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(4, _endpointBuffers[4].rx[0], _endpointBuffers[4].size);
     }
         
     if (isEP5TXIF) {
@@ -621,7 +624,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 5;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(5, _endpointBuffers[5].rx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(5, _endpointBuffers[5].rx[0], _endpointBuffers[5].size);
     }
         
     if (isEP6TXIF) {
@@ -629,7 +632,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 6;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(6, _endpointBuffers[6].rx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(6, _endpointBuffers[6].rx[0], _endpointBuffers[6].size);
     }
         
     if (isEP7TXIF) {
@@ -637,7 +640,7 @@ void USBHS::handleInterrupt() {
         USBCSR3bits.ENDPOINT = 7;
         USBIENCSR0bits.MODE = 0;
         USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(7, _endpointBuffers[7].rx[0], _endpointBuffers[3].size);
+        if (_manager) _manager->onInPacket(7, _endpointBuffers[7].rx[0], _endpointBuffers[7].size);
     }
         
 

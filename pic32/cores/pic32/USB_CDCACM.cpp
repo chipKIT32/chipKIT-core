@@ -30,7 +30,7 @@
 
 #include <pins_arduino.h>
 #if defined(_USB)
-
+#include <Arduino.h>
 #include <USB.h>
 
 #define CDC_ACT_SET_LINE_CODING 1
@@ -241,8 +241,6 @@ bool CDCACM::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) 
     }
 
     if (ep == _epBulk) {
-
-
         for (uint32_t i = 0; i < l; i++) {
             uint32_t bufIndex = (_rxHead + 1) % CDCACM_BUFFER_SIZE;
             if (bufIndex != _rxTail) {
@@ -256,7 +254,6 @@ bool CDCACM::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) 
         if ((remaining < CDCACM_BUFFER_HIGH) && (_rxHead != _rxTail)) {
             _manager->haltEndpoint(_epBulk);
         }
-
         return true;
     }
     return false;
@@ -332,13 +329,17 @@ int CDCACM::availableForWrite() {
 
 int CDCACM::read() {
     if (_rxHead == _rxTail) return -1;
+    int prevremaining = (_rxTail - _rxHead + CDCACM_BUFFER_SIZE) % CDCACM_BUFFER_SIZE;
+
     uint8_t ch = _rxBuffer[_rxTail];
     _rxTail = (_rxTail + 1) % CDCACM_BUFFER_SIZE;
 
     int remaining = (_rxTail - _rxHead + CDCACM_BUFFER_SIZE) % CDCACM_BUFFER_SIZE;
 
-    if ((remaining >= CDCACM_BUFFER_HIGH) || (_rxHead == _rxTail)) {
-        _manager->resumeEndpoint(_epBulk);
+    if (prevremaining < CDCACM_BUFFER_HIGH) {
+        if ((remaining >= CDCACM_BUFFER_HIGH) || (_rxHead == _rxTail)) {
+            _manager->resumeEndpoint(_epBulk);
+        }
     }
 
     return ch;
