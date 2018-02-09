@@ -19,10 +19,10 @@ compiler.warning_flags.default=
 compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
-# Default "compiler.path" is correct, change only if you want to overidde the initial value
-# This line must be set right ({runtime.hardware.path}/pic32/compiler/pic32-tools/bin/) for the ZIP file builds. It gets reaplced
+# Default "compiler.path" is correct, change only if you want to override the initial value
+# This line must be set right ({runtime.tools.pic32-tools.path}/bin/) for the ZIP file builds. It gets replaced
 # by build.xml regex to {runtime.tools.pic32-tools.path}/bin/ for the URL (github-release) build
-compiler.path={runtime.hardware.path}/pic32/compiler/pic32-tools/bin/
+compiler.path={runtime.tools.pic32-tools.path}/bin/
 compiler.c.cmd=pic32-gcc
 # Use a high -Gnum for devices that have less than 64K of data memory
 # For -G1024, objects 1024 bytes or smaller will be accessed by
@@ -58,7 +58,7 @@ build.ldscript.path={build.core.path}
 build.variant=Default_100
 core.header=WProgram.h
 
-# This can be overriden in boards.txt
+# This can be overridden in boards.txt
 build.extra_flags=
 
 # These can be overridden in platform.local.txt
@@ -98,8 +98,8 @@ recipe.output.save_file={build.project_name}.{build.variant}.hex
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
-recipe.size.regex=^(?:\.reset|\.image_ptr_table|\.app_excpt|\.vector\S*|\.startup|\.init|\.fini|\.ctors|\.dtors|\.header_info|\.dinit|\.text\S*|\.rodata\S*|\.data)\s+([0-9]+).*
-recipe.size.regex.data=^(?:\.ram_exchange_data|\.dbg_data|\.sdata|\.sbss|\.data\S*|\.stack|\.bss|\.comment.__use_force_isr_install|\.eh_frame|\.jcr)\s+([0-9]+).*
+recipe.size.regex=^(?:\.reset|\.startup|\.init|\.fini|\.ctors|\.dtors|\.header_info|\.dinit|\.text\S*|\.rodata\S*|\.data)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.dbg_data|\.ram_exchange_data|\.sdata|\.sbss|\.data\S*|\.stack|\.bss\S*|\.eh_frame|\.jcr|\.libc\S*|\.heap)\s+([0-9]+).*
 #recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 
 ## Preprocessor
@@ -120,9 +120,9 @@ recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {
 upload.tool=pic32prog
 tools.pic32prog.cmd=pic32prog
 tools.pic32prog.cmd.windows=pic32prog.exe
-# This line must be set right ({runtime.hardware.path}/pic32/tools/bin) for the ZIP file builds. It gets reaplced
+# This line must be set right ({runtime.tools.pic32prog.path}) for the ZIP file builds. It gets reaplced
 # by build.xml regex to {runtime.tools.pic32prog.path} for the URL (github-release) build
-tools.pic32prog.path={runtime.hardware.path}/pic32/tools/bin
+tools.pic32prog.path={runtime.tools.pic32prog.path}
 
 tools.pic32prog.upload.params.verbose=
 tools.pic32prog.upload.params.quiet=
@@ -130,9 +130,9 @@ tools.pic32prog.upload.pattern="{path}/{cmd}" {upload.verbose}  -d "{serial.port
 
 tools.pic32prog-hid.cmd=pic32prog
 tools.pic32prog-hid.cmd.windows=pic32prog.exe
-# This line must be set right ({runtime.hardware.path}/pic32/tools/bin) for the ZIP file builds. It gets reaplced
+# This line must be set right ({runtime.tools.pic32prog.path}) for the ZIP file builds. It gets reaplced
 # by build.xml regex to {runtime.tools.pic32prog.path} for the URL (github-release) build
-tools.pic32prog-hid.path={runtime.hardware.path}/pic32/tools/bin
+tools.pic32prog-hid.path={runtime.tools.pic32prog.path}
 
 tools.pic32prog-hid.upload.params.verbose=
 tools.pic32prog-hid.upload.params.quiet=

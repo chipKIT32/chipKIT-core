@@ -363,7 +363,7 @@ fubarino_mini.compiler.cpp.extra_flags=-G1024
 
 fubarino_mini.upload.protocol=stk500v2
 # 128KB - 4K for EEPROM - 4K for bootloader
-fubarino_mini.upload.maximum_size=122880
+fubarino_mini.upload.maximum_size=118784
 fubarino_mini.upload.maximum_data_size=32768
 fubarino_mini.upload.speed=115200
 fubarino_mini.upload.tool=pic32prog
@@ -750,6 +750,65 @@ usbono_pic32.build.core=pic32
 usbono_pic32.build.variant=PONTECH_UAV100
 #usbono_pic32.build.variant=Uno32
 
+dsmini.name=DataStation Mini
+dsmini.group=Makerology
+dsmini.platform=pic32
+dsmini.build.board=_BOARD_DSMINI_
+dsmini.ccflags=-Map="map.map"
+dsmini.ldscript=chipKIT-application-32MX150F128.ld
+dsmini.build.ldscript.path={build.variant.path}
+
+dsmini.usb.enabled=false
+
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+dsmini.compiler.c.extra_flags=-G1024
+dsmini.compiler.cpp.extra_flags=-G1024
+dsmini.upload.protocol=stk500v2
+
+# 128KB - 4K for EEPROM - 4K for bootloader
+dsmini.upload.maximum_size=122880
+dsmini.upload.speed=115200
+dsmini.upload.tool=pic32prog
+
+dsmini.build.mcu=32MX150F128C
+dsmini.build.f_cpu=40000000L
+dsmini.build.core=pic32
+dsmini.build.variant=DSMini
+RGB_Station.name=RGB Station
+RGB_Station.group=chipKIT
+
+RGB_Station.platform=pic32
+RGB_Station.build.board=_BOARD_RGB_STATION_
+
+RGB_Station.usb.enabled=true
+RGB_Station.usb.default=a_cdcacm
+
+RGB_Station.ccflags=-Map="map.map"
+RGB_Station.ldscript=chipKIT-application-32MX270F256_BLEBootloader.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+RGB_Station.compiler.c.extra_flags=-G1024
+RGB_Station.compiler.cpp.extra_flags=-G1024
+RGB_Station.build.ldscript.path={build.variant.path}
+
+RGB_Station.upload.protocol=stk500v2
+# 256KB (0x40000) - 4K (0x1000) for exception vectors - 4K (0x1000) for EEPROM - 12K (0x3000) for bootloader = (245760) 0x3B000
+# This number isn't exactly correct yet - you can't get to 100% without problems. But it's close.
+RGB_Station.upload.maximum_size=245760
+# 64KB (0x10000) - 2048 (0x800) for stack - 344 (0x158) for something else = 63488 (0xF800)
+# This number isn't exactly correct yet - you can't get to 100% without problems. But it's close.
+RGB_Station.upload.maximum_data_size=63488
+RGB_Station.upload.speed=115200
+RGB_Station.upload.tool=pic32prog
+
+RGB_Station.build.mcu=32MX270F256D
+RGB_Station.build.f_cpu=48000000L
+RGB_Station.build.core=pic32
+RGB_Station.build.variant=RGB_Station
+
+RGB_Station.menu.Frequency.48=48MHz
+RGB_Station.menu.Frequency.build.f_cpu=48000000L
+
+
 ############# Auto generated menu entries below here. ###############
 ############### DO NOT ADD ANYTHING AFTER THIS LINE #################
 
@@ -907,3 +966,9 @@ fubarino_mini.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_C
 fubarino_mini.menu.USB.z_custom=Custom / Disabled
 fubarino_mini.menu.USB.z_custom.build.extra_flags=
 
+RGB_Station.menu.USB.a_cdcacm=Serial
+RGB_Station.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+RGB_Station.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+RGB_Station.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+RGB_Station.menu.USB.z_custom=Custom / Disabled
+RGB_Station.menu.USB.z_custom.build.extra_flags=
