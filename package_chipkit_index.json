@@ -910,8 +910,8 @@
               "host": "i386-apple-darwin11",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-osx-fat-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-osx-fat-2.1.37.tar.gz",
-              "size": "216567",
-              "checksum": "SHA-256:658a979f83a000742d7a88c27186c79445d401fc959af9e3f5bb471229c73a54"
+              "size": "216566",
+              "checksum": "SHA-256:3b786623885c653312c362802333d0c0f51c4db354c123202bf6f2bb5a87f533"
             }, 
             {
               "host": "x86_64-linux-gnu",
