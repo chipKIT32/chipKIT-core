@@ -10,6 +10,79 @@
         {
           "name": "chipKIT",
           "architecture": "pic32",
+          "version": "2.0.0",
+          "category": "pic32",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v2.0.0/chipkit-core-16778049.master-v2.0.0.zip",
+          "archiveFileName": "chipkit-core-16778049.master-v2.0.0.zip",
+          "checksum": "SHA-256:fdabe0be21420e53c2918a7bf5da3627989cd3e48d0c0aab1333ad16dfea18dc",
+          "size": "7759089",
+          "help": {
+            "online": "http://chipkit.net/started/learn-basics/"
+          },
+          "boards": [
+            {"name": "cerebot32mx4"},
+            {"name": "cerebot32mx7"},
+            {"name": "cerebot_mx3ck"},
+            {"name": "chipkit_mx3"},
+            {"name": "cerebot_mx3ck_512"},
+            {"name": "cerebot_mx4ck"},
+            {"name": "chipkit_pro_mx4"},
+            {"name": "cerebot_mx7ck"},
+            {"name": "chipkit_pro_mx7"},
+            {"name": "chipkit_Pi"},
+            {"name": "chipkit_Pi_USB_Serial"},
+            {"name": "cmod"},
+            {"name": "CUI32stem"},
+            {"name": "ubw32_mx460"},
+            {"name": "ubw32_mx795"},
+            {"name": "cui32"},
+            {"name": "usbono_pic32"},
+            {"name": "chipkit_DP32"},
+            {"name": "fubarino_mini_dev"},
+            {"name": "fubarino_mini"},
+            {"name": "fubarino_sd_seeed"},
+            {"name": "fubarino_sd"},
+            {"name": "Fubarino_SDZ"},
+            {"name": "mega_pic32"},
+            {"name": "mega_usb_pic32"},
+            {"name": "Olimex_Pinguino32"},
+            {"name": "picadillo_35t"},
+            {"name": "quick240_usb_pic32"},
+            {"name": "chipkit_uc32"},
+            {"name": "uc32_pmod"},
+            {"name": "uno_pic32"},
+            {"name": "uno_pmod"},
+            {"name": "chipkit_WF32"},
+            {"name": "chipkit_WiFire"},
+            {"name": "chipkit_WiFire_80MHz"},
+            {"name": "OpenScope"},
+            {"name": "openbci"},
+            {"name": "Clicker2"},
+            {"name": "FlipNClick_MZ"},
+            {"name": "RGB_Station"},
+            {"name": "DSMini"},
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "chipKIT",
+              "version": "1.43-pic32gcc",
+              "name": "pic32-tools"
+            }, 
+            {
+              "packager": "chipKIT",
+              "version": "v2.1.37",
+              "name": "pic32prog"
+            },
+            {
+              "packager": "chipKIT",
+              "version": "v2",
+              "name": "drivers-windows"
+            }
+          ]
+        },
+        {
+          "name": "chipKIT",
+          "architecture": "pic32",
           "version": "1.4.3",
           "category": "pic32",
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.4.3/chipkit-core-16778048.master-v1.4.3.zip",
@@ -58,7 +131,7 @@
             {"name": "OpenScope"},
             {"name": "openbci"},
             {"name": "Clicker2"},
-			{"name": "FlipNClick_MZ"}
+            {"name": "FlipNClick_MZ"}
           ],
           "toolsDependencies": [
             {
@@ -129,7 +202,7 @@
             {"name": "OpenScope"},
             {"name": "openbci"},
             {"name": "Clicker2"},
-			{"name": "FlipNClick_MZ"}
+            {"name": "FlipNClick_MZ"}
           ],
           "toolsDependencies": [
             {
@@ -826,6 +899,47 @@
               "host": "i686-arm-gnu",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz",
               "size": "97933297"
+            }
+          ]
+        },
+        {
+          "name": "pic32prog",
+          "version": "v2.1.37",
+          "systems": [
+            {
+              "host": "i386-apple-darwin11",
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-osx-fat-2.1.37.tar.gz",
+              "archiveFileName": "pic32prog-osx-fat-2.1.37.tar.gz",
+              "size": "216567",
+              "checksum": "SHA-256:987299dd934f3a8df4879f3a4f2c8fa7cf47f406c33386287af54cd9986c260d"
+            }, 
+            {
+              "host": "x86_64-linux-gnu",
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-64-2.1.37.tar.gz",
+              "archiveFileName": "pic32prog-debian-64-2.1.37.tar.gz",
+              "size": "244222",
+              "checksum": "SHA-256:62c2beb2aa13e04e78954135c8d6a45112ff413c85204b125a7f8bf5ac3d0389"
+            }, 
+            {
+              "host": "i686-pc-linux-gnu", 
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-32-2.1.37.tar.gz",
+              "archiveFileName": "pic32prog-debian-32-2.1.37.tar.gz",
+              "size": "120848",
+              "checksum": "SHA-256:32519def780586af9538a818513c370906eccc5930d4a6026ba8e13e9e29b471"
+            }, 
+            {
+              "host": "i686-mingw32",
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-win32-2.1.37.tar.gz",
+              "archiveFileName": "pic32prog-windows-2.1.37.tar.gz",
+              "size": "351323",
+              "checksum": "SHA-256:f99386e38483993a29e978d3db5b76e3bf3af377f82120d05104ff94fb1fc21d"
+            }, 
+            {
+              "host": "i686-arm-gnu",
+              "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-armhf-2.1.37.tar.gz",
+              "archiveFileName": "pic32prog-debian-armhf-2.1.37.tar.gz",
+              "size": "195925",
+              "checksum": "SHA-256:620b3dd728965493a82a118f67f22d8dea4520bca87ce05ea6b7a7f84574a43f"
             }
           ]
         },
