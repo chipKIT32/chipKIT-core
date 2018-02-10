@@ -85,7 +85,7 @@ USBFS usbDriver;
 
 #if defined(__USB_CDCACM_KM__)
     #ifndef _USB_VID_
-        #define _USB_VID_ VID_MICROCHIP
+        #define _USB_VID_ VID_MCHP
     #endif
     #ifndef _USB_PID_
         #define _USB_PID_ PID_CDCACM_KM
