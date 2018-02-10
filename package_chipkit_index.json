@@ -917,29 +917,29 @@
               "host": "x86_64-linux-gnu",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-64-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-debian-64-2.1.37.tar.gz",
-              "size": "244222",
-              "checksum": "SHA-256:62c2beb2aa13e04e78954135c8d6a45112ff413c85204b125a7f8bf5ac3d0389"
+              "size": "244217",
+              "checksum": "SHA-256:1dce4353859560889b813537cbbdbfdaa2aaf99a5217677450d6a9085bf8dd25"
             }, 
             {
               "host": "i686-pc-linux-gnu", 
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-32-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-debian-32-2.1.37.tar.gz",
-              "size": "120848",
-              "checksum": "SHA-256:32519def780586af9538a818513c370906eccc5930d4a6026ba8e13e9e29b471"
+              "size": "120842",
+              "checksum": "SHA-256:dd4dd24c9a16add58164fa51ca099199100de02e84eb28c5e0edaae02748a889"
             }, 
             {
               "host": "i686-mingw32",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-win32-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-windows-2.1.37.tar.gz",
-              "size": "351323",
-              "checksum": "SHA-256:f99386e38483993a29e978d3db5b76e3bf3af377f82120d05104ff94fb1fc21d"
+              "size": "351317",
+              "checksum": "SHA-256:25de088e817dda29a4f174ddfc23f711867726c2cad921a1451f097153c6e1d3"
             }, 
             {
               "host": "i686-arm-gnu",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-armhf-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-debian-armhf-2.1.37.tar.gz",
-              "size": "195925",
-              "checksum": "SHA-256:620b3dd728965493a82a118f67f22d8dea4520bca87ce05ea6b7a7f84574a43f"
+              "size": "195923",
+              "checksum": "SHA-256:a9b0731c5aca0427bf67134d04e2d6daa8682c1a26890192f8611230c8050d3b"
             }
           ]
         },
