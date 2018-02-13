@@ -887,7 +887,7 @@
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.43-3/pic32-tools-143-3-arm-linux-image.tar.gz",
               "checksum": "SHA-256:5b4a6cc16bcf3455db5fe9e229212385177b3c4064b7bff31dfb043379c39ce3",
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "archiveFileName": "pic32-tools-143-3-arm-linux-image.tar.gz",
               "size": "134299837"
             }
@@ -928,7 +928,7 @@
             {
               "url": "https://github.com/chipKIT32/chipKIT-compiler-builds/releases/download/1.42/pic32-tools-142-arm-linux-image.tar.gz",
               "checksum": "SHA-256:edef77a03f3668ca86cc68b64b51835900c0ad4417d003f492a4fb74fc6efee3",
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "archiveFileName": "pic32-tools-142-arm-linux-image.tar.gz",
               "size": "130808256"
             }
@@ -969,7 +969,7 @@
             {
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz",
               "checksum": "SHA-256:9f03328d2ec90900daf6eb1554c63a76144456b4fcc0bc4d6ff2291713e646f2",
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "archiveFileName": "pic32-tools-chipKIT-cxx-master-arm-linux-image.tar.gz",
               "size": "97933297"
             }
@@ -1008,7 +1008,7 @@
               "checksum": "SHA-256:25de088e817dda29a4f174ddfc23f711867726c2cad921a1451f097153c6e1d3"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.37/pic32prog-debian-armhf-2.1.37.tar.gz",
               "archiveFileName": "pic32prog-debian-armhf-2.1.37.tar.gz",
               "size": "195923",
@@ -1049,7 +1049,7 @@
               "checksum": "SHA-256:19e6c147ed96dc5585c38a2ebde88fbe9fe8ceeabc929aae7e3a0ed7e475a99d"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/majenkotech/pic32prog-autotools/releases/download/2.1.24/pic32prog-armlinux-2.1.24.tar.gz",
               "archiveFileName": "pic32prog-armlinux-2.1.24.tar.gz",
               "size": "189337",
@@ -1090,7 +1090,7 @@
               "checksum": "SHA-256:ECC58A7C95720F4C47B98932F7297A2BF57E42E32D231AB9770472EC0C1F2530"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.1/pic32prog-armlinux_2_0_224.tar.gz",
               "archiveFileName": "pic32prog-armlinux_2_0_224.tar.gz",
               "size": "174996",
@@ -1131,7 +1131,7 @@
               "checksum": "SHA-256:5B82FF78C44F03E01A14E657875638C05032BDCC5CEB20244C52DADE2120DB5D"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.2.0/pic32prog-armlinux_2_0_220.tar.gz",
               "archiveFileName": "pic32prog-armlinux_2_0_220.tar.gz",
               "size": "120325",
@@ -1172,7 +1172,7 @@
               "checksum": "SHA-256:C8F91AD8D29ED4EE2249B8EB9AB476F0B4CB54FF5F856C5953A1DC2EE1D51D19"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v1.0.1/pic32prog-armlinux.zip",
               "archiveFileName": "pic32prog-armlinux.zip",
               "size": "120326",
@@ -1213,7 +1213,7 @@
               "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v2.0/chipKIT_USB_drivers_otherOSes_v2.zip",
               "archiveFileName": "chipKIT_USB_drivers_otherOSes_v2.zip",
               "size": "162",
@@ -1254,7 +1254,7 @@
               "checksum": "SHA-256:83320249BEAF1BD023A7E42DA0A8717421681B62F070331DF6084048F8D763F8"
             }, 
             {
-              "host": "i686-arm-gnu",
+              "host": "arm-linux-gnueabihf",
               "url": "https://github.com/chipKIT32/chipKIT-drivers/releases/download/v1.0/otherOSes.zip",
               "archiveFileName": "otherOSes.zip",
               "size": "162",
