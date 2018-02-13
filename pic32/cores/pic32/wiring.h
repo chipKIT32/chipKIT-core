@@ -198,6 +198,12 @@ void _disableSeconaryOscillator(void);
 #define __USER_ISR __attribute__((nomips16, interrupt()))
 #endif
 
+#if defined(__HAS_DDR_INTERNAL__) || defined(__HAS_DDR_EXTERNAL__)
+#define __DDR __attribute__((section(".ddr"), persistent))
+#else
+#define __DDR
+#endif
+
 isrFunc setIntVector(int vec, isrFunc func);
 isrFunc getIntVector(int vec);
 isrFunc clearIntVector(int vec);
