@@ -390,262 +390,267 @@ bool USBHS::sendBuffer(uint8_t ep, const uint8_t *data, uint32_t len) {
 }
 
 void USBHS::handleInterrupt() {
-    uint32_t csr0 = USBCSR0;
-    bool isEP0IF = (csr0 & (1<<16)) ? true : false;
-    bool isEP1TXIF = (csr0 & (1<<17)) ? true : false;
-    bool isEP2TXIF = (csr0 & (1<<18)) ? true : false;
-    bool isEP3TXIF = (csr0 & (1<<19)) ? true : false;
-    bool isEP4TXIF = (csr0 & (1<<20)) ? true : false;
-    bool isEP5TXIF = (csr0 & (1<<21)) ? true : false;
-    bool isEP6TXIF = (csr0 & (1<<22)) ? true : false;
-    bool isEP7TXIF = (csr0 & (1<<23)) ? true : false;
-    uint32_t csr1 = USBCSR1;
-    bool isEP1RXIF = (csr1 & (1 << 1)) ? true : false;
-    bool isEP2RXIF = (csr1 & (1 << 2)) ? true : false;
-    bool isEP3RXIF = (csr1 & (1 << 3)) ? true : false;
-    bool isEP4RXIF = (csr1 & (1 << 4)) ? true : false;
-    bool isEP5RXIF = (csr1 & (1 << 5)) ? true : false;
-    bool isEP6RXIF = (csr1 & (1 << 6)) ? true : false;
-    bool isEP7RXIF = (csr1 & (1 << 7)) ? true : false;
-    uint32_t csr2 = USBCSR2;
-    bool __attribute__((unused)) isRESUMEIF = (csr2 & (1 << 17)) ? true : false;
-    bool isRESETIF = (csr2 & (1 << 18)) ? true : false;
-    bool __attribute__((unused)) isSOFIF = (csr2 & (1 << 19)) ? true : false;
-    bool __attribute__((unused)) isCONNIF = (csr2 & (1 << 20)) ? true : false;
-    bool __attribute__((unused)) isDISCONIF = (csr2 & (1 << 21)) ? true : false;
-    bool __attribute__((unused)) isSESSRQIF = (csr2 & (1 << 22)) ? true : false;
-    bool __attribute__((unused)) isVBUSERRIF = (csr2 & (1 << 23)) ? true : false;
+
+    int csr0 = 0, csr1 = 0, csr2 = 0;
+    clearIntFlag(_USB_VECTOR);
+
+    do {
+        uint32_t csr0 = USBCSR0;
+        bool isEP0IF = (csr0 & (1<<16)) ? true : false;
+        bool isEP1TXIF = (csr0 & (1<<17)) ? true : false;
+        bool isEP2TXIF = (csr0 & (1<<18)) ? true : false;
+        bool isEP3TXIF = (csr0 & (1<<19)) ? true : false;
+        bool isEP4TXIF = (csr0 & (1<<20)) ? true : false;
+        bool isEP5TXIF = (csr0 & (1<<21)) ? true : false;
+        bool isEP6TXIF = (csr0 & (1<<22)) ? true : false;
+        bool isEP7TXIF = (csr0 & (1<<23)) ? true : false;
+        uint32_t csr1 = USBCSR1;
+        bool isEP1RXIF = (csr1 & (1 << 1)) ? true : false;
+        bool isEP2RXIF = (csr1 & (1 << 2)) ? true : false;
+        bool isEP3RXIF = (csr1 & (1 << 3)) ? true : false;
+        bool isEP4RXIF = (csr1 & (1 << 4)) ? true : false;
+        bool isEP5RXIF = (csr1 & (1 << 5)) ? true : false;
+        bool isEP6RXIF = (csr1 & (1 << 6)) ? true : false;
+        bool isEP7RXIF = (csr1 & (1 << 7)) ? true : false;
+        uint32_t csr2 = USBCSR2;
+        bool __attribute__((unused)) isRESUMEIF = (csr2 & (1 << 17)) ? true : false;
+        bool isRESETIF = (csr2 & (1 << 18)) ? true : false;
+        bool __attribute__((unused)) isSOFIF = (csr2 & (1 << 19)) ? true : false;
+        bool __attribute__((unused)) isCONNIF = (csr2 & (1 << 20)) ? true : false;
+        bool __attribute__((unused)) isDISCONIF = (csr2 & (1 << 21)) ? true : false;
+        bool __attribute__((unused)) isSESSRQIF = (csr2 & (1 << 22)) ? true : false;
+        bool __attribute__((unused)) isVBUSERRIF = (csr2 & (1 << 23)) ? true : false;
 #ifdef DEBUG
-    if (isEP0IF) Serial.println("EP0IF");
-    if (isEP1TXIF) Serial.println("EP1TXIF");
-    if (isEP2TXIF) Serial.println("EP2TXIF");
-    if (isEP3TXIF) Serial.println("EP3TXIF");
-    if (isEP4TXIF) Serial.println("EP4TXIF");
-    if (isEP5TXIF) Serial.println("EP5TXIF");
-    if (isEP6TXIF) Serial.println("EP6TXIF");
-    if (isEP7TXIF) Serial.println("EP7TXIF");
-    if (isEP1RXIF) Serial.println("EP1RXIF");
-    if (isEP2RXIF) Serial.println("EP2RXIF");
-    if (isEP3RXIF) Serial.println("EP3RXIF");
-    if (isEP4RXIF) Serial.println("EP4RXIF");
-    if (isEP5RXIF) Serial.println("EP5RXIF");
-    if (isEP6RXIF) Serial.println("EP6RXIF");
-    if (isEP7RXIF) Serial.println("EP7RXIF");
-    if (isRESUMEIF) Serial.println("RESUMEIF");
-    if (isRESETIF) Serial.println("RESETIF");
-    if (isSOFIF) Serial.println("SOFIF");
-    if (isDISCONIF) Serial.println("DISCONIF");
-    if (isSESSRQIF) Serial.println("SESSRQIF");
-    if (isVBUSERRIF) Serial.println("VBUSERRIF");
-#endif
-    if (isRESETIF) {
-        addEndpoint(0, EP_IN, EP_CTL, 64, _ctlRxA, _ctlRxB);
-        addEndpoint(0, EP_OUT, EP_CTL, 64, _ctlTxA, _ctlTxB);
-        _manager->setEnumerated(false);
-    }
+        if (isEP0IF) Serial.println("EP0IF");
+        if (isEP1TXIF) Serial.println("EP1TXIF");
+        if (isEP2TXIF) Serial.println("EP2TXIF");
+        if (isEP3TXIF) Serial.println("EP3TXIF");
+        if (isEP4TXIF) Serial.println("EP4TXIF");
+        if (isEP5TXIF) Serial.println("EP5TXIF");
+        if (isEP6TXIF) Serial.println("EP6TXIF");
+        if (isEP7TXIF) Serial.println("EP7TXIF");
+        if (isEP1RXIF) Serial.println("EP1RXIF");
+        if (isEP2RXIF) Serial.println("EP2RXIF");
+        if (isEP3RXIF) Serial.println("EP3RXIF");
+        if (isEP4RXIF) Serial.println("EP4RXIF");
+        if (isEP5RXIF) Serial.println("EP5RXIF");
+        if (isEP6RXIF) Serial.println("EP6RXIF");
+        if (isEP7RXIF) Serial.println("EP7RXIF");
+        if (isRESUMEIF) Serial.println("RESUMEIF");
+        if (isRESETIF) Serial.println("RESETIF");
+        if (isSOFIF) Serial.println("SOFIF");
+        if (isDISCONIF) Serial.println("DISCONIF");
+        if (isSESSRQIF) Serial.println("SESSRQIF");
+        if (isVBUSERRIF) Serial.println("VBUSERRIF");
+    #endif
+        if (isRESETIF) {
+            addEndpoint(0, EP_IN, EP_CTL, 64, _ctlRxA, _ctlRxB);
+            addEndpoint(0, EP_OUT, EP_CTL, 64, _ctlTxA, _ctlTxB);
+            _manager->setEnumerated(false);
+        }
 
-    if (isDISCONIF) {
-        _manager->setEnumerated(false);
-    }
+        if (isDISCONIF) {
+            _manager->setEnumerated(false);
+        }
 
-    volatile uint8_t *fifo;
-    if (isEP0IF) {
-        if (USBE0CSR0bits.RXRDY) {
+        volatile uint8_t *fifo;
+        if (isEP0IF) {
+            if (USBE0CSR0bits.RXRDY) {
 
-            uint32_t pktlen = USBE0CSR2bits.RXCNT;
+                uint32_t pktlen = USBE0CSR2bits.RXCNT;
 
-            fifo = (uint8_t *)&USBFIFO0;
+                fifo = (uint8_t *)&USBFIFO0;
+                for (uint32_t i = 0; i < pktlen; i++) {
+                    _endpointBuffers[0].rx[0][i] = *(fifo + (i & 3));
+                }
+
+                USBE0CSR0bits.RXRDYC = 1;
+
+                if (_manager) _manager->onSetupPacket(0, _endpointBuffers[0].rx[0], pktlen);
+                USBE0CSR0bits.SETENDC = 1;
+            } else {
+                if (_manager) _manager->onInPacket(0, _endpointBuffers[0].tx[0], _endpointBuffers[0].size);
+            }
+        }
+
+        if (isEP1RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 1;
+
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
+
+            fifo = (uint8_t *)&USBFIFO1;
             for (uint32_t i = 0; i < pktlen; i++) {
-                _endpointBuffers[0].rx[0][i] = *(fifo + (i & 3));
+                _endpointBuffers[1].rx[0][i] = *(fifo + (i & 3));
             }
 
-            USBE0CSR0bits.RXRDYC = 1;
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(1, _endpointBuffers[1].rx[0], pktlen);
 
-            if (_manager) _manager->onSetupPacket(0, _endpointBuffers[0].rx[0], pktlen);
-            USBE0CSR0bits.SETENDC = 1;
-        } else {
-            if (_manager) _manager->onInPacket(0, _endpointBuffers[0].tx[0], _endpointBuffers[0].size);
-        }
-    }
-
-    if (isEP1RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 1;
-
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
-
-        fifo = (uint8_t *)&USBFIFO1;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[1].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
 
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(1, _endpointBuffers[1].rx[0], pktlen);
+        if (isEP2RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 2;
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-    if (isEP2RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 2;
+            fifo = (uint8_t *)&USBFIFO2;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[2].rx[0][i] = *(fifo + (i & 3));
+            }
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(2, _endpointBuffers[2].rx[0], pktlen);
 
-        fifo = (uint8_t *)&USBFIFO2;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[2].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
 
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(2, _endpointBuffers[2].rx[0], pktlen);
+        if (isEP3RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 3;
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-    if (isEP3RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 3;
+            fifo = (uint8_t *)&USBFIFO3;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[3].rx[0][i] = *(fifo + (i & 3));
+            }
+            
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(3, _endpointBuffers[3].rx[0], pktlen);
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
-
-        fifo = (uint8_t *)&USBFIFO3;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[3].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
-        
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(3, _endpointBuffers[3].rx[0], pktlen);
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+        if (isEP4RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 4;
 
-    if (isEP4RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 4;
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
+            fifo = (uint8_t *)&USBFIFO4;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[4].rx[0][i] = *(fifo + (i & 3));
+            }
+            
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(4, _endpointBuffers[4].rx[0], pktlen);
 
-        fifo = (uint8_t *)&USBFIFO4;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[4].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
-        
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(4, _endpointBuffers[4].rx[0], pktlen);
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+        if (isEP5RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 5;
 
-    if (isEP5RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 5;
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
+            fifo = (uint8_t *)&USBFIFO5;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[5].rx[0][i] = *(fifo + (i & 3));
+            }
+            
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(5, _endpointBuffers[5].rx[0], pktlen);
 
-        fifo = (uint8_t *)&USBFIFO5;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[5].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
-        
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(5, _endpointBuffers[5].rx[0], pktlen);
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+        if (isEP6RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 6;
 
-    if (isEP6RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 6;
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
+            fifo = (uint8_t *)&USBFIFO6;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[6].rx[0][i] = *(fifo + (i & 3));
+            }
+            
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(6, _endpointBuffers[6].rx[0], pktlen);
 
-        fifo = (uint8_t *)&USBFIFO6;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[6].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
-        
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(6, _endpointBuffers[6].rx[0], pktlen);
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
+        if (isEP7RXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 7;
 
-    if (isEP7RXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 7;
+            uint32_t pktlen = USBIENCSR2bits.RXCNT;
 
-        uint32_t pktlen = USBIENCSR2bits.RXCNT;
+            fifo = (uint8_t *)&USBFIFO7;
+            for (uint32_t i = 0; i < pktlen; i++) {
+                _endpointBuffers[7].rx[0][i] = *(fifo + (i & 3));
+            }
+            
+            USBIENCSR1bits.RXPKTRDY = 0;
+            if (_manager) _manager->onOutPacket(7, _endpointBuffers[7].tx[0], pktlen);
 
-        fifo = (uint8_t *)&USBFIFO7;
-        for (uint32_t i = 0; i < pktlen; i++) {
-            _endpointBuffers[7].rx[0][i] = *(fifo + (i & 3));
+            USBCSR3bits.ENDPOINT = oep;
         }
-        
-        USBIENCSR1bits.RXPKTRDY = 0;
-        if (_manager) _manager->onOutPacket(7, _endpointBuffers[7].tx[0], pktlen);
 
-        USBCSR3bits.ENDPOINT = oep;
-    }
-
-    if (isEP1TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 1;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(1, _endpointBuffers[1].tx[0], _endpointBuffers[1].size);
-    }
-        
-    if (isEP2TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 2;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(2, _endpointBuffers[2].tx[0], _endpointBuffers[2].size);
-    }
-        
-    if (isEP3TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 3;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(3, _endpointBuffers[3].rx[0], _endpointBuffers[3].size);
-    }
-        
-    if (isEP4TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 4;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(4, _endpointBuffers[4].rx[0], _endpointBuffers[4].size);
-    }
-        
-    if (isEP5TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 5;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(5, _endpointBuffers[5].rx[0], _endpointBuffers[5].size);
-    }
-        
-    if (isEP6TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 6;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(6, _endpointBuffers[6].rx[0], _endpointBuffers[6].size);
-    }
-        
-    if (isEP7TXIF) {
-        uint8_t oep = USBCSR3bits.ENDPOINT;
-        USBCSR3bits.ENDPOINT = 7;
-        USBIENCSR0bits.MODE = 0;
-        USBCSR3bits.ENDPOINT = oep;
-        if (_manager) _manager->onInPacket(7, _endpointBuffers[7].rx[0], _endpointBuffers[7].size);
-    }
-        
+        if (isEP1TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 1;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(1, _endpointBuffers[1].tx[0], _endpointBuffers[1].size);
+        }
+            
+        if (isEP2TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 2;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(2, _endpointBuffers[2].tx[0], _endpointBuffers[2].size);
+        }
+            
+        if (isEP3TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 3;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(3, _endpointBuffers[3].rx[0], _endpointBuffers[3].size);
+        }
+            
+        if (isEP4TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 4;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(4, _endpointBuffers[4].rx[0], _endpointBuffers[4].size);
+        }
+            
+        if (isEP5TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 5;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(5, _endpointBuffers[5].rx[0], _endpointBuffers[5].size);
+        }
+            
+        if (isEP6TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 6;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(6, _endpointBuffers[6].rx[0], _endpointBuffers[6].size);
+        }
+            
+        if (isEP7TXIF) {
+            uint8_t oep = USBCSR3bits.ENDPOINT;
+            USBCSR3bits.ENDPOINT = 7;
+            USBIENCSR0bits.MODE = 0;
+            USBCSR3bits.ENDPOINT = oep;
+            if (_manager) _manager->onInPacket(7, _endpointBuffers[7].rx[0], _endpointBuffers[7].size);
+        }
+    } while ((csr0 | csr1 | csr2) != 0);
 
 
-    clearIntFlag(_USB_VECTOR);
+//    clearIntFlag(_USB_VECTOR);
 }
 
 bool USBHS::setAddress(uint8_t address) {
