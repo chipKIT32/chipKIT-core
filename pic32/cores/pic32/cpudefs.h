@@ -1127,6 +1127,447 @@
         #define __PIC32MZXX__
         #define __PIC32MZEFADC__
 
+    //***************************************
+    //* MZ    DA series
+
+    //* 169 pin LFBGA parts
+    //* No DDR interface
+
+    #elif defined(__32MZ1025DAA169__)
+        #define _CPU_NAME_      "32MZ1025DAA169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ1025DAB169__)
+        #define _CPU_NAME_      "32MZ1025DAB169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ1064DAA169__)
+        #define _CPU_NAME_      "32MZ1064DAA169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ1064DAB169__)
+        #define _CPU_NAME_      "32MZ1064DAB169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ2025DAA169__)
+        #define _CPU_NAME_      "32MZ2025DAA169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ2025DAB169__)
+        #define _CPU_NAME_      "32MZ2025DAB169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ2064DAA169__)
+        #define _CPU_NAME_      "32MZ2064DAA169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ2064DAB169__)
+        #define _CPU_NAME_      "32MZ2064DAB169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    //* 32MB Internal DDR
+
+    #elif defined(__32MZ1025DAG169__)
+        #define _CPU_NAME_      "32MZ1025DAG169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1025DAH169__)
+        #define _CPU_NAME_      "32MZ1025DAH169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1064DAG169__)
+        #define _CPU_NAME_      "32MZ1064DAG169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1064DAH169__)
+        #define _CPU_NAME_      "32MZ1064DAH169"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2025DAG169__)
+        #define _CPU_NAME_      "32MZ2025DAG169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2025DAH169__)
+        #define _CPU_NAME_      "32MZ2025DAH169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2064DAG169__)
+        #define _CPU_NAME_      "32MZ2064DAG169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2064DAH169__)
+        #define _CPU_NAME_      "32MZ2064DAH169"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  169
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    //* 176 pin LQFP parts
+
+    //* No DDR Interface
+
+    #elif defined(__32MZ1025DAA176__)
+        #define _CPU_NAME_      "32MZ1025DAA176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ1025DAB176__)
+        #define _CPU_NAME_      "32MZ1025DAB176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ1064DAA176__)
+        #define _CPU_NAME_      "32MZ1064DAA176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ1064DAB176__)
+        #define _CPU_NAME_      "32MZ1064DAB176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ2025DAA176__)
+        #define _CPU_NAME_      "32MZ2025DAA176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ2025DAB176__)
+        #define _CPU_NAME_      "32MZ2025DAB176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    #elif defined(__32MZ2064DAA176__)
+        #define _CPU_NAME_      "32MZ2064DAA176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+
+    #elif defined(__32MZ2064DAB176__)
+        #define _CPU_NAME_      "32MZ2064DAB176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+
+    //* 32MB Internal DDR
+
+    #elif defined(__32MZ1025DAG176__)
+        #define _CPU_NAME_      "32MZ1025DAG176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1025DAH176__)
+        #define _CPU_NAME_      "32MZ1025DAH176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1064DAG176__)
+        #define _CPU_NAME_      "32MZ1064DAG176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ1064DAH176__)
+        #define _CPU_NAME_      "32MZ1064DAH176"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2025DAG176__)
+        #define _CPU_NAME_      "32MZ2025DAG176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2025DAH176__)
+        #define _CPU_NAME_      "32MZ2025DAH176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2064DAG176__)
+        #define _CPU_NAME_      "32MZ2064DAG176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+    #elif defined(__32MZ2064DAH176__)
+        #define _CPU_NAME_      "32MZ2064DAH176"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  176
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_INTERNAL__
+        #define __DDR_SIZE__    (32 * 1024 * 1024)
+
+
+
+    //* 288 pin LFBGA parts
+
+    //* External DDR Interface
+
+    #elif defined(__32MZ1025DAA288__)
+        #define _CPU_NAME_      "32MZ1025DAA288"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ1025DAB288__)
+        #define _CPU_NAME_      "32MZ1025DAB288"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ1064DAA288__)
+        #define _CPU_NAME_      "32MZ1064DAA288"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ1064DAB288__)
+        #define _CPU_NAME_      "32MZ1064DAB288"
+        #define FLASHEND        (((1024 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ2025DAA288__)
+        #define _CPU_NAME_      "32MZ2025DAA288"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ2025DAB288__)
+        #define _CPU_NAME_      "32MZ2025DAB288"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((256 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ2064DAA288__)
+        #define _CPU_NAME_      "32MZ2064DAA288"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_DDR_EXTERNAL__
+
+    #elif defined(__32MZ2064DAB288__)
+        #define _CPU_NAME_      "32MZ2064DAB288"
+        #define FLASHEND        (((2048 - 4) * 1024L) - 1)
+        #define RAMEND          ((640 * 1024L) - 1)
+        #define __PIC32_PPS__
+        #define __PIC32_PINS__  288
+        #define __PIC32MZXX__
+        #define __PIC32MZEFADC__
+        #define __HAS_CRYPTO__
+        #define __HAS_DDR_EXTERNAL__
+
+
     #else
         #error CPU type is unknown, cpudefs.h needs to have additions
     #endif

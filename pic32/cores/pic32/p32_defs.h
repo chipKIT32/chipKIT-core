@@ -739,16 +739,28 @@ typedef struct {
 
     #elif defined(__PIC32MZXX__)
         #include "pps/peripherals_mz.h"
-        #include "pps/pingroups_mz.h"
 
         #if (__PIC32_PINS__ == 64)
+            #include "pps/pingroups_mz.h"
             #include "pps/pins_mz_64.h"
         #elif (__PIC32_PINS__ == 100)
+            #include "pps/pingroups_mz.h"
             #include "pps/pins_mz_100.h"
         #elif (__PIC32_PINS__ == 124)
+            #include "pps/pingroups_mz.h"
             #include "pps/pins_mz_124.h"
         #elif (__PIC32_PINS__ == 144)
+            #include "pps/pingroups_mz.h"
             #include "pps/pins_mz_144.h"
+        #elif (__PIC32_PINS__ == 169)
+            #include "pps/pingroups_mzda.h"
+            #include "pps/pins_mz_169.h"
+        #elif (__PIC32_PINS__ == 176)
+            #include "pps/pingroups_mzda.h"
+            #include "pps/pins_mz_176.h"
+        #elif (__PIC32_PINS__ == 288)
+            #include "pps/pingroups_mzda.h"
+            #include "pps/pins_mz_288.h"
         #else
             #error Pin definitions have not been configured for your CPU
         #endif
