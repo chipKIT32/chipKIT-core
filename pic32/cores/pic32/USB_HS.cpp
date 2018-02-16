@@ -331,7 +331,14 @@ bool USBHS::canEnqueuePacket(uint8_t ep) {
 }
 
 bool USBHS::enqueuePacket(uint8_t ep, const uint8_t *data, uint32_t len) {
-    if (!canEnqueuePacket(ep)) return false;
+    uint32_t t = millis();
+    while (!canEnqueuePacket(ep)) {
+        if (millis() - t > USB_TX_TIMEOUT) {
+            return false;
+        }
+    }
+
+
 
     volatile uint8_t *fifo = NULL;
     switch (ep) {
