@@ -263,6 +263,12 @@ FRESULT DFATFS::fsunmount(const char* path)
 
 FRESULT DFATFS::fsmkfs(DFSVOL& dfsVol)
 {
+    uint32_t volid = (rand() & 0x0FFFFFFF) | 0xC0000000;
+    return fsmkfs(dfsVol, volid);
+}
+
+FRESULT DFATFS::fsmkfs(DFSVOL& dfsVol, uint32_t volid)
+{
     FRESULT fr = FR_OK;
     DFSVOL * pDFSVolSave = _arDFSVOL[iMKFS];
 
@@ -276,7 +282,7 @@ FRESULT DFATFS::fsmkfs(DFSVOL& dfsVol)
     }
 
     // create the file system
-    fr = f_mkfs(szFatFsVols[iMKFS], dfsVol._sfd, dfsVol._au);
+    fr = f_mkfs(szFatFsVols[iMKFS], dfsVol._sfd, dfsVol._au, volid);
     // unmount the drive
     fsunmount(szFatFsVols[iMKFS]);
 
