@@ -48,6 +48,9 @@
 #if !defined(BOARD_DEFS_H)
 #define BOARD_DEFS_H
 
+// Fix for old incorrect USB enabled renaming serial
+#define Serial0 Serial
+
 #include <inttypes.h>
 
 /* ------------------------------------------------------------ */
