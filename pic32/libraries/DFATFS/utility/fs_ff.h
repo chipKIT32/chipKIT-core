@@ -229,7 +229,7 @@ FRESULT f_getfree (const TCHAR* path, DWORD* nclst, FATFS** fatfs);	/* Get numbe
 FRESULT f_getlabel (const TCHAR* path, TCHAR* label, DWORD* vsn);	/* Get volume label */
 FRESULT f_setlabel (const TCHAR* label);							/* Set volume label */
 FRESULT f_mount (FATFS* fs, const TCHAR* path, BYTE opt);			/* Mount/Unmount a logical drive */
-FRESULT f_mkfs (const TCHAR* path, BYTE sfd, UINT au);				/* Create a file system on the volume */
+FRESULT f_mkfs (const TCHAR* path, BYTE sfd, UINT au, DWORD volid);	/* Create a file system on the volume */
 FRESULT f_fdisk (BYTE pdrv, const DWORD szt[], void* work);			/* Divide a physical drive into some partitions */
 int f_putc (TCHAR c, FIL* fp);										/* Put a character to the file */
 int f_puts (const TCHAR* str, FIL* cp);								/* Put a string to the file */

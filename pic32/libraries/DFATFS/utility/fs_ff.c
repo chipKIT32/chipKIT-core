@@ -4014,7 +4014,8 @@ FRESULT f_forward (
 FRESULT f_mkfs (
 	const TCHAR* path,	/* Logical drive number */
 	BYTE sfd,			/* Partitioning rule 0:FDISK, 1:SFD */
-	UINT au				/* Size of allocation unit in unit of byte or sector */
+	UINT au,			/* Size of allocation unit in unit of byte or sector */
+    DWORD volid
 )
 {
 	static const WORD vst[] = { 1024,   512,  256,  128,   64,    32,   16,    8,    4,    2,   0};
@@ -4173,7 +4174,7 @@ FRESULT f_mkfs (
 	ST_WORD(tbl+BPB_SecPerTrk, 63);			/* Number of sectors per track */
 	ST_WORD(tbl+BPB_NumHeads, 255);			/* Number of heads */
 	ST_DWORD(tbl+BPB_HiddSec, b_vol);		/* Hidden sectors */
-	n = GET_FATTIME();						/* Use current time as VSN */
+	n = volid;
 	if (fmt == FS_FAT32) {
 		ST_DWORD(tbl+BS_VolID32, n);		/* VSN */
 		ST_DWORD(tbl+BPB_FATSz32, n_fat);	/* Number of sectors per FAT */

@@ -208,6 +208,7 @@ public:
     static FRESULT fssetlabel (const char * label);							        /* Set volume label */
     static FRESULT fsmount (DFSVOL& dfsvol, const char * path, uint8_t opt);        /* Mount a logical drive */
     static FRESULT fsunmount(const char* path);                                     /* UnMount the logical drive */
+    static FRESULT fsmkfs (DFSVOL& dfsvol, uint32_t id);                            /* Create a file system on the volume */
     static FRESULT fsmkfs (DFSVOL& dfsvol);				                            /* Create a file system on the volume */
     static bool fsexists(const char * path) { return(DDIRINFO::fsstat(path) == FR_OK); }
 
