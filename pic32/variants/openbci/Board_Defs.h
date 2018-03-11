@@ -48,6 +48,9 @@
 #if !defined(BOARD_DEFS_H)
 #define BOARD_DEFS_H
 
+// Fix for old incorrect USB enabled renaming serial
+#define Serial0 Serial
+
 #include <inttypes.h>
 
 /* ------------------------------------------------------------ */
@@ -59,7 +62,6 @@
 
 // #define	_BOARD_NAME_	"chipKIT DP32"
 #define	_BOARD_NAME_	"OpenBCI 32"
-#define _USB
 
 /* Define the peripherals available on the board.
 */
