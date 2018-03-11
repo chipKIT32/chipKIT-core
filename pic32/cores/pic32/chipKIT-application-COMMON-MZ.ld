@@ -767,6 +767,19 @@ SECTIONS
     *(.rodata1)
     . = ALIGN(4) ;
   } >kseg0_program_mem
+
+  /*
+   * Place constant variables in this area that you don't want included
+   * in the output. Ideal for big arrays for storing a filesystem that
+   * would take forever to program. Also has the effect that reprogramming
+   * can make the data persistent as long as addresses don't change.
+   */
+  .romdata ALIGN(4) (NOLOAD) :
+  {
+    *(.romdata .romdata.*)
+    . = ALIGN(4) ;
+  } >kseg0_program_mem
+
   /*
    * Small initialized constant global and static data can be placed in the
    * .sdata2 section.  This is different from .sdata, which contains small
