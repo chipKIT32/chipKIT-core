@@ -70,7 +70,7 @@
 /************************************************************************/
 /************************************************************************/
 
-DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, isrFunc vecP, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC)
+DTWI::DTWI(p32_i2c * ptwiC, uint8_t irqBusC, uint8_t vecC, isrFunc __attribute__((unused)) vecP, uint8_t iplC, uint8_t splC, uint8_t pinSCLC, uint8_t pinSDAC)
 {
     int             bnIRQ   = (irqBusC % 32);                           // IE and IF bit locations
     uint32_t        bmI2C   = 0;
