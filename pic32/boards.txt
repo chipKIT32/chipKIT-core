@@ -74,7 +74,8 @@ lenny.compiler.cpp.extra_flags=-G1024
 lenny.upload.protocol=stk500v2
 
 # 128KB - 4K for EEPROM - 4K for bootloader
-lenny.upload.maximum_size=122880
+# Not a perfect number, but closer than the tiny amount there before...
+lenny.upload.maximum_size=249856
 lenny.upload.speed=115200
 lenny.upload.tool=pic32prog
 
