@@ -136,7 +136,7 @@ public:
     size_t write(uint8_t c) { return fsputc(c); }
     int read() { uint32_t r; char c; fsread(&c, 1, &r); return c; }
     int available() { return fssize() - fstell(); }
-    int peek() { uint32_t pos = fstell(); char c = read(); fslseek(pos); }
+    int peek() { uint32_t pos = fstell(); int c = read(); fslseek(pos); return c;}
     void flush() { fssync(); }
 
     int fsputc (char c);										                /* Put a character to the file */

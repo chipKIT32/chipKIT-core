@@ -554,7 +554,7 @@ static const BYTE ExCvt[] = _EXCVT;	/* Upper conversion table for extended chara
 
 ---------------------------------------------------------------------------*/
 
-WCHAR ff_convert (WCHAR wch, UINT dir)
+WCHAR ff_convert (WCHAR wch, UINT __attribute__((unused)) dir)
 {
     if (wch < 0x80) {
         /* ASCII Char */
@@ -1769,8 +1769,6 @@ FRESULT dir_remove (	/* FR_OK: Successful, FR_DISK_ERR: A disk error */
 #endif /* !_FS_READONLY */
 
 
-
-
 /*-----------------------------------------------------------------------*/
 /* Get file information from directory entry                             */
 /*-----------------------------------------------------------------------*/
@@ -1817,7 +1815,6 @@ void get_fileinfo (		/* No return code */
 #if _USE_LFN
 	if (fno->lfname) {
 		WCHAR w, *lfn;
-
 		i = 0; p = fno->lfname;
 		if (dp->sect && fno->lfsize && dp->lfn_idx != 0xFFFF) {	/* Get LFN if available */
 			lfn = dp->lfn;
