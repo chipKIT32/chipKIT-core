@@ -248,6 +248,7 @@ class USBManager {
         uint16_t _pid;
         uint8_t _ifCount;
         uint8_t _epCount;
+        uint8_t _stringCount;
         uint8_t _target;
 
         const char *_manufacturer;
@@ -282,6 +283,7 @@ class USBManager {
 
         uint8_t allocateInterface();
         uint8_t allocateEndpoint();
+        uint8_t allocateString();
 
         bool addEndpoint(uint8_t id, uint8_t direction, uint8_t type, uint32_t size, uint8_t *a, uint8_t *b) {
             return _driver->addEndpoint(id, direction, type, size, a, b);

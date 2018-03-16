@@ -118,6 +118,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
     _pid = pid;
     _ifCount = 0;
     _epCount = 1;
+    _stringCount = 4;
     _manufacturer = mfg;
     _product = prod;
     _deviceAttributes = 0x80; // Bus powered
@@ -140,6 +141,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char
     _pid = pid;
     _ifCount = 0;
     _epCount = 1;
+    _stringCount = 4;
     _manufacturer = mfg;
     _product = prod;
     if (ser) {
@@ -160,6 +162,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
     _pid = pid;
     _ifCount = 0;
     _epCount = 1;
+    _stringCount = 4;
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
@@ -175,10 +178,17 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
     _pid = pid;
     _ifCount = 0;
     _epCount = 1;
+    _stringCount = 4;
     _manufacturer = "chipKIT";
     _product = _BOARD_NAME_;
     _serial = _defSerial;
     _serialLen = _driver->populateDefaultSerial(_defSerial);
+}
+
+uint8_t USBManager::allocateString() {
+    uint8_t i = _stringCount;
+    _stringCount++;
+    return i;
 }
 
 uint8_t USBManager::allocateInterface() {
