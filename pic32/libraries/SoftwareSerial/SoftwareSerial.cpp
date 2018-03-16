@@ -131,9 +131,9 @@
  * Statics
  ******************************************************************************/
 /// TODO: Is this really needed anymore?
-SoftwareSerial *SoftwareSerial::active_object = NULL;
-bool SoftwareSerial::_CN_ISR_hooked = false;
-SoftwareSerial *SoftwareSerial::CN_list_head = NULL;
+SoftwareSerialRx *SoftwareSerialRx::active_object = NULL;
+bool SoftwareSerialBase::_CN_ISR_hooked = false;
+SoftwareSerialRx *SoftwareSerialRx::CN_list_head = NULL;
 
 /******************************************************************************
  * Definitions
@@ -177,7 +177,13 @@ SoftwareSerial *SoftwareSerial::CN_list_head = NULL;
  * Constructors
  ******************************************************************************/
 
-SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverted_logic /* = false */)
+SoftwareSerialTx::SoftwareSerialTx(uint8_t transmitPin)
+{
+    _transmitPin = transmitPin;
+    _baudRate = 0;
+}
+
+SoftwareSerialRx::SoftwareSerialRx(uint8_t receivePin, bool inverted_logic /* = false */)
 {
     // Detect if this pin is on a Change Notification or not and record it's CN number if so
 #if !defined(__PIC32_PPS__)
@@ -195,13 +201,23 @@ SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inv
     }
     _inverted_logic = inverted_logic;
     _receivePin = receivePin;
-    _transmitPin = transmitPin;
     _baudRate = 0;
     _have_start_bit_time = false;
     active_object = this;
 }
 
-SoftwareSerial::~SoftwareSerial()
+SoftwareSerial::SoftwareSerial(uint8_t receivePin, uint8_t transmitPin, bool inverted_logic /* = false */)
+    : SoftwareSerialRx(receivePin, inverted_logic), SoftwareSerialTx(transmitPin)
+{
+  
+}
+
+SoftwareSerialTx::~SoftwareSerialTx()
+{
+    end();
+}
+
+SoftwareSerialRx::~SoftwareSerialRx()
 {
     end();
 }
@@ -217,7 +233,7 @@ void __USER_ISR ChangeNotificationISR()
 {
 DEBUG5_HIGH
     // Call the static function that handles all of the CN logic, pass in the current time
-    SoftwareSerial::handleChangeNotificationISR(readCoreTimer());
+    SoftwareSerialRx::handleChangeNotificationISR(readCoreTimer());
 DEBUG5_LOW
     // Clearing the interrupt flag is handled in the above function for PPC CPUs
 #if !defined(__PIC32_PPS__)
@@ -229,7 +245,7 @@ DEBUG5_LOW
  * Look at what's in the SoftwareSerial object obj, and find out if the RX pin that
  * it points to is set or cleared. Also take into account the _inverted_logic setting.
  */
-bool SoftwareSerial::ReadBit(SoftwareSerial* obj)
+bool SoftwareSerialRx::ReadBit(SoftwareSerialRx* obj)
 {
     bool retval;
     
@@ -256,7 +272,7 @@ DEBUG3_LOW
  * don't end up reading port more than once for a given ISR call.
  * /// TODO: On PPS PIC32, use CNSTAT register to help with this
  */
-bool SoftwareSerial::RXBitHasChanged(SoftwareSerial* obj)
+bool SoftwareSerialRx::RXBitHasChanged(SoftwareSerialRx* obj)
 {
     uint8_t state;
     
@@ -279,13 +295,13 @@ bool SoftwareSerial::RXBitHasChanged(SoftwareSerial* obj)
  * leaving the ISR and coming back in. This allows for more reliable data reception at
  * higher baud rates.
  */
-void SoftwareSerial::handleChangeNotificationISR(uint32_t start_bit_time) 
+void SoftwareSerialRx::handleChangeNotificationISR(uint32_t start_bit_time) 
 {
     int32_t     rx_byte;
     uint32_t    bit_time_core_ticks;
     uint32_t    bit_end_time;
     bool        done = false;
-    SoftwareSerial * serial_obj = SoftwareSerial::CN_list_head;
+    SoftwareSerialRx * serial_obj = SoftwareSerialRx::CN_list_head;
     uint32_t    st;
 
     // To minimize the chance of missing edges at high baud rates, we kill all interrupts
@@ -437,7 +453,7 @@ DEBUG4_LOW
  * array looking for a port pointer match and a pin match. If we find
  * one, then we know that this pin is on a CN, and can return true.
  */
-bool SoftwareSerial::is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask)
+bool SoftwareSerialRx::is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask)
 {
 #if defined(__PIC32_PPS__)
     // All pins are CN pins on PPS PIC32s
@@ -469,7 +485,7 @@ bool SoftwareSerial::is_pin_a_CN(uint8_t pin, uint32_t * CN_bitmask)
  * the CN ISR, then this function gets called to read in the byte that just started appearing on the
  * RX pin. It disables interrupts to get accurate timing.
  */ 
-int32_t SoftwareSerial::readByte()
+int32_t SoftwareSerialRx::readByte()
 {    
     int32_t     retval = 0;
     uint32_t    st;
@@ -564,18 +580,18 @@ DEBUG0_LOW
  * If this is the first, then just update the static head pointer.
  * Otherwise, walk through the list, and add this one at the end.
  */
-void SoftwareSerial::addCN(void)
+void SoftwareSerialRx::addCN(void)
 {
-    SoftwareSerial *scan;
+    SoftwareSerialRx *scan;
     
-    if (SoftwareSerial::CN_list_head == NULL)
+    if (SoftwareSerialRx::CN_list_head == NULL)
     {
-        SoftwareSerial::CN_list_head = this;
+        SoftwareSerialRx::CN_list_head = this;
         next_CN = NULL;
     }
     else
     {
-        for (scan = SoftwareSerial::CN_list_head; scan->next_CN; scan = scan->next_CN)
+        for (scan = SoftwareSerialRx::CN_list_head; scan->next_CN; scan = scan->next_CN)
         {
         }
         scan->next_CN = this;
@@ -586,9 +602,22 @@ void SoftwareSerial::addCN(void)
 /*
  * Remove this Software Serial object from the linked list of objects that use Change Notification pins.
  */
-void SoftwareSerial::removeCN(void)
+void SoftwareSerialRx::removeCN(void)
 {
     /// TODO
+    /*
+    SoftwareSerialRx *last = NULL;
+    SoftwareSerialRx *scan = SoftwareSerialRx::CN_list_head;
+
+    for (scan = SoftwareSerialRx::CN_list_head; scan != this && scan != NULL; scan = scan->next_CN)
+    {
+        last = this;
+    }
+    if( last == NULL ) // we are the first on the list
+        SoftwareSerialRx::CN_list_head = next_CN
+    else  // we are in the middle
+        last->next_CN = next_CN;
+    */
 }
 
 
@@ -599,7 +628,8 @@ void SoftwareSerial::removeCN(void)
 /*
  * /// TODO
  */ 
-bool SoftwareSerial::listen()
+// bool SoftwareSerialTx::listen() // The Tx port will never listen
+bool SoftwareSerialRx::listen()
 {
   return false;
 }
@@ -607,7 +637,8 @@ bool SoftwareSerial::listen()
 /*
  * /// TODO
  */ 
-bool SoftwareSerial::stopListening()
+// bool SoftwareSerialRx::stopListening() // Since the Tx port will never listen, no need to ever stop listening.
+bool SoftwareSerialRx::stopListening()
 {
     return false;
 }
@@ -618,14 +649,27 @@ bool SoftwareSerial::stopListening()
  */ 
 void SoftwareSerial::begin(long speed)
 {
+    SoftwareSerialRx::begin(speed);
+    SoftwareSerialTx::begin(speed);
+}
+void SoftwareSerialTx::begin(long speed)
+{
     begin(speed, TS_BUFSZ);
 }
-
+void SoftwareSerialRx::begin(long speed)
+{
+    begin(speed, TS_BUFSZ);
+}
 /*
  * The real begin function. Takes a baud rate (same for RX and TX) and a RX buffer size.
  * RX buffer size is only used if the RX pin is on a Change Notification pin.
  */ 
 void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
+{
+    SoftwareSerialRx::begin(speed, RX_buffer_size);
+    SoftwareSerialTx::begin(speed, RX_buffer_size);
+}
+void SoftwareSerialRx::begin(long speed, uint32_t RX_buffer_size)
 {
     uint8_t     port;
     uint32_t    st;
@@ -642,13 +686,6 @@ void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
     _OneBitTime =  ((F_CPU/2)/_baudRate);
     
     pinMode(_receivePin, INPUT);
-    pinMode(_transmitPin, OUTPUT);
-    digitalWrite(_transmitPin, HIGH);
-
-    // Wait for at least 2 bit times with the TX pin high, so that our
-    // receiver knows this is the normal state of the line.
-    bit_end_time = readCoreTimer() + _OneBitTime * 2;
-    while (readCoreTimer() < bit_end_time);
 
     if ((port = digitalPinToPort(_receivePin)) == NOT_A_PIN) 
     {
@@ -656,14 +693,6 @@ void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
     }
     _rxPort = (p32_ioport *)portRegisters(port);
     _rxBit = digitalPinToBitMask(_receivePin);
-
-    if ((port = digitalPinToPort(_transmitPin)) == NOT_A_PIN) 
-    {
-        return;
-    }
-    _txPort = (p32_ioport *)portRegisters(port);
-    _txBit = digitalPinToBitMask(_transmitPin);
-
 
     // If this is an RX pin on a Change Interrupt pin, turn on the Change Notification interrupt
     /// Note: This will clobber any other library's use of Change Notification interrupt
@@ -729,7 +758,7 @@ void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
         // Record the current state of this change notification pin (clears mismatch too)
         _last_RX_pin_state = ReadBit(this); 
 
-        if (!SoftwareSerial::_CN_ISR_hooked)
+        if (!SoftwareSerialRx::_CN_ISR_hooked)
         {
 #if !defined(__PIC32MZXX__)     // MX parts only have one CN vector
             // Configure the change notification interrupt vector
@@ -893,11 +922,38 @@ void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
             CNCONbits.SIDL  =   0;
 #endif            
             // Mark the ISR as set up so that we don't try to do it again
-            SoftwareSerial::_CN_ISR_hooked = true;
+            SoftwareSerialRx::_CN_ISR_hooked = true;
         }
     }
 
     listen();
+}
+
+void SoftwareSerialTx::begin(long speed, uint32_t RX_buffer_size)
+{
+    uint8_t     port;
+    uint32_t    st;
+    int32_t     x;
+    int32_t     s;
+    uint32_t    bit_end_time;
+    
+    _baudRate = speed;
+    _OneBitTime =  ((F_CPU/2)/_baudRate);
+    
+    pinMode(_transmitPin, OUTPUT);
+    digitalWrite(_transmitPin, HIGH);
+
+    // Wait for at least 2 bit times with the TX pin high, so that our
+    // receiver knows this is the normal state of the line.
+    bit_end_time = readCoreTimer() + _OneBitTime * 2;
+    while (readCoreTimer() < bit_end_time);
+
+    if ((port = digitalPinToPort(_transmitPin)) == NOT_A_PIN) 
+    {
+        return;
+    }
+    _txPort = (p32_ioport *)portRegisters(port);
+    _txBit = digitalPinToBitMask(_transmitPin);
 }
 
 /*
@@ -905,6 +961,12 @@ void SoftwareSerial::begin(long speed, uint32_t RX_buffer_size)
  * pin (if any) and then stop listening on this RX pin.
  */ 
 void SoftwareSerial::end()
+{
+  SoftwareSerialTx::end();
+  SoftwareSerialRx::end();
+}
+void SoftwareSerialTx::end() {}
+void SoftwareSerialRx::end()
 {
     if (_on_CN_pin) {
 #if !defined(__PIC32_PPS__)
@@ -927,7 +989,7 @@ void SoftwareSerial::end()
  * If this RX pin is on a CN, then read from the RX buffer. If not (it's just a normal
  * GPIO pin) then block and read a byte from the RX pin.
  */ 
-int SoftwareSerial::read(void)
+int SoftwareSerialRx::read(void)
 {
     if (_on_CN_pin) 
     {
@@ -948,7 +1010,7 @@ int SoftwareSerial::read(void)
  * in on the RX pin. If it does, then it will return 1. If it does not (in that time) then
  * it will return 0.
  */
-int SoftwareSerial::available(uint32_t timeout_ms) 
+int SoftwareSerialRx::available(uint32_t timeout_ms) 
 {
     uint32_t end_time_ms = millis() + timeout_ms;
 
@@ -978,7 +1040,7 @@ int SoftwareSerial::available(uint32_t timeout_ms)
  * read so that it goes and calls read() to read the byte (even if there is none
  * currently coming in.)
  */ 
-int SoftwareSerial::available()
+int SoftwareSerialRx::available()
 {
     if (_on_CN_pin) 
     {
@@ -996,7 +1058,7 @@ int SoftwareSerial::available()
  * Interrupts are disabled for the entire time the byte is being sent out.
  * Since we always send one byte, we always return a 1.
  */ 
-size_t SoftwareSerial::write(uint8_t b)
+size_t SoftwareSerialTx::write(uint8_t b)
 {
     uint32_t    st;
     uint32_t    bit_end_time;
@@ -1013,7 +1075,7 @@ DEBUG0_HIGH
 DEBUG0_LOW
         return 0;
     }
-  
+//#ifdef SoftwareSerialSplit
     // If any software serial objects are on CN pins (for RX) then disable the CN interrupts
     // while we are transmitting. We have interrupts disabled anyway, so we can't service
     // any RXing during transmit. And things tend to get confused if we leave the CN on.
@@ -1073,6 +1135,7 @@ DEBUG0_LOW
     }
 
     st = disableInterrupts();
+//#endif  // SoftwareSerialSplit
   
     _txPort->lat.clr = _txBit; // Start bit
 
@@ -1111,10 +1174,11 @@ DEBUG1_HIGH
     bit_end_time = readCoreTimer() + _OneBitTime + EXTRA_TX_BIT_TIME;
     while (readCoreTimer() < bit_end_time);
     
+//#ifdef SoftwareSerialSplit
     restoreInterrupts(st);
 
     // And restore the CN functions when we're done transmitting this byte
-    if(SoftwareSerial::_CN_ISR_hooked == true)
+    if(_CN_ISR_hooked == true)
     {
 #if !defined(__PIC32_PPS__)
         CNCONbits.ON    =   1;
@@ -1170,6 +1234,7 @@ DEBUG1_HIGH
     }
 DEBUG1_LOW
 DEBUG0_LOW    
+//#endif  // SoftwareSerialSplit
     return 1;
 }
 
@@ -1177,15 +1242,13 @@ DEBUG0_LOW
  * Since we do not use buffered transmit in this library, this function
  * doesn't have much to do.
  */
-void SoftwareSerial::flush()
-{
-}
+void SoftwareSerialTx::flush() {}
 
 /*
  * If this RX pin is a CN pin (and thus has an RX buffer), peek at the next byte in the buffer and
  * return it. If this is not a CN pin, then return an error value of -1.
  */ 
-int SoftwareSerial::peek()
+int SoftwareSerialRx::peek()
 {
     if (_on_CN_pin)
     {

@@ -7,6 +7,8 @@
 # Datatypes (KEYWORD1)
 #######################################
 
+SoftwareSerialRx	KEYWORD1
+SoftwareSerialTx	KEYWORD1
 SoftwareSerial	KEYWORD1
 
 #######################################
