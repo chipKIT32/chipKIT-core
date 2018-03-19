@@ -1,7 +1,7 @@
 #ifndef _CHIPKIT_VERSION
 #define _CHIPKIT_VERSION
 
-// Version versionheader-v2.0.2-8-g2f6c586
-#define __CHIPKIT__ 20002
+// Version master-v2.0.3-2-g948f1cc
+#define __CHIPKIT__ 20003
 
 #endif
