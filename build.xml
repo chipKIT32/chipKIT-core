@@ -11,6 +11,8 @@
     git submodule add https://github.com/majenkotech/pic32prog-autotools modules/pic32prog-autotools
   -->
 
+  <taskdef name="chipkitversion" classname="ant.dep.ChipkitTagVersion" classpath="antlib/ant-chipkittagversion.jar" />
+
   <available file=".git" property="git.present" type="dir"/>
 
   <property file="upload.properties"/>
@@ -88,6 +90,7 @@
     <mkdir dir="tmp" />
     <mkdir dir="dist"/>
     <antcall target="updatepic32prog"/>
+    <antcall target="versionheader"/>
   </target>
 
   <target depends="setup" description="Build Mac OS X version" name="macosx-build">
@@ -478,5 +481,12 @@
     <java classname="org.apache.tools.ant.Main">
       <arg value="-p"/>
     </java>
+  </target>
+
+
+  <target description="Set the core version header file" name="versionheader" depends="git.revision">
+
+    <chipkitversion file="pic32/cores/pic32/chipKITVersion.h" tag="${repository.version}" />
+
   </target>
 </project>

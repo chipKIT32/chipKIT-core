@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project name="ant-chipkittagversion" default="build">
+
+    <target name="clean" description="Clean the build directories">
+        <delete dir="bin" />
+        <delete file="ant-chipkittagversion.jar" />
+    </target>
+
+    <target name="compile" description="Compile sources">
+        <mkdir dir="bin" />
+
+        <javac srcdir="src"
+            debug="true"
+            debuglevel="lines,vars,source"
+            source="1.6"
+            target="1.6"
+            destdir="bin"
+            includeAntRuntime="false"
+            classpath="/usr/share/ant/lib/ant.jar" />
+    </target>
+   
+    <target name="build" depends="compile" description="Build the plugin jars">
+        <jar destfile="ant-chipkittagversion.jar">
+            <fileset dir="bin" />
+            <!--fileset dir="resources" /-->
+            <manifest>
+                <attribute name="Author" value="Majenko Technologies" />
+            </manifest>
+        </jar>
+    </target>
+
+</project>

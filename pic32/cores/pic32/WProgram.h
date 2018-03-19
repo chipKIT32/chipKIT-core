@@ -8,6 +8,8 @@
 
 #include <pins_arduino.h>
 
+#include "chipKITVersion.h"
+
 #ifndef Wiring_h
 	#include "wiring.h"
 #endif
