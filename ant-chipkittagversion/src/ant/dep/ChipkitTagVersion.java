@@ -38,10 +38,10 @@ public class ChipkitTagVersion extends Task {
         }
 
 
-        Pattern p = Pattern.compile("-v(\\d+)\\.(\\d+)\\.(\\d+)-");
+        Pattern p = Pattern.compile("v(\\d+)\\.(\\d+)\\.(\\d+)");
         Matcher m = p.matcher(_tag);
         if (!m.find()) {
-            throw new BuildException("Tag format should be BRANCH-vA.B.C-D-HASH");
+            throw new BuildException("Tag format should be vA.B.C");
         }
 
         try {
