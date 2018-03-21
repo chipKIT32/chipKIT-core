@@ -1,0 +1,23 @@
+variant=boxtec-helvepic32SMDa
+description=HelvePic32SMDa
+group=Boxtec
+platform=pic32
+board=_BOARD_HELVEPIC32SMDA_ -G1024
+board.flags=-D_USE_USB_FOR_SERIAL_::-D_USB
+ccflags=-Map="map.map"
+ldscript=chipKIT-application-32MX270F256${upload.${prefs:board.${prefs:board}.programmer}.ldsuffix}.ld
+upload.protocol=stk500v2
+upload.maximum_size=262144
+upload.speed=115200
+build.mcu=32MX270F256D
+build.f_cpu=48000000L
+build.core=pic32
+build.variant=boxtec-helvepic32SMDa
+family=pic32
+version=0.7
+revision=3
+core=chipkit
+name=HelvePic32SMDa
+
+bootloader.file=${board:root}/HELVEPIC32SDM44A
+
