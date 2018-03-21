@@ -1,0 +1,32 @@
+variant=boxtec-helvepic32
+description=HelvePic32
+group=Boxtec
+platform=pic32
+board=_BOARD_HELVEPIC32_
+board.flags=
+ccflags=-Map="map.map"
+ldscript=chipKIT-application-32MX250F128${upload.${prefs:board.${prefs:board}.programmer}.ldsuffix}.ld
+upload.protocol=stk500v2
+upload.maximum_size=122880
+upload.speed=115200
+build.mcu=32MX250F128B
+build.f_cpu=40000000L
+build.core=pic32
+build.variant=boxtec-helvepic32
+family=pic32
+version=0.1
+revision=2
+core=chipkit
+manual=http://www.mathias-wilhelm.de/arduino/embedded-boards/helvepic32
+name=boxtec-helvepic32
+
+options.usb.name=USB Settings
+options.usb.default=withSerial
+options.usb.purge=true
+options.usb.withoutSerial.name=Disable USB Serial
+options.usb.withoutSerial.flags=
+options.usb.withSerial.name=Enable USB Serial
+options.usb.withSerial.flags=-D_USE_USB_FOR_SERIAL_
+
+bootloader.file=${board:root}/bootloader
+

@@ -1,0 +1,23 @@
+variant=boxtec-helvepic32SMD
+description=HelvePic32SMD
+group=Boxtec
+platform=pic32
+board=_BOARD_HELVEPIC32SMD_ -G1024
+board.flags=-D_USE_USB_FOR_SERIAL_::-D_USB
+ccflags=-Map="map.map"
+ldscript=chipKIT-application-32MX250F128${upload.${prefs:board.${prefs:board}.programmer}.ldsuffix}.ld
+upload.protocol=stk500v2
+upload.maximum_size=122880
+upload.speed=115200
+build.mcu=32MX250F128D
+build.f_cpu=40000000L
+build.core=pic32
+build.variant=boxtec-helvepic32SMD
+family=pic32
+version=0.7
+revision=3
+core=chipkit
+name=HelvePic32SMD
+
+bootloader.file=${board:root}/FUBARINO_MINI_USB_48MHZ
+
