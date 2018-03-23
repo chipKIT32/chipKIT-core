@@ -62,11 +62,11 @@ static const uint8_t keyboardHidReport[] = {
     0x95, 0x06, //   REPORT_COUNT (6)
     0x75, 0x08, //   REPORT_SIZE (8)
     0x15, 0x00, //   LOGICAL_MINIMUM (0)
-    0x25, 0x65, //   LOGICAL_MAXIMUM (101)
+    0x25, 0xff, //   LOGICAL_MAXIMUM (255)
     0x05, 0x07, //   USAGE_PAGE (Keyboard)
 
     0x19, 0x00, //   USAGE_MINIMUM (Reserved (no event indicated))
-    0x29, 0x65, //   USAGE_MAXIMUM (Keyboard Application)
+    0x29, 0xff, //   USAGE_MAXIMUM (Keyboard Application)
     0x81, 0x00, //   INPUT (Data,Ary,Abs)
     0xc0, // END_COLLECTION
 };
@@ -316,6 +316,49 @@ void HID_Keyboard::sendReport(struct KeyReport *keys) {
     while(!_manager->sendBuffer(_epInt, (uint8_t *)keys, sizeof(struct KeyReport))) {
         if (millis() - ts > USB_TX_TIMEOUT) return;
     }
+}
+
+size_t HID_Keyboard::releaseRawModifier(uint8_t k) {
+    _keyReport.modifiers &= ~k;
+    sendReport(&_keyReport);
+    return 1;
+}
+
+size_t HID_Keyboard::pressRawModifier(uint8_t k) {
+    _keyReport.modifiers |= k;
+    sendReport(&_keyReport);
+    return 1;
+}
+
+size_t HID_Keyboard::releaseRaw(uint8_t k) {
+    for (int i = 0; i < 6; i++) {
+        if (_keyReport.keys[i] == k) {
+            _keyReport.keys[i] = KEY_RAW_NONE;
+        }
+    }
+    sendReport(&_keyReport);
+    return 1;
+}
+
+size_t HID_Keyboard::pressRaw(uint8_t k) {
+    uint8_t i;
+    if (_keyReport.keys[0] != k && _keyReport.keys[1] != k &&
+        _keyReport.keys[2] != k && _keyReport.keys[3] != k &&
+        _keyReport.keys[4] != k && _keyReport.keys[5] != k) {
+
+        for (i=0; i<6; i++) {
+            if (_keyReport.keys[i] == 0x00) {
+                _keyReport.keys[i] = k;
+                break;
+            }
+        }
+        if (i == 6) {
+            setWriteError();
+            return 0;
+        }
+    }
+    sendReport(&_keyReport);
+    return 1;
 }
 
 size_t HID_Keyboard::press(uint8_t k) {
