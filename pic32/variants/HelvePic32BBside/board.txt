@@ -1,0 +1,33 @@
+variant=boxtec-helvepicBBside
+description=HelvePic32 BBside
+group=Boxtec
+platform=pic32
+board=_BOARD_HELVEPIC32BBS_
+board.flags=
+ccflags=-Map="map.map"
+ldscript=chipKIT-application-32MX250F128${upload.${prefs:board.${prefs:board}.programmer}.ldsuffix}.ld
+upload.protocol=stk500v2
+upload.maximum_size=122880
+upload.speed=115200
+build.mcu=32MX250F128B
+build.f_cpu=48000000L
+build.core=pic32
+build.variant=boxtec-helvepicBBside
+family=pic32
+version=0.1
+revision=2
+core=chipkit
+manual=http://www.mathias-wilhelm.de/arduino/embedded-boards/helvepic32
+name=boxtec-helvepicBBside
+
+options.usb.a_cdcacm.flags=-D__USB_ENABLED__::-D__USB_CDCACM__::-D__SERIAL_IS_USB__
+options.usb.a_cdcacm.name=Serial
+options.usb.b_cdcacm_km.flags=-D__USB_ENABLED__::-D__USB_CDCACM_KM__::-D__SERIAL_IS_USB__
+options.usb.b_cdcacm_km.name=Serial, Keyboard & Mouse
+options.usb.default=a_cdcacm
+options.usb.name=USB
+options.usb.purge=true
+options.usb.z_custom.name=Custom
+
+bootloader.file=${board:root}/bootloader
+
