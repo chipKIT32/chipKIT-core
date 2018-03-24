@@ -38,6 +38,8 @@
 //************************************************************************
 //*    Microchip pic32 chip names
 
+#define    E2END        0x0fff    //*    4 k of simulated EEPROM
+
 #include "cpudefs_table.h"
 
 // Set up MZ ADC type   
