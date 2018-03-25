@@ -113,16 +113,6 @@ foreach my $chip (sort keys %{$chipdata}) {
     }
 }
 
-print "#include \"cpudefs_retired.h\"\n";
-
-print "#ifndef _CPU_NAME_\n";
-print "    #error CPU type is unknown, cpudefs.h needs to have additions\n";
-
-print "#endif\n";
-
-#print Dumper($chipdata);
-
-
 sub makeFamily($) {
     my $cname = shift;
 

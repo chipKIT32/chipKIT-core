@@ -3825,7 +3825,3 @@
     #define __FLASH_PAGE__                4096
 #endif
 
-#include "cpudefs_retired.h"
-#ifndef _CPU_NAME_
-    #error CPU type is unknown, cpudefs.h needs to have additions
-#endif
