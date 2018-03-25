@@ -12,6 +12,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECH064__)
@@ -28,6 +29,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECM064__)
@@ -44,6 +46,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECG064__)
@@ -60,6 +63,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECH064__)
@@ -76,6 +80,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECM064__)
@@ -92,6 +97,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECG100__)
@@ -108,6 +114,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECH100__)
@@ -124,6 +131,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECM100__)
@@ -140,6 +148,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECG100__)
@@ -156,6 +165,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECH100__)
@@ -172,6 +182,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECM100__)
@@ -188,6 +199,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECG124__)
@@ -204,6 +216,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECH124__)
@@ -220,6 +233,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECM124__)
@@ -236,6 +250,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECG124__)
@@ -252,6 +267,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECH124__)
@@ -268,6 +284,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECM124__)
@@ -284,6 +301,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECG144__)
@@ -300,6 +318,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECH144__)
@@ -316,6 +335,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECM144__)
@@ -332,6 +352,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECG144__)
@@ -348,6 +369,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECH144__)
@@ -364,6 +386,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ2048ECM144__)
@@ -380,6 +403,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECE064__)
@@ -396,6 +420,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECF064__)
@@ -412,6 +437,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECK064__)
@@ -428,6 +454,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECE064__)
@@ -444,6 +471,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECF064__)
@@ -460,6 +488,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECK064__)
@@ -476,6 +505,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECE100__)
@@ -492,6 +522,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECF100__)
@@ -508,6 +539,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECK100__)
@@ -524,6 +556,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECE100__)
@@ -540,6 +573,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECF100__)
@@ -556,6 +590,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECK100__)
@@ -572,6 +607,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECE124__)
@@ -588,6 +624,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECF124__)
@@ -604,6 +641,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECE124__)
@@ -620,6 +658,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECF124__)
@@ -636,6 +675,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECK124__)
@@ -652,6 +692,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECE144__)
@@ -668,6 +709,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECF144__)
@@ -684,6 +726,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ0512ECK144__)
@@ -700,6 +743,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECE144__)
@@ -716,6 +760,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECF144__)
@@ -732,6 +777,7 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif
 
 #if defined(__32MZ1024ECK144__)
@@ -748,4 +794,5 @@
     #define __HAS_ETHERNET__
     #define __FLASH_ROW__                 512
     #define __FLASH_PAGE__                4096
+    #define __PIC32MZECADC__
 #endif

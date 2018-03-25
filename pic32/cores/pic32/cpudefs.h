@@ -47,14 +47,6 @@
     #error CPU type is unknown, cpudefs.h needs to have additions
 #endif
 
-// Set up MZ ADC type   
-#if defined(__PIC32MZ__)
-    // do we have EF or EC ADCs
-    #ifndef __PIC32MZEFADC__
-        #define __PIC32MZECADC__
-    #endif
-#endif
-
 //Fix issue 213
 #ifndef __PIC32_PPS__
   #define OPT_BOARD_INTERNAL
