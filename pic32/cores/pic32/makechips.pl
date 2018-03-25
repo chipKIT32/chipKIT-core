@@ -39,19 +39,12 @@ while (my $line = <CSV>) {
 close (CSV);
 
 
-my $first = 1;
-
 foreach my $chip (sort keys %{$chipdata}) {
     if ($chipdata->{$chip}->{'CPU Type'} == '32-bit MIPS MCU') {
 
         my $cname = $chip;
         $cname =~ s/^PIC//g;
-        if ($first == 1) {
-            print "#if defined(__" . $cname . "__)\n";
-            $first = 0;
-        } else {
-            print "#elif defined(__" . $cname . "__)\n";
-        }
+        print "#if defined(__" . $cname . "__)\n";
 
         my $ram = $chipdata->{$chip}->{'RAM (KB)'};
         my $ddr = 0;
@@ -116,11 +109,13 @@ foreach my $chip (sort keys %{$chipdata}) {
         print "    #define __FLASH_PAGE__                " . flashPage($fam) . "\n";
 
 
-        print "\n";
+        print "#endif\n\n";
     }
 }
 
-print "#else\n";
+print "#include \"cpudefs_retired.h\"\n";
+
+print "#ifndef _CPU_NAME_\n";
 print "    #error CPU type is unknown, cpudefs.h needs to have additions\n";
 
 print "#endif\n";
