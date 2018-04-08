@@ -143,7 +143,7 @@ bool USBFS::disableUSB() {
 
 bool USBFS::addEndpoint(uint8_t id, uint8_t direction, uint8_t __attribute__((unused)) type, uint32_t size, uint8_t *a, uint8_t *b) {
 	if (id > 15) return false;
-    _endpointBuffers[id].data = 0x40;
+    _endpointBuffers[id].data = 0x00;
     _endpointBuffers[id].size = size;
     _endpointBuffers[id].buffer = NULL;
     _endpointBuffers[id].bufferPtr = NULL;
@@ -356,7 +356,7 @@ void USBFS::handleInterrupt() {
 		U1CONbits.PPBRST = 0;
 		for (int i  = 0; i < 16; i++) {
 			_endpointBuffers[i].txAB = 0;
-            _endpointBuffers[i].data = 0x40;
+            _endpointBuffers[i].data = 0x00;
 
             _bufferDescriptorTable[i][0].flags |= 0x80;
             _bufferDescriptorTable[i][1].flags |= 0x80;
