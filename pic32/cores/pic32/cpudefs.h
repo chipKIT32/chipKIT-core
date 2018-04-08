@@ -41,13 +41,10 @@
 #define    E2END        0x0fff    //*    4 k of simulated EEPROM
 
 #include "cpudefs_table.h"
+#include "cpudefs_retired.h"
 
-// Set up MZ ADC type   
-#if defined(__PIC32MZ__)
-    // do we have EF or EC ADCs
-    #ifndef __PIC32MZEFADC__
-        #define __PIC32MZECADC__
-    #endif
+#ifndef _CPU_NAME_
+    #error CPU type is unknown, cpudefs.h needs to have additions
 #endif
 
 //Fix issue 213
