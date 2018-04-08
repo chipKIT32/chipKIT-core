@@ -82,16 +82,16 @@ public:
   void end(void) {if(root.isOpen()) root.close();}
 
   // Methods to determine if the requested file path exists.
-  boolean exists(char *filepath);
+  boolean exists(const char *filepath);
 
   // Create the requested directory heirarchy--if intermediate directories
   // do not exist they will be created.
-  boolean mkdir(char *filepath);
+  boolean mkdir(const char *filepath);
   
   // Delete the file.
-  boolean remove(char *filepath);
+  boolean remove(const char *filepath);
   
-  boolean rmdir(char *filepath);
+  boolean rmdir(const char *filepath);
 
 private:
 
@@ -103,7 +103,7 @@ private:
   int fileOpenMode;
   
   friend class File;
-  friend boolean callback_openPath(SdFile&, char *, boolean, void *); 
+  friend boolean callback_openPath(SdFile&, const char *, boolean, void *); 
 };
 
 extern SDClass SD;
