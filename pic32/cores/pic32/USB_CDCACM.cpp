@@ -358,9 +358,6 @@ int CDCACM::peek() {
 }
 
 void CDCACM::onEnumerated() {
-#ifdef __PIC32MX__
-    _manager->sendBuffer(_epBulk, (uint8_t *)"\0", 1);
-#endif
 }
 
 #endif // _USB
