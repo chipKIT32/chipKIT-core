@@ -545,6 +545,9 @@ uint32_t analogReadConversion(){
 
 int analogRead(uint8_t pin)
 {
+  // In case a non-blocking read is in progress, wait for it to complete.
+  while( ! analogReadConversionComplete() );
+
   if (!analogReadConversionStart(pin)) return 0;
   while( ! analogReadConversionComplete() );
   return analogReadConversion();
