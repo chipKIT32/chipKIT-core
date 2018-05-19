@@ -57,6 +57,7 @@
 #define	NOT_ANALOG_PIN	0xFF
 #define	NOT_PPS_PIN		0xFF
 #define NOT_CN_PIN      0xFF
+#define NOT_INT_PIN     0xFF
 
 /* Symbols to define the bit position of the timer fields within the
 ** timer mapping table.
@@ -203,6 +204,16 @@
 #define digitalPinToTimerTCK(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_TCK) )
 #define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
 #define digitalPinToCN(P) (NOT_CN_PIN)
+
+/* Override this in Board_Defs.h if you don't have all 5 interrupt pins defined.
+ * Or, define a PIN_INTx macro as being NOT_INT_PIN to disable it.
+ */
+#define digitalPinToInterrupt(P) \
+    ((P) == PIN_INT0 ? 0 : \
+    ((P) == PIN_INT1 ? 1 : \
+    ((P) == PIN_INT2 ? 2 : \
+    ((P) == PIN_INT3 ? 3 : \
+    ((P) == PIN_INT4 ? 4 : NOT_INT_PIN)))))
 
 #if defined(__PIC32_PPS__)
 // This macro returns a pointer to a p32_ioport structure as defined in p32_defs.h
