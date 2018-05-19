@@ -59,6 +59,7 @@
 #define NOT_PPS_PIN     0xFF
 #define NOT_CN_PIN      0xFF
 #define NOT_INT_PIN     0xFF
+#define NOT_AN_INTERRUPT 0xFF
 
 /* Symbols to define the bit position of the timer fields within the
 ** timer mapping table.
