@@ -38,6 +38,7 @@
  ********************************************************************/
 
 #include <p32xxxx.h>
+#include <stdint.h>
 
 // declared static in case exception condition would prevent
 // auto variable being created
@@ -63,12 +64,19 @@ static unsigned int _excep_addr;
 
 //************************************************************************
 // this function overrides the normal _weak_ generic handler
-void __attribute__((nomips16)) _general_exception_handler(void)
+
+
+void __attribute__((weak)) _general_exception_handler(uint32_t code, uint32_t address) {
+}
+
+void __attribute__((nomips16,used)) _general_exception_handler_entry(void)
 {
 	asm volatile("mfc0 %0,$13" : "=r" (_epc_code));
 	asm volatile("mfc0 %0,$14" : "=r" (_excep_addr));
 
-	_epc_code = (_excep_code & 0x0000007C) >> 2;
+	_excep_code = (_epc_code & 0x0000007C) >> 2;
+
+    _general_exception_handler(_excep_code, _excep_addr);
 
 	while (1)
 	{
@@ -76,3 +84,4 @@ void __attribute__((nomips16)) _general_exception_handler(void)
 		// Examine _excep_addr to find the address that caused the exception
 	}
 }
+
