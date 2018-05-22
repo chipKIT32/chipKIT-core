@@ -564,7 +564,7 @@ _bev_exception:
         .set noreorder
         .ent _gen_exception
 _gen_exception:
-        la      k0,_gen_exception
+        la      k0,_general_exception_handler_entry
         jr      k0
         nop
 
