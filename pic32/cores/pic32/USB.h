@@ -1,4 +1,5 @@
 /*
+eeycode 195 = F17
  * Copyright (c) 2017, Majenko Technologies
  * All rights reserved.
  *
@@ -793,6 +794,7 @@ class HID_Keyboard : public USBDevice, public Print {
         uint8_t _intA[8];
         uint8_t _intB[8];
         uint8_t _countryCode;
+        uint8_t _leds;
 
     public:
         HID_Keyboard() : _countryCode(0) {}
@@ -820,6 +822,8 @@ class HID_Keyboard : public USBDevice, public Print {
         size_t releaseRaw(uint8_t key);
         size_t release(uint8_t key);
         void releaseAll();
+
+        uint8_t getLEDs() { return _leds; }
 
         void begin(void) {};
         void end(void) {};
