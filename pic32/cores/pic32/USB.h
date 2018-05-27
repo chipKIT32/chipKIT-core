@@ -273,10 +273,11 @@ class USBManager {
 
         bool isHighSpeed() { return _driver->isHighSpeed(); }
 
-		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser = NULL);
-		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser = NULL);
-		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid);
-		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid);
+		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL);
+		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL) : 
+            USBManager(&driver, vid, pid, mfg, prod, ser) {}
+//		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid);
+//		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid);
 
         void begin();
         void addDevice(USBDevice *d);
@@ -370,6 +371,7 @@ class CDCACM : public USBDevice, public Stream {
 
         uint8_t _lineState;
         uint32_t _baud;
+        uint32_t _previousBaud;
         uint8_t _stopBits;
         uint8_t _dataBits;
         uint8_t _parity;
@@ -406,21 +408,22 @@ class CDCACM : public USBDevice, public Stream {
         CDCACM() : _txHead(0), _txTail(0), _rxHead(0), _rxTail(0) {}
 
         operator int();
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) { return false; }
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen)  override { return false; }
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) override { return false; }
         void configureEndpoints();
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         int getLineState() { return _lineState; }
+        uint32_t getBaud() { return _baud; }
         bool getDTR() { return ((_lineState & 0x01) == 0x01); }
         bool getRTS() { return ((_lineState & 0x02) == 0x02); }
 
@@ -800,19 +803,19 @@ class HID_Keyboard : public USBDevice, public Print {
         HID_Keyboard() : _countryCode(0) {}
         HID_Keyboard(uint8_t cc) : _countryCode(cc) {}
 
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
         size_t write(uint8_t);
 
         size_t pressRawModifier(uint8_t key);
@@ -877,19 +880,19 @@ class HID_Media : public USBDevice {
         uint32_t _consumerKeys;
 
     public:
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
         size_t write(uint8_t);
 
         size_t pressSystem(uint16_t key);
@@ -922,19 +925,19 @@ class HID_Mouse : public USBDevice {
         uint8_t _intB[8];
 
     public:
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         HID_Mouse() : _buttons(0) {}
     
@@ -963,19 +966,19 @@ class HID_Tablet : public USBDevice {
         uint16_t _h;
 
     public:
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         HID_Tablet(int w, int h) : _buttons(0), _x(0), _y(0), _w(w), _h(h) {}
     
@@ -1016,19 +1019,19 @@ class HID_Joystick : public USBDevice {
         uint8_t _intB[16];
 
     public:
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) override { return false; }
         void configureEndpoints();
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         HID_Joystick(void);
         void begin(void) {};
@@ -1062,19 +1065,19 @@ class HID_Raw : public USBDevice {
 
     public:
         void sendReport(uint8_t *b, uint8_t l);
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         void begin(void) {};
         void end(void) {};
@@ -1107,19 +1110,19 @@ class Audio_MIDI : public USBDevice {
         void (*_onMidiMessage)(uint8_t status, uint8_t d0, uint8_t d1);
 
     public:
-        uint16_t getDescriptorLength();
-        uint8_t getInterfaceCount();
-        uint32_t populateConfigurationDescriptor(uint8_t *buf);
-        void initDevice(USBManager *manager);
-        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
-        void configureEndpoints();
+        uint16_t getDescriptorLength() override;
+        uint8_t getInterfaceCount() override;
+        uint32_t populateConfigurationDescriptor(uint8_t *buf) override;
+        void initDevice(USBManager *manager) override;
+        bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen) override;
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) override { return false; }
+        void configureEndpoints() override;
 
-        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
-        void onEnumerated();
+        bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onInPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        bool onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l) override;
+        void onEnumerated() override;
 
         void begin(void) {};
         void end(void) {};
