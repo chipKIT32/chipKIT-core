@@ -799,8 +799,8 @@ class HID_Keyboard : public USBDevice, public Print {
         uint8_t _leds;
 
     public:
-        HID_Keyboard() : _countryCode(0) {}
-        HID_Keyboard(uint8_t cc) : _countryCode(cc) {}
+        HID_Keyboard() : _countryCode(0), _leds(0) {}
+        HID_Keyboard(uint8_t cc) : _countryCode(cc), _leds(0) {}
 
         uint16_t getDescriptorLength();
         uint8_t getInterfaceCount();
