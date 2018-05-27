@@ -5,314 +5,339 @@ title: A Guide on How to Hack the chipKIT-core
 
 <div class="panel-body">
 
-    <p class=MsoNormal>By: Jacob Christ from pontech.com and Quick240.com</p>
-
-    <p class=MsoNormal>This guide was written as a starting point for anyone that
-        is wishing to help improve the <span class=SpellE>chipKIT</span>-core API’s.</p>
-
-    <h1>What is <span class=SpellE>chipKIT</span></h1>
-
-    <p class=MsoNormal>The <span class=SpellE>chipKIT</span> project started as fork
-        of the Arduino IDE, plus its Wiring API as implemented for the Atmel AVR, with
-        the express goal of making the tools work with the Microchip PIC32
-        microcontroller.<span style='mso-spacerun:yes'>  </span>Although the project
-        started with the Microchip PIC32, the ultimate goal was to allow the growing
-        number of people familiar with the Wiring API to use any microcontroller they
-        wanted with a “Multi-Platform” IDE.<span style='mso-spacerun:yes'>  </span>The forked
-        Arduino IDE was renamed to MPIDE for Multi-Platform IDE and initially supported
-        both Atmel AVR and Microchip PIC32 devices.</p>
-
-    <h1>MPIDE is dead, long live MPIDE</h1>
-
-    <p class=MsoNormal>As the Arduino community to expand their offerings to include
-        the Arduino Due which was implemented with an Atmel SAM ARM processors they
-        needed to change the Arduino IDE to support this new architecture.<span
-                style='mso-spacerun:yes'>  </span>This was accomplished by pulling changes from
-        MPIDE back into the <span class=SpellE>Arudino</span> IDE.<span
-                style='mso-spacerun:yes'>  </span>Around version 1.6.5 of the Arduino IDE
-        became the multi-platform IDE that MPIDE had always yearned to be.<span
-                style='mso-spacerun:yes'>  </span>With this the <span class=SpellE>chipKIT</span>
-        team dropped further MPIDE development in favor turning the ported PIC32
-        libraries into what is known at the <span class=SpellE>chipKIT</span>-core.<span
-                style='mso-spacerun:yes'>  </span>The <span class=SpellE>chipKIT</span>-core
-        can now be installed within the Arduino IDE Boards manager like many other
-        cores for other boards and processor types.</p>
-
-    <h1><span class=SpellE>chipKIT</span>-core</h1>
-
-    <p class=MsoNormal>The <span class=SpellE>chipKIT</span>-core project as it
-        exists on <span class=SpellE>github</span> consists of the implementation of
-        the Wiring API as implemented for the PIC32 plus Java ANT build scripts that
-        allow for distributions to be built for multiple platforms including Windows,
-        Mac OSX, Linux and Arm processors (Such as the <span class=SpellE>RaspPI</span>).<span
-                style='mso-spacerun:yes'>  </span>The <span class=SpellE>chipKIT</span>-core at
-        best is very useful in getting a PIC32 processor to do you bidding, at its
-        worse its incomplete and needs help to improve it.</p>
-
-    <h1>Sketchbooks, libraries and hardware</h1>
-
-    <p class=MsoNormal>If you know how to program but are new to Arduino or <span
-            class=SpellE>chipKIT</span> there are a few hurdles to overcome.<span
-            style='mso-spacerun:yes'>  </span>Even if you have done a little programing on
-        the Arduino platform there are a few things that should be pointed out if you
-        want to hack on the <span class=SpellE>chipKIT</span>-core.</p>
-
-    <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Programs are called sketches (like an artist’s
-        sketch)</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>They are stored in a folder called the
-        “Sketchbook”</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>The “Sketchbook” folder is set from the
-        preferences dialog box accessible from the File menu.</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Sketches can use “libraries” that come with the
-        IDE which is NOT to be confused with the following:</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>The “Sketchbook” folder can have a sub folder
-        called “libraries” that is used to house contributed libraries that you make
-        yourself or are made by others.</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Additional cores can be added to the IDE by
-        adding a links to the “Additional Boards Manager URL’s” in the preference
-        dialog box as described <a
-                href="https://quick240.com/quicki/_media/chipkit:installing_and_using_the_arduino_ide_development_tool.pdf">here</a>.<span
-                style='mso-spacerun:yes'>  </span>The additional cores are added into the
-        “hardware” folder of for the IDE which is NOT to be confused with the
-        following:</p>
-
-    <p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>The “Sketchbook” folder can have a sub folder
-        called “hardware” that is used give the IDE access to compiler and APIs not
-        accessible in the default download of the IDE.</p>
-
-    <p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l0 level1 lfo1'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Whenever you make a change to any of these
-        folders are where the IDE is looking for them you need to restart the IDE, it’s
-        just not that smart.</p>
+<p class=MsoNormal>Created By: Jacob Christ from pontech.com and Quick240.com, (hopefully)
+community maintained.</p>
+
+<h1>Introduction</h1>
+
+<p class=MsoNormal>This guide is a starting point for anyone that is wishing to
+help improve the chipKIT-core API’s.  That is to say, fix bugs, add features or
+help make the core more compatible with the Arduino/Wiring API.</p>
+
+<p class=MsoNormal>Although one of the primary goals of both Arduino and
+chipKIT is to make getting started with embedded development as easy as
+possible. If you are new to core hacking then you are in for a bit of a
+learning curve.  If you want to know more about the history of chipKIT and
+chipKIT-core skip to the end of this document.  If you are ready to for core
+hacking then let’s get started.</p>
+
+<h1>Folders: Arduino (Sketchbooks), libraries and hardware</h1>
+
+<p class=MsoNormal>Knowing where various files are intended to be stored within
+the Arduino IDE is crucial for successful core hacking.</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>If you have made it this far you probably already know the
+following: within the Ardunio IDE when a user writes a program targeted for an
+embedded development platform these programs are called sketches. </p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Sketches are stored in a folder called the “sketchbook”.  The
+default sketchbook folder name is “Arduino”.  In windows this folder is created
+in the users “Documents” folder the first time the Arduino IDE is run.</p>
 
-    <h1>How to install <span class=SpellE>chipKIT</span>-core</h1>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Although not needed for core hacking it’s good to know that the default
+“sketchbook” folder can be changed from the Arduino IDE preferences dialog box. 
+The preferences dialog box is accessible from the File menu in the Arduino IDE.</p>
 
-    <p class=MsoNormal>The <a
-            href="http://chipkit.net/wiki/index.php?title=ChipKIT_core"><span class=SpellE>chipKIT</span>
-        wiki</a> describes two ways to install a <span class=SpellE>chipKIT</span>-core.</p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Sketches can use “libraries” that provide additional canned
+functionality for your programs.  Libraries can come from at least three
+different locations.</p>
 
-    <p class=MsoListParagraphCxSpFirst style='text-indent:-.25in;mso-list:l3 level1 lfo3'><![if !supportLists]><span
-            style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
-            style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Auto install via URL from within Arduino IDE</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Built in libraries that are part of the Arduino IDE.</p>
 
-    <p class=MsoListParagraphCxSpLast style='text-indent:-.25in;mso-list:l3 level1 lfo3'><![if !supportLists]><span
-            style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:minor-latin'><span
-            style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Manual install by copying ZIP file</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Libraries that are part of a specific core.</p>
 
-    <p class=MsoNormal>The auto install will put the <span class=SpellE>chipKIT</span>-core
-        into a place that is hidden from you but accessible by the Arduino IDE.<span
-                style='mso-spacerun:yes'>  </span>On my computer, it puts it here: </p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>User (aka contributed) libraries that are stored in the
+“libraries” folder within the “sketchbook” folder.</p>
 
-    <p class=MsoNormal>C:\Users\Jacob Christ\<span class=SpellE>AppData</span>\Local\Arduino15\packages</p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Additional cores can be added to the IDE by adding a links to the
+“Additional Boards Manager URL’s” in the preference dialog box as described <a
+href="https://quick240.com/quicki/_media/chipkit:installing_and_using_the_arduino_ide_development_tool.pdf">here</a>. 
+The additional cores are added into the “hardware” folder of for the IDE which
+is NOT to be confused with the following:</p>
 
-    <p class=MsoNormal>The manual install is better for hacking since it gets put
-        into the <span class=SpellE>Arduio</span>/hardware folder but for best results
-        I recommend linking the <span class=SpellE>git</span> <span class=SpellE>chipKIT</span>-core
-        repo to this directory as explained below.</p>
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>The “Sketchbook” folder can have a sub folder called “hardware”
+that is used give the IDE access to compiler and APIs not accessible in the
+default download of the IDE.</p>
 
-    <h1>The <span class=SpellE>chipKIT</span>-core Repository</h1>
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>Whenever you make a change to any of these folders are where the
+IDE is looking for them you need to restart the IDE, it’s just not that smart.</p>
 
-    <p class=MsoNormal>The <span class=SpellE>chipKIT</span>-core repository is maintained
-        on <span class=SpellE>github</span>: <a
-                href="https://github.com/chipKIT32/chipKIT-core">https://github.com/chipKIT32/chipKIT-core</a></p>
+<h1>How to install chipKIT-core</h1>
 
-    <p class=MsoNormal>DON’T FOR GET TO UPDATE YOUR SUBMODULES!</p>
+<p class=MsoNormal>The <a
+href="http://chipkit.net/wiki/index.php?title=ChipKIT_core">chipKIT wiki</a>
+describes two ways to install a chipKIT-core.</p>
 
-    <p class=MsoNormal>You can download, hack and contribute to the repository
-        without using <span class=SpellE>git</span>, but if you plan on doing a lot of
-        work on the repo or any other programming for that matter then it’s time to
-        learn <span class=SpellE>git</span>.<span style='mso-spacerun:yes'> 
-</span>Learning and using <span class=SpellE>git</span> is outside the scope of
-        this document but there is plenty of information on how to use it out there.</p>
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Auto
+install via URL from within Arduino IDE</p>
 
-    <h1>…\<span class=SpellE>chipKIT</span>-core\</h1>
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Manual
+install by copying ZIP file</p>
 
-    <p class=MsoNormal>Once you have cloned the repo you will have a <span
-            class=SpellE>chipKIT</span>-core folder (unless you renamed it).<span
-            style='mso-spacerun:yes'>  </span>Inside this folder you have the following
-        folders:</p>
+<p class=MsoNormal>The auto install will put the chipKIT-core into a place that
+is hidden from you but accessible by the Arduino IDE.  On my computer, it puts
+it here: </p>
 
-    <h2>…\docs</h2>
+<p class=MsoNormal>C:\Users\Jacob Christ\AppData\Local\Arduino15\packages</p>
 
-    <p class=MsoNormal>This is where the <span class=SpellE>chipKIT</span>-core
-        commit specific documentation lives.</p>
+<p class=MsoNormal>The manual installation is better for hacking since it gets
+put into the “sketchbook” folder …/Arduino/hardware/ but for best results I
+recommend linking the git chipKIT-core repo to this directory as explained
+below.</p>
 
-    <h2>…\pic32</h2>
+<h1>The chipKIT-core Repository</h1>
 
-    <p class=MsoNormal>This is where the <span class=SpellE>chipKIT</span>-core
-        Wiring API’s live.</p>
+<p class=MsoNormal>The chipKIT-core repository is maintained in a git repository
+on github located here: <a href="https://github.com/chipKIT32/chipKIT-core">https://github.com/chipKIT32/chipKIT-core</a></p>
 
-    <h2>…\tests</h2>
+<p class=MsoNormal>WHEN YOU FETCH DON’T FOR GET TO UPDATE YOUR SUBMODULES!</p>
 
-    <p class=MsoNormal>As well as a smattering of other files:</p>
+<p class=MsoNormal>You can download, hack and contribute to the repository
+without using git, but if you plan on doing a lot of work on the repo or any
+other programming for that matter then it’s time to learn git.  Learning and
+using git is outside the scope of this document but there is plenty of
+information on how to use it out there.</p>
 
-    <h2>…\build.xml</h2>
+<h1>…\chipKIT-core\</h1>
 
-    <p class=MsoNormal>Used by ANT to create the <span class=SpellE>chipKIT</span>-core
-        distributions</p>
+<p class=MsoNormal>Once you have cloned the repo you will have a “chipKIT-core”
+folder (unless you renamed it).  Inside this folder you have the following
+folders:</p>
 
-    <h2>…\LICENSE</h2>
+<h2>…\chipKIT-core\ant-chipkittagversion\</h2>
 
-    <p class=MsoNormal>The license file</p>
+<p class=MsoNormal>Source code for tool used by ANT for extracting git tags out
+of the repo when building the core. </p>
 
-    <h2>…\<span class=SpellE>package_chipkit_index.json</span></h2>
-
-    <p class=MsoNormal>A publicly visible file <span class=SpellE>json</span> file
-        that tells the Arduino IDE how to install specific versions of <span
-                class=SpellE>chipKIT</span>-core</p>
-
-    <h2>…\README.md</h2>
+<h2>…\chipKIT-core\antlib\</h2>
 
-    <p class=MsoNormal>The <span class=SpellE>chipKIT</span>-core license file</p>
-
-    <h2>…\<span class=SpellE>version.properties</span></h2>
-
-    <p class=MsoNormal>I’m not really sure what this file is for, I think it’s used
-        by ANT</p>
-
-    <h1>How I Hack <span class=SpellE>chipKIT</span>-core (in Windows)</h1>
-
-    <p class=MsoNormal>When I’m hacking the core, I’m doing it with the sole
-        intention of making it better for myself and the community.<span
-                style='mso-spacerun:yes'>  </span>Because of this I want to make it very easy
-        for me to get my changes pushed back up to <span class=SpellE>github</span> so
-        that I can make a pull request.<span style='mso-spacerun:yes'>  </span>Some
-        might suggest modifying the files in your installed version of the core then
-        copying them back to your cloned repo when you are ready to commit.<span
-                style='mso-spacerun:yes'>  </span>I’m a bit lazier and prefer to operate
-        directly on the core itself.<span style='mso-spacerun:yes'>  </span><span
-                class=SpellE>Basicly</span> it works like this.<span style='mso-spacerun:yes'> 
-</span>Clone <span class=SpellE>chipKIT</span> core into its own
-        directory.<span style='mso-spacerun:yes'>  </span>Then create a symbolic
-        directory link from your hardware folder in your sketchbook directory to the <span
-                class=SpellE>chipKIT</span>-core repository.<span style='mso-spacerun:yes'> 
-</span>Build a distribution of the core in the <span class=SpellE>chipKIT</span>-core
-        repository then copy compiler and tools directory from the build distribution
-        back down to the pic32 directory in the <span class=SpellE>chipKIT</span>-core
-        repo.</p>
+<p class=MsoNormal>Java jar files used by ANT when building the core. </p>
 
-    <p class=MsoNormal>Here is how I accomplished this in windows:</p>
+<h2>…\chipKIT-core\dist\</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>Open <span class=SpellE>cmd</span> prompt as
-        administrator</p>
+<p class=MsoNormal>Created by ANT when the project is built.</p>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>cd c:/sketchbook_folder/</p>
+<h2>…\chipKIT-core\docs\</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span class=SpellE>mkdir</span> hardware</p>
+<p class=MsoNormal>github.io chipKIT-core documentation web site.</p>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>cd hardware</p>
+<h2>…\chipKIT-core\modules\</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span class=SpellE>mkdir</span> <span
-            class=SpellE>chipkit</span>-core</p>
+<p class=MsoNormal>Location of the pic32prog programming tool</p>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>cd <span class=SpellE>chipkit</span>-core</p>
+<h2>…\chipKIT-core\pic32\</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]><span class=SpellE>mklink</span> pic32
-        c:\path_to_repos\chipKIT-core\pic32</p>
+<p class=MsoNormal>This is where the chipKIT-core Wiring API’s live.</p>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>cd c:\path_to_repos\chipKIT-core</p>
+<h2>…\ chipKIT-core\tests\</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>ant build</p>
+<p class=MsoNormal>A smattering test files.</p>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>wait 10+ minutes for build to complete</p>
+<h2>…\ chipKIT-core\build.xml</h2>
 
-    <p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in;mso-list:l2 level1 lfo4'><![if !supportLists]><span
-            style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
-Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span></span><![endif]>The next steps I do with the Windows file
-        explorer</p>
+<p class=MsoNormal>Used by ANT to create the chipKIT-core distributions.  Try
+“ant build help” for a list of possible targets.</p>
 
-    <p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in;mso-list:
-l2 level2 lfo4'><![if !supportLists]><span style='font-family:"Courier New";
-mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
-            style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp; </span></span></span><![endif]>copy
-        the compiler and tools folder from c:\path_to_repos\chipKIT-core\dist\windows\chipkit-core\pic32
-        to c:\path_to_repos\chipKIT-core\pic32</p>
+<h2>…\ chipKIT-core\build_instructions.txt</h2>
 
-    <p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
-color:#222222'><o:p>&nbsp;</o:p></span></p>
+<p class=MsoNormal>Reminders to the developers on how to build the
+distribution.</p>
 
-    <p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
-color:#222222'>If you have auto installed <span class=SpellE>chipKIT</span>-core,
-when you restart the IDE you will now have two copies of the <span
-                class=SpellE>chipKIT</span> in your boards menu.<span
-                style='mso-spacerun:yes'>  </span>To make it clear which version is my hackable
-version I modify platform.txt and change the name parameter to read:<o:p></o:p></span></p>
+<h2>…\ chipKIT-core\LICENSE</h2>
 
-    <p class=MsoNormal><span style='mso-fareast-font-family:"Times New Roman";
-color:#222222'>name=<span class=SpellE>chipKIT</span> (<span class=SpellE>git</span>)<o:p></o:p></span></p>
+<p class=MsoNormal>The chipKIT-core license file.</p>
 
-    <p class=MsoNormal>Remember you must start the Arduino IDE for this change to
-        take place.<span style='mso-spacerun:yes'>  </span>Happy hacking…</p>
+<h2>…\ chipKIT-core\package_chipkit_index.json</h2>
 
-    <h1>Installing ANT</h1>
+<p class=MsoNormal>A publicly visible json file that tells the Arduino IDE how
+to install specific versions of chipKIT-core.</p>
 
-    <p class=MsoNormal>The previous section mentioned using ANT to build the
-        distribution.<span style='mso-spacerun:yes'>  </span>Instructions for
-        installing ANT can be found here:</p>
+<h2>…\ chipKIT-core\README.md</h2>
 
-    <p class=MsoNormal><a href="http://ant.apache.org/">http://ant.apache.org/</a></p>
+<p class=MsoNormal>The chipKIT-core license file</p>
 
-    <p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<h2>…\ chipKIT-core\version.properties</h2>
+
+<p class=MsoNormal>Not sure what this file is for, I think it’s used by ANT</p>
+
+<h1>How I Hack chipKIT-core (in Windows)</h1>
+
+<p class=MsoNormal>When I’m hacking the core, I’m doing it with the sole
+intention of making it better for myself and the community.  Because of this I
+want to make it very easy for me to get my changes pushed back up to github so
+that I can make a pull request.  Some might suggest modifying the files in your
+installed version of the core then copying them back to your cloned repo when
+you are ready to commit.  I’m a bit lazier and prefer to operate directly on
+the core itself.  Basically, it works like this.  Clone chipKIT core into its
+own directory.  Then create a symbolic directory link from your hardware folder
+in your sketchbook directory to the chipKIT-core repository.  The hardware folder
+(in the sketch folder) is there to house custom cores for non-Arduino boards
+that provide the compilers and libraries necessary to compile your sketch (such
+at chipKITE-core).  Build a distribution of the core in the chipKIT-core
+repository then copy compiler and tools directory from the build distribution
+back down to the pic32 directory in the chipKIT-core repo.</p>
+
+<p class=MsoNormal>Here is how I accomplished this in windows:</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Open cmd prompt as administrator</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>cd c:/sketchbook_folder/</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>mkdir hardware</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>cd hardware</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>mkdir chipkit-core</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>cd chipkit-core</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>mklink /D pic32 c:\path_to_repos\chipKIT-core\pic32</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>cd c:\path_to_repos\chipKIT-core</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>ant build (see installing ant below if not installed)</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>wait 10+ minutes for build to complete</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The next steps I do with the Windows file explorer</p>
+
+<p class=MsoNoSpacing style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>copy the <b><u>compiler</u></b> and <b><u>tools</u></b> folder
+from c:\path_to_repos\chipKIT-core\dist\windows\chipkit-core\pic32 to
+c:\path_to_repos\chipKIT-core\pic32</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Edit c:\path_to_repos\chipKIT-core\pic32\platform.txt file and
+change the name from “chipKIT” to “chipKIT (git)” to make it easy to
+distinguish which core you are using in the Arduino IDE. NOTE: do not commit
+this change!</p>
+
+<p class=MsoNoSpacing style='margin-left:.5in;text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>At this point you open the Arduino IDE, select a chipKIT board
+form the “chipKIT (git)” menu and then edit core files in the path_to_repos\chipKIT-core\pic32.</p>
+
+<p class=MsoNormal><span style='color:#222222'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='color:#222222'>If you have auto installed
+chipKIT-core, when you restart the IDE you will now have two copies of the
+chipKIT in your boards menu.  The version which is hackable will show up in the
+Boards menu with the name “chipKIT (git)” after you </span>restart the Arduino
+IDE.  Happy hacking…</p>
+
+<h1>Installing ANT</h1>
+
+<p class=MsoNormal>The previous section mentioned using ANT to build the
+distribution.  Instructions for installing ANT can be found here:</p>
+
+<p class=MsoNormal><a href="http://ant.apache.org/">http://ant.apache.org/</a></p>
+
+<h1>History</h1>
+
+<p class=MsoNormal>In an effort to make this documentation better, I’ve decided
+to move some of the previous introduction (which is mostly history) to the end
+of the document.  The thought being is that if you are looking to hack the core
+the history may only slow your efforts.</p>
+
+<h2>What is chipKIT</h2>
+
+<p class=MsoNormal>The chipKIT project started as fork of the Arduino IDE, plus
+its Wiring API as implemented for the Atmel AVR, with the express goal of
+making the tools work with the Microchip PIC32 microcontroller.  Although the
+project started with the Microchip PIC32, the ultimate goal was to allow the
+growing number of people familiar with the Wiring API to use any
+microcontroller they wanted with a “Multi-Platform” IDE.  The forked Arduino
+IDE was renamed to MPIDE for Multi-Platform IDE and initially supported both Atmel
+AVR and Microchip PIC32 devices.</p>
+
+<h2>Sketches</h2>
+
+<p class=MsoNormal>Within the Ardunio IDE, when a user writes a program
+targeted for an embedded development platform these programs are called
+sketches. </p>
+
+<p class=MsoNormal>The concept of a program as a sketch is trying to make the
+analogy of sketches in an artist’s sketch book.</p>
+
+<h2>MPIDE is dead, long live MPIDE</h2>
+
+<p class=MsoNormal>As the Arduino community to expand their offerings to
+include the Arduino Due which was implemented with an Atmel SAM ARM processors
+they needed to change the Arduino IDE to support this new architecture.  This
+was accomplished by pulling changes from MPIDE back into the Arudino IDE. 
+Around version 1.6.5 of the Arduino IDE became the multi-platform IDE that
+MPIDE had always yearned to be.  With this the chipKIT team dropped further
+MPIDE development in favor turning the ported PIC32 libraries into what is
+known at the chipKIT-core.  The chipKIT-core can now be installed within the
+Arduino IDE Boards manager like many other cores for other boards and processor
+types.</p>
+
+<h2>Cores</h2>
+
+<p class=MsoNormal>Starting around version 1.6 of the Arduino IDE features were
+added to that allowed swapping out different compliers and libraries so that
+the IDE can support the variety of different microcontrollers that have sprung
+up around the Arduino community.  The files that are brought in to support
+these boards are called “cores”.</p>
+
+<h2>chipKIT-core</h2>
+
+<p class=MsoNormal>The chipKIT-core project as it exists on github consists of
+the implementation of the Arduino/Wiring API as implemented for the Microchip
+PIC32 Microcontrollers.  The core consists of the PIC32 gcc cross complier,
+PIC32 programming tools (picprog32), USB Drivers and Java/ANT build scripts. 
+The Java/ANT build scripts allow for distributions to be built for multiple
+platforms including Windows, Mac OSX, Linux and Arm processors (Such as the
+RaspPI).  The chipKIT-core at best is very useful in getting a PIC32 processor
+to do you bidding, at its worse its incomplete and needs help to improve it.</p>
+
+<p class=MsoNormal>&nbsp;</p>
 
 </div>
+
