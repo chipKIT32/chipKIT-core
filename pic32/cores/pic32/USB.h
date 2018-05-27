@@ -1,5 +1,4 @@
 /*
-eeycode 195 = F17
  * Copyright (c) 2017, Majenko Technologies
  * All rights reserved.
  *
