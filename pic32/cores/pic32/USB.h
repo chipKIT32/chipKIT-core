@@ -272,10 +272,11 @@ class USBManager {
 
         bool isHighSpeed() { return _driver->isHighSpeed(); }
 
-		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser = NULL);
-		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser = NULL);
-		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid);
-		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid);
+		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL);
+		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL) : 
+            USBManager(&driver, vid, pid, mfg, prod, ser) {}
+//		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid);
+//		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid);
 
         void begin();
         void addDevice(USBDevice *d);
@@ -369,6 +370,7 @@ class CDCACM : public USBDevice, public Stream {
 
         uint8_t _lineState;
         uint32_t _baud;
+        uint32_t _previousBaud;
         uint8_t _stopBits;
         uint8_t _dataBits;
         uint8_t _parity;
@@ -410,7 +412,7 @@ class CDCACM : public USBDevice, public Stream {
         uint32_t populateConfigurationDescriptor(uint8_t *buf);
         void initDevice(USBManager *manager);
         bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen) { return false; }
+        bool getReportDescriptor(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t __attribute__((unused)) id, uint8_t __attribute__((unused)) maxlen)  { return false; }
         bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
         void configureEndpoints();
 
@@ -420,6 +422,7 @@ class CDCACM : public USBDevice, public Stream {
         void onEnumerated();
 
         int getLineState() { return _lineState; }
+        uint32_t getBaud() { return _baud; }
         bool getDTR() { return ((_lineState & 0x01) == 0x01); }
         bool getRTS() { return ((_lineState & 0x02) == 0x02); }
 
@@ -793,10 +796,11 @@ class HID_Keyboard : public USBDevice, public Print {
         uint8_t _intA[8];
         uint8_t _intB[8];
         uint8_t _countryCode;
+        uint8_t _leds;
 
     public:
-        HID_Keyboard() : _countryCode(0) {}
-        HID_Keyboard(uint8_t cc) : _countryCode(cc) {}
+        HID_Keyboard() : _countryCode(0), _leds(0) {}
+        HID_Keyboard(uint8_t cc) : _countryCode(cc), _leds(0) {}
 
         uint16_t getDescriptorLength();
         uint8_t getInterfaceCount();
@@ -804,7 +808,7 @@ class HID_Keyboard : public USBDevice, public Print {
         void initDevice(USBManager *manager);
         bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
         bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  { return false; }
         void configureEndpoints();
 
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
@@ -820,6 +824,8 @@ class HID_Keyboard : public USBDevice, public Print {
         size_t releaseRaw(uint8_t key);
         size_t release(uint8_t key);
         void releaseAll();
+
+        uint8_t getLEDs() { return _leds; }
 
         void begin(void) {};
         void end(void) {};
@@ -879,7 +885,7 @@ class HID_Media : public USBDevice {
         void initDevice(USBManager *manager);
         bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
         bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  { return false; }
         void configureEndpoints();
 
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);
@@ -924,7 +930,7 @@ class HID_Mouse : public USBDevice {
         void initDevice(USBManager *manager);
         bool getDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
         bool getReportDescriptor(uint8_t ep, uint8_t target, uint8_t id, uint8_t maxlen);
-        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen) { return false; }
+        bool getStringDescriptor(uint8_t __attribute__((unused)) idx, uint16_t __attribute__((unused)) maxlen)  { return false; }
         void configureEndpoints();
 
         bool onSetupPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t l);

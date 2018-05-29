@@ -68,6 +68,18 @@ static const uint8_t keyboardHidReport[] = {
     0x19, 0x00, //   USAGE_MINIMUM (Reserved (no event indicated))
     0x29, 0xff, //   USAGE_MAXIMUM (Keyboard Application)
     0x81, 0x00, //   INPUT (Data,Ary,Abs)
+
+    0x95, 0x03, //   REPORT_COUNT (3)
+    0x75, 0x01, //   REPORT_SIZE (1)
+    0x05, 0x08, //   USAGE_PAGE (LEDs)
+    0x19, 0x01, //   USAGE_MINIMUM (NumLock)
+    0x29, 0x03, //   USAGE_MAXIMUM (Scroll Lock)
+    0x91, 0x02, //   OUTPUT (Data, Var, Abs)
+
+    0x95, 0x05, //   REPORT_COUNT (3)
+    0x75, 0x01, //   REPORT_SIZE (1)
+    0x91, 0x01, //   OUTPUT (Data, Const, Abs)
+
     0xc0, // END_COLLECTION
 };
 
@@ -292,9 +304,10 @@ bool HID_Keyboard::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attr
     return false;
 }
 
-bool HID_Keyboard::onOutPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unused)) *data, uint32_t __attribute__((unused)) l) {
+bool HID_Keyboard::onOutPacket(uint8_t ep, uint8_t target, uint8_t *data, uint32_t __attribute__((unused)) l) {
     if (ep == 0) {
         if (target == _ifInt) {
+            _leds = data[0];
             return true;
         }
     }
