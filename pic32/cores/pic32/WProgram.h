@@ -39,6 +39,13 @@ long random(long, long);
 void randomSeed(unsigned int);
 long map(long, long, long, long, long);
 
+extern "C" {
+
+// yield
+void yield(void);
+
+}
+
 #endif	// __cplusplus
 
 #endif	// Wprogram_h
