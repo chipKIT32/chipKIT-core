@@ -149,7 +149,7 @@ int		digitalRead(uint8_t pin);
 
 // These analogRead funcitons allow for non-blocking use of ADC
 uint8_t analogReadConversionStart(uint8_t pin);
-inline uint32_t analogReadConversionComplete();
+uint32_t analogReadConversionComplete();
 uint32_t analogReadConversion();
 
 int		analogRead(uint8_t);
