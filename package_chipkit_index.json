@@ -70,7 +70,7 @@
             }, 
             {
               "packager": "chipKIT",
-              "version": "v2.1.41",
+              "version": "v2.1.46",
               "name": "pic32prog"
             },
             {
