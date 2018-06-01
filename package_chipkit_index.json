@@ -12,10 +12,10 @@
           "architecture": "pic32",
           "version": "2.0.4",
           "category": "pic32",
-          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v2.0.4/chipkit-core-16778053.master-v2.0.4.zip",
-          "archiveFileName": "chipkit-core-16778053.master-v2.0.4.zip",
-          "checksum": "SHA-256:0c7def44942a80fab1d6f6b4cd3dba7c436cd25c42c583e28b5aff1c682f395a",
-          "size": "7865698",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v2.0.4/chipkit-core-16778053.master-v2.0.4-1-g045a232.zip",
+          "archiveFileName": "chipkit-core-16778053.master-v2.0.4-1-g045a232.zip",
+          "checksum": "SHA-256:6e8247a7c88f8c76227d4fce73c00dec9ccd37532bc7e774609702f181fe82d7",
+          "size": "7865709",
           "help": {
             "online": "http://chipkit.net/started/learn-basics/"
           },
