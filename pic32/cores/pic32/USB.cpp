@@ -131,7 +131,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
         _serialLen = _driver->populateDefaultSerial(_defSerial);
     }
 }
-
+/*
 USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg, const char *prod, const char *ser) {
     _enumerated = false;
     _driver = &driver;
@@ -154,6 +154,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char
         _serialLen = _driver->populateDefaultSerial(_defSerial);
     }
 }
+
 
 USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid) {
     _enumerated = false;
@@ -190,7 +191,7 @@ USBManager::USBManager(USBDriver &driver, uint16_t vid, uint16_t pid) {
     _serial = _defSerial;
     _serialLen = _driver->populateDefaultSerial(_defSerial);
 }
-
+*/
 uint8_t USBManager::allocateString() {
     uint8_t i = _stringCount;
     _stringCount++;
