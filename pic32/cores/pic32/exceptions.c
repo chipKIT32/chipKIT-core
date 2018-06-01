@@ -66,7 +66,7 @@ static unsigned int _excep_addr;
 // this function overrides the normal _weak_ generic handler
 
 
-void __attribute__((weak)) _general_exception_handler(uint32_t code, uint32_t address) {
+void __attribute__((weak)) _general_exception_handler(uint32_t __attribute__((unused)) code, uint32_t __attribute__((unused)) address) {
 }
 
 void __attribute__((nomips16,used)) _general_exception_handler_entry(void)

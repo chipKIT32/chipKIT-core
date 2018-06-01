@@ -190,7 +190,7 @@ uint8_t convertWiFIREadcEFConversionStart(uint8_t channelNumber)
 **	Description:
 **      Coverts the analog signal to a digital value
 */
-inline uint32_t convertWiFIREadcEFConversionComplete()
+uint32_t convertWiFIREadcEFConversionComplete()
 { 
     // wait for completion of the conversion
     if(_analogRead_vcn < 32)
@@ -394,7 +394,7 @@ int	tmp;
   return true; // assume everthing worked until we have time to write better code.
 }
 
-inline uint32_t analogReadConversionComplete(){
+uint32_t analogReadConversionComplete(){
 
 #if defined(__PIC32MZXX__)
 
