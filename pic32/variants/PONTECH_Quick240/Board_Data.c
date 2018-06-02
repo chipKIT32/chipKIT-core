@@ -439,7 +439,7 @@ const uint16_t digital_pin_to_timer_PGM[] = {
 **		reset and before the user sketch is run.
 */
 #if	(OPT_BOARD_INIT != 0)
-
+extern void _disableSeconaryOscillator(void);
 void _board_init(void) {
     _disableSeconaryOscillator();
 }   

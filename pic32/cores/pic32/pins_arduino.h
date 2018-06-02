@@ -250,7 +250,7 @@
 #define portInputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
 #define portOutputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
 
-// This macro converts digital pin number to logcical analog pin number.
+// This macro converts digital pin number to logical analog pin number.
 // This definition is the default mapping. It assumes that the analog pins
 // are contiguous starting at digital pin 16.
 // This macro will usually be redefined in the board variant.

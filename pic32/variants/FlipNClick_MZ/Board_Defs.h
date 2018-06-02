@@ -179,9 +179,6 @@
 #define	PIN_INT3	45  // Click B
 #define	PIN_INT4	33  // Click A
 
-//#define NOT_AN_INTERRUPT -1
-//#define digitalPinToInterrupt(p) ((p) == PIN_INT0 ? 0 : ((p) == PIN_INT1 ? 1 : ((p) == PIN_INT2 ? 2 : ((p) == PIN_INT3 ? 3 : ((p) == PIN_INT4 ? 4 : NOT_AN_INTERRUPT)))))
-
 #define PIN_RD14	0
 #define PIN_RD15	1
 #define PIN_RD0		2

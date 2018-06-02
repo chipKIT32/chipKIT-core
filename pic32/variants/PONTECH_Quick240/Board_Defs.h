@@ -279,13 +279,16 @@ static const uint8_t SCK  = 38;		// PIC32 SCK2A
 #define digitalPinToTimerOC(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_OC)  )
 #define digitalPinToTimerIC(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_IC)  )
 #define digitalPinToTimerTCK(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_TCK)  )
-#define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
-#define portRegisters(P) ( port_to_tris_PGM[P])
-#define portModeRegister(P) ( (volatile uint32_t *)port_to_tris_PGM[P] )
-#define portInputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
-#define portOutputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
+// Already defined in pins_arduino.h
+//#define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
+//#define portRegisters(P) ( port_to_tris_PGM[P])
+//#define portModeRegister(P) ( (volatile uint32_t *)port_to_tris_PGM[P] )
+//#define portInputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
+//#define portOutputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
+#undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( (P) < 16 ? (P) : ((P) >= 54) && ((P) < 70) ? (P)-54 : NOT_ANALOG_PIN )
-#define analogInPinToChannel(P) ( P  )
+// (This is the default from pins_arduino.h, so no define needs to be done here)
+//#define analogInPinToChannel(P) ( P )
 
 /* ------------------------------------------------------------ */
 /*					Data Definitions							*/
@@ -406,8 +409,10 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define	_DSPI1_IPL			3
 #define	_DSPI1_SPL			0
 
+#if !defined(_SPI3_ERR_IRQ)
 #define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
 										//Microchip header file
+#endif
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
 #define	_DSPI2_RX_IRQ		_SPI3_RX_IRQ

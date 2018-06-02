@@ -818,8 +818,8 @@ usbono_pic32.usb.default=a_cdcacm
 
 usbono_pic32.ldscript=chipKIT-application-32MX440F512.ld
 # Use this -G1024 option ONLY for boards with 64K RAM or less
-usbono_pic32.compiler.c.extra_flags=-G1024 -Danything=1
-usbono_pic32.compiler.cpp.extra_flags=-G1024 -Danything=1
+usbono_pic32.compiler.c.extra_flags=-G1024
+usbono_pic32.compiler.cpp.extra_flags=-G1024
 #chipKIT-UNO32-application-32MX320F128L.ld
 # end of new items
 

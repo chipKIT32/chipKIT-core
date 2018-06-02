@@ -156,10 +156,10 @@
 /* These symbols are defined for compatibility with the original
 ** SPI library and the original pins_arduino.h. 
 */
-const static uint8_t SS   = 2;
-const static uint8_t MISO = 3;
-const static uint8_t MOSI =	8;
-const static uint8_t SCK  = 14;
+static const uint8_t SS   = 2;
+static const uint8_t MISO = 3;
+static const uint8_t MOSI =	8;
+static const uint8_t SCK  = 14;
 
 /* The Digilent DSPI library uses these ports.
 */

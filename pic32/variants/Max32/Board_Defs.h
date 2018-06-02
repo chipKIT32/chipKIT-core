@@ -365,8 +365,10 @@ extern const uint32_t   digital_pin_to_cn_PGM[];
 #define	_DSPI1_IPL			_SPI1_IPL_IPC
 #define	_DSPI1_SPL			_SPI1_SPL_IPC
 
-// #define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
+#if !defined(_SPI3_ERR_IRQ)
+#define	_SPI3_ERR_IRQ	_SPI1A_ERR_IRQ	//this declaration missing from the
 										//Microchip header file
+#endif
 #define	_DSPI2_BASE			_SPI3_BASE_ADDRESS
 #define	_DSPI2_ERR_IRQ		_SPI3_ERR_IRQ
 #define	_DSPI2_RX_IRQ		_SPI3_RX_IRQ
