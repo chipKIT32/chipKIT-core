@@ -105,6 +105,7 @@ class TwoWire
     void __attribute__((deprecated("Use write() instead"))) send(int);
     void __attribute__((deprecated("Use write() instead"))) send(char*);
     int write(uint8_t);
+    int write(uint32_t);
     int write(uint8_t*, uint8_t);
     int write(int);
     int write(char*);
