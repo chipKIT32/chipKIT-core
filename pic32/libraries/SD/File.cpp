@@ -149,3 +149,9 @@ File::operator bool() {
   return false;
 }
 
+int8_t File::readDir(dir_t* dir) {
+    if (_file)
+        return _file->readDir(dir);
+    return false;
+}
+
