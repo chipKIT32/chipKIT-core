@@ -50,6 +50,7 @@ public:
   boolean isDirectory(void);
   File openNextFile(uint8_t mode = O_RDONLY);
   void rewindDirectory(void);
+  int8_t readDir(dir_t *dir);
   
   using Print::write;
 };
