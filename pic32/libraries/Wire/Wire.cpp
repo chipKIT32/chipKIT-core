@@ -284,6 +284,7 @@ int TwoWire::write(uint8_t data)
 {
     return(di2c.write((const byte *) &data, 1));
 }
+int TwoWire::write(uint32_t data){ return(write((uint8_t) data)); }
 void TwoWire::send(uint8_t data) { write(data); }
 
 // must be called in:
