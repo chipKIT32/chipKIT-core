@@ -1,5 +1,5 @@
 pipeline {
-    agent { any }
+    agent any
 
     stages {
         stage('build') {
@@ -13,8 +13,6 @@ pipeline {
     }
 
     post {
-        always {
-        }
         success {
                archiveArtifacts artifacts: 'dist/*/chipkit-core-*.zip', fingerprint: true
                setBuildStatus("Complete", "SUCCESS", "ant clean dist-all")
