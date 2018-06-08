@@ -23,7 +23,7 @@ pipeline {
 def setBuildStatus(String message, String state, String context) {
    step([
      $class: "GitHubCommitStatusSetter",
-     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/wayneandlayne/kicad-mac-builder/"],
+     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/chipKIT32/chipKIT-core"],
      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
      statusBackrefSource: [$class: "ManuallyEnteredBackrefSource", backref: "${BUILD_URL}flowGraphTable/"],
