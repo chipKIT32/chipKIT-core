@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                setBuildStatus("In Progress", "PENDING", "ant clean dist-all")
                     withAnt() {
                         sh "ant clean dist-all"
                 }
@@ -15,18 +14,6 @@ pipeline {
     post {
         success {
                archiveArtifacts artifacts: 'dist/*/chipkit-core-*.zip', fingerprint: true
-               setBuildStatus("Complete", "SUCCESS", "ant clean dist-all")
        }
     }
-}
-
-def setBuildStatus(String message, String state, String context) {
-   step([
-     $class: "GitHubCommitStatusSetter",
-     reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/chipKIT32/chipKIT-core"],
-     contextSource: [$class: "ManuallyEnteredCommitContextSource", context: context],
-     errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-     statusBackrefSource: [$class: "ManuallyEnteredBackrefSource", backref: "${BUILD_URL}flowGraphTable/"],
-     statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
-   ]);
 }
