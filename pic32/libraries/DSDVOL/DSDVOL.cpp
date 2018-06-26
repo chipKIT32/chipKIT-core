@@ -24,11 +24,8 @@
 
 void DSDVOL::power_on (void)
 {
-    if(pinPullup1 != pinPullupNone)
-    {
-        pinMode(pinPullup1, INPUT_PULLUP);
-    }
-
+    pinMode(_csPin, OUTPUT);
+    digitalWrite(_csPin, HIGH);
     dSDspi.begin();
  
     dSDspi.setMode(DSPI_MODE0);
@@ -38,10 +35,7 @@ void DSDVOL::power_on (void)
 void DSDVOL::power_off (void)
 {
     dSDspi.end();
-    if(pinPullup1 != pinPullupNone)
-    {
-        pinMode(pinPullup1, INPUT);
-    }
+    pinMode(_csPin, INPUT);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -65,6 +59,7 @@ int DSDVOL::wait_ready (void)
 		d = xchg_spi(0xFF);
 	} while ((d != 0xFF) && tmsTimer(2));
 
+
 	return (d == 0xFF) ? 1 : 0;
 }
 
@@ -74,8 +69,9 @@ int DSDVOL::wait_ready (void)
 
 void DSDVOL::deselect (void)
 {
-    dSDspi.setSelect(HIGH);
+    digitalWrite(_csPin, HIGH);
 	xchg_spi(0xFF);		/* Dummy clock (force DO hi-z for multiple slave SPI) */
+//    restoreInterrupts(_intStat);
 }
 
 /*-----------------------------------------------------------------------*/
@@ -84,7 +80,8 @@ void DSDVOL::deselect (void)
 
 int DSDVOL::select (void)	/* 1:Successful, 0:Timeout */
 {
-    dSDspi.setSelect(LOW);
+//    _intStat = disableInterrupts();
+    digitalWrite(_csPin, LOW);
 	xchg_spi(0xFF);			// Dummy clock (force DO enabled)
 
 	if (wait_ready()) {

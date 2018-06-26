@@ -50,7 +50,7 @@
 #include "../DSPI/DSPI.h"           // required for the interface DGSPI
 #include "../SoftSPI/SoftSPI.h"     // required so SoftSPI does not have to be included 
                                     // if board_Defs uses a macro to define a SoftSPI
-#define sdSpiFast           4000000
+#define sdSpiFast           20000000
 #define sdSpiSlow           400000
 
 #define	FCLK_SLOW()		dSDspi.setSpeed(sdSpiSlow)	/* Set slow clock (100k-400k) */
@@ -98,7 +98,7 @@ class DSDVOL : public DFSVOL
         // variables used by the MMC/SD
         volatile DSTATUS    Stat;	
         uint32_t            CardType;
-	    uint8_t				pinPullup1;		// digital pin to turn on the internal pullups
+	    uint8_t				_csPin;
         tmsDefineTimer(1);
         tmsDefineTimer(2);
 
@@ -127,10 +127,14 @@ class DSDVOL : public DFSVOL
         int xmit_datablock (const uint8_t *buff, uint8_t token);
         uint8_t send_cmd (uint8_t cmd, uint32_t arg);
 
+        uint32_t _intStat;
+
     public:
 
-        DSDVOL(DGSPI& dspi, uint8_t pullup1) : DFSVOL(0,1), dSDspi(dspi), Stat(STA_NOINIT), pinPullup1(pullup1) {}
-        DSDVOL(DGSPI& dspi) : DSDVOL(dspi, pinPullupNone) {}
+        DSDVOL(DGSPI& dspi, uint8_t cs) : DFSVOL(0,1), dSDspi(dspi), Stat(STA_NOINIT), _csPin(cs) {}
+#ifdef PIN_SD_CS
+        DSDVOL(DGSPI& dspi) : DSDVOL(dspi, PIN_SD_CS) {}
+#endif
 
         DSTATUS disk_initialize (void);
         DSTATUS disk_status (void);
