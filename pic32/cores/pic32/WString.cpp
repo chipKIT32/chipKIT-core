@@ -28,16 +28,12 @@
 /*********************************************/
 
 char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s) {
-    int i = (int)__val;
-    double trunc = __val - (float)i;
-    if (trunc < 0) {
-        trunc = 0 - trunc;
+    snprintf(__s, __width, "%.*f", __prec, __val);
+
+    while ((*(__s + strlen(__s)-1) == '0') && (strlen(__s) > 0)) {
+        *(__s + strlen(__s)-1) = 0;
     }
-    for (int q = 0; q < __prec; q++) {
-        trunc *= 10.0;
-    }
-    unsigned int dec = (int)trunc;
-    snprintf(__s, __width, "%d.%d", i, dec);
+        
     return __s;
 }
 
