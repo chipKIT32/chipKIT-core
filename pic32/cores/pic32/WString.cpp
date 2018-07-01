@@ -29,11 +29,6 @@
 
 char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s) {
     snprintf(__s, __width, "%.*f", __prec, __val);
-
-    while ((*(__s + strlen(__s)-1) == '0') && (strlen(__s) > 0)) {
-        *(__s + strlen(__s)-1) = 0;
-    }
-        
     return __s;
 }
 
