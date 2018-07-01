@@ -28,7 +28,7 @@
 /*********************************************/
 
 char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s) {
-    snprintf(__s, __width, "%.*f", __prec, __val);
+    snprintf(__s, __width + 1, "%.*f", __prec, __val);
     return __s;
 }
 
