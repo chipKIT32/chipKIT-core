@@ -24,6 +24,7 @@
 #ifdef __cplusplus
 
 #include <stdlib.h>
+#include "stdlib_noniso.h"
 #include <string.h>
 #include <ctype.h>
 
@@ -38,10 +39,6 @@
 
 class __FlashStringHelper;
 #define F(string_literal) (reinterpret_cast<const __FlashStringHelper *>(string_literal))
-
-
-extern char *dtostrf(double __val, signed char __width, unsigned char __prec, char *__s);
-
 
 // An inherited class for holding the result of a concatenation.  These
 // result objects are assumed to be writable by subsequent concatenations.
