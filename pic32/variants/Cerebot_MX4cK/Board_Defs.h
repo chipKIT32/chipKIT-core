@@ -399,7 +399,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define SD_CS_PIN 64
 
 //Pin 65
-#define	prtSDO				IOPORT_B	//JK
+#define	prtSDO				IOPORT_B
 #define	bnSDO				BIT_11
 
 //Pin 66
