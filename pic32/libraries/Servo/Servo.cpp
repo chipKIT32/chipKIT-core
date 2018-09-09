@@ -21,49 +21,59 @@
 //************************************************************************
 
 /*
- A servo is activated by creating an instance of the Servo class passing the desired pin to the attach() method.
- The servos are pulsed in the background using the value most recently written using the write() method
+ A servo is activated by creating an instance of the Servo class passing 
+ the desired pin to the attach() method. The servos are pulsed in the 
+ background using the value most recently written using the write() method
 
- Note that analogWrite of PWM on pins associated with the timer are disabled when the first servo is attached.
- Timers are seized as needed in groups of 8 servos - 16 servos use two timers, 24 servos will use three.
+ Note that analogWrite of PWM on pins associated with the timer are 
+ disabled when the first servo is attached. Timers are seized as needed in 
+ groups of 8 servos - 16 servos use two timers, 24 servos will use three.
 
  For the PIC32, the three timers that are used are (in order):
  Timer4 (for 1 through 8 servos)
  Timer5 (for 9 through 16 servos)
  Timer3 (for 17 through 24 servos)
 
- Be careful that other libraries do not use any of the timers that you need for your servos.
+ Be careful that other libraries do not use any of the timers that you need 
+ for your servos.
 
  The methods are:
 
  Servo - Class for manipulating servo motors connected to Arduino pins.
 
- attach(pin )  - Attaches a servo motor to an i/o pin.
- attach(pin, min, max  ) - Attaches to a pin setting min and max values in microseconds
- default min is 544, max is 2400
+ attach(pin ) - Attaches a servo motor to an i/o pin.
+ attach(pin, min, max  ) - Attaches to a pin setting min and max values in 
+              microseconds default min is 544, max is 2400
 
- write()    - Sets the servo angle in degrees.  (invalid angle that is valid as pulse in microseconds is treated as microseconds)
+ write()      - Sets the servo angle in degrees.  (invalid angle that is 
+              valid as pulse in microseconds is treated as microseconds)
  writeMicroseconds() - Sets the servo pulse width in microseconds
- read()     - Gets the last written servo pulse width as an angle between 0 and 179.
- readMicroseconds()   - Gets the last written servo pulse width in microseconds.
+ read()       - Gets the last written servo pulse width as an angle between 
+              0 and 179.
+ readMicroseconds()   - Gets the last written servo pulse width in 
+              microseconds.
  attached()   - Returns true if there is a servo attached.
- detach()   - Stops an attached servos from pulsing its i/o pin.
+ detach()     - Stops an attached servos from pulsing its i/o pin.
 
 */
 //************************************************************************
 //* Edit History
 //************************************************************************
-//* Aug 21, 2011  <GeneApperson> fixed floating point issue by changing to integer math
+//* Aug 21, 2011  <GeneApperson> fixed floating point issue by changing 
+//*               to integer math
 //* Sep  1, 2011  <MLS> Cleaning up formatting
 //* Sep  1, 2011  <MLS> Cleaning up formatting
 //* Sep  1, 2011  <MLS> issue #112, changed assignment to compare in finISR
-//* Sep  5, 2011  <GeneApperson> added include of plib.h to fix compile errors
-//*               introduced when plib.h was removed from HardwareSerial.h
+//* Sep  5, 2011  <GeneApperson> added include of plib.h to fix compile 
+//*               errors introduced when plib.h was removed from 
+//*               HardwareSerial.h
 //* Sep 18, 2012  <BPS> Fixed math problem with refresh interval, and
 //*               expanded nbr to 7 bits for pins above 63 (MAX32 has 83)
 //*               And adjusted trim to 1 tick (measured and adjusted)
-//* Feb  7, 2013  <GeneApperson> Removed dependency on Microchip plib library
-//* Sep  9, 2018  <BPS>
+//* Feb  7, 2013  <GeneApperson> Removed dependency on Microchip plib 
+//*               library
+//* Sep  9, 2018  <BPS> Made library aware of CPU speed so it can run on
+//*               wider array of chipKIT boards
 //************************************************************************
 
 #include "Servo.h"
