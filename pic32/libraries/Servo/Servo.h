@@ -65,7 +65,6 @@
   #include  "WProgram.h"
 #endif
 
-
 #include <inttypes.h>
 
 #define Servo_VERSION           3     // software version of this library

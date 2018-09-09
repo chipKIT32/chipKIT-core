@@ -33,6 +33,7 @@
  Timer4 (for 1 through 8 servos)
  Timer5 (for 9 through 16 servos)
  Timer3 (for 17 through 24 servos)
+ Note: These timers (and their prescale value) is set up in int.c
 
  Be careful that other libraries do not use any of the timers that you need 
  for your servos.
@@ -78,14 +79,48 @@
 
 #include "Servo.h"
 
-extern "C"{
+extern "C" {
   #include "int.h"
 }
 
+// All timers are set up to be clocked at PCLK/32, but this code does not
+// initialize them. That's done in the core Arduino code (int.c in this case)
+// On 80MHz chipKIT boards, timers are running at 1.25 MHz (divide  by 64)
+// On 48Mhz chipKIT boards, timers are running at 1.5 MHz (divide by 32)
+// On 40MHz chipKIT boards, timers are running at 1.25 MHz (divide by 32)
+
+/// TODO: What would be great is if this could be re-written to be dynamic.
+/// getPeripheralClock() can be used along with reading the actual divider
+/// value currently set in the timer to compute the proper value for abort
+/// usToTicks() function, which could then properly (dynamically) adjust to
+/// the CPU clock being sped up or down and the timer prescaler changing.
+
 // converts microseconds to tick
-#define usToTicks(_us)      (((_us)*5)/4)
+#if F_CPU == 40000000UL
+  #define usToTicks(_us)      (((_us)*5)/4)
+#elif F_CPU == 48000000UL
+  #define usToTicks(_us)      (((_us)*3)/2)
+#elif F_CPU == 80000000UL
+  #define usToTicks(_us)      (((_us)*5)/4)
+#elif F_CPU == 200000000UL  // untested
+  #define usToTicks(_us)      (((_us)*25)/8)
+#else
+  #define usToTicks(_us)      (((_us)*5)/4)
+  #warning Servo.cpp detected unsupported CPU clock speed. Defaulting to 80MHz.
+#endif
+
 // converts from ticks back to microseconds
-#define ticksToUs(_ticks)   ((((unsigned)(_ticks))*4)/5)
+#if F_CPU == 40000000UL
+  #define ticksToUs(_ticks)   ((((unsigned)(_ticks))*4)/5)
+#elif F_CPU == 48000000UL
+  #define ticksToUs(_ticks)   ((((unsigned)(_ticks))*2)/3)
+#elif F_CPU == 80000000UL
+  #define ticksToUs(_ticks)   ((((unsigned)(_ticks))*5)/4)
+#elif F_CPU == 200000000UL  // untested
+  #define ticksToUs(_ticks)   ((((unsigned)(_ticks))*8)/25)
+#else
+  #define ticksToUs(_ticks)   ((((unsigned)(_ticks))*5)/4)
+#endif
 
 // compensation ticks to trim adjust for digitalWrite delays
 // 12 August 200
