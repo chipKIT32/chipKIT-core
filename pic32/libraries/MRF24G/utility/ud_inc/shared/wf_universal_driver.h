@@ -563,7 +563,7 @@ void WF_ScanResultGet(uint8_t listIndex, t_scanResult *p_scanResult);
 void WF_PsPollEnable(t_psPollContext *p_context);
 void WF_PsPollDisable(void);
 void WF_Hibernate(void);
-INLINE void WF_PowerStateGet(uint8_t *p_powerState);
+/* INLINE */ void WF_PowerStateGet(uint8_t *p_powerState);
 
 
 // Maximum Tx power functions

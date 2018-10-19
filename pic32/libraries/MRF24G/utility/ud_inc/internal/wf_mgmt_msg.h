@@ -239,12 +239,12 @@ typedef struct mgmtIndicateHdrStruct
 
 
 void WF_CPCreate(void);
-INLINE void SignalMgmtMsgRx();
+/* INLINE */ void SignalMgmtMsgRx();
 void SendMgmtMsg(uint8_t *p_header, uint8_t headerLength, uint8_t *p_data, uint8_t dataLength);
 void WaitForMgmtResponse(uint8_t expectedSubtype, uint8_t freeAction);
 void WaitForMgmtResponseAndReadData(uint8_t expectedSubtype, uint8_t numDataBytes, uint8_t startIndex, uint8_t *p_data);
 
-INLINE void ClearMgmtConfirmMsg(void);
+/* INLINE */ void ClearMgmtConfirmMsg(void);
 
 #ifdef __cplusplus
 }

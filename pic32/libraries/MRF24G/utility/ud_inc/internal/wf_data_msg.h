@@ -53,9 +53,9 @@ extern "C" {
 
 #define SNAP_SIZE       (6)
 
-INLINE void SignalPacketRx(void);
-INLINE bool isPacketRx(void);
-INLINE void ClearPacketRx(void);
+/* INLINE */ void SignalPacketRx(void);
+/* INLINE */ bool isPacketRx(void);
+/* INLINE */ void ClearPacketRx(void);
 void WF_ProcessWiFiRxData(void);
 void RxPacketCheck(void);
 
