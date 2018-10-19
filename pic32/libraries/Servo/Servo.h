@@ -24,7 +24,7 @@
 
   Note that analogWrite of PWM on pins associated with the timer are disabled when the first servo is attached.
   Timers are seized as needed in groups of 12 servos - 24 servos use two timers, 48 servos will use four.
-  The sequence used to sieze timers is defined in timers.h
+  The sequence used to seize timers is defined in timers.h
 
   The methods are:
 
@@ -62,25 +62,24 @@
 #define Servo_h
 
 #ifndef WProgram_h
-	#include	"WProgram.h"
+  #include  "WProgram.h"
 #endif
-
 
 #include <inttypes.h>
 
 #define Servo_VERSION           3     // software version of this library
-#define SERVOS_PER_TIMER        8     // the maximum number of servos controlled by one timer 
+#define SERVOS_PER_TIMER        8     // the maximum number of servos controlled by one timer
 #define MAX_SERVOS             24     // Maximum number of servos this library can support at once
 #define MIN_PULSE_WIDTH       544     // the shortest pulse sent to a servo (us)
 #define MAX_PULSE_WIDTH      2400     // the longest pulse sent to a servo (us)
 #define DEFAULT_PULSE_WIDTH  1500     // default pulse width when servo is attached (us)
-#define REFRESH_INTERVAL    20000     // minumim time to refresh servos in microseconds 
+#define REFRESH_INTERVAL    20000     // minimum time to refresh servos in microseconds
 #define INVALID_SERVO         255     // flag indicating an invalid servo index
 
 typedef struct  {
   uint8_t nbr        :7 ;             // a pin number from 0 to 127
-  uint8_t isActive   :1 ;             // true if this channel is enabled, pin not pulsed if false 
-} ServoPin_t   ;  
+  uint8_t isActive   :1 ;             // true if this channel is enabled, pin not pulsed if false
+} ServoPin_t;
 
 typedef struct {
   ServoPin_t Pin;
@@ -91,19 +90,19 @@ class Servo
 {
 public:
   Servo();
-  uint8_t attach(int pin);           // attach the given pin to the next free channel, sets pinMode, returns channel number or 0 if failur
-  uint8_t attach(int pin, int min, int max); // as above but also sets min and max values for writes. 
+  uint8_t attach(int pin);           // attach the given pin to the next free channel, sets pinMode, returns channel number or 0 if failure
+  uint8_t attach(int pin, int min, int max); // as above but also sets min and max values for writes.
   void detach();
-  void write(int value);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds 
-  void writeMicroseconds(int value); // Write pulse width in microseconds 
+  void write(int value);             // if value is < 200 its treated as an angle, otherwise as pulse width in microseconds
+  void writeMicroseconds(int value); // Write pulse width in microseconds
   int read();                        // returns current pulse width as an angle between 0 and 180 degrees
   int readMicroseconds();            // returns current pulse width in microseconds for this servo (was read_us() in first release)
-  bool attached();                   // return true if this servo is attached, otherwise false 
+  bool attached();                   // return true if this servo is attached, otherwise false
 
 private:
    uint8_t servoIndex;               // index into the channel data for this servo
-   int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH    
-   int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH   
+   int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH
+   int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH
 };
 
 #endif
