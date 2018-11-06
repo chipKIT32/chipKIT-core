@@ -152,7 +152,7 @@ extern t_udState g_udState;  // only accessed via macros from external modules
 void  UdStateInit(void);
 void  UdEnablePsPoll(t_psPollContext *p_context);
 void  UdDisablePsPoll(void);
-INLINE bool  UdisPsPollEnabled(void);
+/* INLINE */ bool  UdisPsPollEnabled(void);
 
 #if defined(WF_ERROR_CHECKING)
     uint32_t UdSetDomain(uint8_t domain);

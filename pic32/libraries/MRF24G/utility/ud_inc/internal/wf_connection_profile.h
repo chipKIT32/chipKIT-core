@@ -46,7 +46,7 @@ extern "C" {
 #endif
 
 
-INLINE uint8_t GetCpid(void);
+/* INLINE */ uint8_t GetCpid(void);
 
 void SetHiddenSsid(bool hiddenSsid);
 void SetAdHocMode(uint8_t mode);

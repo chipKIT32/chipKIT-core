@@ -125,9 +125,9 @@ extern "C" {
 void        RawInit(void);
 void        ScratchUnmount(uint8_t rawId);
 uint16_t    ScratchMount(uint8_t rawId);
-INLINE bool isWaitingForRawMoveCompleteInterrupt(void);
-INLINE void ClearWaitingForRawMoveCompleteInterrupt(void);
-INLINE void SignalRawInterruptEvent(uint8_t rawIntMask);
+/* INLINE */ bool isWaitingForRawMoveCompleteInterrupt(void);
+/* INLINE */ void ClearWaitingForRawMoveCompleteInterrupt(void);
+/* INLINE */ void SignalRawInterruptEvent(uint8_t rawIntMask);
 bool        AllocateMgmtTxBuffer(uint16_t bytesNeeded);
 void        DeallocateMgmtRxBuffer(void);
 void        RawSetByte(uint16_t rawId, const uint8_t *p_buffer, uint16_t length);
@@ -143,8 +143,8 @@ uint16_t    RawMove(uint16_t rawId,
                     uint16_t srcDest,
                     bool     rawIsDestination,
                     uint16_t size);
-INLINE void SetRawDataWindowState(uint8_t rawId, uint8_t state);
-INLINE uint8_t GetRawDataWindowState(uint8_t rawId);
+/* INLINE */ void SetRawDataWindowState(uint8_t rawId, uint8_t state);
+/* INLINE */ uint8_t GetRawDataWindowState(uint8_t rawId);
 
 #ifdef __cplusplus
 }

@@ -72,7 +72,7 @@ HelvePic.menu.Version.PTH.upload.maximum_data_size=32768
 
 HelvePic.menu.Version.PTH27=HelvePic32 MX270
 HelvePic.menu.Version.PTH27.build.board=_BOARD_HELVEPIC32A_
-HelvePic.menu.Version.PTH27.build.variant=HelvePic32A
+HelvePic.menu.Version.PTH27.build.variant=HelvePic32a
 HelvePic.menu.Version.PTH27.build.mcu=32MX270F256B
 HelvePic.menu.Version.PTH27.ldscript=chipKIT-application-32MX270F256.ld
 HelvePic.menu.Version.PTH27.upload.maximum_size=249856
@@ -88,7 +88,7 @@ HelvePic.menu.Version.SMD.upload.maximum_data_size=32768
 
 HelvePic.menu.Version.SMD27=HelvePic32 SMD MX270
 HelvePic.menu.Version.SMD27.build.board=_BOARD_HELVEPIC32_SMDA_
-HelvePic.menu.Version.SMD27.build.variant=HelvePic32SMDA
+HelvePic.menu.Version.SMD27.build.variant=HelvePic32SMDa
 HelvePic.menu.Version.SMD27.build.mcu=32MX270F256D
 HelvePic.menu.Version.SMD27.ldscript=chipKIT-application-32MX270F256.ld
 HelvePic.menu.Version.SMD27.upload.maximum_size=249856

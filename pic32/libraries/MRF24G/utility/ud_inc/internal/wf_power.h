@@ -53,8 +53,8 @@ enum
 
 void WFConfigureLowPowerMode(uint8_t action);
 void EnsureWFisAwake(void);
-INLINE bool isPsPollNeedReactivate(void);
-INLINE void ClearPsPollReactivate(void);
+/* INLINE */ bool isPsPollNeedReactivate(void);
+/* INLINE */ void ClearPsPollReactivate(void);
 
 
 #ifdef __cplusplus

@@ -66,8 +66,8 @@ typedef struct eventQueueStruct
 void EventQInit(void);
 void EventEnqueue(uint8_t eventType, uint32_t eventData);
 void EventDequeue(t_event *p_event);
-INLINE bool isEventQEmpty(void);
-INLINE bool isEventQFull(void);
+/* INLINE */ bool isEventQEmpty(void);
+/* INLINE */ bool isEventQFull(void);
 
 #ifdef __cplusplus
 }
