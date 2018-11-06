@@ -144,55 +144,110 @@ typedef uint32_t prog_uint32_t;
 #endif
 #define memcpy_P(dest, src, num) memcpy((dest), (src), (num))
 
+#ifdef memcpy_PF
+#undef memcpy_PF
+#endif
+#define memcpy_PF(dest, src, num) memcpy((dest), (src), (num))
+
 #ifdef strcat_P
 #undef strcat_P
 #endif
 #define strcat_P(dest, src) strcat((dest), (src))
+
+#ifdef strcat_PF
+#undef strcat_PF
+#endif
+#define strcat_PF(dest, src) strcat((dest), (src))
 
 #ifdef strcpy_P
 #undef strcpy_P
 #endif
 #define strcpy_P(dest, src) strcpy((dest), (src))
 
+#ifdef strcpy_PF
+#undef strcpy_PF
+#endif
+#define strcpy_PF(dest, src) strcpy((dest), (src))
+
 #ifdef strlen_P
 #undef strlen_P
 #endif
 #define strlen_P(src) strlen((src))
+
+#ifdef strlen_PF
+#undef strlen_PF
+#endif
+#define strlen_PF(src) strlen((src))
 
 #ifdef strnlen_P
 #undef strnlen_P
 #endif
 #define strnlen_P(src, maxlen) strnlen((src), (maxlen))
 
+#ifdef strnlen_PF
+#undef strnlen_PF
+#endif
+#define strnlen_PF(src, maxlen) strnlen((src), (maxlen))
+
 #ifdef strcasecmp_P
 #undef strcasecmp_P
 #endif
 #define strcasecmp_P(stra, strb) strcasecmp((stra), (strb))
+
+#ifdef strcasecmp_PF
+#undef strcasecmp_PF
+#endif
+#define strcasecmp_PF(stra, strb) strcasecmp((stra), (strb))
 
 #ifdef strcmp_P
 #undef strcmp_P
 #endif
 #define strcmp_P(stra, strb) strcmp((stra), (strb))
 
+#ifdef strcmp_PF
+#undef strcmp_PF
+#endif
+#define strcmp_PF(stra, strb) strcmp((stra), (strb))
+
 #ifdef strncmp_P
 #undef strncmp_P
 #endif
 #define strncmp_P(stra, strb, num) strncmp((stra), (strb), (num))
+
+#ifdef strncmp_PF
+#undef strncmp_PF
+#endif
+#define strncmp_PF(stra, strb, num) strncmp((stra), (strb), (num))
 
 #ifdef strncasecmp_P
 #undef strncasecmp_P
 #endif
 #define strncasecmp_P(stra, strb, num) strncasecmp((stra), (strb), (num))
 
+#ifdef strncasecmp_PF
+#undef strncasecmp_PF
+#endif
+#define strncasecmp_PF(stra, strb, num) strncasecmp((stra), (strb), (num))
+
 #ifdef strncat_P
 #undef strncat_P
 #endif
 #define strncat_P(dest, src, num) strncat((dest), (src), (num))
 
+#ifdef strncat_PF
+#undef strncat_PF
+#endif
+#define strncat_PF(dest, src, num) strncat((dest), (src), (num))
+
 #ifdef strncpy_P
 #undef strncpy_P
 #endif
 #define strncpy_P(dest, src, num) strncpy((dest), (src), (num))
+
+#ifdef strncpy_PF
+#undef strncpy_PF
+#endif
+#define strncpy_PF(dest, src, num) strncpy((dest), (src), (num))
 
 #ifdef strtok_P
 #undef strtok_P
@@ -204,5 +259,110 @@ typedef uint32_t prog_uint32_t;
 #endif
 #define sprintf_P(...) sprintf(__VA_ARGS__)
 
+#ifdef memcmp_P
+#undef memcmp_P
+#endif
+#define memcmp_P(s1, s2, n) memcmp((s1), (s2), (n))
+
+#ifdef memcmp_PF
+#undef memcmp_PF
+#endif
+#define memcmp_PF(s1, s2, n) memcmp((s1), (s2), (n))
+
+#ifdef memchr_P
+#undef memchr_P
+#endif
+#define memchr_P(s, c, n) memchr((s), (c), (n))
+ 
+#ifdef memccpy_P
+#undef memccpy_P
+#endif
+#define memccpy_P(dest, src, c, n) memccpy((dest), (src), (c), (n))
+ 
+#ifdef memmem_P
+#undef memmem_P
+#endif
+#define memmem_P(haystack, haystacklen, needle, needlelen) memmem((haystack), (haystacklen), (needle), (needlelen))
+
+#ifndef memrchr_P
+#undef memrchr_P
+#endif
+#define memrchr_P(s, c, n) memrchr((s), (c), (n))
+ 
+ 
+#ifndef strchr_P
+#undef strchr_P
+#endif
+#define strchr_P(s, c) strchr((s), (c))
+ 
+#ifndef strchrnul_P
+#undef strchrnul_P
+#endif
+#define strchrnul_P(s, c) strchrnul((s), (c))
+ 
+#ifndef strcasestr_P
+#undef strcasestr_P
+#endif
+#define strcasestr_P(s1, s2) strcasestr((s1), (s2))
+ 
+#ifndef strcspn_P
+#undef strcspn_P
+#endif
+#define strcspn_P(s, reject) strcspn((s), (reject))
+ 
+#ifndef strlcat_P
+#undef strlcat_P
+#endif
+#define strlcat_P(dst, src, siz) strlcat((dst), (src), (siz))
+ 
+#ifndef strlcat_PF
+#undef strlcat_PF
+#endif
+#define strlcat_PF(dst, src, siz) strlcat((dst), (src), (siz))
+ 
+#ifndef strlcpy_P
+#undef strlcpy_P
+#endif
+#define strlcpy_P(dst, src, siz) strlcpy((dst), (src), (siz))
+ 
+#ifndef strlcpy_PF
+#undef strlcpy_PF
+#endif
+#define strlcpy_PF(dst, src, siz) strlcpy((dst), (src), (siz))
+ 
+#ifndef strpbrk_P
+#undef strpbrk_P
+#endif
+#define strpbrk_P(s, accept) strpbrk((s), (accept))
+ 
+#ifndef strrchr_P
+#undef strrchr_P
+#endif
+#define strrchr_P(src, val) strrchr((src), (val))
+ 
+#ifndef strsep_P
+#undef strsep_P
+#endif
+#define strsep_P(sp, delim) strsep((sp), (delim))
+ 
+#ifndef strspn_P
+#undef strspn_P
+#endif
+#define strspn_P(s, accept) strspn((s), (accept))
+ 
+#ifndef strstr_P
+#undef strstr_P
+#endif
+#define strstr_P(s1, s2) strstr((s1), (s2))
+ 
+#ifndef strstr_PF
+#undef strstr_PF
+#endif
+#define strstr_PF(s1, s2) strstr((s1), (s2))
+ 
+#ifndef strtok_rP
+#undef strtok_rP
+#endif
+#define strtok_rP(s, delim, last) strtok_r((s), (delim), (last))
 
 #endif /* __PGMSPACE_H_ */
