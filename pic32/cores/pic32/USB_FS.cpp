@@ -414,5 +414,11 @@ int USBFS::populateDefaultSerial(char *defSerial) {
     return 14;
 }
 
+void USBFS::resume() {
+    U1CONbits.RESUME = 1;
+    delay(10);
+    U1CONbits.RESUME = 0;
+}
+
 #endif // __PIC32MX__
 #endif // _USB
