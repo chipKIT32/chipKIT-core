@@ -709,6 +709,12 @@ int USBHS::populateDefaultSerial(char *defSerial) {
     return 16;
 }
 
+void USBHS::resume() {
+    USBCSR0bits.RESUME = 1;
+    delay(10);
+    USBCSR0bits.RESUME = 0;
+}
+
 
 #endif // __PIC32MZ__
 #endif // _USB

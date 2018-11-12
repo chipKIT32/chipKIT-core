@@ -135,6 +135,8 @@ class USBDriver {
         virtual bool isIdle(uint8_t ep) = 0;
         virtual int populateDefaultSerial(char *defSerial) = 0;
 
+        virtual void resume() = 0;
+
 
         USBManager *_manager;
 };
@@ -174,6 +176,8 @@ class USBFS : public USBDriver {
 
         bool isIdle(uint8_t ep);
         int populateDefaultSerial(char *defSerial);
+
+        void resume();
 
 		__attribute__ ((aligned(512))) volatile struct bdt _bufferDescriptorTable[16][4];
 
@@ -219,6 +223,8 @@ class USBHS : public USBDriver {
         void haltEndpoint(uint8_t ep);
         void resumeEndpoint(uint8_t ep);
         bool isIdle(uint8_t ep);
+
+        void resume();
 
         using USBDriver::_manager;
 
@@ -337,6 +343,10 @@ class USBManager {
             if (power < 0) power = 0;
             if (power > 500) power = 500;
             _devicePower = power / 2;
+        }
+
+        void resume() {
+            _driver->resume();
         }
 
 };

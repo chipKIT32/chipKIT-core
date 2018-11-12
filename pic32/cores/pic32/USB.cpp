@@ -121,7 +121,7 @@ USBManager::USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char
     _stringCount = 4;
     _manufacturer = mfg;
     _product = prod;
-    _deviceAttributes = 0x80; // Bus powered
+    _deviceAttributes = 0xA0; // Bus powered
     _devicePower = 250; // 500mA
     if (ser) {
         _serial = ser;
