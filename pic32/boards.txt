@@ -3,6 +3,9 @@ menu.MCU=MCU
 menu.Frequency=Core Frequency
 menu.Version=Version
 menu.PMOD=PMOD Shield
+
+# cmod
+
 cmod.name=chipKIT Cmod
 cmod.group=chipKIT
 
@@ -28,7 +31,7 @@ cmod.build.core=pic32
 cmod.build.variant=Cmod
 cmod.build.ldscript.path={build.variant.path}
 
-# HelvePic ################################
+# HelvePic 
 
 HelvePic.name=HelvePic
 HelvePic.group=chipKIT
@@ -110,7 +113,7 @@ HelvePic.menu.Version.BBS.ldscript=chipKIT-application-32MX250F128.ld
 HelvePic.menu.Version.BBS.upload.maximum_size=122880
 HelvePic.menu.Version.BBS.upload.maximum_data_size=32768
 
-# HelvePic # END ###########################
+# DP32
 
 chipkit_DP32.name=chipKIT DP32
 chipkit_DP32.group=chipKIT
@@ -141,6 +144,7 @@ chipkit_DP32.build.f_cpu=40000000L
 chipkit_DP32.build.core=pic32
 chipkit_DP32.build.variant=DP32
 
+# Lenny
 
 lenny.name=chipKIT Lenny
 lenny.group=chipKIT
@@ -168,6 +172,8 @@ lenny.build.f_cpu=40000000L
 lenny.build.core=pic32
 lenny.build.variant=Lenny
 
+# Mega (MAX32)
+
 mega_pic32.name=chipKIT MAX32
 mega_pic32.group=chipKIT
 
@@ -190,6 +196,8 @@ mega_pic32.build.variant=Max32
 
 mega_pic32.usb.enabled=true
 mega_pic32.usb.default=z_custom
+
+# MX3 
 
 chipkit_mx3.name=chipKIT MX3
 chipkit_mx3.group=chipKIT
@@ -214,6 +222,8 @@ chipkit_mx3.build.mcu=32MX320F128H
 chipkit_mx3.build.f_cpu=80000000L
 chipkit_mx3.build.core=pic32
 chipkit_mx3.build.variant=Cerebot_MX3cK
+
+# chipKIT Pi
 
 chipkit_Pi.name=chipKIT Pi
 chipkit_Pi.group=chipKIT
@@ -243,6 +253,8 @@ chipkit_Pi.build.f_cpu=40000000L
 chipkit_Pi.build.core=pic32
 chipkit_Pi.build.variant=ChipKIT_Pi
 
+# chipKIT Pro MX4
+
 chipkit_pro_mx4.name=chipKIT Pro MX4
 chipkit_pro_mx4.group=chipKIT
 
@@ -267,6 +279,8 @@ chipkit_pro_mx4.build.f_cpu=80000000L
 chipkit_pro_mx4.build.core=pic32
 chipkit_pro_mx4.build.variant=Cerebot_MX4cK
 
+# chipKIT Pro MX7
+
 chipkit_pro_mx7.name=chipKIT Pro MX7
 chipkit_pro_mx7.group=chipKIT
 
@@ -289,6 +303,8 @@ chipkit_pro_mx7.build.mcu=32MX795F512L
 chipkit_pro_mx7.build.f_cpu=80000000L
 chipkit_pro_mx7.build.core=pic32
 chipkit_pro_mx7.build.variant=Cerebot_MX7cK
+
+# chipKIT uC32
 
 chipkit_uc32.name=chipKIT uC32
 chipkit_uc32.group=chipKIT
@@ -317,6 +333,8 @@ chipkit_uc32.menu.PMOD.yes=Installed
 
 chipkit_uc32.menu.PMOD.no.build.variant=uC32
 chipkit_uc32.menu.PMOD.yes.build.variant=uC32_Pmod_Shield
+
+# chipKIT UNO
 
 uno_pic32.name=chipKIT UNO32
 
@@ -349,6 +367,8 @@ uno_pic32.menu.PMOD.yes=Installed
 uno_pic32.menu.PMOD.no.build.variant=Uno32
 uno_pic32.menu.PMOD.yes.build.variant=Uno32_Pmod_Shield
 
+# chipKIT WF32
+
 chipkit_WF32.name=chipKIT WF32
 chipkit_WF32.group=chipKIT
 
@@ -372,6 +392,8 @@ chipkit_WF32.build.f_cpu=80000000L
 chipkit_WF32.build.core=pic32
 chipkit_WF32.build.variant=WF32
 chipkit_WF32.build.ldscript.path={build.variant.path}
+
+# chipKIT WiFire
 
 chipkit_WiFire.name=chipKIT WiFire
 chipkit_WiFire.group=chipKIT
@@ -397,15 +419,13 @@ chipkit_WiFire.build.ldscript.path={build.variant.path}
 chipkit_WiFire.usb.enabled=true
 chipkit_WiFire.usb.default=z_custom
 
-
-
 chipkit_WiFire.menu.Version.cplus=Rev C and Newer (FPU)
 chipkit_WiFire.menu.Version.cplus.build.mcu=32MZ2048EFG100
 
 chipkit_WiFire.menu.Version.ab=Rev A or B (No FPU)
 chipkit_WiFire.menu.Version.ab.build.mcu=32MZ2048ECG100
 
-
+# CUI32stem
 
 CUI32stem.name=CUI32stem
 CUI32stem.group=CUI32
@@ -430,6 +450,8 @@ CUI32stem.build.mcu=32MX795F512H
 CUI32stem.build.f_cpu=80000000L
 CUI32stem.build.core=pic32
 CUI32stem.build.variant=CUI32stem
+
+# Fubarino Mini
 
 fubarino_mini.name=Fubarino Mini
 fubarino_mini.group=Fubarino
@@ -463,6 +485,42 @@ fubarino_mini.menu.Frequency.build.f_cpu=48000000L
 fubarino_mini.menu.Frequency.40=40MHz (Dev Version)
 fubarino_mini.menu.Frequency.build.f_cpu=40000000L
 
+# Fubarini Mini v2.0
+
+fubarino_mini_20.name=Fubarino Mini 2.0
+fubarino_mini_20.group=Fubarino
+
+fubarino_mini_20.platform=pic32
+fubarino_mini_20.build.board=_BOARD_FUBARINO_MINI_20_
+
+fubarino_mini_20.usb.enabled=true
+fubarino_mini_20.usb.default=a_cdcacm
+
+fubarino_mini_20.ccflags=-Map="map.map"
+fubarino_mini_20.ldscript=chipKIT-application-32MX270F256.ld
+# Use this -G1024 option ONLY for boards with 64K RAM or less
+fubarino_mini_20.compiler.c.extra_flags=-G1024
+fubarino_mini_20.compiler.cpp.extra_flags=-G1024
+
+fubarino_mini_20.upload.protocol=stk500v2
+# 256KB (0x40000) - 4K (0x1000) for exception vectors - 4K (0x1000) for EEPROM - 12K (0x3000) for bootloader = (245760) 0x3B000
+fubarino_mini_20.upload.maximum_size=245760
+# 64KB (0x10000) - 2048 (0x800) for stack - 344 (0x158) for something else = 63488 (0xF800)
+# This number isn't exactly correct yet - you can't get to 100% without problems. But it's close.
+fubarino_mini_20.upload.maximum_data_size=63488
+fubarino_mini_20.upload.speed=115200
+fubarino_mini_20.upload.tool=pic32prog
+
+fubarino_mini_20.build.mcu=32MX270F256D
+fubarino_mini_20.build.f_cpu=48000000L
+fubarino_mini_20.build.core=pic32
+fubarino_mini_20.build.variant=Fubarino_Mini_20
+
+fubarino_mini_20.menu.Frequency.48=48MHz
+fubarino_mini_20.menu.Frequency.build.f_cpu=48000000L
+
+#Fubarino SD
+
 fubarino_sd.name=Fubarino SD
 fubarino_sd.group=Fubarino
 
@@ -492,6 +550,8 @@ fubarino_sd.build.f_cpu=80000000L
 fubarino_sd.build.core=pic32
 fubarino_sd.build.variant=Fubarino_SD
 
+# Fubarino SDZ
+#
 #Fubarino_SDZ.name=Fuarbino SDZ
 #Fubarino_SDZ.group=Fubarino
 #
@@ -516,6 +576,8 @@ fubarino_sd.build.variant=Fubarino_SD
 #Fubarino_SDZ.ldcommon=chipKIT-application-COMMON-MZ.ld
 #Fubarino_SDZ.build.variant=Fubarino_SDZ
 #Fubarino_SDZ.build.ldscript.path={build.variant.path}
+
+# clicker2
 
 clicker2.name=MikroElektronika Clicker 2
 clicker2.group=MikroElektronika
@@ -543,6 +605,8 @@ clicker2.build.mcu=32MX460F512L
 clicker2.build.f_cpu=80000000L
 clicker2.build.core=pic32
 clicker2.build.variant=Clicker2
+
+# flipnclick MZ
 
 flipnclickmz.name=MikroElektronika Flip N Click MZ
 flipnclickmz.group=MikroElektronika
@@ -578,6 +642,8 @@ flipnclickmz.build.core=pic32
 flipnclickmz.build.variant=FlipNClick_MZ
 flipnclickmz.build.ldscript.path={build.variant.path}
 
+# openBCI
+
 openbci.name=OpenBCI 32
 openbci.group=chipKIT
 
@@ -607,6 +673,8 @@ openbci.build.f_cpu=40000000L
 openbci.build.core=pic32
 openbci.build.variant=openbci
 
+# OpenScope
+
 OpenScope.name=OpenScope
 OpenScope.group=chipKIT
 
@@ -633,6 +701,8 @@ OpenScope.upload.tool=pic32prog
 
 OpenScope.usb.enabled=true
 OpenScope.usb.default=a_cdcacm
+
+# cui32
 
 cui32.name=Pic32 CUI32-Development Stick
 cui32.group=CUI32
@@ -661,6 +731,8 @@ cui32.build.f_cpu=80000000L
 cui32.build.core=pic32
 cui32.build.variant=CUI32
 
+# Penguino32
+
 Olimex_Pinguino32.name=PIC32 Pinguino
 Olimex_Pinguino32.group=Olimex
 
@@ -685,6 +757,8 @@ Olimex_Pinguino32.build.mcu=32MX440F256H
 Olimex_Pinguino32.build.f_cpu=80000000L
 Olimex_Pinguino32.build.core=pic32
 Olimex_Pinguino32.build.variant=Olimex_PIC32_Pinguino
+
+# UBW32 MX460
 
 ubw32_mx460.name=Pic32 UBW32-MX460
 ubw32_mx460.group=UBW32
@@ -712,6 +786,8 @@ ubw32_mx460.build.f_cpu=80000000L
 ubw32_mx460.build.core=pic32
 ubw32_mx460.build.variant=UBW_MX4
 
+# UBW32 MX795
+
 ubw32_mx795.name=Pic32 UBW32-MX795
 ubw32_mx795.group=UBW32
 
@@ -735,6 +811,8 @@ ubw32_mx795.build.f_cpu=80000000L
 ubw32_mx795.build.core=pic32
 ubw32_mx795.build.variant=UBW_MX7
 
+# picadillo 35t
+
 picadillo_35t.name=Picadillo 35T
 picadillo_35t.group=4D Systems
 picadillo_35t.platform=pic32
@@ -757,6 +835,8 @@ picadillo_35t.build.variant=picadillo_35t
 
 picadillo_35t.usb.enabled=true
 picadillo_35t.usb.default=z_custom
+
+# Pontech NoFire
 
 pontech_NoFire.name=PONTECH NoFire
 pontech_NoFire.group=PONTECH
@@ -783,6 +863,8 @@ pontech_NoFire.ldcommon=chipKIT-application-COMMON-MZ.ld
 pontech_NoFire.build.variant=PONTECH_NoFire
 pontech_NoFire.build.ldscript.path={build.variant.path}
 
+# quick240 USB
+
 quick240_usb_pic32.name=PONTECH Quick240
 quick240_usb_pic32.group=PONTECH
 
@@ -805,6 +887,8 @@ quick240_usb_pic32.build.mcu=32MX795F512L
 quick240_usb_pic32.build.f_cpu=80000000L
 quick240_usb_pic32.build.core=pic32
 quick240_usb_pic32.build.variant=PONTECH_Quick240
+
+# Pontech UAV100
 
 usbono_pic32.name=PONTECH UAV100
 usbono_pic32.group=PONTECH
@@ -835,6 +919,8 @@ usbono_pic32.build.core=pic32
 usbono_pic32.build.variant=PONTECH_UAV100
 #usbono_pic32.build.variant=Uno32
 
+# dsmini 
+
 dsmini.name=DataStation Mini
 dsmini.group=Makerology
 dsmini.platform=pic32
@@ -859,6 +945,9 @@ dsmini.build.mcu=32MX150F128C
 dsmini.build.f_cpu=40000000L
 dsmini.build.core=pic32
 dsmini.build.variant=DSMini
+
+# RGB Station
+
 RGB_Station.name=RGB Station
 RGB_Station.group=chipKIT
 
@@ -897,164 +986,340 @@ RGB_Station.menu.Frequency.build.f_cpu=48000000L
 ############# Auto generated menu entries below here. ###############
 ############### DO NOT ADD ANYTHING AFTER THIS LINE #################
 
-pontech_NoFire.menu.USB.a_cdcacm=Serial
-pontech_NoFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-pontech_NoFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-pontech_NoFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-pontech_NoFire.menu.USB.z_custom=Custom / Disabled
-pontech_NoFire.menu.USB.z_custom.build.extra_flags=
-
-RGB_Station.menu.USB.a_cdcacm=Serial
-RGB_Station.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-RGB_Station.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-RGB_Station.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-RGB_Station.menu.USB.z_custom=Custom / Disabled
-RGB_Station.menu.USB.z_custom.build.extra_flags=
-
-flipnclickmz.menu.USB.a_cdcacm=Serial
-flipnclickmz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-flipnclickmz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-flipnclickmz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-flipnclickmz.menu.USB.z_custom=Custom / Disabled
-flipnclickmz.menu.USB.z_custom.build.extra_flags=
-
-CUI32stem.menu.USB.a_cdcacm=Serial
-CUI32stem.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-CUI32stem.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-CUI32stem.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-CUI32stem.menu.USB.z_custom=Custom / Disabled
-CUI32stem.menu.USB.z_custom.build.extra_flags=
-
-usbono_pic32.menu.USB.a_cdcacm=Serial
-usbono_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-usbono_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-usbono_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-usbono_pic32.menu.USB.z_custom=Custom / Disabled
-usbono_pic32.menu.USB.z_custom.build.extra_flags=
-
-cui32.menu.USB.a_cdcacm=Serial
-cui32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-cui32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-cui32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-cui32.menu.USB.z_custom=Custom / Disabled
-cui32.menu.USB.z_custom.build.extra_flags=
-
-picadillo_35t.menu.USB.z_custom=Custom / Disabled
-picadillo_35t.menu.USB.z_custom.build.extra_flags=
-picadillo_35t.menu.USB.a_cdcacm=Serial
-picadillo_35t.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-picadillo_35t.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-picadillo_35t.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-Olimex_Pinguino32.menu.USB.a_cdcacm=Serial
-Olimex_Pinguino32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-Olimex_Pinguino32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-Olimex_Pinguino32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-Olimex_Pinguino32.menu.USB.z_custom=Custom / Disabled
-Olimex_Pinguino32.menu.USB.z_custom.build.extra_flags=
-
-quick240_usb_pic32.menu.USB.a_cdcacm=Serial
-quick240_usb_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-quick240_usb_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-quick240_usb_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-quick240_usb_pic32.menu.USB.z_custom=Custom / Disabled
-quick240_usb_pic32.menu.USB.z_custom.build.extra_flags=
-
-chipkit_Pi.menu.USB.z_custom=Custom / Disabled
-chipkit_Pi.menu.USB.z_custom.build.extra_flags=
-chipkit_Pi.menu.USB.a_cdcacm=Serial
-chipkit_Pi.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_Pi.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_Pi.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-HelvePic.menu.USB.a_cdcacm=Serial
-HelvePic.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-HelvePic.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-HelvePic.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-HelvePic.menu.USB.z_custom=Custom / Disabled
-HelvePic.menu.USB.z_custom.build.extra_flags=
-
-OpenScope.menu.USB.a_cdcacm=Serial
-OpenScope.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-OpenScope.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-OpenScope.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-OpenScope.menu.USB.z_custom=Custom / Disabled
-OpenScope.menu.USB.z_custom.build.extra_flags=
-
-mega_pic32.menu.USB.z_custom=Custom / Disabled
-mega_pic32.menu.USB.z_custom.build.extra_flags=
-mega_pic32.menu.USB.a_cdcacm=Serial
-mega_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-mega_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-mega_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-chipkit_WF32.menu.USB.z_custom=Custom / Disabled
-chipkit_WF32.menu.USB.z_custom.build.extra_flags=
-chipkit_WF32.menu.USB.a_cdcacm=Serial
-chipkit_WF32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_WF32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_WF32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-
-fubarino_sd.menu.USB.a_cdcacm=Serial
-fubarino_sd.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-fubarino_sd.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-fubarino_sd.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-fubarino_sd.menu.USB.z_custom=Custom / Disabled
-fubarino_sd.menu.USB.z_custom.build.extra_flags=
 
 clicker2.menu.USB.a_cdcacm=Serial
+
 clicker2.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
 clicker2.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
 clicker2.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
 clicker2.menu.USB.z_custom=Custom / Disabled
+
 clicker2.menu.USB.z_custom.build.extra_flags=
 
-lenny.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-lenny.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-lenny.menu.USB.a_cdcacm=Serial
-lenny.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-lenny.menu.USB.z_custom=Custom / Disabled
-lenny.menu.USB.z_custom.build.extra_flags=
 
-chipkit_DP32.menu.USB.a_cdcacm=Serial
-chipkit_DP32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-chipkit_DP32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-chipkit_DP32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-chipkit_DP32.menu.USB.z_custom=Custom / Disabled
-chipkit_DP32.menu.USB.z_custom.build.extra_flags=
 
-ubw32_mx460.menu.USB.a_cdcacm=Serial
-ubw32_mx460.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
-ubw32_mx460.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
-ubw32_mx460.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
-ubw32_mx460.menu.USB.z_custom=Custom / Disabled
-ubw32_mx460.menu.USB.z_custom.build.extra_flags=
+Olimex_Pinguino32.menu.USB.a_cdcacm=Serial
+
+Olimex_Pinguino32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+Olimex_Pinguino32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+Olimex_Pinguino32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+Olimex_Pinguino32.menu.USB.z_custom=Custom / Disabled
+
+Olimex_Pinguino32.menu.USB.z_custom.build.extra_flags=
+
+
+
+fubarino_mini_20.menu.USB.a_cdcacm=Serial
+
+fubarino_mini_20.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+fubarino_mini_20.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+fubarino_mini_20.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+fubarino_mini_20.menu.USB.z_custom=Custom / Disabled
+
+fubarino_mini_20.menu.USB.z_custom.build.extra_flags=
+
+
+
+RGB_Station.menu.USB.a_cdcacm=Serial
+
+RGB_Station.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+RGB_Station.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+RGB_Station.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+RGB_Station.menu.USB.z_custom=Custom / Disabled
+
+RGB_Station.menu.USB.z_custom.build.extra_flags=
+
+
 
 chipkit_pro_mx7.menu.USB.z_custom=Custom / Disabled
+
 chipkit_pro_mx7.menu.USB.z_custom.build.extra_flags=
+
 chipkit_pro_mx7.menu.USB.a_cdcacm=Serial
+
 chipkit_pro_mx7.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
 chipkit_pro_mx7.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
 chipkit_pro_mx7.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 
+
+
+usbono_pic32.menu.USB.a_cdcacm=Serial
+
+usbono_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+usbono_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+usbono_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+usbono_pic32.menu.USB.z_custom=Custom / Disabled
+
+usbono_pic32.menu.USB.z_custom.build.extra_flags=
+
+
+
+picadillo_35t.menu.USB.z_custom=Custom / Disabled
+
+picadillo_35t.menu.USB.z_custom.build.extra_flags=
+
+picadillo_35t.menu.USB.a_cdcacm=Serial
+
+picadillo_35t.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+picadillo_35t.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+picadillo_35t.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+
+
+fubarino_sd.menu.USB.a_cdcacm=Serial
+
+fubarino_sd.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+fubarino_sd.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+fubarino_sd.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+fubarino_sd.menu.USB.z_custom=Custom / Disabled
+
+fubarino_sd.menu.USB.z_custom.build.extra_flags=
+
+
+
+CUI32stem.menu.USB.a_cdcacm=Serial
+
+CUI32stem.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+CUI32stem.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+CUI32stem.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+CUI32stem.menu.USB.z_custom=Custom / Disabled
+
+CUI32stem.menu.USB.z_custom.build.extra_flags=
+
+
+
+quick240_usb_pic32.menu.USB.a_cdcacm=Serial
+
+quick240_usb_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+quick240_usb_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+quick240_usb_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+quick240_usb_pic32.menu.USB.z_custom=Custom / Disabled
+
+quick240_usb_pic32.menu.USB.z_custom.build.extra_flags=
+
+
+
+chipkit_DP32.menu.USB.a_cdcacm=Serial
+
+chipkit_DP32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+chipkit_DP32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+chipkit_DP32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+chipkit_DP32.menu.USB.z_custom=Custom / Disabled
+
+chipkit_DP32.menu.USB.z_custom.build.extra_flags=
+
+
+
+chipkit_Pi.menu.USB.z_custom=Custom / Disabled
+
+chipkit_Pi.menu.USB.z_custom.build.extra_flags=
+
+chipkit_Pi.menu.USB.a_cdcacm=Serial
+
+chipkit_Pi.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+chipkit_Pi.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+chipkit_Pi.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+
+
 fubarino_mini.menu.USB.a_cdcacm=Serial
+
 fubarino_mini.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
 fubarino_mini.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
 fubarino_mini.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
 fubarino_mini.menu.USB.z_custom=Custom / Disabled
+
 fubarino_mini.menu.USB.z_custom.build.extra_flags=
 
+
+
+OpenScope.menu.USB.a_cdcacm=Serial
+
+OpenScope.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+OpenScope.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+OpenScope.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+OpenScope.menu.USB.z_custom=Custom / Disabled
+
+OpenScope.menu.USB.z_custom.build.extra_flags=
+
+
+
+chipkit_WF32.menu.USB.z_custom=Custom / Disabled
+
+chipkit_WF32.menu.USB.z_custom.build.extra_flags=
+
+chipkit_WF32.menu.USB.a_cdcacm=Serial
+
+chipkit_WF32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+chipkit_WF32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+chipkit_WF32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+
+
 chipkit_WiFire.menu.USB.z_custom=Custom / Disabled
+
 chipkit_WiFire.menu.USB.z_custom.build.extra_flags=
+
 chipkit_WiFire.menu.USB.a_cdcacm=Serial
+
 chipkit_WiFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
 chipkit_WiFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
 chipkit_WiFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
 
+
+
+flipnclickmz.menu.USB.a_cdcacm=Serial
+
+flipnclickmz.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+flipnclickmz.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+flipnclickmz.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+flipnclickmz.menu.USB.z_custom=Custom / Disabled
+
+flipnclickmz.menu.USB.z_custom.build.extra_flags=
+
+
+
 ubw32_mx795.menu.USB.a_cdcacm=Serial
+
 ubw32_mx795.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
 ubw32_mx795.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
 ubw32_mx795.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
 ubw32_mx795.menu.USB.z_custom=Custom / Disabled
+
 ubw32_mx795.menu.USB.z_custom.build.extra_flags=
+
+
+
+HelvePic.menu.USB.a_cdcacm=Serial
+
+HelvePic.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+HelvePic.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+HelvePic.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+HelvePic.menu.USB.z_custom=Custom / Disabled
+
+HelvePic.menu.USB.z_custom.build.extra_flags=
+
+
+
+pontech_NoFire.menu.USB.a_cdcacm=Serial
+
+pontech_NoFire.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+pontech_NoFire.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+pontech_NoFire.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+pontech_NoFire.menu.USB.z_custom=Custom / Disabled
+
+pontech_NoFire.menu.USB.z_custom.build.extra_flags=
+
+
+
+mega_pic32.menu.USB.z_custom=Custom / Disabled
+
+mega_pic32.menu.USB.z_custom.build.extra_flags=
+
+mega_pic32.menu.USB.a_cdcacm=Serial
+
+mega_pic32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+mega_pic32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+mega_pic32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+
+
+ubw32_mx460.menu.USB.a_cdcacm=Serial
+
+ubw32_mx460.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+ubw32_mx460.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+ubw32_mx460.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+ubw32_mx460.menu.USB.z_custom=Custom / Disabled
+
+ubw32_mx460.menu.USB.z_custom.build.extra_flags=
+
+
+
+cui32.menu.USB.a_cdcacm=Serial
+
+cui32.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+cui32.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+cui32.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+cui32.menu.USB.z_custom=Custom / Disabled
+
+cui32.menu.USB.z_custom.build.extra_flags=
+
+
+
+lenny.menu.USB.b_cdcacm_km=Serial, Keyboard & Mouse
+
+lenny.menu.USB.b_cdcacm_km.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM_KM__ -D__SERIAL_IS_USB__
+
+lenny.menu.USB.a_cdcacm=Serial
+
+lenny.menu.USB.a_cdcacm.build.extra_flags=-D__USB_ENABLED__ -D__USB_CDCACM__ -D__SERIAL_IS_USB__
+
+lenny.menu.USB.z_custom=Custom / Disabled
+
+lenny.menu.USB.z_custom.build.extra_flags=
+
+
 
