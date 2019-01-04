@@ -56,6 +56,8 @@ FILINFO     DDIRINFO::_fileInfo;
 DFSVOL *    DFATFS::_arDFSVOL[_VOLUMES]= { NULL };
 char const * const DFATFS::szFatFsVols[_VOLUMES] = {"0:", "1:", "2:", "3:", "4:"};
 
+static TCHAR lfname[_MAX_LFN];
+
 //**********************************************************************
 //
 //          DFILE Class Thunks to the underlying FATFS C code
@@ -149,26 +151,36 @@ FRESULT DFILE::fsforward (uint32_t(*func)(const uint8_t *,uint32_t), uint32_t bt
 //**********************************************************************
 FRESULT DDIRINFO::fsreaddir (void)
 {
+    _fileInfo.lfname = lfname;
+    _fileInfo.lfsize = _MAX_LFN - 1;
     return(f_readdir (&_dir, &_fileInfo));
 }
 
 FRESULT DDIRINFO::fsopendir (const char * path)
 {
+    _fileInfo.lfname = lfname;
+    _fileInfo.lfsize = _MAX_LFN - 1;
     return(f_opendir (&_dir, path));
 }
 
 FRESULT DDIRINFO::fsclosedir (void)
 {
+    _fileInfo.lfname = lfname;
+    _fileInfo.lfsize = _MAX_LFN - 1;
     return(f_closedir (&_dir));
 }
 
 FRESULT DDIRINFO::fsstat (const char * path)
 {
+    _fileInfo.lfname = lfname;
+    _fileInfo.lfsize = _MAX_LFN - 1;
     return(f_stat (path, &_fileInfo));
 }
 
 FRESULT DDIRINFO::fsutime (const char * path, uint16_t date, uint16_t time)
 {
+    _fileInfo.lfname = lfname;
+    _fileInfo.lfsize = _MAX_LFN - 1;
     _fileInfo.fdate = date;
     _fileInfo.ftime = time;
     return(f_utime (path, &_fileInfo));
