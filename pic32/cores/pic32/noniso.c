@@ -123,7 +123,8 @@ char * dtostrf(double number, signed char width, unsigned char prec, char *s) {
     // Round correctly so that print(1.999, 2) prints as "2.00"
     // I optimized out most of the divisions
     double rounding = 2.0;
-    for (uint8_t i = 0; i < prec; ++i)
+    uint8_t i;
+    for (i = 0; i < prec; ++i)
         rounding *= 10.0;
     rounding = 1.0 / rounding;
 
