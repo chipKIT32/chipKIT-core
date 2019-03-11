@@ -208,14 +208,22 @@ bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unuse
         if (avail > CDCACM_BULKEP_SIZE) {
             avail = CDCACM_BULKEP_SIZE;
         }
-
-        uint8_t tbuf[avail];
-
-        for (uint32_t i = 0; i < avail; i++) {
-            _txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
-            tbuf[i] = _txBuffer[_txTail];
-        }
-        _manager->enqueuePacket(_epBulk, tbuf, avail);
+        
+        if((_txTail + avail) > CDCACM_BUFFER_SIZE)
+		{
+			uint8_t tbuf[avail];
+			
+			for (uint32_t i = 0; i < avail; i++) {
+				_txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
+				tbuf[i] = _txBuffer[_txTail];
+			}
+			_manager->enqueuePacket(_epBulk, tbuf, avail);
+		}
+		else
+		{
+			_manager->enqueuePacket(_epBulk, _txBuffer + _txTail+1, avail);
+			_txTail = (_txTail + avail) % CDCACM_BUFFER_SIZE;
+		}
         return true;
     }
     return false;
@@ -281,14 +289,23 @@ size_t CDCACM::write(uint8_t b) {
         if (avail > CDCACM_BULKEP_SIZE) {
             avail = CDCACM_BULKEP_SIZE;
         }
-
-        uint8_t tbuf[avail];
-
-        for (uint32_t i = 0; i < avail; i++) {
-            _txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
-            tbuf[i] = _txBuffer[_txTail];
-        }
-        _manager->enqueuePacket(_epBulk, tbuf, avail);
+		
+		if((_txTail + avail) > CDCACM_BUFFER_SIZE)
+		{
+			uint8_t tbuf[avail];
+			
+			for (uint32_t i = 0; i < avail; i++) {
+				_txTail = (_txTail + 1) % CDCACM_BUFFER_SIZE;
+				tbuf[i] = _txBuffer[_txTail];
+			}
+			_manager->enqueuePacket(_epBulk, tbuf, avail);
+		}
+		else
+		{
+			_manager->enqueuePacket(_epBulk, _txBuffer + _txTail+1, avail);
+			_txTail = (_txTail + avail) % CDCACM_BUFFER_SIZE;
+		}
+		
         restoreInterrupts(s);
     }
 
@@ -302,6 +319,7 @@ size_t CDCACM::write(const uint8_t *b, size_t len) {
     for (uint32_t i = 0; i < len; i++) {
         write(b[i]);
     }
+    
 /*
 
     size_t pos = 0;
