@@ -412,6 +412,7 @@ class CDCACM : public USBDevice, public Stream {
 
         uint8_t _ctlA[8];
         uint8_t _ctlB[8];
+		size_t write(uint8_t b, bool enqueuePacket);
 
     public:
         CDCACM() : _txHead(0), _txTail(0), _rxHead(0), _rxTail(0) {}
