@@ -280,7 +280,7 @@ class USBManager {
 
 		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL);
 		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid, const char *mfg = "chipKIT", const char *prod = _BOARD_NAME_, const char *ser = NULL) : 
-            USBManager(&driver, vid, pid, mfg, prod, ser) {}
+		USBManager(&driver, vid, pid, mfg, prod, ser) {}
 //		USBManager(USBDriver *driver, uint16_t vid, uint16_t pid);
 //		USBManager(USBDriver &driver, uint16_t vid, uint16_t pid);
 
@@ -412,7 +412,7 @@ class CDCACM : public USBDevice, public Stream {
 
         uint8_t _ctlA[8];
         uint8_t _ctlB[8];
-		size_t write(uint8_t b, bool enqueuePacket);
+		inline size_t write(uint8_t b, bool enqueuePacket);
 
     public:
         CDCACM() : _txHead(0), _txTail(0), _rxHead(0), _rxTail(0) {}

@@ -209,7 +209,7 @@ bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unuse
             avail = CDCACM_BULKEP_SIZE;
         }
         
-        if((_txTail + avail) > CDCACM_BUFFER_SIZE)
+        if((_txTail + avail) >= CDCACM_BUFFER_SIZE)
 		{
 			uint8_t tbuf[avail];
 			
@@ -290,7 +290,7 @@ size_t CDCACM::write(uint8_t b) {
             avail = CDCACM_BULKEP_SIZE;
         }
 		
-		if((_txTail + avail) > CDCACM_BUFFER_SIZE)
+		if((_txTail + avail) >= CDCACM_BUFFER_SIZE)
 		{
 			uint8_t tbuf[avail];
 			
@@ -313,7 +313,7 @@ size_t CDCACM::write(uint8_t b) {
     return 1;
 }
 
-size_t CDCACM::write(uint8_t b, bool enqueuePacket) {
+inline size_t CDCACM::write(uint8_t b, bool enqueuePacket) {
 
     //if (_lineState == 0) return 0;
 
@@ -336,7 +336,7 @@ size_t CDCACM::write(uint8_t b, bool enqueuePacket) {
             avail = CDCACM_BULKEP_SIZE;
         }
 		
-		if((_txTail + avail) > CDCACM_BUFFER_SIZE)
+		if((_txTail + avail) >= CDCACM_BUFFER_SIZE)
 		{
 			uint8_t tbuf[avail];
 			
@@ -366,7 +366,7 @@ size_t CDCACM::write(const uint8_t *b, size_t len) {
     for (uint32_t i = 0; i < len; i++) {
 		bool equ = (i == len-1) || 										// enqueue if last byte
 					(i != 0 && i % CDCACM_BULKEP_SIZE == 0) ||				// enqueue on every full bulk buffer size
-					(((CDCACM_BUFFER_SIZE + _txHead - _txTail) % CDCACM_BUFFER_SIZE) < CDCACM_BUFFER_HIGH); // enqueue when the cdc x buffer is high
+					(((CDCACM_BUFFER_SIZE + _txHead - _txTail) % CDCACM_BUFFER_SIZE) < CDCACM_BUFFER_HIGH); // enqueue when the cdc tx buffer is high
 		write(b[i], equ);
     }
     
