@@ -208,6 +208,7 @@ bool CDCACM::onInPacket(uint8_t ep, uint8_t target, uint8_t __attribute__((unuse
         if (avail > CDCACM_BULKEP_SIZE) {
             avail = CDCACM_BULKEP_SIZE;
         }
+
         
         if((_txTail + avail) >= CDCACM_BUFFER_SIZE)
 		{
@@ -351,7 +352,6 @@ inline size_t CDCACM::write(uint8_t b, bool enqueuePacket) {
 			_manager->enqueuePacket(_epBulk, _txBuffer + _txTail+1, avail);
 			_txTail = (_txTail + avail) % CDCACM_BUFFER_SIZE;
 		}
-		
         restoreInterrupts(s);
     }
 
@@ -369,7 +369,6 @@ size_t CDCACM::write(const uint8_t *b, size_t len) {
 					(((CDCACM_BUFFER_SIZE + _txHead - _txTail) % CDCACM_BUFFER_SIZE) < CDCACM_BUFFER_HIGH); // enqueue when the cdc tx buffer is high
 		write(b[i], equ);
     }
-    
 /*
 
     size_t pos = 0;
