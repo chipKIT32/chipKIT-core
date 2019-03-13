@@ -461,6 +461,32 @@ void clearIntFlag(int irq)
 }
 
 /* ------------------------------------------------------------ */
+/***    setIntFlag
+**
+**  Parameters:
+**      irq     - Interrupt request number
+**
+**  Return Value:
+**      none
+**
+**  Errors:
+**      none
+**
+**  Description:
+**      Set the interrupt request flag for the specified interrupt. 
+**      This causes a software triggering of an interrupt.
+*/
+
+void setIntFlag(int irq)
+{
+    p32_regset *    ifs;
+
+    ifs = ((p32_regset *)&IFS0) + (irq / 32);
+    ifs->set = 1 << (irq % 32);
+}
+
+
+/* ------------------------------------------------------------ */
 /***	setIntEnable
 **
 **	Parameters:

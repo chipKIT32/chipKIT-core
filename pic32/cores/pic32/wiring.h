@@ -176,6 +176,7 @@ uint32_t __attribute__((nomips16)) disableInterrupts(void);
 void __attribute__((nomips16))  restoreInterrupts(uint32_t st);
 uint32_t getIntFlag(int irq);
 void clearIntFlag(int irq);
+void setIntFlag(int irq);
 uint32_t setIntEnable(int irq);
 uint32_t clearIntEnable(int irq);
 void restoreIntEnable(int irq, uint32_t st);
