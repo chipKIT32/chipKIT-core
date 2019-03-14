@@ -437,6 +437,7 @@ extern const uint8_t	digital_pin_to_pps_in_PGM[];
 #define _DSPI2_MOSI_OUT		PPS_OUT_SDO3
 #define _DSPI2_MOSI_PIN		54		    // RA4  SDO1    RPA4R = SDO1 = 3
 
+
 // this is the MRF24
 #define	_DSPI3_BASE			_SPI4_BASE_ADDRESS
 #define	_DSPI3_ERR_IRQ		_SPI4_FAULT_VECTOR
@@ -538,7 +539,8 @@ extern int convertADC(uint8_t channelNumber);
 #define SD_SCK_PPS()        RPB14R  = 0b0000    // Bit Banging SPI, set as GPIO
 
 #define DefineSDSPI(spi) DSPI2 spi
-#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 53)     // Create an DSDVOL object
+#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, PIN_DSPI2_SS)     // Create an DSDVOL object
+#define _SD_SDI_PIN _DSPI2_MISO_PIN
 
 /* ------------------------------------------------------------ */
 /*					Defines for the On Board MRF24				*/
