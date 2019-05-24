@@ -23,6 +23,10 @@
 /*  03/11/2012(BrianS): Modified for Fubarino board                     */
 /*	02/12/2013(GeneA): removed dependency on Microchip plib library		*/
 /*  20/05/2013(): Modified for Olimex Pinguino32 board					*/
+/*  17/01/2019(): As vicpino suggested in guthub the definitions for	*/
+/*                A6 and A7 were misplaced so they are swapped now		*/
+/*  23/05/2019(CyberCastle): Fix D8 and D9 for Olimex                   */
+/*                           Pinguino32 OTG board, Rev. D               */
 /*																		*/
 /************************************************************************/
 //*	This library is free software; you can redistribute it and/or
@@ -123,8 +127,8 @@ const uint8_t	digital_pin_to_port_PGM[] = {
 	_IOPORT_PD,	//  5  RD7  D5  CN16/RD7
 	_IOPORT_PD,	//  6  RD8  D6  RTCC/IC1/INT1/RD8
 	_IOPORT_PD,	//  7  RD11 D7  IC4/PMCS1/PMA14/INT4/RD11
-	_IOPORT_PB,	//  8  RB14 D8  AN14/#U2RTS/PMALH/PMA1/RB14
-	_IOPORT_PB,	//  9  RB15 D9  AN15/OCFB/PMALL/PMA0/CN12/RB15
+	_IOPORT_PB,	//  8  RB13 D8  TDI/AN13/PMA10/RB13
+	_IOPORT_PB,	//  9  RB14 D9  AN14/#U2RTS/PMALH/PMA1/RB14
 	_IOPORT_PG,	//  10 RG9  D10 RG9/#SS2/PMA2/CN11
 	_IOPORT_PG,	//  11 RG8  D11 RG8/SDO2/PMA3/CN10
 	_IOPORT_PG,	//  12 RG7  D12 RG7/SDI2/PMA4/CN9
@@ -140,23 +144,25 @@ const uint8_t	digital_pin_to_port_PGM[] = {
 
 	// 8 PortRE digital ports
 	_IOPORT_PE,	//  20 RE0		RE0/PMD0
-	_IOPORT_PE,	//  21 RE1		RE0/PMD1
-	_IOPORT_PE,	//  22 RE2		RE0/PMD2
-	_IOPORT_PE,	//  23 RE3		RE0/PMD3
-	_IOPORT_PE,	//  24 RE4		RE0/PMD4
-	_IOPORT_PE,	//  25 RE5		RE0/PMD5
-	_IOPORT_PE,	//  26 RE6		RE0/PMD6
-	_IOPORT_PE,	//  27 RE7		RE0/PMD7
+	_IOPORT_PE,	//  21 RE1		RE1/PMD1
+	_IOPORT_PE,	//  22 RE2		RE2/PMD2
+	_IOPORT_PE,	//  23 RE3		RE3/PMD3
+	_IOPORT_PE,	//  24 RE4		RE4/PMD4
+	_IOPORT_PE,	//  25 RE5		RE5/PMD5
+	_IOPORT_PE,	//  26 RE6		RE6/PMD6
+	_IOPORT_PE,	//  27 RE7		RE7/PMD7
 
 	// 8 analog ports
-    	_IOPORT_PB,	//  28 RB1  A0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
+	_IOPORT_PB,	//  28 RB1  A0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
 	_IOPORT_PB,	//  29 RB2  A1  AN2/C2IN-/CN4/RB2
 	_IOPORT_PB,	//  30 RB3  A2  AN3/C2IN+/CN5/RB3
 	_IOPORT_PB,	//  31 RB4  A3  AN4/C1IN-/CN6/RB4
 	_IOPORT_PB,	//  32 RB8  A4  AN8/#U2CTS/C1OUT/RB8
 	_IOPORT_PB,	//  33 RB9  A5  AN9/C2OUT/PMA7/RB9
-	_IOPORT_PB,	//  34 RB10 A6  TMS/AN10/CVREFOUT/PMA13/RB10
-	_IOPORT_PB,	//  35 RB11 A7  TDO/AN11/PMA12//RB11
+	_IOPORT_PB,	//  34 RB11 A6  TDO/AN11/PMA12//RB11
+	_IOPORT_PB,	//  35 RB10 A7  TMS/AN10/CVREFOUT/PMA13/RB10
+	
+	_IOPORT_PF,	//  36 RF0
 
 };
 
@@ -175,8 +181,8 @@ const uint16_t	digital_pin_to_bit_mask_PGM[] = {
 	_BV( 7 ) ,	//  5  RD7  D5
 	_BV( 8 ) ,	//  6  RD8  D6
 	_BV( 11 ) ,	//  7  RD11 D7
-	_BV( 14 ) ,	//  8  RB14 D8
-	_BV( 15 ) ,	//  9  RB15 D9
+	_BV( 13 ) ,	//  8  RB13 D8 
+	_BV( 14 ) ,	//  9  RB14 D9
  	_BV( 9 ) ,	//  10 RG9  D10
 	_BV( 8 ) ,	//  11 RG8  D11
 	_BV( 7 ) ,	//  12 RG7  D12
@@ -189,23 +195,25 @@ const uint16_t	digital_pin_to_bit_mask_PGM[] = {
 	_BV( 4 ) ,	//  18 RF4  RX2
 	_BV( 5 ) ,	//  19 RF5  TX2
 
-	_BV( 0 ) ,	//  20 RE0  RE0/PMD0
-	_BV( 1 ) ,	//  21 RE1	 RE0/PMD1
-	_BV( 2 ) ,	//  22 RE2	 RE0/PMD2
-	_BV( 3 ) ,	//  23 RE3	 RE0/PMD3
-	_BV( 4 ) ,	//  24 RE4	 RE0/PMD4
-	_BV( 5 ) ,	//  25 RE5	 RE0/PMD5
-	_BV( 6 ) ,	//  26 RE6	 RE0/PMD6
-	_BV( 7 ) ,	//  27 RE7	 RE0/PMD7
+	_BV( 0 ) ,	//  20 RE0   RE0/PMD0
+	_BV( 1 ) ,	//  21 RE1	 RE1/PMD1
+	_BV( 2 ) ,	//  22 RE2	 RE2/PMD2
+	_BV( 3 ) ,	//  23 RE3	 RE3/PMD3
+	_BV( 4 ) ,	//  24 RE4	 RE4/PMD4
+	_BV( 5 ) ,	//  25 RE5	 RE5/PMD5
+	_BV( 6 ) ,	//  26 RE6	 RE6/PMD6
+	_BV( 7 ) ,	//  27 RE7	 RE7/PMD7
 
-	_BV( 1 ) ,	//  28 RB1  AN0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
-	_BV( 2 ) ,	//  29 RB2	 AN1  AN2/C2IN-/CN4/RB2
-	_BV( 3 ) ,	//  30 RB3  AN2  AN3/C2IN+/CN5/RB3
-	_BV( 4 ) ,	//  31 RB4  AN3  AN4/C1IN-/CN6/RB4
-	_BV( 8 ) ,	//  32 RB8  AN4  AN8/#U2CTS/C1OUT/RB8
-	_BV( 9 ) ,	//  33 RB9  AN5  AN9/C2OUT/PMA7/RB9
-	_BV( 10 ) ,	//  34 RB11 AN6  TMS/AN10/CVREFOUT/PMA13/RB10
-	_BV( 11 ) ,	//  35 RB10 AN7  TDO/AN11/PMA12//RB11
+	_BV( 1 ) ,	//  28 RB1  A0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
+	_BV( 2 ) ,	//  29 RB2  A1  AN2/C2IN-/CN4/RB2
+	_BV( 3 ) ,	//  30 RB3  A2  AN3/C2IN+/CN5/RB3
+	_BV( 4 ) ,	//  31 RB4  A3  AN4/C1IN-/CN6/RB4
+	_BV( 8 ) ,	//  32 RB8  A4  AN8/#U2CTS/C1OUT/RB8
+	_BV( 9 ) ,	//  33 RB9  A5  AN9/C2OUT/PMA7/RB9
+	_BV( 11 ) ,	//  34 RB11 A6  TDO/AN11/PMA12//RB11
+	_BV( 10 ) ,	//  35 RB10 A7  TMS/AN10/CVREFOUT/PMA13/RB10
+	
+	_BV( 0 ) ,	//  36 RF0
 };
 
 /* ------------------------------------------------------------ */
@@ -237,13 +245,13 @@ const uint16_t	digital_pin_to_timer_PGM[] = {
 	NOT_ON_TIMER ,	//  19 RF5  TX2 SCL2/U2TX/PMA8/CN18/RF5
 
 	NOT_ON_TIMER ,	//  20 RE0  RE0/PMD0
-	NOT_ON_TIMER ,	//  21 RE1	RE0/PMD1
-	NOT_ON_TIMER ,	//  22 RE2	RE0/PMD2
-	NOT_ON_TIMER ,	//  23 RE3	RE0/PMD3
-	NOT_ON_TIMER ,	//  24 RE4	RE0/PMD4
-	NOT_ON_TIMER ,	//  25 RE5	RE0/PMD5
-	NOT_ON_TIMER ,	//  26 RE6	RE0/PMD6
-	NOT_ON_TIMER ,	//  27 RE7	RE0/PMD7
+	NOT_ON_TIMER ,	//  21 RE1	RE1/PMD1
+	NOT_ON_TIMER ,	//  22 RE2	RE2/PMD2
+	NOT_ON_TIMER ,	//  23 RE3	RE3/PMD3
+	NOT_ON_TIMER ,	//  24 RE4	RE4/PMD4
+	NOT_ON_TIMER ,	//  25 RE5	RE5/PMD5
+	NOT_ON_TIMER ,	//  26 RE6	RE6/PMD6
+	NOT_ON_TIMER ,	//  27 RE7	RE7/PMD7
 
 	NOT_ON_TIMER ,	//  28 RB1  A0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
 	NOT_ON_TIMER ,	//  29 RB2  A1  AN2/C2IN-/CN4/RB2
@@ -251,9 +259,10 @@ const uint16_t	digital_pin_to_timer_PGM[] = {
 	NOT_ON_TIMER ,	//  31 RB4  A3  AN4/C1IN-/CN6/RB4
 	NOT_ON_TIMER ,	//  32 RB8  A4  AN8/#U2CTS/C1OUT/RB8
 	NOT_ON_TIMER ,	//  33 RB9  A5  AN9/C2OUT/PMA7/RB9
-	NOT_ON_TIMER ,	//  34 RB10 A6  TMS/AN10/CVREFOUT/PMA13/RB10
-	NOT_ON_TIMER ,	//  35 RB11 A7  TDO/AN11/PMA12//RB11
-
+	NOT_ON_TIMER ,	//  34 RB11 A6  TMS/AN10/CVREFOUT/PMA13/RB10
+	NOT_ON_TIMER ,	//  35 RB10 A7  TDO/AN11/PMA12//RB11
+	
+	NOT_ON_TIMER ,	//  36 RF0
 };
 
 
@@ -286,13 +295,13 @@ const uint8_t digital_pin_to_analog_PGM[] = {
 	NOT_ANALOG_PIN,	// 19
 
 	NOT_ANALOG_PIN,	// 20 RE0  RE0/PMD0
-	NOT_ANALOG_PIN,	// 21 RE1  RE0/PMD0
-	NOT_ANALOG_PIN,	// 22 RE2  RE0/PMD0
-	NOT_ANALOG_PIN,	// 23 RE3  RE0/PMD0
-	NOT_ANALOG_PIN,	// 24 RE4  RE0/PMD0
-	NOT_ANALOG_PIN,	// 25 RE5  RE0/PMD0
-	NOT_ANALOG_PIN,	// 26 RE6  RE0/PMD0
-	NOT_ANALOG_PIN,	// 27 RE7  RE0/PMD0
+	NOT_ANALOG_PIN,	// 21 RE1  RE1/PMD0
+	NOT_ANALOG_PIN,	// 22 RE2  RE2/PMD0
+	NOT_ANALOG_PIN,	// 23 RE3  RE3/PMD0
+	NOT_ANALOG_PIN,	// 24 RE4  RE4/PMD0
+	NOT_ANALOG_PIN,	// 25 RE5  RE5/PMD0
+	NOT_ANALOG_PIN,	// 26 RE6  RE6/PMD0
+	NOT_ANALOG_PIN,	// 27 RE7  RE7/PMD0
 
  	_BOARD_AN0,	// 28 RB1  A0  PGEC1/AN1/VREF-/CVREF-/CN3/RB1
 	_BOARD_AN1,	// 29 RB2  A1  AN2/C2IN-/CN4/RB2
@@ -300,8 +309,10 @@ const uint8_t digital_pin_to_analog_PGM[] = {
 	_BOARD_AN3,	// 31 RB4  A3  AN4/C1IN-/CN6/RB4
 	_BOARD_AN4,	// 32 RB8  A4  AN8/#U2CTS/C1OUT/RB8
 	_BOARD_AN5,	// 33 RB9  A5  AN9/C2OUT/PMA7/RB9
-	_BOARD_AN6,	// 34 RB10 A6  TMS/AN10/CVREFOUT/PMA13/RB10
-	_BOARD_AN7,	// 35 RB11 A7  TDO/AN11/PMA12//RB11
+	_BOARD_AN6,	// 34 RB11 A6  TDO/AN11/PMA12//RB11
+	_BOARD_AN7,	// 35 RB10 A7  TMS/AN10/CVREFOUT/PMA13/RB10
+
+	NOT_ANALOG_PIN,	// 36 RF0
 };
 //#endif
 
@@ -321,8 +332,8 @@ const uint8_t analog_pin_to_channel_PGM[] = {
 	4,		//*	A3
 	8,		//*	A4
 	9,		//*	A5
-	10,		//*	A6
-	11,		//*	A7
+	11,		//*	A6
+	10,		//*	A7
 };
 //#endif
 
@@ -457,7 +468,8 @@ int	_board_getPinMode(uint8_t pin, uint8_t * mode) {
 **		control will pass through the normal digitalWrite code. If
 **		it returns a non-zero value the normal digitalWrite code isn't
 **		executed.
-*/#if	(OPT_BOARD_DIGITAL_IO != 0)
+*/
+#if	(OPT_BOARD_DIGITAL_IO != 0)
 
 int	_board_digitalWrite(uint8_t pin, uint8_t val) {
 	

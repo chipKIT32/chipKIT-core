@@ -25,6 +25,7 @@
 /*	11/29/2011(GeneA): Moved int priority definitions to System_Defs.h	*/
 /*  03/11/2012(BrianS): Modified for Fubarino board                     */
 /*  20/05/2013(): Modified for Olimex Pinguino32 board					*/
+/*  03/12/2013(SPP): Modified for Olimex Pinguino32 OTG board			*/
 /*																		*/
 /************************************************************************/
 //*	This library is free software; you can redistribute it and/or
@@ -58,9 +59,12 @@
 #define	_BOARD_NAME_	"PIC32_Pinguino"
 #define _USB
 
+#define  UEXT_CS_TRIS  TRISFbits.TRISF0
+#define  UEXT_CS_LAT   LATFbits.LATF0
+
 /* Define the peripherals available on the board.
 */
-#define	NUM_DIGITAL_PINS	36
+#define	NUM_DIGITAL_PINS	37
 #define	NUM_ANALOG_PINS		8
 #define NUM_OC_PINS		4
 #define	NUM_IC_PINS		4
@@ -69,7 +73,7 @@
 
 #define	NUM_SERIAL_PORTS	2
 #define	NUM_SPI_PORTS		1
-#define	NUM_I2C_PORTS		1
+#define	NUM_I2C_PORTS		2
 
 #define NUM_DSPI_PORTS		1
 #define NUM_DTWI_PORTS		0
