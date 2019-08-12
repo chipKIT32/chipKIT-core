@@ -230,7 +230,7 @@ _no_nmi:
         nop
 #endif
 
-#if defined(__PIC32_HAS_L1_CACHE)
+#if defined(__PIC32_HAS_L1CACHE)
         ##################################################################
         # Initialize L1 cache register
         ##################################################################
@@ -494,7 +494,7 @@ _ramfunc_done:
         ##################################################################
         # Initialize CONFIG register
         ##################################################################
-#if defined(__PIC32_HAS_L1_CACHE)
+#if defined(__PIC32_HAS_L1CACHE)
 	mfc0    t0,_CP0_CONFIG
 	li      t1,0x00000003
 	or      t0,t1,t0
@@ -588,7 +588,7 @@ simple_tlb_refill_vector:
 #endif
 
 
-#if defined(__PIC32_HAS_L1_CACHE)
+#if defined(__PIC32_HAS_L1CACHE)
         ##################################################################
         # Cache-Error Exception Vector Handler
         # Jumps to _cache_err_exception_context
