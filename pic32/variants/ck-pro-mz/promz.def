@@ -1,0 +1,58 @@
+# Chip: pic32mz2048efg064
+# Name: chipKIT Pro MZ
+
+###############
+# Input section
+
+RD0                                         PIN_D0          INT0        S5RX6
+RF3                                         PIN_D1          INT1        S5TX6
+RD9         S0SDA1                          PIN_D2          INT2
+RD10        S0SCL1                          PIN_D3          INT3
+RD11                    OC4                 PIN_D4          INT4
+RC15                                        PIN_D5
+RC13                                        PIN_D6
+RC14                    OC3                 PIN_D7
+RD1                     OC2                 PIN_D8                      S2TX2
+RD2         S1SDA3      OC6                 PIN_D9                      S1RX5
+RD3         S1SCL3      OC7                 PIN_D10                     S1TX5
+RD4                                         PIN_D11
+RD5                                         PIN_D12                     S2RX2
+RF7                                         PIN_D13
+RF1                                         PIN_D14                     S3TX3
+RE0                                         PIN_D15
+RE1                                         PIN_D16
+RE2                                         PIN_D17
+RE3                                         PIN_D18
+RE4                                         PIN_D19
+RE5                                         PIN_D20                     S3RX3
+RE6         LED1                            PIN_D21
+RE7                                         PIN_D22
+RB5         BTN1                            PIN_D23
+
+#----
+
+RG6         S0SCK2                          PIN_D24     
+RG7         S0SDI2      S2SDA4              PIN_D25    
+RG8         S0SDO2      S2SCL4              PIN_D26   
+RG9         S0SS2                           PIN_D27  
+RF4                                 S0RX1   PIN_D28
+RF5                                 S0TX1   PIN_D29
+
+RB4                                 A14     PIN_D30
+RB3                                 A13     PIN_D31
+RB2                                 A12     PIN_D32     
+RB1                                 A11     PIN_D33
+RB0                                 A10     PIN_D34
+RB7                                 A9      PIN_D35                     S4TX4
+RB6                                 A8      PIN_D36                     S4RX4
+RB8                                 A7      PIN_D37
+RB9                                 A6      PIN_D38
+RB10                                A5      PIN_D39
+RB11                                A4      PIN_D40
+RB12                                A3      PIN_D41
+RB13                                A2      PIN_D42
+RB14                                A1      PIN_D43
+RB15                                A0      PIN_D44
+
+
+
