@@ -1,0 +1,47 @@
+# Chip: pic32mz2048efg064
+# Name: chipKIT Pro MZ
+RD0             INT0
+RF3             INT1
+RD9             INT2                    S0SDA1  S1SS1
+RD10            INT3                    S0SCL1  
+RD11            INT4    OC4
+RC15
+RC13
+RC14                    OC3
+RD1                     OC2                     S1SCK1
+RD2                     OC6     S1RX5   S2SDA3  S1SDI1
+RD3                     OC7     S1TX5   S2SCL3  S1SDO1
+RD4
+RD5
+RF0
+RF1
+RE0
+RE1
+RE2
+RE3
+RE4
+RE5
+RE6     LED1
+RE7
+RB5     BTN1
+RG6                                             S0SCK2
+RG7                                     S1SDA4  S0SDI2
+RG8                                     S1SCL4  S0SDO2
+RG9                                             S0SS2
+RF4                             S0RX1
+RF5                             S0TX1
+RB4     A14
+RB3     A13
+RB2     A12
+RB1     A11
+RB0     A10
+RB7     A9
+RB6     A8
+RB8     A7
+RB9     A6
+RB10    A5      TMS
+RB11    A4      TDO
+RB12    A3      TCK
+RB13    A2      TDI
+RB14    A1                                      
+RB15    A0

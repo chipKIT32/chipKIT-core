@@ -1,0 +1,105 @@
+# Chip: pic32mz2048efg100
+# Name: Project Gamma
+
+# Pins 0-7
+RE8     S1RX4                   PIN_D0
+RE9     S1TX4                   PIN_D1
+RC2     INT1    OC1             PIN_D2
+RC1     INT3    OC3             PIN_D3
+RF12    INT2    OC5 S0SS4       PIN_D4
+RD0     INT0    OC2             PIN_D5
+RC14                            PIN_D6
+RB8                             PIN_D7
+
+# Pins 8-13
+RF8     S2SS5                   PIN_D8
+RD1             OC9             PIN_D9
+RD9     S1SS3   OC8             PIN_D10
+RB9     S1SDO3  OC6             PIN_D11
+RB10    S1SDI3                  PIN_D12
+RB14    S1SCK3                  PIN_D13
+
+# Pins A0-A5 14-19
+RB5     A0                      PIN_A0
+RB4     A1                      PIN_A1  
+RB3     A2  OC4                 PIN_A2
+RB2     A3                      PIN_A3
+RB1     A4  INT4        OC7     PIN_A4
+RB0     A5                      PIN_A5
+
+# Extra pins AREF SDA SCL 20-22
+RA10    A6                      PIN_AREF
+RA15    S0SDA1                  PIN_SDA
+RA14    S0SCL1                  PIN_SCL
+
+# SPI connector 23-25
+RC13    S0SDO4                  PIN_SPI_MOSI
+RD11    S0SDI4                  PIN_SPI_MISO
+RD10    S0SCK4                  PIN_SPI_SCK
+
+# USB Comms RX / TX / BSIG 26-28
+RD4     S0RX2                   PIN_URX
+RD5     S0TX2                   PIN_UTX
+RA6     PIN_BSIG        
+
+# LCD back light / Tear effect / Reset 29-34
+RA3     PIN_BACKLIGHT
+RF2     PIN_TEAR
+RA7     PIN_RESET
+RG13    PIN_BM0
+RG12    PIN_BM1
+RG14    PIN_BM2
+
+# Touch screen 35-38
+RA9     A7                      PIN_UP
+RB11    A8                      PIN_DOWN
+RA0     A10                     PIN_LEFT
+RB13    A11                     PIN_RIGHT
+
+# SD Card 39-42
+RB12                            PIN_SD_CS
+RD15    S2SDO5                  PIN_SD_MOSI
+RD14    S2SDI5                  PIN_SD_MISO
+RF13    S2SCK5                  PIN_SD_SCK
+
+# Internal I2C 43-44
+RF4     S1SDA5                  PIN_DAC_SDA
+RF5     S1SCL5                  PIN_DAC_SCL
+
+# Audio 45-49
+RG8     S3SDO2                  PIN_DO
+RG7     S3SDI2                  PIN_MCLK
+RG6     S3SCK2                  PIN_BCLK
+RG9     S3SS2                   PIN_WCLK
+RA1                             PIN_DAC_RESET
+
+# Buttons and lights 50-51
+RG15    BTN1                    PIN_USER
+RA5     LED1
+
+# Misc 52-54
+RC15                            PIN_OSCEN
+RB6                             PIN_ICSP_CLK
+RB7                             PIN_ICSP_DAT
+
+# EBI Interface 55-74
+RE0     PIN_BD0
+RE1     PIN_BD1
+RE2     PIN_BD2
+RE3     PIN_BD3
+RE4     PIN_BD4
+RE5     PIN_BD5
+RE6     PIN_BD6
+RE7     PIN_BD7
+RG0     PIN_BD8
+RG1     PIN_BD9
+RF1     PIN_BD10
+RF0     PIN_BD11
+RD12    PIN_BD12
+RD13    PIN_BD13
+RD2     PIN_BD14
+RD3     PIN_BD15
+RC3     PIN_BWR
+RC4     PIN_BRD
+RB15    PIN_BA0
+RA2     PIN_BCS0
