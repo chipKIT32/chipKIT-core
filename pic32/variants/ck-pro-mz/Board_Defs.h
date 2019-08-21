@@ -45,9 +45,9 @@ extern const uint8_t    digital_pin_to_pps_in_PGM[];
 #define NUM_DIGITAL_PINS_EXTENDED NUM_DIGITAL_PINS
 #define NUM_ANALOG_PINS_EXTENDED NUM_ANALOG_PINS
 
-#define NUM_SERIAL_PORTS     2
+#define NUM_SERIAL_PORTS     6
 #define NUM_SPI_PORTS        1
-#define NUM_DSPI_PORTS       2
+#define NUM_DSPI_PORTS       1
 #define NUM_I2C_PORTS        1
 #define NUM_DTWI_PORTS       3
 
@@ -65,6 +65,52 @@ extern const uint8_t    digital_pin_to_pps_in_PGM[];
 #define PIN_INT2             2
 #define PIN_INT3             3
 #define PIN_INT4             4
+
+#define PIN_D19             19
+#define PIN_D38             38
+#define PIN_D3             3
+#define PIN_D26             26
+#define PIN_D31             31
+#define PIN_D28             28
+#define PIN_D2             2
+#define PIN_D4             4
+#define PIN_D36             36
+#define PIN_D21             21
+#define PIN_D13             13
+#define PIN_D41             41
+#define PIN_D10             10
+#define PIN_D7             7
+#define PIN_D24             24
+#define PIN_D35             35
+#define PIN_D32             32
+#define PIN_D44             44
+#define PIN_D5             5
+#define PIN_D25             25
+#define PIN_D22             22
+#define PIN_D42             42
+#define PIN_D34             34
+#define PIN_D17             17
+#define PIN_D6             6
+#define PIN_D30             30
+#define PIN_D12             12
+#define PIN_D15             15
+#define PIN_D27             27
+#define PIN_D9             9
+#define PIN_D20             20
+#define PIN_D40             40
+#define PIN_D14             14
+#define PIN_D37             37
+#define PIN_D1             1
+#define PIN_D18             18
+#define PIN_D8             8
+#define PIN_D39             39
+#define PIN_D43             43
+#define PIN_D11             11
+#define PIN_D23             23
+#define PIN_D29             29
+#define PIN_D0             0
+#define PIN_D33             33
+#define PIN_D16             16
 
 static const uint8_t A0     = 44;
 static const uint8_t A1     = 43;
@@ -91,11 +137,6 @@ static const uint8_t PIN_DSPI0_SS     = 27;
 static const uint8_t PIN_DSPI0_MOSI   = 26;
 static const uint8_t PIN_DSPI0_MISO   = 25;
 static const uint8_t PIN_DSPI0_SCK    = 24;
-
-static const uint8_t PIN_DSPI1_SS     = 2;
-static const uint8_t PIN_DSPI1_MOSI   = 10;
-static const uint8_t PIN_DSPI1_MISO   = 9;
-static const uint8_t PIN_DSPI1_SCK    = 8;
 
 #if defined(OPT_BOARD_INTERNAL)
 #define OPT_BOARD_INIT          0   //board needs no special init code
@@ -125,6 +166,50 @@ static const uint8_t PIN_DSPI1_SCK    = 8;
 #define _SER1_RX_IN           PPS_IN_U5RX
 #define _SER1_RX_PIN          9
 
+#define _SER2_BASE            _UART2_BASE_ADDRESS
+#define _SER2_IRQ             _UART2_FAULT_VECTOR
+#define _SER2_VECTOR          _UART2_FAULT_VECTOR
+#define _SER2_IPL_ISR         IPL1SRS
+#define _SER2_IPL             2
+#define _SER2_SPL             0
+#define _SER2_TX_OUT          PPS_OUT_U2TX
+#define _SER2_TX_PIN          8
+#define _SER2_RX_IN           PPS_IN_U2RX
+#define _SER2_RX_PIN          12
+
+#define _SER3_BASE            _UART3_BASE_ADDRESS
+#define _SER3_IRQ             _UART3_FAULT_VECTOR
+#define _SER3_VECTOR          _UART3_FAULT_VECTOR
+#define _SER3_IPL_ISR         IPL1SRS
+#define _SER3_IPL             2
+#define _SER3_SPL             0
+#define _SER3_TX_OUT          PPS_OUT_U3TX
+#define _SER3_TX_PIN          14
+#define _SER3_RX_IN           PPS_IN_U3RX
+#define _SER3_RX_PIN          20
+
+#define _SER4_BASE            _UART4_BASE_ADDRESS
+#define _SER4_IRQ             _UART4_FAULT_VECTOR
+#define _SER4_VECTOR          _UART4_FAULT_VECTOR
+#define _SER4_IPL_ISR         IPL1SRS
+#define _SER4_IPL             2
+#define _SER4_SPL             0
+#define _SER4_TX_OUT          PPS_OUT_U4TX
+#define _SER4_TX_PIN          35
+#define _SER4_RX_IN           PPS_IN_U4RX
+#define _SER4_RX_PIN          36
+
+#define _SER5_BASE            _UART6_BASE_ADDRESS
+#define _SER5_IRQ             _UART6_FAULT_VECTOR
+#define _SER5_VECTOR          _UART6_FAULT_VECTOR
+#define _SER5_IPL_ISR         IPL1SRS
+#define _SER5_IPL             2
+#define _SER5_SPL             0
+#define _SER5_TX_OUT          PPS_OUT_U6TX
+#define _SER5_TX_PIN          1
+#define _SER5_RX_IN           PPS_IN_U6RX
+#define _SER5_RX_PIN          0
+
 #define _DSPI0_BASE            _SPI2_BASE_ADDRESS
 #define _DSPI0_ERR_IRQ         _SPI2_FAULT_VECTOR
 #define _DSPI0_RX_IRQ          _SPI2_RX_VECTOR
@@ -138,19 +223,6 @@ static const uint8_t PIN_DSPI1_SCK    = 8;
 #define _DSPI0_MOSI_OUT        PPS_OUT_SDO2
 #define _DSPI0_MOSI_PIN        26
 
-#define _DSPI1_BASE            _SPI1_BASE_ADDRESS
-#define _DSPI1_ERR_IRQ         _SPI1_FAULT_VECTOR
-#define _DSPI1_RX_IRQ          _SPI1_RX_VECTOR
-#define _DSPI1_TX_IRQ          _SPI1_TX_VECTOR
-#define _DSPI1_VECTOR          _SPI1_FAULT_VECTOR
-#define _DSPI1_IPL_ISR         IPL3SRS
-#define _DSPI1_IPL             3
-#define _DSPI1_SPL             0
-#define _DSPI1_MISO_IN         PPS_IN_SDI1
-#define _DSPI1_MISO_PIN        9
-#define _DSPI1_MOSI_OUT        PPS_OUT_SDO1
-#define _DSPI1_MOSI_PIN        10
-
 #define _DTWI0_BASE            _I2C1_BASE_ADDRESS
 #define _DTWI0_BUS_IRQ         _I2C1_BUS_VECTOR
 #define _DTWI0_VECTOR          _I2C1_BUS_VECTOR
@@ -160,23 +232,23 @@ static const uint8_t PIN_DSPI1_SCK    = 8;
 #define _DTWI0_SCL_PIN         3
 #define _DTWI0_SDA_PIN         2
 
-#define _DTWI1_BASE            _I2C4_BASE_ADDRESS
-#define _DTWI1_BUS_IRQ         _I2C4_BUS_VECTOR
-#define _DTWI1_VECTOR          _I2C4_BUS_VECTOR
+#define _DTWI1_BASE            _I2C3_BASE_ADDRESS
+#define _DTWI1_BUS_IRQ         _I2C3_BUS_VECTOR
+#define _DTWI1_VECTOR          _I2C3_BUS_VECTOR
 #define _DTWI1_IPL_ISR         IPL3SRS
 #define _DTWI1_IPL             3
 #define _DTWI1_SPL             0
-#define _DTWI1_SCL_PIN         26
-#define _DTWI1_SDA_PIN         25
+#define _DTWI1_SCL_PIN         10
+#define _DTWI1_SDA_PIN         9
 
-#define _DTWI2_BASE            _I2C3_BASE_ADDRESS
-#define _DTWI2_BUS_IRQ         _I2C3_BUS_VECTOR
-#define _DTWI2_VECTOR          _I2C3_BUS_VECTOR
+#define _DTWI2_BASE            _I2C4_BASE_ADDRESS
+#define _DTWI2_BUS_IRQ         _I2C4_BUS_VECTOR
+#define _DTWI2_VECTOR          _I2C4_BUS_VECTOR
 #define _DTWI2_IPL_ISR         IPL3SRS
 #define _DTWI2_IPL             3
 #define _DTWI2_SPL             0
-#define _DTWI2_SCL_PIN         10
-#define _DTWI2_SDA_PIN         9
+#define _DTWI2_SCL_PIN         26
+#define _DTWI2_SDA_PIN         25
 
 #define _PORTB
 #define _PORTC
@@ -192,17 +264,6 @@ static const uint8_t PIN_DSPI1_SCK    = 8;
 #define ADCRANGE        4096ul              // analog read will return a max number of ADCRANGE-1
 #define ADCTADFREQ      25000000ul          // How fast to run the TAD ADC clock
 #define ADCTADSH        68ul                // How many TADs the Sample and Hold will charge
-
-/* ------------------------------------------------------------ */
-/*                  Defines for the On Board uSD                */
-/* ------------------------------------------------------------ */
-
-#define _uSD_SPI_CONFIG_
-
-#define SD_CS_PIN PIN_DSPI0_SS
-
-#define DefineSDSPI(spi) DSPI0 spi
-#define DefineDSDVOL(vol, spi) DSDVOL vol(spi, 10)
 
 #endif  // BOARD_DEFS_H
 

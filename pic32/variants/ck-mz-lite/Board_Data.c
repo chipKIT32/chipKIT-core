@@ -398,10 +398,10 @@ const uint8_t output_compare_to_digital_pin_PGM[] = {
 
 const uint8_t external_int_to_digital_pin_PGM[] = {
     0, // RD0
-    NOT_PPS_PIN,
-    NOT_PPS_PIN,
-    NOT_PPS_PIN,
-    NOT_PPS_PIN,
+    1, // RF3
+    2, // RD9
+    3, // RD10
+    4, // RD11
 };
 
 #if    (OPT_BOARD_INIT != 0)
