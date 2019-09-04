@@ -17,7 +17,7 @@ RD2         S1SDA3      OC6                 PIN_D9                      S1RX5
 RD3         S1SCL3      OC7                 PIN_D10                     S1TX5
 RD4                                         PIN_D11
 RD5                                         PIN_D12                     S2RX2
-RF7                                         PIN_D13
+RF0                                         PIN_D13
 RF1                                         PIN_D14                     S3TX3
 RE0                                         PIN_D15
 RE1                                         PIN_D16

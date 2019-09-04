@@ -91,7 +91,7 @@ const uint8_t digital_pin_to_port_PGM[] = {
     _IOPORT_PD,    // 10: RD3
     _IOPORT_PD,    // 11: RD4
     _IOPORT_PD,    // 12: RD5
-    _IOPORT_PF,    // 13: RF7
+    _IOPORT_PF,    // 13: RF0
     _IOPORT_PF,    // 14: RF1
     _IOPORT_PE,    // 15: RE0
     _IOPORT_PE,    // 16: RE1
@@ -139,7 +139,7 @@ const uint16_t digital_pin_to_bit_mask_PGM[] = {
     _BV(3),   // 10: RD3
     _BV(4),   // 11: RD4
     _BV(5),   // 12: RD5
-    _BV(7),   // 13: RF7
+    _BV(0),   // 13: RF0
     _BV(1),   // 14: RF1
     _BV(0),   // 15: RE0
     _BV(1),   // 16: RE1
@@ -187,7 +187,7 @@ const uint16_t digital_pin_to_timer_PGM[] = {
     _TIMER_OC7,   // 10: RD3
     NOT_ON_TIMER,   // 11: RD4
     NOT_ON_TIMER,   // 12: RD5
-    NOT_ON_TIMER,   // 13: RF7
+    NOT_ON_TIMER,   // 13: RF0
     NOT_ON_TIMER,   // 14: RF1
     NOT_ON_TIMER,   // 15: RE0
     NOT_ON_TIMER,   // 16: RE1
@@ -235,7 +235,7 @@ const uint8_t digital_pin_to_analog_PGM[] = {
     NOT_ANALOG_PIN,   // 10: RD3
     NOT_ANALOG_PIN,   // 11: RD4
     NOT_ANALOG_PIN,   // 12: RD5
-    NOT_ANALOG_PIN,   // 13: RF7
+    NOT_ANALOG_PIN,   // 13: RF0
     NOT_ANALOG_PIN,   // 14: RF1
     NOT_ANALOG_PIN,   // 15: RE0
     NOT_ANALOG_PIN,   // 16: RE1
@@ -301,7 +301,7 @@ const  uint8_t digital_pin_to_pps_out_PGM[] = {
     _PPS_OUT(_PPS_RPD3R),
     _PPS_OUT(_PPS_RPD4R),
     _PPS_OUT(_PPS_RPD5R),
-    NOT_PPS_PIN,
+    _PPS_OUT(_PPS_RPF0R),
     _PPS_OUT(_PPS_RPF1R),
     NOT_PPS_PIN,
     NOT_PPS_PIN,
@@ -349,7 +349,7 @@ const  uint8_t digital_pin_to_pps_in_PGM[] = {
     _PPS_IN(_PPS_RPD3),
     _PPS_IN(_PPS_RPD4),
     _PPS_IN(_PPS_RPD5),
-    NOT_PPS_PIN,
+    _PPS_IN(_PPS_RPF0),
     _PPS_IN(_PPS_RPF1),
     NOT_PPS_PIN,
     NOT_PPS_PIN,
