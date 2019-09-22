@@ -10,6 +10,80 @@
         {
           "name": "chipKIT",
           "architecture": "pic32",
+          "version": "2.1.0",
+          "category": "pic32",
+          "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v2.1.0/chipkit-core-16778056.master-v2.1.0.zip",
+          "archiveFileName": "chipkit-core-16778056.master-v2.1.0.zip",
+          "checksum": "SHA-256:00d3313baa0185da83d42f11564081bd608651162dbd3fae69d0c00c42b407d5",
+          "size": "7909052",
+          "help": {
+            "online": "http://chipkit.net/started/learn-basics/"
+          },
+          "boards": [
+            {"name": "cerebot32mx4"},
+            {"name": "cerebot32mx7"},
+            {"name": "cerebot_mx3ck"},
+            {"name": "chipkit_mx3"},
+            {"name": "cerebot_mx3ck_512"},
+            {"name": "cerebot_mx4ck"},
+            {"name": "chipkit_pro_mx4"},
+            {"name": "cerebot_mx7ck"},
+            {"name": "chipkit_pro_mx7"},
+            {"name": "chipkit_Pi"},
+            {"name": "chipkit_Pi_USB_Serial"},
+            {"name": "cmod"},
+            {"name": "CUI32stem"},
+            {"name": "ubw32_mx460"},
+            {"name": "ubw32_mx795"},
+            {"name": "cui32"},
+            {"name": "usbono_pic32"},
+            {"name": "chipkit_DP32"},
+            {"name": "fubarino_mini_dev"},
+            {"name": "fubarino_mini"},
+            {"name": "fubarino_mini_20"},
+            {"name": "fubarino_sd_seeed"},
+            {"name": "fubarino_sd"},
+            {"name": "Fubarino_SDZ"},
+            {"name": "mega_pic32"},
+            {"name": "mega_usb_pic32"},
+            {"name": "Olimex_Pinguino32"},
+            {"name": "picadillo_35t"},
+            {"name": "quick240_usb_pic32"},
+            {"name": "chipkit_uc32"},
+            {"name": "uc32_pmod"},
+            {"name": "uno_pic32"},
+            {"name": "uno_pmod"},
+            {"name": "chipkit_WF32"},
+            {"name": "chipkit_WiFire"},
+            {"name": "chipkit_WiFire_80MHz"},
+            {"name": "OpenScope"},
+            {"name": "openbci"},
+            {"name": "Clicker2"},
+            {"name": "FlipNClick_MZ"},
+            {"name": "RGB_Station"},
+            {"name": "DSMini"}
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "chipKIT",
+              "version": "1.43-pic32gcc",
+              "name": "pic32-tools"
+            }, 
+            {
+              "packager": "chipKIT",
+              "version": "v2.1.46",
+              "name": "pic32prog"
+            },
+            {
+              "packager": "chipKIT",
+              "version": "v2",
+              "name": "drivers-windows"
+            }
+          ]
+        },
+        {
+          "name": "chipKIT",
+          "architecture": "pic32",
           "version": "2.0.6",
           "category": "pic32",
           "url": "https://github.com/chipKIT32/chipKIT-core/releases/download/v2.0.6/chipkit-core-16778055.master-v2.0.6-1-gfed4c05.zip",
