@@ -54,12 +54,8 @@
 ** refer to periperhals on the board generically.
 */
 
-#define	_BOARD_NAME_	"chipKIT Max32"
+#define	_BOARD_NAME_	"PONTECH Quick240"
 #define _USB
-
-#define VIRTUAL_PROGRAM_BUTTON_TRIS TRISGbits.TRISG15
-#define VIRTUAL_PROGRAM_BUTTON LATGbits.LATG15
-#define USE_VIRTUAL_PROGRAM_BUTTON 1
 
 /* Define the Microcontroller peripherals available on the board.
 */
@@ -90,49 +86,6 @@
 */
 #define	NUM_DIGITAL_PINS_EXTENDED	NUM_DIGITAL_PINS
 #define	NUM_ANALOG_PINS_EXTENDED	NUM_ANALOG_PINS
-
-#define C0ADR 32
-#define C1ADR 31
-#define C2ADR 30
-#define C3ADR 52
-#define C4ADR 29
-#define C5ADR 85
-
-#define C0IO0 68
-#define C0IO1 58
-#define C0IO2 62
-#define C0IO3 55
-#define C0IO4 82
-
-#define C1IO0 57
-#define C1IO1 56
-#define C1IO2 63
-#define C1IO3 54
-#define C1IO4 83
-
-#define C2IO0 86
-#define C2IO1 64
-#define C2IO2 5
-#define C2IO3 70
-#define C2IO4 84
-
-#define C3IO0 22
-#define C3IO1 76
-#define C3IO2 9
-#define C3IO3 2
-#define C3IO4 35
-
-#define C4IO0 23
-#define C4IO1 39
-#define C4IO2 8
-#define C4IO3 21
-#define C4IO4 34
-
-#define C5IO0 78
-#define C5IO1 79
-#define C5IO2 10
-#define C5IO3 20
-#define C5IO4 33
 
 /* ------------------------------------------------------------ */
 /*						LED Declarations						*/
@@ -279,16 +232,11 @@ static const uint8_t SCK  = 38;		// PIC32 SCK2A
 #define digitalPinToTimerOC(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_OC)  )
 #define digitalPinToTimerIC(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_IC)  )
 #define digitalPinToTimerTCK(P) ( (digital_pin_to_timer_PGM[P] & _MSK_TIMER_TCK)  )
-// Already defined in pins_arduino.h
-//#define	digitalPinToTimer(P)	digitalPinToTimerOC(P)
-//#define portRegisters(P) ( port_to_tris_PGM[P])
-//#define portModeRegister(P) ( (volatile uint32_t *)port_to_tris_PGM[P] )
-//#define portInputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0010) )
-//#define portOutputRegister(P) ( (volatile uint32_t *)(port_to_tris_PGM[P] + 0x0020) )
 #undef digitalPinToAnalog
 #define	digitalPinToAnalog(P) ( (P) < 16 ? (P) : ((P) >= 54) && ((P) < 70) ? (P)-54 : NOT_ANALOG_PIN )
-// (This is the default from pins_arduino.h, so no define needs to be done here)
-//#define analogInPinToChannel(P) ( P )
+
+#undef digitalPinToCN
+#define digitalPinToCN(P) ( digital_pin_to_cn_PGM[P] )
 
 /* ------------------------------------------------------------ */
 /*					Data Definitions							*/
@@ -304,6 +252,7 @@ extern const uint32_t	port_to_tris_PGM[];
 extern const uint8_t	digital_pin_to_port_PGM[];
 extern const uint16_t	digital_pin_to_bit_mask_PGM[];
 extern const uint16_t	digital_pin_to_timer_PGM[];
+extern const uint32_t   digital_pin_to_cn_PGM[];
 
 #endif
 
@@ -357,6 +306,10 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define _SER0_IPL_ISR	IPL2SOFT
 #define	_SER0_IPL		2
 #define	_SER0_SPL		0
+#define _SER0_TX_PIN    1
+#define _SER0_RX_PIN    0
+#define _SER0_RTS_PIN   18
+#define _SER0_CTS_PIN   19
 
 /* Serial port 1 uses UART4 (aka UART1B)
 */
@@ -366,6 +319,8 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define _SER1_IPL_ISR	IPL2SOFT
 #define	_SER1_IPL		2
 #define	_SER1_SPL		0
+#define _SER1_TX_PIN    18
+#define _SER1_RX_PIN    19
 
 /* Serial port 2 uses UART2 (aka UART3A)
 */
@@ -375,6 +330,10 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define _SER2_IPL_ISR	IPL2SOFT
 #define	_SER2_IPL		2
 #define	_SER2_SPL		0
+#define _SER2_TX_PIN    16
+#define _SER2_RX_PIN    17
+#define _SER2_RTS_PIN   14
+#define _SER2_CTS_PIN   15
 
 /* Serial port 3 uses UART5 (aka UART3B)
 */
@@ -384,6 +343,8 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define _SER3_IPL_ISR	IPL2SOFT
 #define	_SER3_IPL		2
 #define	_SER3_SPL		0
+#define _SER3_TX_PIN   14
+#define _SER3_RX_PIN   15
 
 /* ------------------------------------------------------------ */
 /*					SPI Port Declarations						*/
@@ -454,23 +415,23 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 **		DTWI3:	SDA pin 29, SCL pin 43
 **		DTWI4:	SDA pin 17, SCL pin 16
 */
-#define	_DTWI0_BASE		_I2C1_BASE_ADDRESS
-#define	_DTWI0_BUS_IRQ	_I2C1_BUS_IRQ
-#define	_DTWI0_VECTOR	_I2C_1_VECTOR
+#define	_DTWI0_BASE		_I2C2_BASE_ADDRESS
+#define	_DTWI0_BUS_IRQ	_I2C2_BUS_IRQ
+#define	_DTWI0_VECTOR	_I2C_2_VECTOR
 #define	_DTWI0_IPL_ISR	IPL3SOFT
 #define	_DTWI0_IPL		3
 #define	_DTWI0_SPL		0
-#define _DTWI0_SCL_PIN  21 
-#define _DTWI0_SDA_PIN  20
+#define _DTWI0_SCL_PIN  12 
+#define _DTWI0_SDA_PIN  13
 
-#define	_DTWI1_BASE		_I2C2_BASE_ADDRESS
-#define	_DTWI1_BUS_IRQ	_I2C2_BUS_IRQ
-#define	_DTWI1_VECTOR	_I2C_2_VECTOR
+#define	_DTWI1_BASE		_I2C1_BASE_ADDRESS
+#define	_DTWI1_BUS_IRQ	_I2C1_BUS_IRQ
+#define	_DTWI1_VECTOR	_I2C_1_VECTOR
 #define	_DTWI1_IPL_ISR	IPL3SOFT
 #define	_DTWI1_IPL		3
 #define	_DTWI1_SPL		0
-#define _DTWI1_SCL_PIN  12 
-#define _DTWI1_SDA_PIN  13
+#define _DTWI1_SCL_PIN  21 
+#define _DTWI1_SDA_PIN  20
 
 #define	_DTWI2_BASE		_I2C3_BASE_ADDRESS
 #define	_DTWI2_BUS_IRQ	_I2C3_BUS_IRQ
@@ -499,16 +460,33 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define _DTWI4_SCL_PIN  16 
 #define _DTWI4_SDA_PIN  17
 
+
 /* ------------------------------------------------------------ */
 /*					A/D Converter Declarations					*/
 /* ------------------------------------------------------------ */
 
-
+/* ------------------------------------------------------------ */
+/* ------------------------------------------------------------ */
+/*					Defines for the WiFiShield uSD				*/
 /* ------------------------------------------------------------ */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ------------------------------------------------------------ */
-/*					Defines for Network                  */
+/*					Defines for Network Shield                  */
 /* ------------------------------------------------------------ */
+
 #define _IM8720PHY_PIN_CONFIG_
 
 #define PHY_TRIS            (TRISEbits.TRISE9)        // = 0; output
@@ -516,6 +494,54 @@ extern const uint16_t	digital_pin_to_timer_PGM[];
 #define PHY_ADDRESS         0x5                     // something other than 0 or 1 (although 1 is okay)
 
 /* ------------------------------------------------------------ */
+
+#define USE_VIRTUAL_PROGRAM_BUTTON 1
+#define VIRTUAL_PROGRAM_BUTTON_TRIS TRISGbits.TRISG15
+#define VIRTUAL_PROGRAM_BUTTON LATGbits.LATG15
+
+
+#define C0ADR 32
+#define C1ADR 31
+#define C2ADR 30
+#define C3ADR 52
+#define C4ADR 29
+#define C5ADR 85
+
+#define C0IO0 68
+#define C0IO1 58
+#define C0IO2 62
+#define C0IO3 55
+#define C0IO4 82
+
+#define C1IO0 57
+#define C1IO1 56
+#define C1IO2 63
+#define C1IO3 54
+#define C1IO4 83
+
+#define C2IO0 86
+#define C2IO1 64
+#define C2IO2 5
+#define C2IO3 70
+#define C2IO4 84
+
+#define C3IO0 22
+#define C3IO1 76
+#define C3IO2 9
+#define C3IO3 2
+#define C3IO4 35
+
+#define C4IO0 23
+#define C4IO1 39
+#define C4IO2 8
+#define C4IO3 21
+#define C4IO4 34
+
+#define C5IO0 78
+#define C5IO1 79
+#define C5IO2 10
+#define C5IO3 20
+#define C5IO4 33
 
 #endif	// BOARD_DEFS_H
 
