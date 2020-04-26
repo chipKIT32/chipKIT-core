@@ -127,6 +127,19 @@ void HID_Raw::configureEndpoints() {
 bool HID_Raw::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t __attribute__((unused)) l) {
 
     if (data[4] != _ifInt) return false;
+
+    if (ep == 0) {
+        if (_nextPacketIsMine == true) {
+            _features[data[0]] = data[1];
+            _manager->sendBuffer(0, NULL, 0);
+            _nextPacketIsMine = false;
+            if (_featureHandler) {
+                _featureHandler(data, l);
+            }
+            return true;
+        }
+    }
+
     uint16_t signature = (data[0] << 8) | data[1];
     switch (signature) {
         case 0xA101: {
@@ -135,7 +148,7 @@ bool HID_Raw::onSetupPacket(uint8_t __attribute__((unused)) ep, uint8_t __attrib
                     memset(nothing, 0, 64);
                     _manager->sendBuffer(0, nothing, 64);
                 } else {
-                    _manager->sendBuffer(0, &_features[data[2]], 1);
+                    _manager->sendBuffer(0, (uint8_t *)&_features[data[2]], 1);
                 }
                 return true;
             }
@@ -155,12 +168,16 @@ bool HID_Raw::onInPacket(uint8_t __attribute__((unused)) ep, uint8_t __attribute
     return false;
 }
 
+
 bool HID_Raw::onOutPacket(uint8_t ep, uint8_t __attribute__((unused)) target, uint8_t *data, uint32_t l) {
     if (ep == 0) {
         if (_nextPacketIsMine == true) {
             _features[data[0]] = data[1];
             _manager->sendBuffer(0, NULL, 0);
             _nextPacketIsMine = false;
+            if (_featureHandler) {
+                _featureHandler(data, l);
+            }
             return true;
         }
     }

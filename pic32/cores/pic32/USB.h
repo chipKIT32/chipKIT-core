@@ -1069,8 +1069,9 @@ class HID_Raw : public USBDevice {
         uint8_t _intTxA[64];
         uint8_t _intTxB[64];
         bool _nextPacketIsMine;
-        uint8_t _features[256];
+        volatile uint8_t _features[256];
 
+        void (*_featureHandler)(uint8_t *data, uint32_t len);
         void (*_outputReportHandler)(uint8_t *data, uint32_t len);
 
     public:
@@ -1095,6 +1096,7 @@ class HID_Raw : public USBDevice {
         uint8_t getFeature(uint8_t f) { return _features[f]; }
         void setFeature(uint8_t f, uint8_t v) { _features[f] = v; }
 
+        void onFeatureReport(void (*func)(uint8_t *, uint32_t)) { _featureHandler = func; }
         void onOutputReport(void (*func)(uint8_t *, uint32_t)) { _outputReportHandler = func; }
 };
 
