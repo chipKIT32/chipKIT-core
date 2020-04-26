@@ -26,8 +26,12 @@ void DSDVOL::power_on (void)
 {
     pinMode(_csPin, OUTPUT);
     digitalWrite(_csPin, HIGH);
-    dSDspi.begin();
+    #ifdef _SD_SDI_PIN
+    pinMode(_SD_SDI_PIN, INPUT_PULLUP);
+    #endif
  
+    dSDspi.begin();
+
     dSDspi.setMode(DSPI_MODE0);
     FCLK_FAST();
 }
@@ -36,6 +40,9 @@ void DSDVOL::power_off (void)
 {
     dSDspi.end();
     pinMode(_csPin, INPUT);
+    #ifdef _SD_SDI_PIN
+    pinMode(_SD_SDI_PIN, INPUT);
+    #endif
 }
 
 /*-----------------------------------------------------------------------*/
