@@ -182,7 +182,7 @@ void TwoWire::begin(int address)
     begin((uint8_t)address);
 }
 
-uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity)
+uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, bool sendstop)
 {
     DTWI::I2C_STATUS i2cStatus = di2c.getStatus();
 
@@ -201,14 +201,16 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity)
         i2cStatus = di2c.getStatus();
     } while(i2cStatus.fMyBus && !i2cStatus.fNacking);
 
-    while(!di2c.stopMaster());
+    if (sendstop) {
+        while(!di2c.stopMaster());
+    }
 
     return(di2c.available());
 }
 
-uint8_t TwoWire::requestFrom(int address, int quantity)
+uint8_t TwoWire::requestFrom(int address, int quantity, bool sendstop)
 {
-  return requestFrom((uint8_t)address, (uint8_t)quantity);
+  return requestFrom((uint8_t)address, (uint8_t)quantity, sendstop);
 }
 
 void TwoWire::beginTransmission(uint8_t address)

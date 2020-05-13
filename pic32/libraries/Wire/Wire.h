@@ -98,8 +98,8 @@ class TwoWire
     void beginTransmission(int);
     uint8_t endTransmission(void);
     uint8_t endTransmission(uint8_t);
-    uint8_t requestFrom(uint8_t, uint8_t);
-    uint8_t requestFrom(int, int);
+    uint8_t requestFrom(uint8_t, uint8_t, bool=true);
+    uint8_t requestFrom(int, int, bool=true);
     void __attribute__((deprecated("Use write() instead"))) send(uint8_t);
     void __attribute__((deprecated("Use write() instead"))) send(uint8_t*, uint8_t);
     void __attribute__((deprecated("Use write() instead"))) send(int);
