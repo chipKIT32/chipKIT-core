@@ -102,7 +102,7 @@
     </copy>
 
     <copy tofile="dist/${localplatform}/chipkit-core/pic32/tools/bin/pic32prog"
-            file="modules/pic32prog-autotools/bin/pic32prog-osx-fat"
+            file="modules/pic32prog-autotools/bin/pic32prog-osx"
     />
 
     <chmod perm="+x">
