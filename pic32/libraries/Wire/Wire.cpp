@@ -240,6 +240,9 @@ uint8_t TwoWire::endTransmission(uint8_t fStopBit)
     // a collision or the slave acked, in either case report a NACK from the slave
     if(!di2c.getStatus().fMyBus)
     {
+        //Make sure to discard transmit buffer if slave NACK, otherwise next beginTransmission will freeze system
+        di2c.abort();
+        
         return(2);
     }
 
